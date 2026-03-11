@@ -1,8 +1,61 @@
-import { ChartLine, Dumbbell, Target, Utensils, Users, Smartphone, ArrowRight, CheckCircle2 } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { ChartLine, Dumbbell, Target, Utensils, Users, Smartphone, ArrowRight, CheckCircle2, Play, X } from 'lucide-react'
+import { Testimonials } from '@/components/testimonials'
+import { Transformation } from '@/components/transformation'
+import { Timeline } from '@/components/timeline'
+import { InsuranceCalculator } from '@/components/insurance-calculator'
+import { QuizFunnel } from '@/components/quiz-funnel'
 
 export default function Home() {
+  const [showQuiz, setShowQuiz] = useState(false)
+  const [quizComplete, setQuizComplete] = useState(false)
+  
+  const openQuiz = () => setShowQuiz(true)
+  const closeQuiz = () => setShowQuiz(false)
+  
   return (
     <main className="min-h-screen overflow-x-hidden">
+      
+      {/* Quiz Modal */}
+      {showQuiz && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/95 backdrop-blur-sm" onClick={closeQuiz} />
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border p-6 md:p-8 animate-scale-in">
+            <button 
+              onClick={closeQuiz}
+              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-secondary transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {!quizComplete ? (
+              <QuizFunnel onComplete={() => setQuizComplete(true)} />
+            ) : (
+              <div className="text-center py-8 animate-fade-up">
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-primary" />
+                </div>
+                <h2 className="text-3xl font-bold mb-4">Perfekt! Du bist bereit.</h2>
+                <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+                  Basierend auf deinen Antworten ist das happyfigur Programm genau das Richtige für dich.
+                </p>
+                <button 
+                  className="btn-primary inline-flex items-center gap-2"
+                  onClick={() => {
+                    closeQuiz()
+                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                >
+                  Jetzt Erstattung berechnen
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       
       {/* Hero Section - Asymmetric Layout */}
       <section className="relative min-h-screen flex items-center py-20">
@@ -41,7 +94,7 @@ export default function Home() {
               
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-primary flex items-center justify-center gap-3">
+                <button onClick={openQuiz} className="btn-primary flex items-center justify-center gap-3">
                   <Target className="w-5 h-5" />
                   Kostenlose Analyse starten
                   <ArrowRight className="w-5 h-5" />
@@ -59,7 +112,7 @@ export default function Home() {
                 <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
                 <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
                 
-                {/* Video Embed Placeholder */}
+                {/* Video Embed */}
                 <div className="aspect-video bg-secondary/50 rounded-lg overflow-hidden relative">
                   <iframe 
                     className="w-full h-full"
@@ -153,6 +206,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Transformation Section */}
+      <Transformation />
+      
+      {/* Timeline */}
+      <Timeline />
+      
+      {/* Testimonials */}
+      <Testimonials />
+      
+      {/* Insurance Calculator */}
+      <section id="calculator" className="py-24 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="text-center mb-12 animate-fade-up">
+            <span className="text-sm text-accent uppercase tracking-widest font-semibold">Erstattung</span>
+            <h2 className="text-4xl md:text-6xl font-bold mt-4">
+              Wie viel <span className="text-primary">sparst du</span>?
+            </h2>
+          </div>
+          <InsuranceCalculator />
+        </div>
+      </section>
+
       {/* Value Comparison */}
       <section className="py-24 bg-card relative">
         <div className="mx-auto max-w-4xl px-6">
@@ -184,8 +260,8 @@ export default function Home() {
             </div>
             
             <div className="text-center">
-              <button className="btn-cta flex items-center justify-center gap-3 mx-auto">
-                Jetzt Probetraining buchen
+              <button onClick={openQuiz} className="btn-cta flex items-center justify-center gap-3 mx-auto">
+                Jetzt Analyse starten
                 <ArrowRight className="w-5 h-5" />
               </button>
               <p className="mt-4 text-sm text-muted-foreground">
@@ -207,7 +283,7 @@ export default function Home() {
             Dein Probetraining ist komplett kostenlos. Keine Verpflichtung, kein Risiko. 
             Nur der erste Schritt zu deinem Wunschgewicht.
           </p>
-          <button className="btn-primary text-xl px-10 py-5 animate-fade-up delay-200">
+          <button onClick={openQuiz} className="btn-primary text-xl px-10 py-5 animate-fade-up delay-200">
             <Target className="w-6 h-6 inline mr-3" />
             Kostenlose Analyse starten
           </button>
@@ -228,6 +304,9 @@ export default function Home() {
               <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
               <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>
             </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
+            <p>* Die Erstattung durch deine Krankenkasse kann je nach Anbieter variieren. Die meisten gesetzlichen Krankenkassen erstatten zwischen 70€ und 100% der Kursgebühr (bis zu 179€). Der Kurs ist nach § 20 SGB V zertifiziert.</p>
           </div>
         </div>
       </footer>
