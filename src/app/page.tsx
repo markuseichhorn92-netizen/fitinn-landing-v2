@@ -1,63 +1,29 @@
 'use client'
 
 import { useState } from 'react'
-import { ChartLine, Dumbbell, Target, Utensils, Users, Smartphone, ArrowRight, CheckCircle2, Play, X } from 'lucide-react'
-import { Testimonials } from '@/components/testimonials'
-import { Transformation } from '@/components/transformation'
-import { Timeline } from '@/components/timeline'
-import { InsuranceCalculator } from '@/components/insurance-calculator'
-import { QuizFunnel } from '@/components/quiz-funnel'
+import { Target, ArrowRight, Play, X } from 'lucide-react'
+import { QuizFunnel } from '@/components/quiz/QuizFunnel'
+import { ProblemSection } from '@/components/sections/ProblemSection'
+import { SolutionSection } from '@/components/sections/SolutionSection'
+import { Testimonials } from '@/components/sections/Testimonials'
+import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
+import { ValueSection } from '@/components/sections/ValueSection'
 
 export default function Home() {
   const [showQuiz, setShowQuiz] = useState(false)
-  const [quizComplete, setQuizComplete] = useState(false)
-  
-  const openQuiz = () => setShowQuiz(true)
+  const [showBooking, setShowBooking] = useState(false)
+
+  const startQuiz = () => setShowQuiz(true)
   const closeQuiz = () => setShowQuiz(false)
-  
+  const openBooking = () => {
+    setShowQuiz(false)
+    setShowBooking(true)
+  }
+
   return (
     <main className="min-h-screen overflow-x-hidden">
       
-      {/* Quiz Modal */}
-      {showQuiz && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-background/95 backdrop-blur-sm" onClick={closeQuiz} />
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border p-6 md:p-8 animate-scale-in">
-            <button 
-              onClick={closeQuiz}
-              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-secondary transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            
-            {!quizComplete ? (
-              <QuizFunnel onComplete={() => setQuizComplete(true)} />
-            ) : (
-              <div className="text-center py-8 animate-fade-up">
-                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-primary" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4">Perfekt! Du bist bereit.</h2>
-                <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                  Basierend auf deinen Antworten ist das happyfigur Programm genau das Richtige für dich.
-                </p>
-                <button 
-                  className="btn-primary inline-flex items-center gap-2"
-                  onClick={() => {
-                    closeQuiz()
-                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
-                  }}
-                >
-                  Jetzt Erstattung berechnen
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-      
-      {/* Hero Section - Asymmetric Layout */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center py-20">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -94,7 +60,7 @@ export default function Home() {
               
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button onClick={openQuiz} className="btn-primary flex items-center justify-center gap-3">
+                <button onClick={startQuiz} className="btn-primary flex items-center justify-center gap-3">
                   <Target className="w-5 h-5" />
                   Kostenlose Analyse starten
                   <ArrowRight className="w-5 h-5" />
@@ -106,7 +72,7 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Right: Visual */}
+            {/* Right: Video */}
             <div className="relative animate-fade-up delay-200">
               <div className="feature-card corner-decorator p-8">
                 <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
@@ -168,109 +134,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What is happyfigur - Feature Cards */}
-      <section className="py-24 relative">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center mb-16 animate-fade-up">
-            <span className="text-sm text-accent uppercase tracking-widest font-semibold">Das Programm</span>
-            <h2 className="text-4xl md:text-6xl font-bold mt-4">
-              Was ist <span className="text-primary">happyfigur</span>?
-            </h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: ChartLine, title: '3x Körperanalyse', desc: 'Start, Mitte, Ende – du siehst schwarz auf weiß, wie sich Gewicht, Fett und Muskeln verändern.' },
-              { icon: Dumbbell, title: '8 Wochen Training', desc: 'Unbegrenzter Zugang zum Studio mit persönlicher Betreuung und Trainingsplan.' },
-              { icon: Utensils, title: 'Ernährungsplan', desc: 'Kein Verzicht, kein Hungern. Individuell auf deinen Stoffwechsel abgestimmt.' },
-              { icon: Users, title: 'Personal Coaching', desc: '3 Termine mit persönlicher Betreuung. Wir begleiten dich auf deinem Weg.' },
-              { icon: Smartphone, title: '24/7 Support', desc: 'WhatsApp, E-Mail, Telefon – wir sind immer für dich da.' },
-              { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Krankenkassen erstatten 75€ bis 179€. Bei vielen Kassen komplett kostenlos.' },
-            ].map((feature, i) => (
-              <div 
-                key={i} 
-                className="feature-card corner-decorator p-6 animate-fade-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-                <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
-                
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Problem Section */}
+      <ProblemSection />
 
-      {/* Transformation Section */}
-      <Transformation />
-      
-      {/* Timeline */}
-      <Timeline />
-      
+      {/* Solution Section */}
+      <SolutionSection />
+
       {/* Testimonials */}
       <Testimonials />
-      
-      {/* Insurance Calculator */}
-      <section id="calculator" className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="text-center mb-12 animate-fade-up">
-            <span className="text-sm text-accent uppercase tracking-widest font-semibold">Erstattung</span>
-            <h2 className="text-4xl md:text-6xl font-bold mt-4">
-              Wie viel <span className="text-primary">sparst du</span>?
-            </h2>
-          </div>
-          <InsuranceCalculator />
-        </div>
-      </section>
 
-      {/* Value Comparison */}
-      <section className="py-24 bg-card relative">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="feature-card corner-decorator p-8 md:p-12 animate-scale-in">
-            <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-            <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
-            
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-5xl font-bold">
-                Wert von <span className="text-muted-foreground line-through">658€</span>
-              </h2>
-              <p className="text-xl text-primary font-bold mt-2">Für viele komplett kostenlos</p>
-            </div>
-            
-            <div className="grid gap-4 mb-8">
-              {[
-                { name: '3x Körperanalyse', value: '120€' },
-                { name: '8 Wochen Studionutzung', value: '160€' },
-                { name: 'Individueller Ernährungsplan', value: '79€' },
-                { name: 'Personal Coaching (3 Termine)', value: '200€' },
-                { name: 'Online-Lernplattform', value: '49€' },
-                { name: '24/7 WhatsApp-Support', value: '50€' },
-              ].map((item, i) => (
-                <div key={i} className="flex justify-between items-center py-3 border-b border-border/50">
-                  <span className="text-muted-foreground">{item.name}</span>
-                  <span className="text-muted-foreground line-through">{item.value}</span>
-                </div>
-              ))}
-            </div>
-            
-            <div className="text-center">
-              <button onClick={openQuiz} className="btn-cta flex items-center justify-center gap-3 mx-auto">
-                Jetzt Analyse starten
-                <ArrowRight className="w-5 h-5" />
-              </button>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Du zahlst bei Trainingsstart, Krankenkasse erstattet dir das Geld zurück
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Insurance Calculator */}
+      <InsuranceCalculator />
+
+      {/* Value Section */}
+      <ValueSection />
 
       {/* Final CTA */}
       <section className="py-32 relative">
@@ -283,7 +160,7 @@ export default function Home() {
             Dein Probetraining ist komplett kostenlos. Keine Verpflichtung, kein Risiko. 
             Nur der erste Schritt zu deinem Wunschgewicht.
           </p>
-          <button onClick={openQuiz} className="btn-primary text-xl px-10 py-5 animate-fade-up delay-200">
+          <button onClick={startQuiz} className="btn-primary text-xl px-10 py-5 animate-fade-up delay-200">
             <Target className="w-6 h-6 inline mr-3" />
             Kostenlose Analyse starten
           </button>
@@ -303,13 +180,72 @@ export default function Home() {
               <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
               <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
               <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>
+              <a href="/widerruf" className="hover:text-foreground transition-colors">Widerruf</a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-            <p>* Die Erstattung durch deine Krankenkasse kann je nach Anbieter variieren. Die meisten gesetzlichen Krankenkassen erstatten zwischen 70€ und 100% der Kursgebühr (bis zu 179€). Der Kurs ist nach § 20 SGB V zertifiziert.</p>
+          <div className="mt-8 pt-8 border-t border-border/50 text-center text-xs text-muted-foreground">
+            <p>* Die Erstattung durch deine Krankenkasse kann je nach Anbieter variieren. Die meisten gesetzlichen Krankenkassen erstatten zwischen 70€ und 100% der Kursgebühr. Der Kurs ist nach § 20 SGB V zertifiziert.</p>
           </div>
         </div>
       </footer>
+
+      {/* Quiz Modal */}
+      {showQuiz && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            onClick={closeQuiz}
+          />
+          
+          {/* Modal */}
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border rounded-2xl p-6 md:p-8 animate-scale-in">
+            {/* Close Button */}
+            <button 
+              onClick={closeQuiz}
+              className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            <QuizFunnel onComplete={openBooking} />
+          </div>
+        </div>
+      )}
+
+      {/* Booking Modal Placeholder */}
+      {showBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            onClick={() => setShowBooking(false)}
+          />
+          <div className="relative w-full max-w-lg bg-card border border-border rounded-2xl p-8 animate-scale-in text-center">
+            <button 
+              onClick={() => setShowBooking(false)}
+              className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            <h2 className="text-2xl font-bold mb-4">Probetraining buchen</h2>
+            <p className="text-muted-foreground mb-6">
+              Kontaktiere uns direkt per WhatsApp für deinen Wunschtermin:
+            </p>
+            <a 
+              href="https://wa.me/4915679610457?text=Hallo!%20Ich%20möchte%20gerne%20ein%20kostenloses%20Probetraining%20bei%20happyfigur%20buchen."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-cta inline-flex items-center gap-3"
+            >
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Per WhatsApp buchen
+            </a>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
