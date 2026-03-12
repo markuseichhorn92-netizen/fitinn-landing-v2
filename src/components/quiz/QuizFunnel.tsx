@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   ArrowRight, ArrowLeft, Target, RefreshCw, Pizza, Clock, Frown,
-  CheckCircle2, Flame, ThumbsUp, HelpCircle, Loader2
+  CheckCircle2, Flame, ThumbsUp, HelpCircle, Loader2, Calendar, User, AlertCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -19,37 +19,36 @@ interface QuizData {
   insuranceAmount: number
 }
 
+interface Slot {
+  startDateTime: string
+  endDateTime: string
+}
+
+interface ContactData {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+}
+
 // ─── Ergebnis-Kalkulation ────────────────────────────────────────────────────
 
 function calcResult(data: QuizData) {
-  // Basis-Gewichtsverlust nach verfügbarer Zeit
   const baseKg: Record<string, number> = { wenig: 4, mittel: 6, viel: 9 }
   const base = baseKg[data.time] ?? 6
-
-  // Commitment-Multiplikator
   const mult: Record<string, number> = { unsicher: 0.75, bereit: 1.0, entschlossen: 1.3 }
   const factor = mult[data.commitment] ?? 1.0
-
-  // Tatsächlicher Abstand zum Wunschgewicht
   const actualDiff = data.weight > 0 && data.targetWeight > 0
     ? Math.max(0, data.weight - data.targetWeight)
     : null
-
-  // kgLoss: nie mehr als tatsächlicher Abstand, min 2 kg (auch bei kleinem Abstand Körperzusammensetzung verbessern)
   const rawLoss = Math.round(Math.min(11, Math.max(3, base * factor)))
   const kgLoss = actualDiff !== null
     ? Math.round(Math.min(actualDiff > 0 ? actualDiff : rawLoss, rawLoss))
     : rawLoss
-
-  // BMI berechnen
   const bmi = data.height > 0 && data.weight > 0
     ? Math.round((data.weight / Math.pow(data.height / 100, 2)) * 10) / 10
     : null
-
-  // Zielgewicht nach Programm
   const projectedWeight = data.weight > 0 ? Math.round((data.weight - kgLoss) * 10) / 10 : null
-
-  // Körperfett je nach Ziel
   const fatMap: Record<string, number> = {
     abnehmen: Math.max(3, Math.round(kgLoss * 0.6)),
     straffen: Math.max(4, Math.round(kgLoss * 0.7)),
@@ -57,20 +56,11 @@ function calcResult(data: QuizData) {
     gesundheit: Math.max(2, Math.round(kgLoss * 0.4)),
   }
   const fatLoss = fatMap[data.goal] ?? 3
-
-  // Muskelzunahme je nach Ziel
   const muscleMap: Record<string, number> = {
-    abnehmen: 1,
-    straffen: Math.min(4, Math.round(kgLoss * 0.35)),
-    energie: 1,
-    gesundheit: 2,
+    abnehmen: 1, straffen: Math.min(4, Math.round(kgLoss * 0.35)), energie: 1, gesundheit: 2,
   }
   const muscleGain = muscleMap[data.goal] ?? 2
-
-  // Energie-Verbesserung
   const energyPct = data.commitment === 'entschlossen' ? 96 : data.commitment === 'bereit' ? 93 : 88
-
-  // Headline – mit echtem Wunschgewicht wenn vorhanden
   const targetLabel = data.targetWeight > 0 ? ` (→ ${data.targetWeight} kg)` : ''
   const headlineMap: Record<string, string> = {
     abnehmen: `Realistisches Ziel: ${kgLoss} kg in 8 Wochen${targetLabel}`,
@@ -79,8 +69,6 @@ function calcResult(data: QuizData) {
     gesundheit: `Realistisches Ziel: Nachhaltige Gesundheit & ${kgLoss} kg weniger`,
   }
   const headline = headlineMap[data.goal] ?? `Realistisches Ziel: ${kgLoss} kg in 8 Wochen`
-
-  // Primär-Metrik (je nach Ziel)
   const primaryMetric: Record<string, { value: string; label: string }> = {
     abnehmen: { value: `-${kgLoss} kg`, label: 'Gewichtsverlust' },
     straffen: { value: `-${fatLoss}%`, label: 'Körperfett' },
@@ -88,8 +76,6 @@ function calcResult(data: QuizData) {
     gesundheit: { value: `-${kgLoss} kg`, label: 'Gewicht & Vitalität' },
   }
   const primary = primaryMetric[data.goal] ?? { value: `-${kgLoss} kg`, label: 'Gewichtsverlust' }
-
-  // Problem-spezifische Lösungshinweise
   const problemSolutions: Record<string, string> = {
     jojo: 'Kein Jo-Jo-Effekt – wir verändern dauerhaft deinen Stoffwechsel',
     hunger: 'Heißhunger-Attacken verschwinden – dank individuellem Ernährungsplan',
@@ -97,31 +83,61 @@ function calcResult(data: QuizData) {
     motivation: 'Unser Coaching hält dich auf Kurs – du bist nie allein',
   }
   const insights = data.problems.map(p => problemSolutions[p]).filter(Boolean)
-
-  // Chart-Kurve: End-Y berechnen (SVG: y=18 = Start, je niedriger desto mehr Verlust)
-  // Range: y=18 (kein Verlust) bis y=112 (max 11 kg)
   const endY = Math.round(18 + (kgLoss / 11) * 94)
-  // W4-Mittelpunkt: leicht verzögert (Plateau in Woche 1-2)
   const midY = Math.round(18 + (endY - 18) * 0.52)
-
-  // SVG-Pfad dynamisch
   const linePath = `M30,18 C60,18 75,${18 + (midY - 18) * 0.3} 110,${Math.round(18 + (midY - 18) * 0.6)} C140,${midY} 150,${midY + 5} 170,${midY + 3} C195,${midY + 8} 215,${Math.round(midY + (endY - midY) * 0.5)} 250,${Math.round(midY + (endY - midY) * 0.75)} C270,${endY - 4} 290,${endY - 1} 310,${endY}`
   const fillPath = linePath + ` L310,118 L30,118 Z`
-
-  // Label für Endpunkt-Badge
-  const endLabel = data.goal === 'straffen'
-    ? `-${fatLoss}% Fett`
-    : data.goal === 'energie'
-    ? `+Energie`
-    : projectedWeight
-    ? `${projectedWeight} kg`
+  const endLabel = data.goal === 'straffen' ? `-${fatLoss}% Fett`
+    : data.goal === 'energie' ? `+Energie`
+    : projectedWeight ? `${projectedWeight} kg`
     : `-${kgLoss} kg`
-
-  // Y-Achse Beschriftung mit echten Gewichtswerten
   const yLabelStart = data.weight > 0 ? `${data.weight} kg` : 'Jetzt'
   const yLabelEnd = projectedWeight ? `${projectedWeight} kg` : 'Ziel'
-
   return { kgLoss, fatLoss, muscleGain, energyPct, headline, primary, insights, endY, midY, linePath, fillPath, endLabel, bmi, projectedWeight, yLabelStart, yLabelEnd, actualDiff }
+}
+
+// ─── Kalender-Hilfsfunktionen ─────────────────────────────────────────────────
+
+function getMonthGrid(year: number, month: number): (Date | null)[] {
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const startPad = (firstDay.getDay() + 6) % 7
+  const grid: (Date | null)[] = []
+  for (let i = 0; i < startPad; i++) grid.push(null)
+  for (let d = 1; d <= lastDay.getDate(); d++) grid.push(new Date(year, month, d))
+  while (grid.length % 7 !== 0) grid.push(null)
+  return grid
+}
+
+function toLocalDateKey(isoStr: string): string {
+  const d = new Date(isoStr)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+function formatTime(isoStr: string): string {
+  return new Date(isoStr).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
+}
+
+function formatDateLong(dateKey: string): string {
+  const d = new Date(dateKey + 'T12:00:00')
+  return d.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
+}
+
+function formatDateShort(isoStr: string): string {
+  const d = new Date(isoStr)
+  return d.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'long' })
+}
+
+function buildCalendarLink(startIso: string, endIso: string): string {
+  const fmt = (s: string) => new Date(s).toISOString().replace(/[-:]/g, '').replace('.000Z', 'Z')
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Probetraining+happyfigur&dates=${fmt(startIso)}/${fmt(endIso)}&location=FIT-INN+Trier,+Im+Gartenfeld+7,+54295+Trier&details=Kostenloses+Probetraining+bei+happyfigur`
+}
+
+function buildWALink(startIso: string): string {
+  const dateStr = formatDateShort(startIso)
+  const time = formatTime(startIso)
+  const text = encodeURIComponent(`Hallo! Ich möchte am ${dateStr} um ${time} Uhr ein kostenloses Probetraining buchen.`)
+  return `https://wa.me/4915679610457?text=${text}`
 }
 
 // ─── Krankenkassen ───────────────────────────────────────────────────────────
@@ -171,7 +187,21 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     problems: [], time: '', commitment: '', insurance: '', insuranceAmount: 0
   })
 
-  const totalSteps = 7
+  // Kalender-State
+  const [slots, setSlots] = useState<Slot[]>([])
+  const [slotsLoading, setSlotsLoading] = useState(false)
+  const [slotsError, setSlotsError] = useState<string | null>(null)
+  const [calendarMonth, setCalendarMonth] = useState(() => new Date())
+  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
+
+  // Kontaktdaten-State
+  const [contact, setContact] = useState<ContactData>({ firstName: '', lastName: '', email: '', phone: '' })
+  const [isBooking, setIsBooking] = useState(false)
+  const [bookingError, setBookingError] = useState<string | null>(null)
+  const [bookingSuccess, setBookingSuccess] = useState(false)
+
+  const totalSteps = 9
   const nextStep = () => setStep(s => Math.min(s + 1, totalSteps))
   const prevStep = () => setStep(s => Math.max(s - 1, 1))
 
@@ -199,7 +229,72 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     setData(d => ({ ...d, insurance, insuranceAmount: INSURANCE_VALUES[insurance] || 100 }))
   }
 
-  // Loading Screen
+  // Slots laden wenn Schritt 7 erreicht wird
+  useEffect(() => {
+    if (step !== 7) return
+    setSlotsLoading(true)
+    setSlotsError(null)
+    const today = new Date()
+    const end = new Date(today)
+    end.setDate(end.getDate() + 28)
+    const fmt = (d: Date) => d.toISOString().split('T')[0]
+    fetch(`/api/trialsession?startDate=${fmt(today)}&endDate=${fmt(end)}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.error) throw new Error(d.error)
+        setSlots(d.slots || [])
+        // Kalender-Monat auf ersten verfügbaren Monat setzen
+        if (d.slots?.length > 0) {
+          const first = new Date(d.slots[0].startDateTime)
+          setCalendarMonth(new Date(first.getFullYear(), first.getMonth(), 1))
+        }
+      })
+      .catch(e => setSlotsError(e.message || 'Termine konnten nicht geladen werden'))
+      .finally(() => setSlotsLoading(false))
+  }, [step])
+
+  // Slots nach lokalem Datum gruppieren
+  const slotsByDate = useMemo(() => {
+    const map: Record<string, Slot[]> = {}
+    for (const slot of slots) {
+      const key = toLocalDateKey(slot.startDateTime)
+      map[key] = [...(map[key] || []), slot]
+    }
+    return map
+  }, [slots])
+
+  // Buchung absenden
+  const submitBooking = async () => {
+    if (!selectedSlot) return
+    setIsBooking(true)
+    setBookingError(null)
+    try {
+      const res = await fetch('/api/trialsession', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...contact, startDateTime: selectedSlot.startDateTime }),
+      })
+      const result = await res.json()
+      if (!res.ok || result.error) {
+        setBookingError(result.error || 'Buchung fehlgeschlagen')
+      } else {
+        setBookingSuccess(true)
+        nextStep()
+      }
+    } catch {
+      setBookingError('Verbindungsfehler. Bitte versuche es erneut.')
+    } finally {
+      setIsBooking(false)
+    }
+  }
+
+  // Formular-Validierung
+  const contactValid = contact.firstName.trim().length > 1
+    && contact.lastName.trim().length > 1
+    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)
+    && contact.phone.trim().length > 6
+
+  // Loading Screen (nach Commitment)
   if (isCalculating) {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-6 animate-fade-up">
@@ -217,8 +312,22 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     )
   }
 
-  // Ergebnis berechnen (nur in Step 7 genutzt)
-  const result = step === 7 ? calcResult(data) : null
+  // Booking Loading Screen
+  if (isBooking) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 gap-6 animate-fade-up">
+        <div className="w-20 h-20 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center">
+          <Loader2 className="w-10 h-10 text-accent animate-spin" />
+        </div>
+        <div className="text-center">
+          <h3 className="text-2xl font-bold mb-2">Dein Termin wird gebucht…</h3>
+          <p className="text-muted-foreground">Einen Moment bitte.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const result = step === 9 ? calcResult(data) : null
 
   return (
     <div className="relative">
@@ -286,15 +395,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </h2>
             <p className="text-muted-foreground">Damit wir realistische Ziele für dich berechnen können.</p>
           </div>
-
           <div className="grid gap-4 max-w-sm mx-auto">
-            {/* Größe */}
             <div>
               <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Körpergröße</label>
               <div className="relative">
-                <input
-                  type="number"
-                  min={130} max={220} placeholder="z.B. 168"
+                <input type="number" min={130} max={220} placeholder="z.B. 168"
                   value={data.height || ''}
                   onChange={e => setData(d => ({ ...d, height: parseInt(e.target.value) || 0 }))}
                   className="w-full p-4 pr-14 rounded-xl border-2 border-border bg-card text-foreground text-lg font-semibold focus:border-primary focus:outline-none transition-colors appearance-none"
@@ -302,14 +407,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">cm</span>
               </div>
             </div>
-
-            {/* Aktuelles Gewicht */}
             <div>
               <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Aktuelles Gewicht</label>
               <div className="relative">
-                <input
-                  type="number"
-                  min={40} max={250} placeholder="z.B. 82"
+                <input type="number" min={40} max={250} placeholder="z.B. 82"
                   value={data.weight || ''}
                   onChange={e => setData(d => ({ ...d, weight: parseInt(e.target.value) || 0 }))}
                   className="w-full p-4 pr-14 rounded-xl border-2 border-border bg-card text-foreground text-lg font-semibold focus:border-primary focus:outline-none transition-colors appearance-none"
@@ -317,14 +418,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">kg</span>
               </div>
             </div>
-
-            {/* Wunschgewicht */}
             <div>
               <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Wunschgewicht</label>
               <div className="relative">
-                <input
-                  type="number"
-                  min={40} max={250} placeholder="z.B. 70"
+                <input type="number" min={40} max={250} placeholder="z.B. 70"
                   value={data.targetWeight || ''}
                   onChange={e => setData(d => ({ ...d, targetWeight: parseInt(e.target.value) || 0 }))}
                   className="w-full p-4 pr-14 rounded-xl border-2 border-border bg-card text-foreground text-lg font-semibold focus:border-primary focus:outline-none transition-colors appearance-none"
@@ -342,17 +439,13 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 </p>
               )}
             </div>
-
             <p className="text-xs text-muted-foreground text-center">🔒 Deine Angaben sind vertraulich und werden nur für deine Analyse verwendet.</p>
           </div>
-
           <div className="mt-8 flex justify-center gap-4">
             <button onClick={prevStep} className="px-6 py-3 text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-            <button
-              onClick={nextStep}
+            <button onClick={nextStep}
               disabled={!(data.height >= 130 && data.weight >= 40 && data.targetWeight >= 40)}
-              className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
+              className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
               Weiter <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -497,7 +590,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
               Wie <span className="text-primary">bereit</span> bist du für Veränderung?
             </h2>
-            <p className="text-muted-foreground">Klicke – wir zeigen dir sofort dein persönliches Ergebnis.</p>
+            <p className="text-muted-foreground">Klicke – wir zeigen dir sofort freie Termine.</p>
           </div>
           <div className="grid gap-3 max-w-lg mx-auto">
             {[
@@ -527,9 +620,245 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 7: Personalisiertes Ergebnis ── */}
-      {step === 7 && result && (
+      {/* ── Step 7: Kalender / Terminauswahl ── */}
+      {step === 7 && (
         <div className="animate-fade-up">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Calendar className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">
+              Wähle deinen <span className="text-primary">Termin</span>
+            </h2>
+            <p className="text-muted-foreground">Kostenlos & unverbindlich – wähle einfach einen freien Slot.</p>
+          </div>
+
+          {slotsLoading && (
+            <div className="flex flex-col items-center gap-4 py-12">
+              <Loader2 className="w-10 h-10 text-primary animate-spin" />
+              <p className="text-muted-foreground">Freie Termine werden geladen…</p>
+            </div>
+          )}
+
+          {slotsError && (
+            <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-xl mb-4 flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-semibold text-destructive">Termine konnten nicht geladen werden</p>
+                <p className="text-xs text-muted-foreground mt-1">{slotsError}</p>
+                <a href="https://wa.me/4915679610457?text=Ich%20möchte%20ein%20kostenloses%20Probetraining%20buchen"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-accent hover:underline">
+                  Per WhatsApp buchen →
+                </a>
+              </div>
+            </div>
+          )}
+
+          {!slotsLoading && !slotsError && slots.length > 0 && (() => {
+            const year = calendarMonth.getFullYear()
+            const month = calendarMonth.getMonth()
+            const grid = getMonthGrid(year, month)
+            const today = new Date()
+            today.setHours(0, 0, 0, 0)
+            const monthName = calendarMonth.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })
+            const slotsForSelected = selectedDate ? (slotsByDate[selectedDate] || []) : []
+
+            return (
+              <div className="max-w-sm mx-auto">
+                {/* Monats-Navigation */}
+                <div className="flex items-center justify-between mb-4">
+                  <button onClick={() => setCalendarMonth(d => new Date(d.getFullYear(), d.getMonth() - 1, 1))}
+                    className="p-2 rounded-lg hover:bg-secondary transition-colors">
+                    <ArrowLeft className="w-4 h-4" />
+                  </button>
+                  <span className="font-semibold capitalize">{monthName}</span>
+                  <button onClick={() => setCalendarMonth(d => new Date(d.getFullYear(), d.getMonth() + 1, 1))}
+                    className="p-2 rounded-lg hover:bg-secondary transition-colors">
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Wochentage */}
+                <div className="grid grid-cols-7 mb-1">
+                  {['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(d => (
+                    <div key={d} className="text-center text-xs text-muted-foreground font-semibold py-1">{d}</div>
+                  ))}
+                </div>
+
+                {/* Tage */}
+                <div className="grid grid-cols-7 gap-1">
+                  {grid.map((date, i) => {
+                    if (!date) return <div key={i} />
+                    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+                    const hasSlots = !!slotsByDate[key]
+                    const isPast = date < today
+                    const isSelected = selectedDate === key
+                    return (
+                      <button key={i} disabled={!hasSlots || isPast}
+                        onClick={() => { setSelectedDate(key); setSelectedSlot(null) }}
+                        className={cn(
+                          "aspect-square rounded-lg text-sm font-semibold transition-all",
+                          isPast || !hasSlots ? "text-muted-foreground/30 cursor-not-allowed" : "",
+                          hasSlots && !isPast && !isSelected ? "border-2 border-primary/40 text-primary hover:bg-primary/10 hover:border-primary" : "",
+                          isSelected ? "bg-primary text-primary-foreground border-2 border-primary" : ""
+                        )}>
+                        {date.getDate()}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {/* Zeitslots für gewählten Tag */}
+                {selectedDate && (
+                  <div className="mt-5">
+                    <p className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
+                      Verfügbare Zeiten am {formatDateLong(selectedDate)}:
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {slotsForSelected.map((slot, i) => {
+                        const isActive = selectedSlot?.startDateTime === slot.startDateTime
+                        return (
+                          <button key={i} onClick={() => setSelectedSlot(slot)}
+                            className={cn(
+                              "p-3 rounded-xl border-2 text-sm font-semibold transition-all",
+                              isActive ? "border-primary bg-primary/20 text-primary" : "border-border hover:border-primary/50 bg-card"
+                            )}>
+                            {formatTime(slot.startDateTime)} – {formatTime(slot.endDateTime)} Uhr
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })()}
+
+          <div className="mt-8 flex justify-center gap-4">
+            <button onClick={prevStep} className="px-6 py-3 text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
+            <button onClick={nextStep} disabled={!selectedSlot}
+              className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+              Weiter <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 8: Kontaktdaten ── */}
+      {step === 8 && selectedSlot && (
+        <div className="animate-fade-up">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <User className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">
+              Fast <span className="text-primary">geschafft!</span>
+            </h2>
+            <p className="text-muted-foreground">Nur noch deine Kontaktdaten – dann ist der Termin gebucht.</p>
+          </div>
+
+          {/* Gewählter Termin */}
+          <div className="flex items-center gap-3 p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-sm mx-auto mb-6">
+            <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+            <div>
+              <div className="text-sm font-semibold text-primary">Dein gewählter Termin</div>
+              <div className="text-sm font-bold">{formatDateShort(selectedSlot.startDateTime)} · {formatTime(selectedSlot.startDateTime)} – {formatTime(selectedSlot.endDateTime)} Uhr</div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 max-w-sm mx-auto">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Vorname</label>
+                <input type="text" placeholder="Max"
+                  value={contact.firstName}
+                  onChange={e => setContact(c => ({ ...c, firstName: e.target.value }))}
+                  className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Nachname</label>
+                <input type="text" placeholder="Mustermann"
+                  value={contact.lastName}
+                  onChange={e => setContact(c => ({ ...c, lastName: e.target.value }))}
+                  className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">E-Mail</label>
+              <input type="email" placeholder="max@beispiel.de"
+                value={contact.email}
+                onChange={e => setContact(c => ({ ...c, email: e.target.value }))}
+                className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Telefon</label>
+              <input type="tel" placeholder="+49 651 ..."
+                value={contact.phone}
+                onChange={e => setContact(c => ({ ...c, phone: e.target.value }))}
+                className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
+              />
+            </div>
+
+            {bookingError && (
+              <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-xl">
+                <div className="flex items-start gap-3 mb-3">
+                  <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive font-semibold">{bookingError}</p>
+                </div>
+                <a href={buildWALink(selectedSlot.startDateTime)}
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn-cta inline-flex items-center justify-center gap-2 w-full text-sm py-3">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L0 24l6.314-1.489A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.375l-.359-.214-3.748.883.934-3.646-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818s9.818 4.398 9.818 9.818-4.398 9.818-9.818 9.818z"/>
+                  </svg>
+                  Stattdessen per WhatsApp buchen
+                </a>
+              </div>
+            )}
+
+            <button onClick={submitBooking} disabled={!contactValid}
+              className="btn-cta inline-flex items-center justify-center gap-2 w-full text-lg py-4 disabled:opacity-40 disabled:cursor-not-allowed">
+              Jetzt verbindlich buchen <ArrowRight className="w-5 h-5" />
+            </button>
+
+            <p className="text-xs text-muted-foreground text-center">
+              🔒 Deine Daten werden sicher übertragen und nicht an Dritte weitergegeben.
+            </p>
+          </div>
+
+          <div className="mt-4 flex justify-center">
+            <button onClick={prevStep} className="px-6 py-3 text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 9: Personalisiertes Ergebnis + Buchungsbestätigung ── */}
+      {step === 9 && result && (
+        <div className="animate-fade-up">
+
+          {/* Buchungsbestätigung oben */}
+          {bookingSuccess && selectedSlot && (
+            <div className="mb-6 p-5 bg-primary/10 border-2 border-primary rounded-xl max-w-lg mx-auto text-center">
+              <div className="w-14 h-14 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-3">
+                <CheckCircle2 className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-primary mb-1">Termin bestätigt!</h3>
+              <p className="text-sm font-semibold">
+                {formatDateShort(selectedSlot.startDateTime)} · {formatTime(selectedSlot.startDateTime)} – {formatTime(selectedSlot.endDateTime)} Uhr
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">Eine Bestätigung wurde an {contact.email} gesendet.</p>
+              <a href={buildCalendarLink(selectedSlot.startDateTime, selectedSlot.endDateTime)}
+                target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-primary hover:underline">
+                <Calendar className="w-4 h-4" /> Zum Kalender hinzufügen
+              </a>
+            </div>
+          )}
 
           {/* Persönliche Headline */}
           <div className="text-center mb-6">
@@ -570,7 +899,6 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
           <div className="p-5 bg-card border border-border rounded-xl max-w-2xl mx-auto mb-5">
             <h4 className="text-center font-semibold mb-1">Dein Fortschritts-Verlauf</h4>
             <p className="text-center text-xs text-muted-foreground mb-4">Individuelle Prognose basierend auf deinen Antworten</p>
-
             <div className="relative w-full">
               <svg viewBox="0 0 320 135" className="w-full" preserveAspectRatio="xMidYMid meet">
                 <defs>
@@ -587,45 +915,27 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                     @keyframes dd { to { opacity: 1; } }
                   `}</style>
                 </defs>
-
-                {/* Grid */}
                 {[20, 50, 80, 110].map(y => (
                   <line key={y} x1="28" y1={y} x2="312" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
                 ))}
-
-                {/* Y Achse Labels */}
                 <text x="24" y="23" textAnchor="end" fontSize="7.5" fill="#71717a">{result.yLabelStart}</text>
                 <text x="24" y={result.endY + 4} textAnchor="end" fontSize="7.5" fill="#10b981">{result.yLabelEnd}</text>
-
-                {/* Fill */}
-                <path className="cf" d={result.fillPath.replace(/M30,/g, 'M30,').replace(/L310,118/g, 'L310,118').replace(/L30,118/g, 'L30,118')} fill="url(#chartFill2)" />
-
-                {/* Linie */}
+                <path className="cf" d={result.fillPath} fill="url(#chartFill2)" />
                 <path className="cl" d={result.linePath} stroke="#10b981" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-                {/* Plateau-Zone W1-W2 (leicht grau hinterlegt) */}
                 <rect x="30" y="10" width="55" height="108" fill="rgba(255,255,255,0.01)" rx="2" />
                 <text x="57" y="8" textAnchor="middle" fontSize="6" fill="#71717a">Eingewöhnung</text>
-
-                {/* Milestone: Start */}
                 <circle className="cd" style={{ animationDelay: '1.8s' }} cx="30" cy="18" r="5" fill="#10b981" />
                 <circle cx="30" cy="18" r="9" fill="none" stroke="#10b981" strokeOpacity="0.25" strokeWidth="1" />
                 <text x="30" y="10" textAnchor="middle" fontSize="6.5" fill="#fafafa" fontWeight="bold">W0</text>
-
-                {/* Milestone: W4 Zwischen-Analyse */}
                 <circle className="cd" style={{ animationDelay: '2.1s' }} cx="170" cy={result.midY + 3} r="5" fill="#f97316" />
                 <circle cx="170" cy={result.midY + 3} r="9" fill="none" stroke="#f97316" strokeOpacity="0.25" strokeWidth="1" />
                 <rect x="130" y={result.midY - 20} width="80" height="16" rx="3" fill="#1a1a1a" stroke="#f97316" strokeWidth="0.8" />
                 <text x="170" y={result.midY - 9} textAnchor="middle" fontSize="6.5" fill="#f97316" fontWeight="bold">🔬 Analyse W4</text>
-
-                {/* Milestone: Ende W8 */}
                 <circle className="cd" style={{ animationDelay: '2.3s' }} cx="310" cy={result.endY} r="6" fill="#10b981" />
                 <circle cx="310" cy={result.endY} r="11" fill="none" stroke="#10b981" strokeOpacity="0.35" strokeWidth="1.5" />
                 <circle cx="310" cy={result.endY} r="16" fill="none" stroke="#10b981" strokeOpacity="0.12" strokeWidth="1" />
                 <rect x="258" y={result.endY - 22} width="54" height="16" rx="3" fill="#10b981" />
                 <text x="285" y={result.endY - 11} textAnchor="middle" fontSize="7" fill="#0a0a0a" fontWeight="bold">{result.endLabel}</text>
-
-                {/* X Achse */}
                 {['W0','W1','W2','W3','W4','W5','W6','W7','W8'].map((l, i) => (
                   <text key={i} x={30 + i * 35} y="130" textAnchor="middle" fontSize="6.5"
                     fill={[0,4,8].includes(i) ? '#fafafa' : '#71717a'}
@@ -633,8 +943,6 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 ))}
               </svg>
             </div>
-
-            {/* Stats Row */}
             <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-border">
               <div className="text-center">
                 <div className="text-xl font-bold text-primary">-{result.kgLoss} kg</div>
@@ -649,15 +957,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <div className="text-xs text-muted-foreground">Muskelmasse</div>
               </div>
             </div>
-
-            {/* Energie-Indikator */}
             <div className="mt-3 flex items-center gap-3">
               <span className="text-xs text-muted-foreground shrink-0">Mehr Energie</span>
               <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full transition-all duration-1000"
-                  style={{ width: `${result.energyPct}%` }}
-                />
+                <div className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full transition-all duration-1000"
+                  style={{ width: `${result.energyPct}%` }} />
               </div>
               <span className="text-xs font-bold text-primary shrink-0">{result.energyPct}%</span>
             </div>
@@ -666,7 +970,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </p>
           </div>
 
-          {/* Problem-Lösungen (individuell) */}
+          {/* Problem-Lösungen */}
           {result.insights.length > 0 && (
             <div className="max-w-lg mx-auto mb-5 space-y-2">
               <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mb-2">So lösen wir deine Herausforderungen:</p>
@@ -727,12 +1031,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             )}
           </div>
 
-          <div className="mt-6 flex justify-center gap-4">
-            <button onClick={prevStep} className="px-6 py-3 text-muted-foreground hover:text-foreground flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" /> Zurück
-            </button>
-            <button onClick={onComplete} className="btn-cta inline-flex items-center gap-2 text-lg px-8 py-4">
-              Jetzt Probetraining buchen <ArrowRight className="w-5 h-5" />
+          <div className="mt-4 flex justify-center">
+            <button onClick={onComplete}
+              className="px-8 py-3 text-muted-foreground hover:text-foreground border border-border rounded-xl transition-colors">
+              Schließen
             </button>
           </div>
         </div>
