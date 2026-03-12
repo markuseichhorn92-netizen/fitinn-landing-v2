@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Target, ArrowRight, X, CheckCircle2, Phone, Shield, Dumbbell, Apple, HeartPulse } from 'lucide-react'
+import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { QuizFunnel } from '@/components/quiz/QuizFunnel'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { SolutionSection } from '@/components/sections/SolutionSection'
 import { Testimonials } from '@/components/sections/Testimonials'
@@ -34,8 +34,8 @@ const heroFeatures = [
 ]
 
 export default function Home() {
-  const [showQuiz, setShowQuiz] = useState(false)
-  const [showBooking, setShowBooking] = useState(false)
+  const router = useRouter()
+  const startQuiz = () => router.push('/quiz')
 
   const [heroAnimated, setHeroAnimated] = useState(false)
   const stats = useScrollReveal(0.3)
@@ -44,18 +44,6 @@ export default function Home() {
     const timer = setTimeout(() => setHeroAnimated(true), 400)
     return () => clearTimeout(timer)
   }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = showQuiz ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [showQuiz])
-
-  const startQuiz = () => setShowQuiz(true)
-  const closeQuiz = () => setShowQuiz(false)
-  const openBooking = () => {
-    setShowQuiz(false)
-    setShowBooking(true)
-  }
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -322,92 +310,8 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Sticky Bar – nur wenn Quiz geschlossen */}
-      {!showQuiz && <StickyBar onStartQuiz={startQuiz} quizOpen={false} />}
-
-      {/* Quiz Modal – Fullscreen Funnel */}
-      {showQuiz && (
-        <div className="fixed inset-0 z-[100] bg-background overflow-y-auto animate-funnel-enter">
-          {/* Ambient glow */}
-          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(207,229,234,0.06), transparent 70%)' }} />
-          {/* Close button */}
-          <button
-            onClick={closeQuiz}
-            className="fixed top-5 right-5 z-[101] p-2.5 rounded-full bg-card/60 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          <QuizFunnel onComplete={openBooking} />
-        </div>
-      )}
-
-      {/* Booking Modal */}
-      {showBooking && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-            onClick={() => setShowBooking(false)}
-          />
-          <div className="relative w-full max-w-lg bg-card border border-border rounded-2xl p-8 animate-scale-in text-center">
-            <button
-              onClick={() => setShowBooking(false)}
-              className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Success Icon */}
-            <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-primary" />
-            </div>
-
-            <h2 className="text-3xl font-bold mb-2">Dein Probetraining ist so gut wie gebucht!</h2>
-            <p className="text-muted-foreground mb-6">
-              Bestätige deinen Platz jetzt per WhatsApp – dauert nur 30 Sekunden.
-            </p>
-
-            {/* Trust Points */}
-            <div className="flex flex-col gap-2 mb-8 text-left">
-              {[
-                '100% kostenlos & unverbindlich',
-                'Keine Mitgliedschaft erforderlich',
-                'Termin nach deinem Wunsch',
-              ].map((point, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm text-muted-foreground">{point}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* WhatsApp Button */}
-            <a
-              href="https://wa.me/4915679610457?text=Hallo!%20Ich%20m%C3%B6chte%20gerne%20ein%20kostenloses%20Probetraining%20bei%20happyfigur%20buchen.%20Wann%20gibt%20es%20freie%20Termine%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-cta inline-flex items-center justify-center gap-3 w-full text-lg py-4 mb-4"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              Per WhatsApp buchen
-            </a>
-
-            {/* Phone Alternative */}
-            <a
-              href="tel:+49651308524"
-              className="inline-flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              Lieber anrufen: 0651 308524
-            </a>
-
-            <p className="text-xs text-muted-foreground mt-4">
-              Kein Risiko · Keine Mitgliedschaft · Keine Verpflichtung
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Sticky Bar */}
+      <StickyBar onStartQuiz={startQuiz} />
     </main>
   )
 }
