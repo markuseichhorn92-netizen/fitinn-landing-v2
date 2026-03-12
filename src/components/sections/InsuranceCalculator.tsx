@@ -24,7 +24,7 @@ const INSURANCE_DATA = [
 
 const PROGRAM_PRICE = 179
 
-export function InsuranceCalculator() {
+export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
   const [selected, setSelected] = useState('')
   const [amount, setAmount] = useState(0)
 
@@ -110,7 +110,7 @@ export function InsuranceCalculator() {
 
             {/* CTA */}
             <div className="mt-8 text-center">
-              <button className="btn-cta inline-flex items-center gap-3 text-lg">
+              <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
               </button>

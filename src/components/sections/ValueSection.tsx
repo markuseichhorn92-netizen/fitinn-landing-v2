@@ -11,7 +11,7 @@ const valueItems = [
 
 const totalValue = 658
 
-export function ValueSection() {
+export function ValueSection({ onStartQuiz }: { onStartQuiz: () => void }) {
   return (
     <section className="py-24 bg-card relative">
       <div className="mx-auto max-w-4xl px-6">
@@ -70,7 +70,7 @@ export function ValueSection() {
 
           {/* CTA */}
           <div className="text-center">
-            <button className="btn-cta inline-flex items-center gap-3 text-lg">
+            <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
               Jetzt Probetraining buchen
               <ArrowRight className="w-5 h-5" />
             </button>

@@ -39,7 +39,7 @@ const features = [
   }
 ]
 
-export function SolutionSection() {
+export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Glow */}
@@ -88,8 +88,8 @@ export function SolutionSection() {
 
         {/* CTA */}
         <div className="mt-16 text-center animate-fade-up delay-500">
-          <button className="btn-primary inline-flex items-center gap-3 text-lg">
-            Jetzt kostenlose Analyse starten
+          <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
+            Jetzt kostenloses Probetraining sichern
             <ArrowRight className="w-5 h-5" />
           </button>
           <p className="text-muted-foreground text-sm mt-4">
