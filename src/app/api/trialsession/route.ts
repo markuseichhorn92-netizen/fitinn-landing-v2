@@ -28,10 +28,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { firstName, lastName, email, phone, startDateTime } = body
+    const {
+      firstName, lastName, email, mobilephone, gender, dateOfBirth,
+      street, houseNumber, zip, city,
+      marketingConsent, note, startDateTime,
+    } = body
 
-    if (!firstName || !lastName || !email || !phone || !startDateTime) {
-      return NextResponse.json({ error: 'Alle Felder sind erforderlich' }, { status: 400 })
+    if (!firstName || !lastName || !email || !mobilephone || !gender || !dateOfBirth
+      || !street || !houseNumber || !zip || !city || !startDateTime) {
+      return NextResponse.json({ error: 'Alle Pflichtfelder sind erforderlich' }, { status: 400 })
     }
 
     const studioIdNum = parseInt(STUDIO_ID)
@@ -45,7 +50,15 @@ export async function POST(request: NextRequest) {
         firstName,
         lastName,
         email,
-        mobilephone: phone,
+        mobilephone,
+        gender,
+        dateOfBirth,
+        address: { street, houseNumber, zip, city, country: 'DE' },
+        privacyConfiguration: {
+          email: marketingConsent ?? false,
+          phone: marketingConsent ?? false,
+        },
+        ...(note ? { note } : {}),
       }),
     })
 

@@ -28,7 +28,15 @@ interface ContactData {
   firstName: string
   lastName: string
   email: string
-  phone: string
+  mobilephone: string
+  gender: 'MALE' | 'FEMALE' | ''
+  dateOfBirth: string
+  street: string
+  houseNumber: string
+  zip: string
+  city: string
+  marketingConsent: boolean
+  note: string
 }
 
 // ─── Ergebnis-Kalkulation ────────────────────────────────────────────────────
@@ -196,7 +204,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
 
   // Kontaktdaten-State
-  const [contact, setContact] = useState<ContactData>({ firstName: '', lastName: '', email: '', phone: '' })
+  const [contact, setContact] = useState<ContactData>({
+    firstName: '', lastName: '', email: '', mobilephone: '',
+    gender: '', dateOfBirth: '',
+    street: '', houseNumber: '', zip: '', city: '',
+    marketingConsent: false, note: ''
+  })
   const [isBooking, setIsBooking] = useState(false)
   const [bookingError, setBookingError] = useState<string | null>(null)
   const [bookingSuccess, setBookingSuccess] = useState(false)
@@ -272,7 +285,21 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       const res = await fetch('/api/trialsession', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...contact, startDateTime: selectedSlot.startDateTime }),
+        body: JSON.stringify({
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          email: contact.email,
+          mobilephone: contact.mobilephone,
+          gender: contact.gender,
+          dateOfBirth: contact.dateOfBirth,
+          street: contact.street,
+          houseNumber: contact.houseNumber,
+          zip: contact.zip,
+          city: contact.city,
+          marketingConsent: contact.marketingConsent,
+          note: contact.note,
+          startDateTime: selectedSlot.startDateTime,
+        }),
       })
       const result = await res.json()
       if (!res.ok || result.error) {
@@ -292,7 +319,13 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
   const contactValid = contact.firstName.trim().length > 1
     && contact.lastName.trim().length > 1
     && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)
-    && contact.phone.trim().length > 6
+    && contact.mobilephone.trim().length > 6
+    && contact.gender !== ''
+    && /^\d{4}-\d{2}-\d{2}$/.test(contact.dateOfBirth)
+    && contact.street.trim().length > 1
+    && contact.houseNumber.trim().length > 0
+    && contact.zip.trim().length >= 4
+    && contact.city.trim().length > 1
 
   // Loading Screen (nach Commitment)
   if (isCalculating) {
@@ -755,11 +788,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
               Fast <span className="text-primary">geschafft!</span>
             </h2>
-            <p className="text-muted-foreground">Nur noch deine Kontaktdaten – dann ist der Termin gebucht.</p>
+            <p className="text-muted-foreground">Nur noch deine Daten – dann ist der Termin gebucht.</p>
           </div>
 
           {/* Gewählter Termin */}
-          <div className="flex items-center gap-3 p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-sm mx-auto mb-6">
+          <div className="flex items-center gap-3 p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-lg mx-auto mb-6">
             <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
             <div>
               <div className="text-sm font-semibold text-primary">Dein gewählter Termin</div>
@@ -767,41 +800,148 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </div>
           </div>
 
-          <div className="grid gap-4 max-w-sm mx-auto">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Vorname</label>
-                <input type="text" placeholder="Max"
-                  value={contact.firstName}
-                  onChange={e => setContact(c => ({ ...c, firstName: e.target.value }))}
-                  className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Nachname</label>
-                <input type="text" placeholder="Mustermann"
-                  value={contact.lastName}
-                  onChange={e => setContact(c => ({ ...c, lastName: e.target.value }))}
-                  className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
-                />
+          <div className="grid gap-5 max-w-lg mx-auto">
+
+            {/* Persönliche Daten */}
+            <div>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Persönliche Daten</p>
+              <div className="grid gap-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Vorname *</label>
+                    <input type="text" placeholder="Max"
+                      value={contact.firstName}
+                      onChange={e => setContact(c => ({ ...c, firstName: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Nachname *</label>
+                    <input type="text" placeholder="Mustermann"
+                      value={contact.lastName}
+                      onChange={e => setContact(c => ({ ...c, lastName: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Geschlecht */}
+                <div>
+                  <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Geschlecht *</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[{ value: 'FEMALE', label: '♀ Weiblich' }, { value: 'MALE', label: '♂ Männlich' }].map(opt => (
+                      <button key={opt.value} type="button"
+                        onClick={() => setContact(c => ({ ...c, gender: opt.value as 'MALE' | 'FEMALE' }))}
+                        className={cn("p-3 rounded-xl border-2 text-sm font-semibold transition-all",
+                          contact.gender === opt.value ? "border-primary bg-primary/10 text-primary" : "border-border bg-card hover:border-primary/50"
+                        )}>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Geburtsdatum *</label>
+                    <input type="date"
+                      value={contact.dateOfBirth}
+                      max={new Date(new Date().setFullYear(new Date().getFullYear() - 16)).toISOString().split('T')[0]}
+                      onChange={e => setContact(c => ({ ...c, dateOfBirth: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Handynummer *</label>
+                    <input type="tel" placeholder="+49 151 ..."
+                      value={contact.mobilephone}
+                      onChange={e => setContact(c => ({ ...c, mobilephone: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">E-Mail *</label>
+                  <input type="email" placeholder="max@beispiel.de"
+                    value={contact.email}
+                    onChange={e => setContact(c => ({ ...c, email: e.target.value }))}
+                    className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                  />
+                </div>
               </div>
             </div>
+
+            {/* Adresse */}
             <div>
-              <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">E-Mail</label>
-              <input type="email" placeholder="max@beispiel.de"
-                value={contact.email}
-                onChange={e => setContact(c => ({ ...c, email: e.target.value }))}
-                className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Adresse</p>
+              <div className="grid gap-3">
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="col-span-2">
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Straße *</label>
+                    <input type="text" placeholder="Musterstraße"
+                      value={contact.street}
+                      onChange={e => setContact(c => ({ ...c, street: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Nr. *</label>
+                    <input type="text" placeholder="12a"
+                      value={contact.houseNumber}
+                      onChange={e => setContact(c => ({ ...c, houseNumber: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">PLZ *</label>
+                    <input type="text" placeholder="54295"
+                      value={contact.zip}
+                      onChange={e => setContact(c => ({ ...c, zip: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Stadt *</label>
+                    <input type="text" placeholder="Trier"
+                      value={contact.city}
+                      onChange={e => setContact(c => ({ ...c, city: e.target.value }))}
+                      className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Notiz (optional) */}
+            <div>
+              <label className="block text-xs font-semibold mb-1.5 text-muted-foreground">Anmerkung <span className="text-muted-foreground/60 font-normal">(optional)</span></label>
+              <textarea placeholder="Hast du besondere Wünsche oder Fragen?"
+                value={contact.note}
+                onChange={e => setContact(c => ({ ...c, note: e.target.value }))}
+                rows={2}
+                className="w-full p-3 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors text-sm resize-none"
               />
             </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">Telefon</label>
-              <input type="tel" placeholder="+49 651 ..."
-                value={contact.phone}
-                onChange={e => setContact(c => ({ ...c, phone: e.target.value }))}
-                className="w-full p-4 rounded-xl border-2 border-border bg-card text-foreground focus:border-primary focus:outline-none transition-colors"
-              />
-            </div>
+
+            {/* Marketing-Consent */}
+            <label className="flex items-start gap-3 cursor-pointer select-none">
+              <div className="relative mt-0.5 shrink-0">
+                <input type="checkbox" className="sr-only"
+                  checked={contact.marketingConsent}
+                  onChange={e => setContact(c => ({ ...c, marketingConsent: e.target.checked }))}
+                />
+                <div className={cn("w-5 h-5 rounded border-2 flex items-center justify-center transition-all",
+                  contact.marketingConsent ? "border-primary bg-primary" : "border-muted-foreground bg-card")}>
+                  {contact.marketingConsent && <CheckCircle2 className="w-3 h-3 text-primary-foreground" />}
+                </div>
+              </div>
+              <span className="text-xs text-muted-foreground leading-relaxed">
+                Ich bin einverstanden, dass happyfigur mich per E-Mail und Telefon über Angebote informiert. Diese Einwilligung kann jederzeit widerrufen werden.
+              </span>
+            </label>
 
             {bookingError && (
               <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-xl">
@@ -827,7 +967,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </button>
 
             <p className="text-xs text-muted-foreground text-center">
-              🔒 Deine Daten werden sicher übertragen und nicht an Dritte weitergegeben.
+              🔒 Deine Daten werden sicher übertragen · Land: Deutschland (DE)
             </p>
           </div>
 
