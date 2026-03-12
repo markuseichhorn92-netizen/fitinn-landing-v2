@@ -65,27 +65,61 @@ State in `page.tsx`:
 
 ## Quiz Funnel (`src/components/quiz/QuizFunnel.tsx`)
 
-6-step quiz with personalized results. Steps:
+9-step quiz ending with a confirmed Probetraining booking. Steps:
 
 1. **Ziel** – goal selection (abnehmen / straffen / energie / gesundheit) → auto-advances after 350ms
 2. **Körpermaße** – height (cm), current weight (kg), target weight (kg)
 3. **Probleme** – multi-select pain points
-4. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
-5. **Commitment** – (unsicher / bereit / entschlossen) → triggers 1.8s loading screen
-6. **Ergebnis** – personalized result screen
+4. **Transformation** – showcase screen
+5. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
+6. **Commitment** – (unsicher / bereit / entschlossen) → triggers 1.8s loading screen
+7. **Kalender** – Terminauswahl (lädt Slots via `/api/trialsession` GET)
+8. **Kontaktdaten** – Formular + API-Buchung → Ladescreen
+9. **Ergebnis** – personalisiertes Ergebnis + Buchungsbestätigung
 
 `calcResult(data: QuizData)` computes all result values:
 - `kgLoss` = `baseKg[time] × mult[commitment]`, capped by actual `weight - targetWeight`
 - Dynamic SVG bezier path generated from `kgLoss → endY` for the progress chart
 - BMI, projected weight, problem-specific insights all derived from user inputs
 
-**Insurance step** is embedded in Step 6 result screen (top 5 as tile buttons + "Andere Kasse" toggle for full `<select>`).
+**Insurance step** is embedded in Step 9 result screen (top 5 as tile buttons + "Andere Kasse" toggle for full `<select>`).
+
+## Magicline Connect API
+
+Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Token nötig.
+
+**Slots laden:** `GET /trialsession?studioId=1210005460&startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
+- Gibt `{ slots: [{ startDateTime: "2026-03-13T10:00:00.000Z", endDateTime: "..." }] }` zurück
+- `startDateTime` ist UTC mit `.000Z`-Suffix
+
+**Buchung:** `POST /trialsession/book` — **ein einziger Schritt**, `leadCustomer` inline:
+```json
+{
+  "studioId": 1210005460,
+  "startDateTime": "2026-03-13T10:00:00.000Z",
+  "trainerRequired": false,
+  "note": "...",
+  "leadCustomer": {
+    "firstname": "...", "lastname": "...", "email": "...", "phone": "...",
+    "gender": "MALE|FEMALE", "dateOfBirth": "YYYY-MM-DD",
+    "address": { "street": "...", "houseNumber": "...", "zip": "...", "city": "...", "country": "DE" },
+    "privacyConfiguration": { "email": bool, "phone": bool, "letter": false, "textMessage": bool, "mySportsMessage": false }
+  }
+}
+```
+- `startDateTime` muss **exakt** als UTC-String aus der Slots-API weitergegeben werden (kein Konvertieren, kein Entfernen des `.000Z`)
+- `trainerRequired: false` — mit `true` schlägt die Buchung fehl wenn kein Trainer verfügbar
+- Fehlermeldung `"There are not enough resources"` = Slot bereits voll (CONFLICT)
+- Der Proxy-Route liegt in `src/app/api/trialsession/route.ts`
+
+**Feldnamen-Besonderheiten der Magicline API** (nicht ändern!):
+- Lead-Felder: `firstname`/`lastname` (lowercase), aber `dateOfBirth` (camelCase), `houseNumber` (camelCase)
+- Kein separater `POST /lead`-Schritt — alles in einem Booking-Request
 
 ## Key Business Elements (never remove)
 
-- **WhatsApp booking**: `https://wa.me/4915679610457`
+- **WhatsApp fallback**: `https://wa.me/4915679610457`
 - **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – 16 insurers with reimbursement amounts
-- **Probetraining buchen**: Opens `showBooking` modal → WhatsApp deep link
 - **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when `#hero` scrolls out of view
 
 ## Component Structure
@@ -93,15 +127,17 @@ State in `page.tsx`:
 ```
 src/
   app/
-    globals.css      ← All design tokens, @theme blocks, global utilities
+    globals.css               ← All design tokens, @theme blocks, global utilities
     layout.tsx
-    page.tsx         ← Single page, all section orchestration + modals
+    page.tsx                  ← Single page, all section orchestration + modals
+    api/trialsession/
+      route.ts                ← GET (slots proxy) + POST (booking proxy) für Magicline
   components/
     quiz/
-      QuizFunnel.tsx ← Most complex component; self-contained quiz state
-    sections/        ← One file per page section, all receive onStartQuiz prop
-    StickyBar.tsx    ← IntersectionObserver on #hero
-    ui/              ← shadcn primitives (button, card, etc.)
+      QuizFunnel.tsx          ← Most complex component; self-contained quiz + booking state
+    sections/                 ← One file per page section, all receive onStartQuiz prop
+    StickyBar.tsx             ← IntersectionObserver on #hero
+    ui/                       ← shadcn primitives (button, card, etc.)
 ```
 
 ## Avatars / Images
