@@ -68,11 +68,11 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-[right_top] opacity-60 md:opacity-35"
+            className="object-cover object-top md:object-[right_top] opacity-75 md:opacity-35"
             priority
           />
-          {/* Mobile overlay: oben transparent (Frau sichtbar), unten dunkler (Text lesbar) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80 md:hidden" />
+          {/* Mobile overlay: oben leicht (Frau sichtbar), unten dunkel (Text lesbar) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/10 to-background/85 md:hidden" />
           {/* Desktop overlay: links dunkel (Text), rechts transparent (Frau) */}
           <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
           {/* Accent blobs */}
@@ -317,8 +317,8 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Sticky Bar */}
-      <StickyBar onStartQuiz={startQuiz} quizOpen={showQuiz} />
+      {/* Sticky Bar – nur wenn Quiz geschlossen */}
+      {!showQuiz && <StickyBar onStartQuiz={startQuiz} quizOpen={false} />}
 
       {/* Quiz Modal – Fullscreen Funnel */}
       {showQuiz && (
