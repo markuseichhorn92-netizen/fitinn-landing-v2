@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
       dateOfBirth,
       address: { street, houseNumber, zipCode: zip, city, country: 'DE' },
       communicationPreferences: [
-        { type: 'EMAIL', enabled: marketingConsent ?? false },
-        { type: 'PHONE', enabled: marketingConsent ?? false },
+        { channel: 'EMAIL', enabled: marketingConsent ?? false },
+        { channel: 'PHONE', enabled: marketingConsent ?? false },
       ],
       ...(note ? { note } : {}),
     }
