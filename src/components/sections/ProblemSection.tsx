@@ -1,4 +1,7 @@
+'use client'
+
 import { Scale, Flame, TrendingDown, Frown } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const problems = [
   {
@@ -24,13 +27,15 @@ const problems = [
 ]
 
 export function ProblemSection() {
+  const section = useScrollReveal(0.1)
+
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative" ref={section.ref}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-destructive/5 via-transparent to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-destructive uppercase tracking-widest font-semibold">Das Problem</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
             Warum <span className="text-destructive">Diäten scheitern</span>
@@ -42,10 +47,10 @@ export function ProblemSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, i) => (
-            <div 
+            <div
               key={i}
-              className="group p-6 bg-card border border-border rounded-xl hover:border-destructive/30 transition-all duration-300 animate-fade-up"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`group p-6 bg-card border border-border rounded-xl hover:border-destructive/30 transition-all duration-300 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.2 + i * 0.12}s` }}
             >
               <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4 group-hover:bg-destructive/20 transition-colors">
                 <problem.icon className="w-6 h-6 text-destructive" />
@@ -57,7 +62,7 @@ export function ProblemSection() {
         </div>
 
         {/* Transition to Solution */}
-        <div className="mt-16 text-center animate-fade-up delay-400">
+        <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/30">
             <span className="text-primary font-semibold">
               ↓ Die gute Nachricht: Es gibt einen besseren Weg

@@ -1,4 +1,7 @@
+'use client'
+
 import { Calendar, BarChart2, Target, ArrowRight } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const steps = [
   {
@@ -22,15 +25,17 @@ const steps = [
 ]
 
 export function ProcessSection() {
+  const section = useScrollReveal(0.15)
+
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section id="ablauf" className="py-24 relative overflow-hidden" ref={section.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">So einfach geht&apos;s</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
             3 Schritte zu <span className="text-primary">deinem Ziel</span>
@@ -41,13 +46,22 @@ export function ProcessSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-0 relative">
-          {/* Connector Lines (Desktop) */}
-          <div className="hidden md:block absolute top-[3.5rem] left-[33%] right-[33%] h-px">
-            <div className="w-full h-full bg-gradient-to-r from-primary/60 via-primary/20 to-primary/60" />
-          </div>
+          {/* Energy Beam Connectors (Desktop) */}
+          <div
+            className={`hidden md:block absolute top-[3.5rem] left-[20%] w-[26%] energy-beam ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.5s' }}
+          />
+          <div
+            className={`hidden md:block absolute top-[3.5rem] left-[54%] w-[26%] energy-beam ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.8s' }}
+          />
 
           {steps.map((step, i) => (
-            <div key={i} className="relative flex flex-col items-center text-center px-6 animate-fade-up" style={{ animationDelay: `${i * 0.15}s` }}>
+            <div
+              key={i}
+              className={`relative flex flex-col items-center text-center px-6 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.2 + i * 0.25}s` }}
+            >
               {/* Step Number + Icon */}
               <div className="relative mb-6">
                 <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center relative z-10">

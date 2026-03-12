@@ -1,4 +1,7 @@
+'use client'
+
 import { Star } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const testimonials = [
   {
@@ -28,15 +31,17 @@ const testimonials = [
 ]
 
 export function Testimonials() {
+  const section = useScrollReveal(0.1)
+
   return (
-    <section className="py-24 relative">
+    <section id="erfahrungen" className="py-24 relative" ref={section.ref}>
       {/* Background Glow */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Echte Erfolgsgeschichten</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
             Was unsere <span className="text-primary">Teilnehmer</span> sagen
@@ -53,8 +58,10 @@ export function Testimonials() {
           {testimonials.map((testimonial, i) => (
             <div
               key={i}
-              className="feature-card corner-decorator p-6 animate-fade-up flex flex-col"
-              style={{ animationDelay: `${i * 0.15}s` }}
+              className={`feature-card corner-decorator p-6 flex flex-col ${
+                i % 2 === 0 ? 'float-in-left' : 'float-in-right'
+              } ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.2 + i * 0.2}s` }}
             >
               {/* Corner decorators */}
               <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />

@@ -52,10 +52,12 @@ Native `<select>` and `<option>` elements require `color-scheme: dark` + explici
 Single-page landing (`src/app/page.tsx`) – a conversion funnel following AIDA + PAS framework:
 
 ```
-Hero → KK-Vertrauens-Banner → SocialProofStrip → ProblemSection → SolutionSection
-     → ProcessSection → Testimonials → InsuranceCalculator → ValueSection
-     → GuaranteeSection → FAQSection → Final CTA → Footer
+Navbar → Hero → KK-Vertrauens-Banner → SocialProofStrip → ProblemSection → SolutionSection
+       → ProcessSection → Testimonials → InsuranceCalculator (includes value breakdown)
+       → GuaranteeSection → FAQSection → Final CTA → Footer
 ```
+
+**Section IDs** for nav scroll targets: `#hero`, `#programm` (SolutionSection), `#ablauf` (ProcessSection), `#erfahrungen` (Testimonials), `#krankenkasse` (InsuranceCalculator), `#faq` (FAQSection).
 
 State in `page.tsx`:
 - `showQuiz` / `showBooking` – controls which modal overlay is active
@@ -119,8 +121,9 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 ## Key Business Elements (never remove)
 
 - **WhatsApp fallback**: `https://wa.me/4915679610457`
-- **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – 16 insurers with reimbursement amounts
+- **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – 16 insurers with reimbursement amounts, combined with value breakdown (2-column layout)
 - **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when `#hero` scrolls out of view
+- **Navbar** (`src/components/Navbar.tsx`): Fixed top bar with logo, section nav links (smooth scroll), mobile hamburger menu, glassmorphism on scroll. Needs `onStartQuiz` prop.
 
 ## Component Structure
 
@@ -133,12 +136,37 @@ src/
     api/trialsession/
       route.ts                ← GET (slots proxy) + POST (booking proxy) für Magicline
   components/
+    Navbar.tsx                ← Fixed header with logo + nav + mobile menu
     quiz/
       QuizFunnel.tsx          ← Most complex component; self-contained quiz + booking state
     sections/                 ← One file per page section, all receive onStartQuiz prop
     StickyBar.tsx             ← IntersectionObserver on #hero
     ui/                       ← shadcn primitives (button, card, etc.)
+  hooks/
+    useScrollReveal.ts        ← IntersectionObserver hook for scroll-triggered animations
 ```
+
+## Scroll Animation System
+
+All scroll-triggered animations live in `globals.css` and use the `useScrollReveal` hook (callback-ref based IntersectionObserver). **SSR-safe pattern:**
+
+1. Elements render visible by default (no JS = content visible)
+2. `isReady` adds `.anim-ready` class → hides elements (JS is loaded)
+3. `isVisible` adds `.animate` class → triggers CSS animation
+
+```tsx
+const section = useScrollReveal(0.1)
+// ...
+<div className={`materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
+```
+
+**Animation classes:** `materialize`, `number-slam`, `float-in-left`, `float-in-right`, `scan-reveal`, `shield-forge`, `strike-wipe`, `glitch-text`, `heartbeat-line`, `energy-beam`
+
+**Critical rules for new animations:**
+- `.anim-ready` must set `opacity: 0` (or clip-path) — never the base class
+- Use `animation-fill-mode: both` (not `forwards`) when elements use `animationDelay` via inline styles
+- Every `@keyframes` must explicitly set `opacity: 1` in the 100% frame if it starts at `opacity: 0`
+- Companion elements (`.impact-ring`, `.forge-ring`) follow the same `.anim-ready`/`.animate` pattern
 
 ## Avatars / Images
 

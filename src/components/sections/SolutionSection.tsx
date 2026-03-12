@@ -1,4 +1,7 @@
+'use client'
+
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const features = [
   {
@@ -40,15 +43,17 @@ const features = [
 ]
 
 export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
+  const section = useScrollReveal(0.05)
+
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section id="programm" className="py-24 relative overflow-hidden" ref={section.ref}>
       {/* Background Glow */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Die Lösung</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
             Was ist <span className="text-primary">happyfigur</span>?
@@ -60,10 +65,10 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <div 
+            <div
               key={i}
-              className="feature-card corner-decorator p-6 animate-fade-up group"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`feature-card corner-decorator p-6 group scan-reveal ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.15 + i * 0.1}s` }}
             >
               {/* Corner decorators */}
               <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
@@ -87,7 +92,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center animate-fade-up delay-500">
+        <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
           <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
             Jetzt kostenloses Probetraining sichern
             <ArrowRight className="w-5 h-5" />

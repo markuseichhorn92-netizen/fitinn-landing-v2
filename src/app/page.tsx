@@ -1,21 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Target, ArrowRight, X, CheckCircle2, Phone, Shield } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { QuizFunnel } from '@/components/quiz/QuizFunnel'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { SolutionSection } from '@/components/sections/SolutionSection'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
-import { ValueSection } from '@/components/sections/ValueSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { StickyBar } from '@/components/StickyBar'
+import { Navbar } from '@/components/Navbar'
 
 export default function Home() {
   const [showQuiz, setShowQuiz] = useState(false)
   const [showBooking, setShowBooking] = useState(false)
+
+  const [heroAnimated, setHeroAnimated] = useState(false)
+  const stats = useScrollReveal(0.3)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroAnimated(true), 400)
+    return () => clearTimeout(timer)
+  }, [])
 
   const startQuiz = () => setShowQuiz(true)
   const closeQuiz = () => setShowQuiz(false)
@@ -27,8 +36,11 @@ export default function Home() {
   return (
     <main className="min-h-screen overflow-x-hidden">
 
+      {/* Navbar */}
+      <Navbar onStartQuiz={startQuiz} />
+
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center py-20">
+      <section id="hero" className="relative min-h-screen flex items-center pt-24 pb-20">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
@@ -47,17 +59,32 @@ export default function Home() {
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Headline with Glitch + Heartbeat */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-6">
               Du hast
-              <span className="block text-destructive relative">
+              <span
+                className={`block text-destructive relative glitch-text ${heroAnimated ? 'animate' : ''}`}
+                data-text="alles versucht"
+              >
                 alles versucht
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-destructive/30" viewBox="0 0 200 12" preserveAspectRatio="none">
-                  <path d="M0,6 Q50,0 100,6 T200,6" stroke="currentColor" strokeWidth="4" fill="none"/>
-                </svg>
               </span>
               <span className="block text-primary mt-2">und es klappt trotzdem nicht.</span>
             </h1>
+
+            {/* Heartbeat Line */}
+            <div className="flex justify-center mb-4 -mt-2">
+              <svg width="280" height="40" viewBox="0 0 280 40" className="overflow-visible">
+                <path
+                  d="M0,20 L60,20 L75,20 L85,5 L95,35 L105,10 L115,25 L125,20 L140,20 L155,20 L165,8 L175,32 L185,15 L195,22 L205,20 L280,20"
+                  fill="none"
+                  stroke="var(--primary)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`heartbeat-line ${heroAnimated ? 'animate' : ''}`}
+                />
+              </svg>
+            </div>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
               Sport, Diäten, Verzicht – und trotzdem bleiben die Kilos?{' '}
@@ -118,8 +145,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof Bar */}
-      <section className="py-12 border-y border-border/50">
+      {/* Social Proof Bar — Number Slam */}
+      <section className="py-12 border-y border-border/50" ref={stats.ref}>
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -128,10 +155,31 @@ export default function Home() {
               { value: '4.9★', label: 'Google Bewertung', sub: '127 Rezensionen' },
               { value: '-6 kg', label: 'Ø Gewichtsverlust', sub: 'in 8 Wochen' },
             ].map((stat, i) => (
-              <div key={i} className="text-center animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="text-4xl md:text-5xl font-bold text-primary glow-text">{stat.value}</div>
-                <div className="text-sm font-semibold mt-1">{stat.label}</div>
-                <div className="text-xs text-muted-foreground mt-1">{stat.sub}</div>
+              <div key={i} className="text-center relative">
+                <div className="relative inline-block">
+                  <div
+                    className={`text-4xl md:text-5xl font-bold text-primary glow-text number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                    style={{ animationDelay: `${i * 0.15}s` }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    className={`impact-ring ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                    style={{ animationDelay: `${i * 0.15}s` }}
+                  />
+                </div>
+                <div
+                  className={`text-sm font-semibold mt-1 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                  style={{ animationDelay: `${i * 0.15 + 0.2}s` }}
+                >
+                  {stat.label}
+                </div>
+                <div
+                  className={`text-xs text-muted-foreground mt-1 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                  style={{ animationDelay: `${i * 0.15 + 0.3}s` }}
+                >
+                  {stat.sub}
+                </div>
               </div>
             ))}
           </div>
@@ -152,9 +200,6 @@ export default function Home() {
 
       {/* Insurance Calculator */}
       <InsuranceCalculator onStartQuiz={startQuiz} />
-
-      {/* Value Section */}
-      <ValueSection onStartQuiz={startQuiz} />
 
       {/* Guarantee Section */}
       <GuaranteeSection />
