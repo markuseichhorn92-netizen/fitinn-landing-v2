@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { Calendar, BarChart2, Target } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
@@ -57,9 +58,8 @@ export function ProcessSection() {
           />
 
           {steps.map((step, i) => (
-            <>
+            <React.Fragment key={i}>
               <div
-                key={i}
                 className={`relative flex flex-col items-center text-center px-6 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
                 style={{ animationDelay: `${0.2 + i * 0.25}s` }}
               >
@@ -83,7 +83,7 @@ export function ProcessSection() {
                   <div className={`energy-beam-vertical ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: `${0.4 + i * 0.25}s` }} />
                 </div>
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
 
