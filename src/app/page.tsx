@@ -68,11 +68,13 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-[right_top] opacity-40 md:opacity-35"
+            className="object-cover object-[right_top] opacity-60 md:opacity-35"
             priority
           />
-          {/* Mobile: heavy overlay so text stays readable over the person */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
+          {/* Mobile overlay: oben transparent (Frau sichtbar), unten dunkler (Text lesbar) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80 md:hidden" />
+          {/* Desktop overlay: links dunkel (Text), rechts transparent (Frau) */}
+          <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
           {/* Accent blobs */}
           <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />
@@ -320,13 +322,13 @@ export default function Home() {
 
       {/* Quiz Modal – Fullscreen Funnel */}
       {showQuiz && (
-        <div className="fixed inset-0 z-50 bg-background overflow-y-auto animate-funnel-enter">
+        <div className="fixed inset-0 z-[100] bg-background overflow-y-auto animate-funnel-enter">
           {/* Ambient glow */}
           <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(207,229,234,0.06), transparent 70%)' }} />
           {/* Close button */}
           <button
             onClick={closeQuiz}
-            className="fixed top-5 right-5 z-[51] p-2.5 rounded-full bg-card/60 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
+            className="fixed top-5 right-5 z-[101] p-2.5 rounded-full bg-card/60 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

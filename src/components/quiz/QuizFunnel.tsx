@@ -1258,7 +1258,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       )}
       {/* ── Sticky Navigation (Steps 2–4, 7–8) ── */}
       {[2, 3, 4, 7, 8].includes(step) && (
-        <div className="fixed bottom-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-md border-t border-border">
+        <div className="fixed bottom-0 left-0 right-0 z-[110] bg-background/95 backdrop-blur-md border-t border-border">
           <div className="max-w-lg mx-auto px-6 py-4">
             {step === 8 ? (
               <div className="space-y-3">
