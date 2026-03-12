@@ -34,7 +34,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
             <div className="hidden sm:flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm text-muted-foreground">
-                <span className="text-foreground font-semibold">§ 20 SGB V</span> · Bis zu 100% von der Krankenkasse erstattet
+                <span className="text-foreground font-semibold">§ 20 SGB V</span> · Bis zu 100% von der Krankenkasse erstattet<sup>²³</sup>
               </span>
             </div>
 

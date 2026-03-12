@@ -141,6 +141,7 @@ export default function Home() {
           <p className="text-primary-foreground text-lg font-semibold">
             § 20 SGB V · Deine Krankenkasse übernimmt bis zu{' '}
             <span className="underline decoration-2 font-black">100% der Kosten</span>
+            <sup>²³</sup>
             {' '}· Bei vielen Kassen komplett gratis
           </p>
         </div>
@@ -259,7 +260,7 @@ export default function Home() {
             Kein Risiko, keine Verpflichtung – nur dein erster Schritt zum Wunschgewicht.
           </p>
           <p className="text-base text-primary font-semibold mb-10 animate-fade-up delay-200">
-            Bei vielen Krankenkassen übernimmt diese die vollen 179€.
+            Bei vielen Krankenkassen komplett kostenlos<sup>²³</sup> — sonst ab 3,20€/Tag.<sup>¹</sup>
           </p>
 
           <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -299,8 +300,11 @@ export default function Home() {
               <a href="/widerruf" className="hover:text-foreground transition-colors">Widerruf</a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-border/50 text-center text-xs text-muted-foreground">
-            <p>* Die Erstattung durch deine Krankenkasse kann je nach Anbieter variieren. Die meisten gesetzlichen Krankenkassen erstatten zwischen 70€ und 100% der Kursgebühr. Der Kurs ist nach § 20 SGB V zertifiziert.</p>
+          <div className="mt-8 pt-8 pb-20 border-t border-border/50 text-xs text-muted-foreground max-w-3xl mx-auto space-y-2">
+            <p><strong className="text-foreground/60">¹ Ablauf & Zahlung:</strong> Der Kurspreis von 179€ (inkl. MwSt.) ist bei Trainingsstart in Vorkasse an FIT-INN Trier zu entrichten. Erst nach Zahlungseingang beginnt das Programm. Das Programm umfasst 8 Kurseinheiten innerhalb von 8–12 Wochen.</p>
+            <p><strong className="text-foreground/60">² Erstattung durch die Krankenkasse:</strong> Der Kurs „happyfigur – genussvoll abnehmen" ist nach § 20 SGB V zertifiziert. Voraussetzung für die Erstattung ist die vollständige, erfolgreiche Teilnahme an allen 8 Kurseinheiten inkl. Wissensüberprüfung. Nach Abschluss erhältst du eine Teilnahmebestätigung, die du eigenständig bei deiner gesetzlichen Krankenkasse einreichst. Die Erstattung erfolgt direkt von deiner Krankenkasse an dich – nicht an FIT-INN. FIT-INN hat keinen Einfluss auf den Erstattungsprozess. Eine Barauszahlung des Erstattungsbetrags durch FIT-INN ist ausgeschlossen.</p>
+            <p><strong className="text-foreground/60">³ Erstattungshöhe:</strong> Die Höhe der Erstattung variiert je nach Krankenkasse und liegt erfahrungsgemäß zwischen 75€ und 100% der Kursgebühr. Alle Angaben zu Erstattungsbeträgen auf dieser Seite sind ohne Gewähr – maßgeblich ist die jeweils gültige Satzung deiner Krankenkasse.</p>
+            <p><strong className="text-foreground/60">⁴ Hinweis:</strong> Das Programm ist eine Präventionsmaßnahme und ersetzt keinen ärztlichen Rat. Eine Erfolgsgarantie wird nicht übernommen. Bei gesundheitlichen Einschränkungen empfehlen wir, vor Teilnahme einen Arzt zu konsultieren. Das Programm ist nicht geeignet für Minderjährige, Schwangere, Stillende oder Personen mit Essstörungen.</p>
           </div>
         </div>
       </footer>
@@ -308,22 +312,19 @@ export default function Home() {
       {/* Sticky Bar */}
       <StickyBar onStartQuiz={startQuiz} />
 
-      {/* Quiz Modal */}
+      {/* Quiz Modal – Fullscreen Funnel */}
       {showQuiz && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+        <div className="fixed inset-0 z-50 bg-background overflow-y-auto animate-funnel-enter">
+          {/* Ambient glow */}
+          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(207,229,234,0.06), transparent 70%)' }} />
+          {/* Close button */}
+          <button
             onClick={closeQuiz}
-          />
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border rounded-2xl p-6 md:p-8 animate-scale-in">
-            <button
-              onClick={closeQuiz}
-              className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors z-10"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <QuizFunnel onComplete={openBooking} />
-          </div>
+            className="fixed top-5 right-5 z-[51] p-2.5 rounded-full bg-card/60 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <QuizFunnel onComplete={openBooking} />
         </div>
       )}
 

@@ -60,7 +60,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             Wert von <span className="text-muted-foreground line-through decoration-2">{totalValue}€</span>
           </h2>
           <p className="text-xl text-primary font-bold mt-2">
-            Für viele Teilnehmer komplett kostenlos
+            Für viele Teilnehmer komplett kostenlos<sup>²³</sup>
           </p>
         </div>
 
@@ -99,10 +99,11 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {/* Price */}
             <div className="mt-4 bg-primary/10 border border-primary/30 rounded-xl p-4 text-center">
               <p className="text-xs text-muted-foreground mb-1">Dein Preis</p>
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-3xl font-bold text-primary">179€</span>
-                <span className="text-sm text-muted-foreground">= nur <span className="text-primary font-semibold">22€/Woche</span></span>
-              </div>
+              <div className="text-3xl font-bold text-primary">ab 0€<sup>²³</sup></div>
+              <p className="text-xs text-primary mt-1 font-medium">Bei vielen Kassen komplett kostenlos</p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Ohne Erstattung: <span className="text-foreground font-semibold">3,20€/Tag<sup>¹</sup></span> · 179€<sup>¹</sup> gesamt
+              </p>
             </div>
           </div>
 
@@ -118,7 +119,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
               <h3 className="text-lg font-semibold">Was zahlt deine Krankenkasse?</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-5">
-              § 20 SGB V zertifiziert – bis zu 100% der Kosten erstattet.
+              § 20 SGB V zertifiziert – bis zu 100% der Kosten erstattet.<sup>²³</sup>
             </p>
 
             <select
@@ -141,28 +142,28 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                   <div className="p-5 bg-primary/20 border-2 border-primary rounded-xl text-center">
                     <div className="flex items-center justify-center gap-2 mb-1">
                       <CheckCircle2 className="w-7 h-7 text-primary" />
-                      <span className="text-2xl font-bold text-primary">Komplett kostenlos!</span>
+                      <span className="text-2xl font-bold text-primary">Komplett kostenlos!<sup>²</sup></span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Deine Krankenkasse erstattet die vollen {amount}€ – du zahlst 0€.
+                      Deine Krankenkasse erstattet die vollen {amount}€ – du zahlst 0€.<sup>³</sup>
                     </p>
                   </div>
                 ) : (
                   <div className="p-5 bg-card border border-border rounded-xl">
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-sm text-muted-foreground">Programmpreis</span>
-                      <span className="font-semibold">{PROGRAM_PRICE}€</span>
+                      <span className="font-semibold">{PROGRAM_PRICE}€<sup>¹</sup></span>
                     </div>
                     <div className="flex justify-between items-center mb-3 text-primary">
                       <span className="text-sm">Erstattung Krankenkasse</span>
-                      <span className="font-semibold">-{amount}€</span>
+                      <span className="font-semibold">-{amount}€<sup>³</sup></span>
                     </div>
                     <div className="flex justify-between items-center pt-3 border-t border-border">
                       <span className="font-semibold">Dein Eigenanteil</span>
                       <span className="text-xl font-bold text-accent">{eigenanteil.toFixed(2)}€</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-3 text-center">
-                      Das sind nur {(eigenanteil / 8).toFixed(2)}€ pro Woche!
+                      Das sind nur <span className="text-foreground font-semibold">{(eigenanteil / 56).toFixed(2)}€/Tag<sup>¹</sup></span> — weniger als ein Kaffee!
                     </p>
                   </div>
                 )}
@@ -179,7 +180,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                 <ArrowRight className="w-5 h-5" />
               </button>
               <p className="text-xs text-muted-foreground mt-3">
-                Du zahlst bei Trainingsstart, Krankenkasse erstattet dir das Geld zurück.
+                Du zahlst bei Trainingsstart<sup>¹</sup>, Krankenkasse erstattet dir das Geld zurück.<sup>²</sup>
               </p>
             </div>
           </div>

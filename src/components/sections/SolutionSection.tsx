@@ -38,7 +38,7 @@ const features = [
   {
     icon: CheckCircle2,
     title: 'Zertifiziert § 20',
-    description: 'Der Kurs ist nach § 20 SGB V zertifiziert. Deine Krankenkasse erstattet 75€ bis 179€ – bei vielen komplett kostenlos.',
+    description: 'Der Kurs ist nach § 20 SGB V zertifiziert. Deine Krankenkasse erstattet 75€ bis 179€ – bei vielen komplett kostenlos.²³',
     highlight: 'Bis zu 100% erstattet'
   }
 ]

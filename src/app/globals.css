@@ -614,6 +614,38 @@ h1, h2, h3, h4, h5, h6 {
   animation-delay: 0.3s;
 }
 
+/* ── Quiz Funnel (Perspective-style fullscreen) ── */
+
+@keyframes funnelEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-funnel-enter {
+  animation: funnelEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes quizStepEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.quiz-step-enter {
+  animation: quizStepEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.quiz-progress-fill {
+  box-shadow: 0 0 12px rgba(207, 229, 234, 0.4), 0 0 4px rgba(207, 229, 234, 0.6);
+}
+
+.quiz-option-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.quiz-option-card:hover {
+  box-shadow: 0 0 30px rgba(207, 229, 234, 0.08), 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.quiz-option-card.selected {
+  box-shadow: 0 0 25px rgba(207, 229, 234, 0.12);
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

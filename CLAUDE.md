@@ -41,7 +41,8 @@ Defined in `:root` in `globals.css`:
 | Token | Value | Usage |
 |---|---|---|
 | `--primary` | `#cfe5ea` (light teal) | Trust, results, highlights; `#0a4958` (dark teal) used as foreground/gradient |
-| `--accent` | `#ffb54f` (warm gold) | All CTA buttons (`.btn-cta`) |
+| `--accent` | `#ffb54f` (warm gold) | All CTA buttons (`.btn-cta`), emphasis in problem/vorher sections |
+| `--destructive` | `#ef4444` (red) | **Errors only** – API failures, form validation. Never for emphasis or design elements |
 | `--card` | `#111111` | Card/modal backgrounds |
 | `--background` | `#0a0a0a` | Page background |
 
@@ -53,8 +54,8 @@ Single-page landing (`src/app/page.tsx`) – a conversion funnel following AIDA 
 
 ```
 Navbar → Hero → KK-Vertrauens-Banner → SocialProofStrip → ProblemSection → SolutionSection
-       → ProcessSection → Testimonials → InsuranceCalculator (includes value breakdown)
-       → GuaranteeSection → FAQSection → Final CTA → Footer
+       → ProcessSection → Testimonials → InsuranceCalculator (2-col: value breakdown + KK-Rechner)
+       → GuaranteeSection → FAQSection → Final CTA → Footer (numbered disclaimer ¹²³⁴) → StickyBar
 ```
 
 **Section IDs** for nav scroll targets: `#hero`, `#programm` (SolutionSection), `#ablauf` (ProcessSection), `#erfahrungen` (Testimonials), `#krankenkasse` (InsuranceCalculator), `#faq` (FAQSection).
@@ -85,6 +86,15 @@ State in `page.tsx`:
 - BMI, projected weight, problem-specific insights all derived from user inputs
 
 **Insurance step** is embedded in Step 9 result screen (top 5 as tile buttons + "Andere Kasse" toggle for full `<select>`).
+
+**Quiz UI** is a fullscreen takeover (not a card modal). Key patterns:
+- Modal wrapper in `page.tsx`: `fixed inset-0 z-50 bg-background` with ambient glow div
+- Progress bar: `fixed top-0` thin bar (h-1), full viewport width, `quiz-progress-fill` glow class
+- Each step: `flex-1 flex flex-col items-center justify-center` with `quiz-step-enter` animation
+- Option cards: `quiz-option-card` class for hover glow, `rounded-2xl`, `hover:scale-[1.02]`
+- Calendar (Step 7): Calendly-style 2-column layout (calendar left, time slots right)
+- Contact form (Step 8): Single card with floating labels (`peer` trick), sections divided by borders
+- Date of birth: Three custom `<select>` dropdowns (Tag/Monat/Jahr), not native `<input type="date">`
 
 ## Magicline Connect API
 
@@ -162,11 +172,26 @@ const section = useScrollReveal(0.1)
 
 **Animation classes:** `materialize`, `number-slam`, `float-in-left`, `float-in-right`, `scan-reveal`, `shield-forge`, `strike-wipe`, `glitch-text`, `heartbeat-line`, `energy-beam`
 
+**Quiz-specific classes:** `animate-funnel-enter` (fullscreen fade-in), `quiz-step-enter` (fade + slide up), `quiz-progress-fill` (progress bar glow), `quiz-option-card` (hover/selected glow)
+
 **Critical rules for new animations:**
 - `.anim-ready` must set `opacity: 0` (or clip-path) — never the base class
 - Use `animation-fill-mode: both` (not `forwards`) when elements use `animationDelay` via inline styles
 - Every `@keyframes` must explicitly set `opacity: 1` in the 100% frame if it starts at `opacity: 0`
 - Companion elements (`.impact-ring`, `.forge-ring`) follow the same `.anim-ready`/`.animate` pattern
+
+## Legal Disclaimer & Footnote System
+
+The footer in `page.tsx` contains numbered disclaimer sections (¹²³⁴). Superscript references (`<sup>¹</sup>` etc.) are placed at every pricing, reimbursement, and health claim across all components:
+
+| Ref | Topic | Where to use |
+|-----|-------|-------------|
+| ¹ | Ablauf & Zahlung (179€, Vorkasse, 3,20€/Tag) | Any price mention or payment reference |
+| ² | Erstattung (§ 20 SGB V, Kunde reicht ein) | "kostenlos", "erstattet", reimbursement claims |
+| ³ | Erstattungshöhe (75€–100%, ohne Gewähr) | Specific reimbursement amounts |
+| ⁴ | Hinweis (Prävention, kein Arzt-Ersatz) | Health/results claims |
+
+When adding new pricing or insurance claims, always include the appropriate `<sup>` references.
 
 ## Avatars / Images
 
