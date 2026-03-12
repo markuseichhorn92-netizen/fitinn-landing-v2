@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,12 @@ const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   title: "happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier",

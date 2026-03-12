@@ -85,6 +85,19 @@ body::after {
     font-family: var(--font-barlow);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
+  }
+  /* Tap-Highlight auf Mobile entfernen */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Schnelleres Tap-Response, kein Doppeltipp-Zoom */
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+  /* iOS: verhindert Auto-Zoom bei Input-Fokus (< 16px) */
+  input, select, textarea {
+    font-size: max(16px, 1em);
   }
   select {
     color-scheme: dark;
@@ -213,6 +226,25 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-cta:hover {
   box-shadow: 0 12px 40px rgba(255, 181, 79, 0.4);
+}
+
+/* Safe Area Utilities (iOS Home-Bar, Android Navigation Bar) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pb-safe-4 {
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Hover-Effekte nur auf Geräten mit echter Maus */
+@media (hover: none) {
+  .btn-cta:hover {
+    transform: none;
+    box-shadow: 0 4px 30px rgba(255, 181, 79, 0.3);
+  }
+  .feature-card:hover {
+    transform: none;
+  }
 }
 
 /* Card Styles */

@@ -27,7 +27,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className="bg-card/95 backdrop-blur-md border-t border-border shadow-2xl">
+      <div className="bg-card/95 backdrop-blur-md border-t border-border shadow-2xl pb-safe">
         <div className="mx-auto max-w-7xl px-4 py-3">
           <div className="flex items-center justify-between gap-4">
             {/* Left: Trust */}
