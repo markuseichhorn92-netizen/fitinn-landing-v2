@@ -42,24 +42,28 @@ export async function POST(request: NextRequest) {
     const studioIdNum = parseInt(STUDIO_ID)
 
     // Schritt 1: Lead anlegen → customerId
+    const leadBody = {
+      studioId: studioIdNum,
+      firstName,
+      lastName,
+      email,
+      mobilephone,
+      gender,
+      dateOfBirth,
+      address: { street, houseNumber, zipCode: zip, city, country: 'DE' },
+      communicationPreferences: [
+        { type: 'EMAIL', enabled: marketingConsent ?? false },
+        { type: 'PHONE', enabled: marketingConsent ?? false },
+      ],
+      ...(note ? { note } : {}),
+    }
+
+    console.log('Lead request body:', JSON.stringify(leadBody, null, 2))
+
     const leadRes = await fetch(`${BASE_URL}/lead`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        studioId: studioIdNum,
-        firstName,
-        lastName,
-        email,
-        mobilephone,
-        gender,
-        dateOfBirth,
-        address: { street, houseNumber, zip, city, country: 'DE' },
-        privacyConfiguration: {
-          email: marketingConsent ?? false,
-          phone: marketingConsent ?? false,
-        },
-        ...(note ? { note } : {}),
-      }),
+      body: JSON.stringify(leadBody),
     })
 
     const leadText = await leadRes.text()

@@ -303,7 +303,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       })
       const result = await res.json()
       if (!res.ok || result.error) {
-        setBookingError(result.error || 'Buchung fehlgeschlagen')
+        const detail = result.details ? ` — ${result.details}` : ''
+        setBookingError((result.error || 'Buchung fehlgeschlagen') + detail)
       } else {
         setBookingSuccess(true)
         nextStep()
