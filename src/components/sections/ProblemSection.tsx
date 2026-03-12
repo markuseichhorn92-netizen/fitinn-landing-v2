@@ -32,13 +32,13 @@ export function ProblemSection() {
   return (
     <section className="py-24 relative" ref={section.ref}>
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-destructive/5 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-destructive uppercase tracking-widest font-semibold">Das Problem</span>
+          <span className="text-sm text-accent uppercase tracking-widest font-semibold">Das Problem</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
-            Warum <span className="text-destructive">Diäten scheitern</span>
+            Warum <span className="text-accent">Diäten scheitern</span>
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
             95% aller Diäten scheitern langfristig. Das liegt nicht an dir – sondern am falschen Ansatz.
@@ -49,11 +49,11 @@ export function ProblemSection() {
           {problems.map((problem, i) => (
             <div
               key={i}
-              className={`group p-6 bg-card border border-border rounded-xl hover:border-destructive/30 transition-all duration-300 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              className={`group p-6 bg-card border border-border rounded-xl hover:border-accent/30 transition-all duration-300 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
               style={{ animationDelay: `${0.2 + i * 0.12}s` }}
             >
-              <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4 group-hover:bg-destructive/20 transition-colors">
-                <problem.icon className="w-6 h-6 text-destructive" />
+              <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+                <problem.icon className="w-6 h-6 text-accent" />
               </div>
               <h3 className="text-lg font-bold mb-2">{problem.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{problem.description}</p>

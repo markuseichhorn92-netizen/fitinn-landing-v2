@@ -40,8 +40,8 @@ Defined in `:root` in `globals.css`:
 
 | Token | Value | Usage |
 |---|---|---|
-| `--primary` | `#10b981` (green) | Trust, results, success |
-| `--accent` | `#f97316` (orange) | All CTA buttons (`.btn-cta`) |
+| `--primary` | `#cfe5ea` (light teal) | Trust, results, highlights; `#0a4958` (dark teal) used as foreground/gradient |
+| `--accent` | `#ffb54f` (warm gold) | All CTA buttons (`.btn-cta`) |
 | `--card` | `#111111` | Card/modal backgrounds |
 | `--background` | `#0a0a0a` | Page background |
 

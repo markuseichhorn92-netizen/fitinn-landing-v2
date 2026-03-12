@@ -500,7 +500,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         <div className="animate-fade-up">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              Was <span className="text-destructive">hält dich zurück</span>?
+              Was <span className="text-accent">hält dich zurück</span>?
             </h2>
             <p className="text-muted-foreground">Wähle alle Herausforderungen, die du kennst:</p>
           </div>
@@ -551,14 +551,14 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <p className="text-muted-foreground">Das erleben unsere Teilnehmer typischerweise:</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <div className="p-6 rounded-xl bg-destructive/10 border border-destructive/30">
-              <div className="text-sm font-semibold text-destructive uppercase tracking-wider mb-4">Vorher</div>
+            <div className="p-6 rounded-xl bg-accent/10 border border-accent/30">
+              <div className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">Vorher</div>
               <div className="text-4xl mb-4">😔</div>
               <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2"><span className="text-destructive">✗</span> Ständig müde & antriebslos</li>
-                <li className="flex items-center gap-2"><span className="text-destructive">✗</span> Kleidung sitzt nicht mehr</li>
-                <li className="flex items-center gap-2"><span className="text-destructive">✗</span> Heißhunger-Attacken</li>
-                <li className="flex items-center gap-2"><span className="text-destructive">✗</span> Frustriert von Diäten</li>
+                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Ständig müde & antriebslos</li>
+                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Kleidung sitzt nicht mehr</li>
+                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Heißhunger-Attacken</li>
+                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Frustriert von Diäten</li>
               </ul>
             </div>
             <div className="p-6 rounded-xl bg-primary/10 border border-primary/30">
@@ -1053,8 +1053,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <svg viewBox="0 0 320 135" className="w-full" preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <linearGradient id="chartFill2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.02" />
+                    <stop offset="0%" stopColor="#cfe5ea" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#cfe5ea" stopOpacity="0.02" />
                   </linearGradient>
                   <style>{`
                     .cl { stroke-dasharray: 450; stroke-dashoffset: 450; animation: dl 1.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards; }
@@ -1069,22 +1069,22 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                   <line key={y} x1="28" y1={y} x2="312" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
                 ))}
                 <text x="24" y="23" textAnchor="end" fontSize="7.5" fill="#71717a">{result.yLabelStart}</text>
-                <text x="24" y={result.endY + 4} textAnchor="end" fontSize="7.5" fill="#10b981">{result.yLabelEnd}</text>
+                <text x="24" y={result.endY + 4} textAnchor="end" fontSize="7.5" fill="#cfe5ea">{result.yLabelEnd}</text>
                 <path className="cf" d={result.fillPath} fill="url(#chartFill2)" />
-                <path className="cl" d={result.linePath} stroke="#10b981" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path className="cl" d={result.linePath} stroke="#cfe5ea" strokeWidth="2.5" fill="none" strokeLinecap="round" />
                 <rect x="30" y="10" width="55" height="108" fill="rgba(255,255,255,0.01)" rx="2" />
                 <text x="57" y="8" textAnchor="middle" fontSize="6" fill="#71717a">Eingewöhnung</text>
-                <circle className="cd" style={{ animationDelay: '1.8s' }} cx="30" cy="18" r="5" fill="#10b981" />
-                <circle cx="30" cy="18" r="9" fill="none" stroke="#10b981" strokeOpacity="0.25" strokeWidth="1" />
+                <circle className="cd" style={{ animationDelay: '1.8s' }} cx="30" cy="18" r="5" fill="#cfe5ea" />
+                <circle cx="30" cy="18" r="9" fill="none" stroke="#cfe5ea" strokeOpacity="0.25" strokeWidth="1" />
                 <text x="30" y="10" textAnchor="middle" fontSize="6.5" fill="#fafafa" fontWeight="bold">W0</text>
-                <circle className="cd" style={{ animationDelay: '2.1s' }} cx="170" cy={result.midY + 3} r="5" fill="#f97316" />
-                <circle cx="170" cy={result.midY + 3} r="9" fill="none" stroke="#f97316" strokeOpacity="0.25" strokeWidth="1" />
-                <rect x="130" y={result.midY - 20} width="80" height="16" rx="3" fill="#1a1a1a" stroke="#f97316" strokeWidth="0.8" />
-                <text x="170" y={result.midY - 9} textAnchor="middle" fontSize="6.5" fill="#f97316" fontWeight="bold">🔬 Analyse W4</text>
-                <circle className="cd" style={{ animationDelay: '2.3s' }} cx="310" cy={result.endY} r="6" fill="#10b981" />
-                <circle cx="310" cy={result.endY} r="11" fill="none" stroke="#10b981" strokeOpacity="0.35" strokeWidth="1.5" />
-                <circle cx="310" cy={result.endY} r="16" fill="none" stroke="#10b981" strokeOpacity="0.12" strokeWidth="1" />
-                <rect x="258" y={result.endY - 22} width="54" height="16" rx="3" fill="#10b981" />
+                <circle className="cd" style={{ animationDelay: '2.1s' }} cx="170" cy={result.midY + 3} r="5" fill="#ffb54f" />
+                <circle cx="170" cy={result.midY + 3} r="9" fill="none" stroke="#ffb54f" strokeOpacity="0.25" strokeWidth="1" />
+                <rect x="130" y={result.midY - 20} width="80" height="16" rx="3" fill="#1a1a1a" stroke="#ffb54f" strokeWidth="0.8" />
+                <text x="170" y={result.midY - 9} textAnchor="middle" fontSize="6.5" fill="#ffb54f" fontWeight="bold">🔬 Analyse W4</text>
+                <circle className="cd" style={{ animationDelay: '2.3s' }} cx="310" cy={result.endY} r="6" fill="#cfe5ea" />
+                <circle cx="310" cy={result.endY} r="11" fill="none" stroke="#cfe5ea" strokeOpacity="0.35" strokeWidth="1.5" />
+                <circle cx="310" cy={result.endY} r="16" fill="none" stroke="#cfe5ea" strokeOpacity="0.12" strokeWidth="1" />
+                <rect x="258" y={result.endY - 22} width="54" height="16" rx="3" fill="#cfe5ea" />
                 <text x="285" y={result.endY - 11} textAnchor="middle" fontSize="7" fill="#0a0a0a" fontWeight="bold">{result.endLabel}</text>
                 {['W0','W1','W2','W3','W4','W5','W6','W7','W8'].map((l, i) => (
                   <text key={i} x={30 + i * 35} y="130" textAnchor="middle" fontSize="6.5"

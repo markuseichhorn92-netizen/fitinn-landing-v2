@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
@@ -25,8 +26,8 @@ const features = [
   {
     icon: Users,
     title: 'Personal Coaching',
-    description: '3 Termine mit persönlicher Betreuung. Wir begleiten dich auf deinem Weg und passen den Plan an.',
-    highlight: '1:1 Betreuung'
+    description: 'Persönliche Einweisung und Trainingsplanung zum Start. Danach steht dir jederzeit ein Trainer für Fragen und Anpassungen zur Verfügung.',
+    highlight: 'Immer betreut'
   },
   {
     icon: Smartphone,
@@ -42,6 +43,12 @@ const features = [
   }
 ]
 
+const foodImages = [
+  { src: '/food-smoothie.jpg', alt: 'Smoothie Bowl mit Spinat und Erdbeeren' },
+  { src: '/food-lentils.jpg', alt: 'Linsen mit Süßkartoffeln und Rote Bete' },
+  { src: '/food-mango.jpg', alt: 'Mango Smoothie Bowl mit Blaubeeren' },
+]
+
 export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.05)
 
@@ -53,7 +60,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
+        <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Die Lösung</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
             Was ist <span className="text-primary">happyfigur</span>?
@@ -63,12 +70,46 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
           </p>
         </div>
 
+        {/* Mockup + Food Strip */}
+        <div className={`mb-16 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.1s' }}>
+          {/* Mockup */}
+          <div className="relative max-w-3xl mx-auto">
+            <Image
+              src="/mockup-paket.png"
+              alt="Happyfigur Komplettpaket – App, Online-Plattform, Ernährungsplan und Rezeptbuch"
+              width={900}
+              height={600}
+              className="w-full h-auto drop-shadow-2xl"
+              priority
+            />
+            <div className="absolute inset-0 -z-10 bg-primary/10 rounded-3xl blur-3xl scale-90" />
+          </div>
+
+          {/* Food Strip */}
+          <div className="grid grid-cols-3 gap-3 mt-8 max-w-2xl mx-auto">
+            {foodImages.map((img, j) => (
+              <div key={j} className="aspect-[3/2] rounded-xl overflow-hidden border border-border/20">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={300}
+                  height={200}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-3">
+            Leckere Rezepte aus deinem individuellen Ernährungsplan
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
             <div
               key={i}
               className={`feature-card corner-decorator p-6 group scan-reveal ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.15 + i * 0.1}s` }}
+              style={{ animationDelay: `${0.3 + i * 0.1}s` }}
             >
               {/* Corner decorators */}
               <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
@@ -87,6 +128,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
               {/* Content */}
               <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+
             </div>
           ))}
         </div>

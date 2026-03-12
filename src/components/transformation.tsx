@@ -44,16 +44,16 @@ export function Transformation() {
           </div>
           
           {/* Before */}
-          <div className="feature-card corner-decorator p-8 border-destructive/30 animate-fade-up">
-            <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-destructive" />
-            <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-destructive" />
+          <div className="feature-card corner-decorator p-8 border-accent/30 animate-fade-up">
+            <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-accent" />
+            <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-accent" />
             
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center">
-                <Frown className="w-8 h-8 text-destructive" />
+              <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
+                <Frown className="w-8 h-8 text-accent" />
               </div>
               <div>
-                <span className="text-xs uppercase tracking-wider text-destructive font-semibold">Vorher</span>
+                <span className="text-xs uppercase tracking-wider text-accent font-semibold">Vorher</span>
                 <h3 className="text-2xl font-bold">So fühlst du dich jetzt</h3>
               </div>
             </div>
@@ -61,7 +61,7 @@ export function Transformation() {
             <ul className="space-y-4">
               {beforeItems.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-2 h-2 rounded-full bg-destructive/50" />
+                  <span className="w-2 h-2 rounded-full bg-accent/50" />
                   {item}
                 </li>
               ))}

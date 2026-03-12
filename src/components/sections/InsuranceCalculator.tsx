@@ -29,7 +29,7 @@ const valueItems = [
   { name: '3x Körperanalyse', value: '120€' },
   { name: '8 Wochen Studionutzung', value: '160€' },
   { name: 'Individueller Ernährungsplan', value: '79€' },
-  { name: 'Personal Coaching (3 Termine)', value: '200€' },
+  { name: 'Einweisung + Trainerbetreuung', value: '200€' },
   { name: 'Online-Lernplattform', value: '49€' },
   { name: '24/7 WhatsApp-Support', value: '50€' },
 ]
@@ -129,7 +129,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
               <option value="">— Wähle deine Krankenkasse —</option>
               {INSURANCE_DATA.map(insurance => (
                 <option key={insurance.value} value={insurance.value}>
-                  {insurance.label} ({insurance.amount}€)
+                  {insurance.label}
                 </option>
               ))}
             </select>

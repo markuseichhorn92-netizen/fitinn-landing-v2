@@ -84,6 +84,7 @@ export function ProcessSection() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )

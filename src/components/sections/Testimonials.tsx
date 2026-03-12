@@ -10,7 +10,7 @@ const testimonials = [
     age: 42,
     result: "-8 kg in 8 Wochen",
     initials: "SK",
-    color: "#10b981"
+    color: "#cfe5ea"
   },
   {
     text: "Ich war skeptisch, aber die Zahlen lügen nicht. Bei der Zwischen-Analyse hatte ich schon 4 kg weniger – das hat mich so motiviert!",
@@ -18,7 +18,7 @@ const testimonials = [
     age: 48,
     result: "-11 kg in 8 Wochen",
     initials: "TM",
-    color: "#f97316"
+    color: "#ffb54f"
   },
   {
     text: "Endlich ein Konzept, das zu meinem Alltag passt. 2x 30 Minuten pro Woche – mehr brauche ich nicht. Und die Ergebnisse sprechen für sich.",
@@ -26,7 +26,7 @@ const testimonials = [
     age: 55,
     result: "-6 kg, 2 Kleidergrößen",
     initials: "MH",
-    color: "#10b981"
+    color: "#cfe5ea"
   }
 ]
 

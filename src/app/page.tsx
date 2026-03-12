@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Target, ArrowRight, X, CheckCircle2, Phone, Shield } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { QuizFunnel } from '@/components/quiz/QuizFunnel'
@@ -52,9 +53,9 @@ export default function Home() {
           <div className="text-center animate-fade-up">
 
             {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/20 mb-8">
-              <span className="w-2 h-2 rounded-full bg-destructive animate-pulse" />
-              <span className="text-sm font-medium text-destructive uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-8">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm font-medium text-accent uppercase tracking-wider">
                 95% aller Diäten scheitern – das ist kein Zufall
               </span>
             </div>
@@ -63,7 +64,7 @@ export default function Home() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-6">
               Du hast
               <span
-                className={`block text-destructive relative glitch-text ${heroAnimated ? 'animate' : ''}`}
+                className={`block text-accent relative glitch-text ${heroAnimated ? 'animate' : ''}`}
                 data-text="alles versucht"
               >
                 alles versucht
@@ -195,6 +196,37 @@ export default function Home() {
       {/* Process Section */}
       <ProcessSection />
 
+      {/* Studio Einblick */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid md:grid-cols-2 gap-6 items-center">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+              <Image
+                src="/studio-1.avif"
+                alt="FIT-INN Trier – Trainingsbereich"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            </div>
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+              <Image
+                src="/studio-2.avif"
+                alt="FIT-INN Trier – Gerätepark"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            </div>
+          </div>
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            FIT-INN Trier – Über 800m² mit modernster Technogym-Ausstattung
+          </p>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <Testimonials />
 
@@ -258,7 +290,7 @@ export default function Home() {
             <div className="text-center md:text-left">
               <p className="font-bold text-lg">FIT-INN Trier</p>
               <p className="text-sm text-muted-foreground">Auf Hirtenberg 8, 54296 Trier</p>
-              <p className="text-sm text-muted-foreground">Seit 1996 · Tel: 0651 9949540</p>
+              <p className="text-sm text-muted-foreground">Seit 1996 · Tel: 0651 308524</p>
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
@@ -349,11 +381,11 @@ export default function Home() {
 
             {/* Phone Alternative */}
             <a
-              href="tel:+4906519949540"
+              href="tel:+49651308524"
               className="inline-flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <Phone className="w-4 h-4" />
-              Lieber anrufen: 0651 9949540
+              Lieber anrufen: 0651 308524
             </a>
 
             <p className="text-xs text-muted-foreground mt-4">

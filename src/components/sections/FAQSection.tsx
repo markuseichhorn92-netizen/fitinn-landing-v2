@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: 'Bin ich fit genug für das Programm?',
-    answer: 'Absolut! Das Programm ist speziell für Menschen konzipiert, die keine regelmäßige Sportpraxis haben. Wir starten genau dort, wo du gerade bist – mit einem vollständig individuellen Trainingsplan. Vorkenntnisse sind keine nötig.'
+    answer: 'Absolut! Das Programm ist speziell für Menschen konzipiert, die keine regelmäßige Sportpraxis haben. Bei deiner persönlichen Einweisung erstellen wir gemeinsam einen Trainingsplan, der genau zu deinem Fitnesslevel passt. Während der 8 Wochen steht dir jederzeit ein Trainer zur Seite, der bei Fragen hilft und den Plan bei Bedarf anpasst.'
   },
   {
     question: 'Funktioniert das auch nach der Menopause oder bei Schilddrüsenproblemen?',
@@ -26,11 +26,15 @@ const faqs = [
   },
   {
     question: 'Was ist der Unterschied zu einem normalen Fitnessstudio?',
-    answer: 'In einem normalen Studio bist du auf dich allein gestellt. Bei happyfigur bekommst du 3 persönliche Körperanalysen, einen individuellen Trainingsplan, einen auf dich abgestimmten Ernährungsplan, 3 Coaching-Termine und 24/7 WhatsApp-Support – alles in einem 8-Wochen-Programm. Plus: Die Krankenkasse zahlt.'
+    answer: 'In einem normalen Studio bist du auf dich allein gestellt. Bei happyfigur bekommst du 3 persönliche Körperanalysen, einen individuellen Trainingsplan, einen auf dich abgestimmten Ernährungsplan, eine persönliche Einweisung und jederzeit einen Trainer an deiner Seite – plus 24/7 WhatsApp-Support. Alles in einem 8-Wochen-Programm. Plus: Die Krankenkasse zahlt.'
   },
   {
     question: 'Wie schnell sehe ich erste Ergebnisse?',
     answer: 'Die meisten Teilnehmer berichten schon nach 2 Wochen von mehr Energie und weniger Blähungen. Sichtbare Veränderungen am Körper zeigen sich typischerweise ab Woche 3–4. Bei der Zwischen-Analyse nach 4 Wochen sehen wir schwarz auf weiß, was sich verändert hat – das motiviert enorm!'
+  },
+  {
+    question: 'Werde ich beim Training betreut?',
+    answer: 'Ja! Zum Start bekommst du eine persönliche Einweisung, bei der wir gemeinsam deinen Trainingsplan erstellen und alle Geräte erklären. Danach steht dir bei jedem Besuch ein Trainer im Studio zur Verfügung – für Fragen, Korrekturen oder Anpassungen deines Plans. Du bist nie auf dich allein gestellt.'
   },
   {
     question: 'Wie viel Zeit brauche ich pro Woche?',

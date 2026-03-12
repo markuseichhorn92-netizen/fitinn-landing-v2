@@ -34,19 +34,19 @@
   --card-foreground: #fafafa;
   --popover: #111111;
   --popover-foreground: #fafafa;
-  --primary: #10b981;
-  --primary-foreground: #0a0a0a;
+  --primary: #cfe5ea;
+  --primary-foreground: #0a4958;
   --secondary: #1a1a1a;
   --secondary-foreground: #fafafa;
   --muted: #1a1a1a;
   --muted-foreground: #71717a;
-  --accent: #f97316;
+  --accent: #ffb54f;
   --accent-foreground: #0a0a0a;
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #10b981;
+  --ring: #cfe5ea;
   --radius: 0.75rem;
 }
 
@@ -70,7 +70,7 @@ body::after {
   transform: translateX(-50%);
   width: 150%;
   height: 100%;
-  background: radial-gradient(ellipse 50% 30% at 50% 0%, rgba(16, 185, 129, 0.12), transparent 60%);
+  background: radial-gradient(ellipse 50% 30% at 50% 0%, rgba(207, 229, 234, 0.12), transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -107,11 +107,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glow Effects */
 .glow-text {
-  text-shadow: 0 0 40px rgba(16, 185, 129, 0.5);
+  text-shadow: 0 0 40px rgba(207, 229, 234, 0.5);
 }
 
 .glow-box {
-  box-shadow: 0 0 60px -15px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 60px -15px rgba(207, 229, 234, 0.4);
 }
 
 /* Staggered Animations */
@@ -173,7 +173,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Button Styles */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, #0a4958 100%);
   color: var(--primary-foreground);
   padding: 1rem 2rem;
   border-radius: var(--radius);
@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 30px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 30px rgba(207, 229, 234, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -199,7 +199,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 40px rgba(207, 229, 234, 0.4);
 }
 
 .btn-primary:hover::before {
@@ -212,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-cta:hover {
-  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 12px 40px rgba(255, 181, 79, 0.4);
 }
 
 /* Card Styles */
@@ -239,7 +239,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: rgba(207, 229, 234, 0.3);
 }
 
 .feature-card:hover::before {
@@ -288,20 +288,20 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 30px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 30px rgba(255, 181, 79, 0.3);
   position: relative;
   overflow: hidden;
 }
 
 .btn-cta:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.45);
+  box-shadow: 0 12px 40px rgba(255, 181, 79, 0.45);
 }
 
 /* Urgency Pulse */
 @keyframes urgencyPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 181, 79, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 181, 79, 0); }
 }
 
 /* FAQ Item open indicator */
@@ -332,8 +332,8 @@ h1, h2, h3, h4, h5, h6 {
   100% { stroke-dashoffset: 0; }
 }
 @keyframes heartbeatGlow {
-  0%, 100% { filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.3)); }
-  50% { filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.8)); }
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(207, 229, 234, 0.3)); }
+  50% { filter: drop-shadow(0 0 12px rgba(207, 229, 234, 0.8)); }
 }
 .heartbeat-line {
   stroke-dasharray: 600;
@@ -376,7 +376,7 @@ h1, h2, h3, h4, h5, h6 {
   content: attr(data-text);
   position: absolute;
   left: 0; top: 0;
-  color: rgba(239, 68, 68, 0.4);
+  color: rgba(255, 181, 79, 0.4);
   animation: glitchShift 0.3s ease-in-out 0.1s 3, glitchFadeOut 0.3s ease-out 1s forwards;
   pointer-events: none;
 }
@@ -403,7 +403,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary), rgba(16, 185, 129, 0.8), var(--primary), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), rgba(207, 229, 234, 0.8), var(--primary), transparent);
   box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
   animation: scanLine 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   z-index: 10;
@@ -423,11 +423,11 @@ h1, h2, h3, h4, h5, h6 {
   height: 2px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(16, 185, 129, 0.1) 10%,
-    rgba(16, 185, 129, 0.6) 30%,
+    rgba(207, 229, 234, 0.1) 10%,
+    rgba(207, 229, 234, 0.6) 30%,
     var(--primary) 50%,
-    rgba(16, 185, 129, 0.6) 70%,
-    rgba(16, 185, 129, 0.1) 90%,
+    rgba(207, 229, 234, 0.6) 70%,
+    rgba(207, 229, 234, 0.1) 90%,
     transparent 100%
   );
   background-size: 200% 100%;
@@ -439,7 +439,7 @@ h1, h2, h3, h4, h5, h6 {
 .energy-beam.animate {
   animation: beamAppear 0.6s ease-out forwards,
              energyFlow 3s linear 0.6s infinite;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 8px rgba(207, 229, 234, 0.4);
 }
 
 /* 5. Card Materialize — cards build from particles/static */
