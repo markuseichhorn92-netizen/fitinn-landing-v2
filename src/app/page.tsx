@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Target, ArrowRight, X, CheckCircle2, Phone, Shield } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { QuizFunnel } from '@/components/quiz/QuizFunnel'
@@ -14,6 +15,76 @@ import { FAQSection } from '@/components/sections/FAQSection'
 import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { StickyBar } from '@/components/StickyBar'
 import { Navbar } from '@/components/Navbar'
+
+type Tile = { category: string; title: string; src: string | null; teaser: string; text: string }
+
+function HeroTiles({ tiles, onStartQuiz }: { tiles: Tile[]; onStartQuiz: () => void }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(null)
+  const toggle = (i: number) => setOpenIdx(prev => prev === i ? null : i)
+
+  return (
+    <div className="relative z-10 w-full px-6 lg:px-8 pb-10">
+      <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4">
+        {tiles.map((tile, i) => (
+          <div key={i} className="rounded-2xl overflow-hidden border border-white/10 bg-card">
+            {/* Image area */}
+            <div className="relative h-[200px]">
+              {tile.src ? (
+                <>
+                  <Image src={tile.src} alt={tile.title} fill className="object-cover" sizes="400px" />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.65) 100%)' }} />
+                </>
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/25 to-primary/5 flex items-center justify-center">
+                  <Shield className="w-16 h-16 text-primary/50" />
+                </div>
+              )}
+              <div className="absolute inset-0 p-4 flex flex-col justify-between">
+                <span className="text-xs font-semibold text-primary tracking-widest uppercase">{tile.category}</span>
+                <div className="flex items-end justify-between">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-white font-bold text-xl leading-tight">{tile.title}</span>
+                    <span className="text-white/70 text-xs leading-snug max-w-[200px]">{tile.teaser}</span>
+                  </div>
+                  <button
+                    onClick={() => toggle(i)}
+                    className="w-9 h-9 rounded-full bg-primary text-black flex items-center justify-center flex-shrink-0 ml-3"
+                    style={{ transition: 'transform 0.25s', transform: openIdx === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
+                    aria-label={openIdx === i ? 'Schließen' : 'Mehr erfahren'}
+                  >
+                    <span className="text-xl font-bold leading-none">+</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* Expandable text */}
+            <AnimatePresence initial={false}>
+              {openIdx === i && (
+                <motion.div
+                  key="content"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <p className="p-5 text-sm text-muted-foreground leading-relaxed">{tile.text}</p>
+                  {i === 2 && (
+                    <div className="px-5 pb-5">
+                      <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-2 text-sm px-5 py-3">
+                        Jetzt Förderung sichern <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Home() {
   const [showQuiz, setShowQuiz] = useState(false)
@@ -41,27 +112,38 @@ export default function Home() {
       <Navbar onStartQuiz={startQuiz} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center pt-24 pb-20">
+      <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
+          {/* Hero background image */}
+          <Image
+            src="/dooken-magic-edit-1773336253189.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[center_15%] md:object-[right_top] opacity-15 md:opacity-25"
+            priority
+          />
+          {/* Mobile: heavy overlay so text stays readable over the person */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background/95 md:bg-gradient-to-r md:from-background/90 md:via-background/60 md:to-background/20" />
+          {/* Accent blobs */}
           <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-primary/3 rounded-full blur-[120px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 pb-12">
           <div className="text-center animate-fade-up">
 
             {/* Eyebrow Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-medium text-accent uppercase tracking-wider">
-                95% aller Diäten scheitern – das ist kein Zufall
+                FIT-INN Trier · Abnehmprogramm happyfigur
               </span>
             </div>
 
-            {/* Headline with Glitch + Heartbeat */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-6">
+            {/* Headline */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-8">
               Du hast
               <span
                 className={`block text-accent relative glitch-text ${heroAnimated ? 'animate' : ''}`}
@@ -69,31 +151,17 @@ export default function Home() {
               >
                 alles versucht
               </span>
-              <span className="block text-primary mt-2">und es klappt trotzdem nicht.</span>
+              <span className="block text-primary mt-2">Jetzt nimmst du wirklich ab.</span>
             </h1>
 
-            {/* Heartbeat Line */}
-            <div className="flex justify-center mb-4 -mt-2">
-              <svg width="280" height="40" viewBox="0 0 280 40" className="overflow-visible">
-                <path
-                  d="M0,20 L60,20 L75,20 L85,5 L95,35 L105,10 L115,25 L125,20 L140,20 L155,20 L165,8 L175,32 L185,15 L195,22 L205,20 L280,20"
-                  fill="none"
-                  stroke="var(--primary)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={`heartbeat-line ${heroAnimated ? 'animate' : ''}`}
-                />
-              </svg>
-            </div>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-              Sport, Diäten, Verzicht – und trotzdem bleiben die Kilos?{' '}
-              <strong className="text-foreground">Das Problem liegt nicht bei dir. Es liegt am falschen Ansatz.</strong>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+              Das Problem ist dein Stoffwechsel –{' '}
+              <strong className="text-foreground">und der lässt sich trainieren.</strong>{' '}
+              Mit persönlichem Plan, der zu deinem Körper passt.
             </p>
 
             {/* CTA Button */}
-            <div className="flex flex-col items-center gap-4 mb-6">
+            <div className="flex flex-col items-center gap-4">
               <button
                 onClick={startQuiz}
                 className="btn-cta inline-flex items-center gap-3 text-xl px-10 py-5"
@@ -102,36 +170,44 @@ export default function Home() {
                 Kostenloses Probetraining sichern
                 <ArrowRight className="w-6 h-6" />
               </button>
-
-              {/* Urgency */}
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="text-sm font-medium text-accent">Noch 3 kostenlose Plätze diese Woche verfügbar</span>
-              </div>
-            </div>
-
-            <p className="text-sm text-muted-foreground">
-              ✓ Unverbindlich · ✓ Keine Kreditkarte · ✓ 100% kostenlos
-            </p>
-
-            {/* Video */}
-            <div className="mt-14 max-w-3xl mx-auto animate-fade-up delay-200">
-              <div className="feature-card corner-decorator p-4 md:p-6">
-                <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-                <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
-                <div className="aspect-video bg-secondary/50 rounded-lg overflow-hidden">
-                  <iframe
-                    className="w-full h-full"
-                    src="https://www.youtube.com/embed/IAJXZ3qp6GU?rel=0&modestbranding=1"
-                    title="Was ist happyfigur?"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Unverbindlich</span>
+                <span className="flex items-center gap-1"><span className="text-primary">✓</span> 100% kostenlos</span>
+                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Krankenkasse bis 75%</span>
               </div>
             </div>
           </div>
         </div>
+
+        {/* 3 Themen-Kacheln */}
+        {(() => {
+          const tiles = [
+            {
+              category: 'TRAINING',
+              title: 'Training',
+              src: '/studio-1.avif',
+              teaser: 'Modernes Equipment & persönlicher Trainer',
+              text: 'Bei FIT-INN trainierst du mit modernstem Equipment und wirst von geschulten Trainern begleitet. Kein blindes Trainieren auf eigene Faust – du bekommst einen individuellen Plan, der gezielt deinen Stoffwechsel ankurbelt. Zirkeltraining, Kraftausdauer, Ausdauer: alles abgestimmt auf dein Körper und dein Ziel.',
+            },
+            {
+              category: 'PROGRAMM',
+              title: 'Das happyfigur-Prinzip',
+              src: '/food-smoothie.jpg',
+              teaser: 'Abnehmen ohne Hungern – zertifiziert & nachhaltig',
+              text: 'happyfigur ist ein zertifiziertes Ernährungs- und Bewegungsprogramm – entwickelt für Menschen, die dauerhaft abnehmen wollen, ohne zu hungern. Du bekommst einen persönlichen Ernährungsplan, der zu deinem Körper und Alltag passt. Kein Kalorienzählen, keine Verbote – stattdessen ein Prinzip, das deinen Stoffwechsel nachhaltig aktiviert.',
+            },
+            {
+              category: 'FÖRDERUNG',
+              title: 'Krankenkasse',
+              src: null,
+              teaser: 'Bis zu 100% Kostenübernahme möglich',
+              text: 'Nach § 20 SGB V fördern viele gesetzliche Krankenkassen zertifizierte Präventionskurse – und happyfigur ist einer davon. Das bedeutet: Du kannst dein Probetraining und das Programm komplett oder großteils von deiner Krankenkasse erstatten lassen. Einfach Teilnahmebestätigung einreichen – wir helfen dir dabei.',
+            },
+          ]
+          return (
+            <HeroTiles tiles={tiles} onStartQuiz={startQuiz} />
+          )
+        })()}
       </section>
 
       {/* Krankenkassen Banner */}
