@@ -45,6 +45,11 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = showQuiz ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [showQuiz])
+
   const startQuiz = () => setShowQuiz(true)
   const closeQuiz = () => setShowQuiz(false)
   const openBooking = () => {
@@ -68,11 +73,11 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-top md:object-[right_top] opacity-75 md:opacity-35"
+            className="object-cover object-top md:object-[right_top] opacity-50 md:opacity-35"
             priority
           />
-          {/* Mobile overlay: oben leicht (Frau sichtbar), unten dunkel (Text lesbar) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/10 to-background/85 md:hidden" />
+          {/* Mobile overlay: oben mittel (Frau sichtbar), unten stark (Text lesbar) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/40 to-background/90 md:hidden" />
           {/* Desktop overlay: links dunkel (Text), rechts transparent (Frau) */}
           <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
           {/* Accent blobs */}
