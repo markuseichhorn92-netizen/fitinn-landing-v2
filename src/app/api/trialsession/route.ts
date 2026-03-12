@@ -32,8 +32,29 @@ export async function POST(request: NextRequest) {
       firstName, lastName, email, mobilephone, gender, dateOfBirth,
       street, houseNumber, zip, city,
       marketingConsent, note,
-      startDateTime,
+      startDateTime, quizData,
     } = body
+
+    const goalLabels: Record<string, string> = {
+      abnehmen: 'Abnehmen', straffen: 'Straffen & Tonen',
+      energie: 'Mehr Energie', gesundheit: 'Gesundheit & Fitness',
+    }
+    const timeLabels: Record<string, string> = {
+      wenig: '1–2x/Woche', mittel: '3–4x/Woche', viel: '5+x/Woche',
+    }
+    const commitmentLabels: Record<string, string> = {
+      unsicher: 'Noch unsicher', bereit: 'Bereit loszulegen', entschlossen: 'Voll entschlossen',
+    }
+
+    const quizNote = quizData ? [
+      `Ziel: ${goalLabels[quizData.goal] ?? quizData.goal}`,
+      `Größe: ${quizData.height} cm`,
+      `Gewicht: ${quizData.weight} kg → Wunsch: ${quizData.targetWeight} kg`,
+      `Probleme: ${(quizData.problems as string[]).join(', ') || '–'}`,
+      `Trainingszeit: ${timeLabels[quizData.time] ?? quizData.time}`,
+      `Motivation: ${commitmentLabels[quizData.commitment] ?? quizData.commitment}`,
+      ...(note ? [`Anmerkung: ${note}`] : []),
+    ].join(' | ') : (note || '')
 
     if (!firstName || !lastName || !email || !mobilephone || !gender || !dateOfBirth
       || !street || !houseNumber || !zip || !city || !startDateTime) {
@@ -47,15 +68,7 @@ export async function POST(request: NextRequest) {
         studioId: 1210005460,
         startDateTime,
         trainerRequired: false,
-        note: [
-          `Name: ${firstName} ${lastName}`,
-          `E-Mail: ${email}`,
-          `Telefon: ${mobilephone}`,
-          `Geburtsdatum: ${dateOfBirth}`,
-          `Adresse: ${street} ${houseNumber}, ${zip} ${city}`,
-          `Marketing-Einwilligung: ${marketingConsent ? 'Ja' : 'Nein'}`,
-          ...(note ? [`Anmerkung: ${note}`] : []),
-        ].join(' | '),
+        note: quizNote,
         leadCustomer: {
           firstname: firstName,
           lastname: lastName,

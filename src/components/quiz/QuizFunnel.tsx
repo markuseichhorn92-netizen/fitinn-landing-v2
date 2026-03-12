@@ -299,6 +299,15 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
           marketingConsent: contact.marketingConsent,
           note: contact.note,
           startDateTime: selectedSlot.startDateTime,
+          quizData: {
+            goal: data.goal,
+            height: data.height,
+            weight: data.weight,
+            targetWeight: data.targetWeight,
+            problems: data.problems,
+            time: data.time,
+            commitment: data.commitment,
+          },
         }),
       })
       const result = await res.json()
