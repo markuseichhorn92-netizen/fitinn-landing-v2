@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, BarChart2, Target, ArrowRight } from 'lucide-react'
+import { Calendar, BarChart2, Target } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const steps = [
@@ -57,31 +57,33 @@ export function ProcessSection() {
           />
 
           {steps.map((step, i) => (
-            <div
-              key={i}
-              className={`relative flex flex-col items-center text-center px-6 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.2 + i * 0.25}s` }}
-            >
-              {/* Step Number + Icon */}
-              <div className="relative mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center relative z-10">
-                  <step.icon className="w-7 h-7 text-primary" />
+            <>
+              <div
+                key={i}
+                className={`relative flex flex-col items-center text-center px-6 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+                style={{ animationDelay: `${0.2 + i * 0.25}s` }}
+              >
+                {/* Step Number + Icon */}
+                <div className="relative mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center relative z-10">
+                    <step.icon className="w-7 h-7 text-primary" />
+                  </div>
+                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                    {step.step}
+                  </span>
                 </div>
-                <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
-                  {step.step}
-                </span>
+
+                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
               </div>
 
-              {/* Mobile Arrow */}
+              {/* Vertical Energy Beam (Mobile only) */}
               {i < steps.length - 1 && (
-                <div className="md:hidden my-4">
-                  <ArrowRight className="w-6 h-6 text-primary/40 rotate-90" />
+                <div className={`md:hidden flex justify-center py-2 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: `${0.35 + i * 0.25}s` }}>
+                  <div className={`energy-beam-vertical ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: `${0.4 + i * 0.25}s` }} />
                 </div>
               )}
-
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-            </div>
+            </>
           ))}
         </div>
 
