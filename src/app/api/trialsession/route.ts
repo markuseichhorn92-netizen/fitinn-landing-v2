@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
     const {
       firstName, lastName, email, mobilephone, gender, dateOfBirth,
       street, houseNumber, zip, city,
-      marketingConsent, note, startDateTime,
+      marketingConsent, note,
+      startDateTime,
     } = body
 
     if (!firstName || !lastName || !email || !mobilephone || !gender || !dateOfBirth
@@ -39,64 +40,48 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Alle Pflichtfelder sind erforderlich' }, { status: 400 })
     }
 
-    const studioIdNum = parseInt(STUDIO_ID)
-
-    // Schritt 1: Lead anlegen → customerId
-    const leadBody = {
-      studioId: studioIdNum,
-      firstName,
-      lastName,
-      email,
-      mobilephone,
-      gender,
-      dateOfBirth,
-      address: { street, houseNumber, zipCode: zip, city, country: 'DE' },
-      communicationPreferences: [
-        { channels: 'EMAIL', enabled: marketingConsent ?? false },
-        { channels: 'PHONE', enabled: marketingConsent ?? false },
-      ],
-      ...(note ? { note } : {}),
-    }
-
-    console.log('Lead request body:', JSON.stringify(leadBody, null, 2))
-
-    const leadRes = await fetch(`${BASE_URL}/lead`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(leadBody),
-    })
-
-    const leadText = await leadRes.text()
-    console.log('Lead response:', leadRes.status, leadText)
-
-    if (!leadRes.ok) {
-      return NextResponse.json(
-        { error: `Lead-Erstellung fehlgeschlagen (${leadRes.status})`, details: leadText },
-        { status: leadRes.status }
-      )
-    }
-
-    const leadData = JSON.parse(leadText)
-    const customerId: string = leadData.customerId ?? leadData.id ?? leadData.uuid
-
-    if (!customerId) {
-      console.error('No customerId in lead response:', leadData)
-      return NextResponse.json({ error: 'Keine Kunden-ID erhalten', details: leadText }, { status: 500 })
-    }
-
-    // Schritt 2: Probetraining buchen
     const bookRes = await fetch(`${BASE_URL}/trialsession/book`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        studioId: studioIdNum,
-        customerId,
+        studioId: 1210005460,
         startDateTime,
+        trainerRequired: false,
+        note: [
+          `Name: ${firstName} ${lastName}`,
+          `E-Mail: ${email}`,
+          `Telefon: ${mobilephone}`,
+          `Geburtsdatum: ${dateOfBirth}`,
+          `Adresse: ${street} ${houseNumber}, ${zip} ${city}`,
+          `Marketing-Einwilligung: ${marketingConsent ? 'Ja' : 'Nein'}`,
+          ...(note ? [`Anmerkung: ${note}`] : []),
+        ].join(' | '),
+        leadCustomer: {
+          firstname: firstName,
+          lastname: lastName,
+          email,
+          phone: mobilephone,
+          gender,
+          dateOfBirth,
+          address: {
+            street,
+            houseNumber,
+            zip,
+            city,
+            country: 'DE',
+          },
+          privacyConfiguration: {
+            email: marketingConsent ?? false,
+            phone: marketingConsent ?? false,
+            letter: false,
+            textMessage: marketingConsent ?? false,
+            mySportsMessage: false,
+          },
+        },
       }),
     })
 
     const bookText = await bookRes.text()
-    console.log('Book response:', bookRes.status, bookText)
 
     if (!bookRes.ok) {
       return NextResponse.json(
