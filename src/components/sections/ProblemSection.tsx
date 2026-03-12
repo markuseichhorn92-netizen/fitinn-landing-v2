@@ -6,23 +6,23 @@ import { useScrollReveal } from '@/hooks/useScrollReveal'
 const problems = [
   {
     icon: Scale,
-    title: "Die Waage lügt",
-    description: "Du achtest auf deine Ernährung, aber die Zahl geht nicht runter – oder sogar hoch."
+    title: "Die Waage bewegt sich nicht",
+    description: "Du achtest auf deine Ernährung – und trotzdem passiert nichts. Oder es wird sogar mehr."
   },
   {
     icon: Flame,
-    title: "Dein Stoffwechsel schläft",
-    description: "Nach Jahren von Diäten hat sich dein Körper angepasst und verbrennt weniger."
+    title: "Der Stoffwechsel hat sich angepasst",
+    description: "Nach Jahren von Diäten verbrennt dein Körper weniger Energie. Das ist Biologie – keine Schwäche."
   },
   {
     icon: TrendingDown,
-    title: "Jo-Jo-Effekt",
-    description: "Jede Diät endet gleich: Erst Erfolg, dann wieder alles drauf – plus Extra-Kilos."
+    title: "Der Jo-Jo-Effekt ist kein Zufall",
+    description: "Kaloriendefizit-Diäten enden immer gleich: Erst Erfolg, dann wieder alles drauf. Das System ist falsch – nicht du."
   },
   {
     icon: Frown,
-    title: "Frust & Resignation",
-    description: "Du hast alles versucht und fragst dich: Was stimmt nicht mit mir?"
+    title: "Die stille Frage",
+    description: "\"Was stimmt nicht mit mir?\" Die ehrliche Antwort: Du hattest bisher nie den richtigen Ansatz."
   }
 ]
 
@@ -41,7 +41,7 @@ export function ProblemSection() {
             Warum <span className="text-accent">Diäten scheitern</span>
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            95% aller Diäten scheitern langfristig. Das liegt nicht an dir – sondern am falschen Ansatz.
+            Studien zeigen: Die meisten Diäten scheitern langfristig. Das liegt nicht an dir – sondern am falschen Ansatz.
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function ProblemSection() {
         <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/30">
             <span className="text-primary font-semibold">
-              ↓ Die gute Nachricht: Es gibt einen besseren Weg
+              ↓ Die gute Nachricht: Du kannst deinen Stoffwechsel neu aktivieren
             </span>
           </div>
         </div>

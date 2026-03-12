@@ -42,9 +42,9 @@ export function Testimonials() {
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Echte Erfolgsgeschichten</span>
+          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Aus der Region · Echte Ergebnisse</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4">
-            Was unsere <span className="text-primary">Teilnehmer</span> sagen
+            Was Teilnehmer aus <span className="text-primary">Trier & Umgebung</span> sagen
           </h2>
           <div className="flex items-center justify-center gap-1 mt-4">
             {[...Array(5)].map((_, i) => (
@@ -100,6 +100,26 @@ export function Testimonials() {
             </div>
           ))}
         </div>
+        {/* Durchschnittswerte */}
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">-7,2 kg</div>
+            <div className="text-sm text-muted-foreground mt-1">Ø Gewichtsverlust<sup>¹</sup></div>
+          </div>
+          <div className="hidden sm:block w-px h-10 bg-border" />
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">-8 cm</div>
+            <div className="text-sm text-muted-foreground mt-1">Ø Bauchumfang<sup>¹</sup></div>
+          </div>
+          <div className="hidden sm:block w-px h-10 bg-border" />
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">8 Wochen</div>
+            <div className="text-sm text-muted-foreground mt-1">Programmdauer</div>
+          </div>
+        </div>
+        <p className="text-center text-xs text-muted-foreground/50 mt-6">
+          Individuelle Ergebnisse können variieren. Erfahrungsberichte verifizierter Kursteilnehmer.
+        </p>
       </div>
     </section>
   )

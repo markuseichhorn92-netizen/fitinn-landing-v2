@@ -6,39 +6,39 @@ import { Plus, X } from 'lucide-react'
 const faqs = [
   {
     question: 'Muss ich nach dem Programm weiter Mitglied bleiben?',
-    answer: 'Nein! Das happyfigur-Programm ist ein eigenständiges 8-Wochen-Programm ohne automatische Verlängerung oder Mitgliedschaft. Du buchst genau diese 8 Wochen – und entscheidest danach völlig frei, ob du weitermachen möchtest.'
+    answer: 'Nein. 8 Wochen – fertig. Keine automatische Verlängerung, kein Abo, kein Druck.'
   },
   {
     question: 'Was wenn meine Krankenkasse nicht erstattet?',
-    answer: 'Der Kurs ist nach § 20 SGB V zertifiziert und wird von den meisten gesetzlichen Krankenkassen erstattet. Falls deine Kasse nicht im Rechner auftaucht: Ruf uns einfach an – wir helfen dir bei der Anfrage bei deiner Krankenkasse und klären es gemeinsam.'
+    answer: 'Kein Rezept, keine Vorab-Genehmigung. Nach dem Kurs Bestätigung einreichen – Geld kommt zurück. Falls deine Kasse ausnahmsweise nicht zahlt: Wir erstatten den vollen Preis.²'
   },
   {
     question: 'Wie beantrage ich die Erstattung bei meiner Krankenkasse?',
-    answer: 'Ganz einfach: Nach dem Kurs erhältst du eine Teilnahmebestätigung mit allen nötigen Informationen. Diese schickst du an deine Krankenkasse – entweder per Post oder online. Die meisten Kassen überweisen das Geld innerhalb von 4–6 Wochen zurück. Wir unterstützen dich dabei!'
+    answer: 'Nach dem Kurs bekommst du eine Teilnahmebestätigung. Die schickst du an deine Kasse – per Post oder online. Rückzahlung meist in 4–6 Wochen. Wir helfen dir dabei.'
   },
   {
     question: 'Bin ich fit genug für das Programm?',
-    answer: 'Absolut! Das Programm ist speziell für Menschen konzipiert, die keine regelmäßige Sportpraxis haben. Bei deiner persönlichen Einweisung erstellen wir gemeinsam einen Trainingsplan, der genau zu deinem Fitnesslevel passt. Während der 8 Wochen steht dir jederzeit ein Trainer zur Seite, der bei Fragen hilft und den Plan bei Bedarf anpasst.'
+    answer: 'Ja! Das Programm startet bei Null. Dein Trainer erstellt einen Plan passend zu deinem Fitnesslevel – und passt ihn laufend an.'
   },
   {
-    question: 'Funktioniert das auch nach der Menopause oder bei Schilddrüsenproblemen?',
-    answer: 'Ja! Gerade bei hormonellen Veränderungen wie der Menopause oder Schilddrüsenerkrankungen ist ein wissenschaftlich fundierter Ansatz besonders wichtig. Unsere Körperanalyse zeigt genau, wo dein Stoffwechsel steht – und der Plan wird exakt darauf abgestimmt. Viele unserer erfolgreichsten Teilnehmer haben genau diese Vorgeschichte.'
+    question: 'Kann ich mitmachen, wenn ich hormonelle Veränderungen oder gesundheitliche Besonderheiten habe?',
+    answer: 'Das Programm richtet sich an gesunde Erwachsene. Bei bestehenden Erkrankungen empfehlen wir, vorab den Arzt zu fragen. Im Probetraining sprechen wir gerne mit dir darüber.'
   },
   {
     question: 'Was ist der Unterschied zu einem normalen Fitnessstudio?',
-    answer: 'In einem normalen Studio bist du auf dich allein gestellt. Bei happyfigur bekommst du 3 persönliche Körperanalysen, einen individuellen Trainingsplan, einen auf dich abgestimmten Ernährungsplan, eine persönliche Einweisung und jederzeit einen Trainer an deiner Seite – plus 24/7 WhatsApp-Support. Alles in einem 8-Wochen-Programm. Plus: Die Krankenkasse zahlt.'
+    answer: 'Im normalen Studio bist du allein. Bei happyfigur: 3 Körperanalysen, individueller Plan, Coaching, 24/7 Support – und die Kasse zahlt.'
   },
   {
     question: 'Wie schnell sehe ich erste Ergebnisse?',
-    answer: 'Die meisten Teilnehmer berichten schon nach 2 Wochen von mehr Energie und weniger Blähungen. Sichtbare Veränderungen am Körper zeigen sich typischerweise ab Woche 3–4. Bei der Zwischen-Analyse nach 4 Wochen sehen wir schwarz auf weiß, was sich verändert hat – das motiviert enorm!'
+    answer: 'Viele spüren nach 2–3 Wochen mehr Energie. Sichtbare Veränderungen ab Woche 3–4. Individuelle Ergebnisse können variieren.'
   },
   {
     question: 'Werde ich beim Training betreut?',
-    answer: 'Ja! Zum Start bekommst du eine persönliche Einweisung, bei der wir gemeinsam deinen Trainingsplan erstellen und alle Geräte erklären. Danach steht dir bei jedem Besuch ein Trainer im Studio zur Verfügung – für Fragen, Korrekturen oder Anpassungen deines Plans. Du bist nie auf dich allein gestellt.'
+    answer: 'Ja. Persönliche Einweisung zum Start, danach Trainer bei jedem Besuch. Du bist nie allein.'
   },
   {
     question: 'Wie viel Zeit brauche ich pro Woche?',
-    answer: '2–3 Einheiten à 30–60 Minuten pro Woche reichen völlig aus. Das Programm ist so konzipiert, dass es in jeden Alltag passt – auch wenn du voll berufstätig bist oder Familie hast. Qualität schlägt Quantität: Wir zeigen dir, was wirklich wirkt.'
+    answer: '2–3 Einheiten à 30–60 Min. pro Woche reichen. Passt in jeden Alltag – auch mit Job und Familie.'
   }
 ]
 

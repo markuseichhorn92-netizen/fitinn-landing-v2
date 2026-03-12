@@ -25,16 +25,14 @@ const INSURANCE_DATA = [
 
 const PROGRAM_PRICE = 179
 
-const valueItems = [
-  { name: '3x Körperanalyse', value: '120€' },
-  { name: '8 Wochen Studionutzung', value: '160€' },
-  { name: 'Individueller Ernährungsplan', value: '79€' },
-  { name: 'Einweisung + Trainerbetreuung', value: '200€' },
-  { name: 'Online-Lernplattform', value: '49€' },
-  { name: '24/7 WhatsApp-Support', value: '50€' },
+const included = [
+  '3x Körperanalyse (Inbody)',
+  '8 Wochen Studionutzung',
+  'Individueller Ernährungsplan',
+  'Einweisung + Trainerbetreuung',
+  'Online-Lernplattform happyfigur',
+  'Persönlicher Support per WhatsApp',
 ]
-
-const totalValue = 658
 
 export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.1)
@@ -55,55 +53,44 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
       <div className="mx-auto max-w-6xl px-6">
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-accent uppercase tracking-widest font-semibold">Unschlagbarer Wert</span>
+          <span className="text-sm text-accent uppercase tracking-widest font-semibold">Was kostet happyfigur wirklich?</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4">
-            Wert von <span className="text-muted-foreground line-through decoration-2">{totalValue}€</span>
+            179€ einmalig –{' '}
+            <span className="text-primary">oft zurückerstattet</span>
           </h2>
-          <p className="text-xl text-primary font-bold mt-2">
-            Für viele Teilnehmer komplett kostenlos<sup>²³</sup>
+          <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
+            Kein Abo, kein monatlicher Beitrag. Du zahlst einmal –
+            und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.
           </p>
         </div>
 
         {/* Two-column layout */}
         <div className="grid md:grid-cols-2 gap-8">
 
-          {/* Left: Value Breakdown */}
+          {/* Left: What's included */}
           <div className={`feature-card corner-decorator p-6 md:p-8 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
             <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
 
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Das bekommst du</h3>
+            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Im Programm enthalten</h3>
 
-            {valueItems.map((item, i) => (
+            {included.map((item, i) => (
               <div
                 key={i}
-                className={`flex justify-between items-center py-3 border-b border-border/30 last:border-0 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+                className={`flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
                 style={{ animationDelay: `${0.4 + i * 0.08}s` }}
               >
-                <span className="flex items-center gap-2.5 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                  {item.name}
-                </span>
-                <span className={`text-sm text-muted-foreground/60 strike-wipe ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: `${0.6 + i * 0.1}s` }}>
-                  {item.value}
-                </span>
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                <span className="text-sm text-muted-foreground">{item}</span>
               </div>
             ))}
 
-            {/* Total */}
-            <div className="flex justify-between items-center pt-4 mt-2">
-              <span className="font-bold">Gesamtwert</span>
-              <span className="text-xl font-bold text-muted-foreground line-through">{totalValue}€</span>
-            </div>
-
-            {/* Price */}
-            <div className="mt-4 bg-primary/10 border border-primary/30 rounded-xl p-4 text-center">
-              <p className="text-xs text-muted-foreground mb-1">Dein Preis</p>
-              <div className="text-3xl font-bold text-primary">ab 0€<sup>²³</sup></div>
-              <p className="text-xs text-primary mt-1 font-medium">Bei vielen Kassen komplett kostenlos</p>
-              <p className="text-xs text-muted-foreground mt-2">
-                Ohne Erstattung: <span className="text-foreground font-semibold">3,20€/Tag<sup>¹</sup></span> · 179€<sup>¹</sup> gesamt
-              </p>
+            {/* Real price box */}
+            <div className="mt-6 bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
+              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Einmaliger Programmpreis</p>
+              <div className="text-5xl font-bold text-primary">179€<sup className="text-2xl">¹</sup></div>
+              <p className="text-sm text-primary font-medium mt-2">Kein Abo · Keine Mitgliedschaft</p>
+              <p className="text-xs text-muted-foreground mt-1">Nur diese 8 Wochen – danach entscheidest du frei</p>
             </div>
           </div>
 
@@ -116,7 +103,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Coins className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold">Was zahlt deine Krankenkasse?</h3>
+              <h3 className="text-lg font-semibold">Wie viel erstattet deine Kasse?</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-5">
               § 20 SGB V zertifiziert – bis zu 100% der Kosten erstattet.<sup>²³</sup>
@@ -139,13 +126,15 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {amount > 0 && (
               <div className="mt-5 animate-scale-in">
                 {isFree ? (
-                  <div className="p-5 bg-primary/20 border-2 border-primary rounded-xl text-center">
-                    <div className="flex items-center justify-center gap-2 mb-1">
-                      <CheckCircle2 className="w-7 h-7 text-primary" />
-                      <span className="text-2xl font-bold text-primary">Komplett kostenlos!<sup>²</sup></span>
+                  <div className="p-6 bg-primary/20 border-2 border-primary rounded-xl text-center">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Dein Eigenanteil</p>
+                    <div className="text-6xl font-bold text-primary mb-2">0€</div>
+                    <div className="flex items-center justify-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span className="text-sm font-semibold text-primary">Deine Kasse zahlt alles<sup>²³</sup></span>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Deine Krankenkasse erstattet die vollen {amount}€ – du zahlst 0€.<sup>³</sup>
+                    <p className="text-xs text-muted-foreground mt-3">
+                      {amount}€ Erstattung · Du zahlst 179€ vor, bekommst {amount}€ zurück
                     </p>
                   </div>
                 ) : (
@@ -156,14 +145,14 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                     </div>
                     <div className="flex justify-between items-center mb-3 text-primary">
                       <span className="text-sm">Erstattung Krankenkasse</span>
-                      <span className="font-semibold">-{amount}€<sup>³</sup></span>
+                      <span className="font-semibold">−{amount}€<sup>³</sup></span>
                     </div>
                     <div className="flex justify-between items-center pt-3 border-t border-border">
                       <span className="font-semibold">Dein Eigenanteil</span>
-                      <span className="text-xl font-bold text-accent">{eigenanteil.toFixed(2)}€</span>
+                      <span className="text-3xl font-bold text-accent">{eigenanteil.toFixed(2)}€</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-3 text-center">
-                      Das sind nur <span className="text-foreground font-semibold">{(eigenanteil / 56).toFixed(2)}€/Tag<sup>¹</sup></span> — weniger als ein Kaffee!
+                      Das sind nur <span className="text-foreground font-semibold">{(eigenanteil / 56).toFixed(2)}€/Tag<sup>¹</sup></span> — weniger als ein Kaffee
                     </p>
                   </div>
                 )}

@@ -131,7 +131,7 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 ## Key Business Elements (never remove)
 
 - **WhatsApp fallback**: `https://wa.me/4915679610457`
-- **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – 16 insurers with reimbursement amounts, combined with value breakdown (2-column layout)
+- **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – `INSURANCE_DATA` array with 16 insurers + reimbursement amounts (75–179€). 2-column layout: left = included features list + 179€ price box, right = dropdown calculator. Result shows 0€ prominently when KK covers 100%.
 - **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when `#hero` scrolls out of view
 - **Navbar** (`src/components/Navbar.tsx`): Fixed top bar with logo, section nav links (smooth scroll), mobile hamburger menu, glassmorphism on scroll. Needs `onStartQuiz` prop.
 
@@ -192,6 +192,13 @@ The footer in `page.tsx` contains numbered disclaimer sections (¹²³⁴). Supe
 | ⁴ | Hinweis (Prävention, kein Arzt-Ersatz) | Health/results claims |
 
 When adding new pricing or insurance claims, always include the appropriate `<sup>` references.
+
+## Copy & Legal Constraints
+
+- **Keine Heilversprechen** (German UWG): No guaranteed weight loss numbers, no medical condition promises. Use "können variieren", "erfahrungsgemäß", "viele Teilnehmer berichten" hedges.
+- **Stats source**: `-7,2 kg` average, `-8 cm` Bauchumfang, `127.000+` Teilnehmer, `4.9★` / 127 Rezensionen — from happyfigur24.de. Don't invent new statistics.
+- **§ 20 SGB V**: The program is certified. KK reimbursement requires no pre-approval (Vorab-Genehmigung) — customer attends, submits Teilnahmebestätigung afterward.
+- **Geld-zurück-Garantie**: If KK doesn't reimburse, FIT-INN refunds the full price (referenced as `²` in disclaimers).
 
 ## Avatars / Images
 

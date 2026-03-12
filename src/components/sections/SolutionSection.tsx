@@ -8,37 +8,37 @@ const features = [
   {
     icon: ChartLine,
     title: '3x Körperanalyse',
-    description: 'Start, Mitte, Ende – du siehst schwarz auf weiß, wie sich Gewicht, Fett und Muskeln verändern.',
-    highlight: 'Wissenschaftlich fundiert'
+    description: 'Start, Mitte, Ende – du siehst in Zahlen, was sich verändert. Wir passen laufend an.',
+    highlight: 'Datenbasiert'
   },
   {
     icon: Dumbbell,
     title: '8 Wochen Training',
-    description: 'Unbegrenzter Zugang zum Studio mit persönlicher Betreuung und individuellem Trainingsplan.',
-    highlight: 'Unbegrenzter Zugang'
+    description: 'Unbegrenzter Zugang. Dein Plan, dein Körper, dein Ziel – kein Allgemeinplan.',
+    highlight: 'Individuell & betreut'
   },
   {
     icon: Utensils,
     title: 'Ernährungsplan',
-    description: 'Kein Verzicht, kein Hungern. Individuell auf deinen Stoffwechsel abgestimmt – mehr essen, trotzdem abnehmen.',
-    highlight: 'Individuell für dich'
+    description: 'Passend zu deinem Alltag. Kein Kalorienzählen, keine Verbote, kein Hungern.',
+    highlight: 'Passend zu deinem Leben'
   },
   {
     icon: Users,
     title: 'Personal Coaching',
-    description: 'Persönliche Einweisung und Trainingsplanung zum Start. Danach steht dir jederzeit ein Trainer für Fragen und Anpassungen zur Verfügung.',
-    highlight: 'Immer betreut'
+    description: 'Persönliche Einweisung + Trainer an deiner Seite. Bei Problemen stehen die Coaches jederzeit zur Verfügung.',
+    highlight: 'Du bist nie allein'
   },
   {
     icon: Smartphone,
     title: '24/7 Support',
-    description: 'WhatsApp, E-Mail, Telefon – wir sind immer für dich da, wenn du Fragen hast oder Motivation brauchst.',
+    description: 'WhatsApp, E-Mail, Telefon – wir sind für dich da.',
     highlight: 'Immer erreichbar'
   },
   {
     icon: CheckCircle2,
     title: 'Zertifiziert § 20',
-    description: 'Der Kurs ist nach § 20 SGB V zertifiziert. Deine Krankenkasse erstattet 75€ bis 179€ – bei vielen komplett kostenlos.²³',
+    description: '§ 20 SGB V zertifiziert. Deine Kasse erstattet 75€–179€ – bei vielen komplett kostenlos.²³',
     highlight: 'Bis zu 100% erstattet'
   }
 ]
@@ -66,7 +66,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
             Was ist <span className="text-primary">happyfigur</span>?
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Ein 8-Wochen Programm, das an der Ursache ansetzt – nicht an den Symptomen.
+            Ein 8-Wochen-Programm, das nicht Kalorien zählt – sondern deinen Stoffwechsel neu aktiviert.
           </p>
         </div>
 

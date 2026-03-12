@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Target, ArrowRight, X, CheckCircle2, Phone, Shield } from 'lucide-react'
+import { Target, ArrowRight, X, CheckCircle2, Phone, Shield, Dumbbell, Apple, HeartPulse } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { QuizFunnel } from '@/components/quiz/QuizFunnel'
 import { ProblemSection } from '@/components/sections/ProblemSection'
@@ -16,75 +15,23 @@ import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { StickyBar } from '@/components/StickyBar'
 import { Navbar } from '@/components/Navbar'
 
-type Tile = { category: string; title: string; src: string | null; teaser: string; text: string }
-
-function HeroTiles({ tiles, onStartQuiz }: { tiles: Tile[]; onStartQuiz: () => void }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(null)
-  const toggle = (i: number) => setOpenIdx(prev => prev === i ? null : i)
-
-  return (
-    <div className="relative z-10 w-full px-6 lg:px-8 pb-10">
-      <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4">
-        {tiles.map((tile, i) => (
-          <div key={i} className="rounded-2xl overflow-hidden border border-white/10 bg-card">
-            {/* Image area */}
-            <div className="relative h-[200px]">
-              {tile.src ? (
-                <>
-                  <Image src={tile.src} alt={tile.title} fill className="object-cover" sizes="400px" />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.65) 100%)' }} />
-                </>
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/25 to-primary/5 flex items-center justify-center">
-                  <Shield className="w-16 h-16 text-primary/50" />
-                </div>
-              )}
-              <div className="absolute inset-0 p-4 flex flex-col justify-between">
-                <span className="text-xs font-semibold text-primary tracking-widest uppercase">{tile.category}</span>
-                <div className="flex items-end justify-between">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-white font-bold text-xl leading-tight">{tile.title}</span>
-                    <span className="text-white/70 text-xs leading-snug max-w-[200px]">{tile.teaser}</span>
-                  </div>
-                  <button
-                    onClick={() => toggle(i)}
-                    className="w-9 h-9 rounded-full bg-primary text-black flex items-center justify-center flex-shrink-0 ml-3"
-                    style={{ transition: 'transform 0.25s', transform: openIdx === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
-                    aria-label={openIdx === i ? 'Schließen' : 'Mehr erfahren'}
-                  >
-                    <span className="text-xl font-bold leading-none">+</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* Expandable text */}
-            <AnimatePresence initial={false}>
-              {openIdx === i && (
-                <motion.div
-                  key="content"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <p className="p-5 text-sm text-muted-foreground leading-relaxed">{tile.text}</p>
-                  {i === 2 && (
-                    <div className="px-5 pb-5">
-                      <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-2 text-sm px-5 py-3">
-                        Jetzt Förderung sichern <ArrowRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+const heroFeatures = [
+  {
+    icon: Dumbbell,
+    title: 'Kein Trial-and-Error mehr',
+    text: 'Du bekommst einen Plan, der speziell für deinen Körper funktioniert. Dein Trainer setzt gezielt an deinem Stoffwechsel an – damit du endlich Ergebnisse siehst, nicht irgendwann, sondern ab Woche 1.',
+  },
+  {
+    icon: Apple,
+    title: 'Abnehmen ohne Verzicht',
+    text: 'Diäten scheitern, weil sie dein Leben ignorieren. Das happyfigur-Prinzip nicht. Kein Kalorienzählen, keine Verbote – ein System, das du auch in zwei Jahren noch lebst.',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Viele zahlen am Ende 0€',
+    text: 'Was die meisten nicht wissen: Deine Krankenkasse übernimmt nach § 20 SGB V bis zu 100% der Kosten. Du nimmst teil, reichst die Bestätigung ein – und bekommst dein Geld zurück.',
+  },
+]
 
 export default function Home() {
   const [showQuiz, setShowQuiz] = useState(false)
@@ -155,9 +102,9 @@ export default function Home() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-              Das Problem ist dein Stoffwechsel –{' '}
-              <strong className="text-foreground">und der lässt sich trainieren.</strong>{' '}
-              Mit persönlichem Plan, der zu deinem Körper passt.
+              Das Problem ist nicht deine Disziplin –{' '}
+              <strong className="text-foreground">es ist der falsche Ansatz.</strong>{' '}
+              happyfigur setzt gezielt an deinem Stoffwechsel an.
             </p>
 
             {/* CTA Button */}
@@ -173,41 +120,24 @@ export default function Home() {
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1"><span className="text-primary">✓</span> Unverbindlich</span>
                 <span className="flex items-center gap-1"><span className="text-primary">✓</span> 100% kostenlos</span>
-                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Krankenkasse bis 75%</span>
+                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Krankenkasse bis 100%<sup>³</sup></span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3 Themen-Kacheln */}
-        {(() => {
-          const tiles = [
-            {
-              category: 'TRAINING',
-              title: 'Training',
-              src: '/studio-1.avif',
-              teaser: 'Modernes Equipment & persönlicher Trainer',
-              text: 'Bei FIT-INN trainierst du mit modernstem Equipment und wirst von geschulten Trainern begleitet. Kein blindes Trainieren auf eigene Faust – du bekommst einen individuellen Plan, der gezielt deinen Stoffwechsel ankurbelt. Zirkeltraining, Kraftausdauer, Ausdauer: alles abgestimmt auf dein Körper und dein Ziel.',
-            },
-            {
-              category: 'PROGRAMM',
-              title: 'Das happyfigur-Prinzip',
-              src: '/food-smoothie.jpg',
-              teaser: 'Abnehmen ohne Hungern – zertifiziert & nachhaltig',
-              text: 'happyfigur ist ein zertifiziertes Ernährungs- und Bewegungsprogramm – entwickelt für Menschen, die dauerhaft abnehmen wollen, ohne zu hungern. Du bekommst einen persönlichen Ernährungsplan, der zu deinem Körper und Alltag passt. Kein Kalorienzählen, keine Verbote – stattdessen ein Prinzip, das deinen Stoffwechsel nachhaltig aktiviert.',
-            },
-            {
-              category: 'FÖRDERUNG',
-              title: 'Krankenkasse',
-              src: null,
-              teaser: 'Bis zu 100% Kostenübernahme möglich',
-              text: 'Nach § 20 SGB V fördern viele gesetzliche Krankenkassen zertifizierte Präventionskurse – und happyfigur ist einer davon. Das bedeutet: Du kannst dein Probetraining und das Programm komplett oder großteils von deiner Krankenkasse erstatten lassen. Einfach Teilnahmebestätigung einreichen – wir helfen dir dabei.',
-            },
-          ]
-          return (
-            <HeroTiles tiles={tiles} onStartQuiz={startQuiz} />
-          )
-        })()}
+        {/* Feature-Karten */}
+        <div className="relative z-10 w-full px-6 lg:px-8 pb-12">
+          <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4">
+            {heroFeatures.map(({ icon: Icon, title, text }, i) => (
+              <div key={i} className="rounded-2xl bg-card border-t-2 border-primary p-6">
+                <Icon className="w-8 h-8 text-primary mb-4" />
+                <h3 className="text-foreground font-bold text-lg mb-2">{title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Krankenkassen Banner */}
@@ -229,9 +159,9 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: '30+', label: 'Jahre Erfahrung', sub: 'FIT-INN seit 1996' },
-              { value: '93%', label: 'Erfolgsquote', sub: 'nach 8 Wochen' },
+              { value: '127.000+', label: 'happyfigur Teilnehmer', sub: 'deutschlandweit' },
               { value: '4.9★', label: 'Google Bewertung', sub: '127 Rezensionen' },
-              { value: '-6 kg', label: 'Ø Gewichtsverlust', sub: 'in 8 Wochen' },
+              { value: '-7,2 kg', label: 'Ø Gewichtsverlust', sub: 'in 8 Wochen¹' },
             ].map((stat, i) => (
               <div key={i} className="text-center relative">
                 <div className="relative inline-block">

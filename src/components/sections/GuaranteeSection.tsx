@@ -1,23 +1,23 @@
 'use client'
 
-import { Shield, CheckCircle2, Award } from 'lucide-react'
+import { Shield, CalendarX2, Award, RotateCcw } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const guarantees = [
   {
     icon: Shield,
     title: 'Probetraining 100% kostenlos',
-    description: 'Lerne uns kennen, ohne einen Cent auszugeben. Keine versteckten Kosten, kein Haken.'
+    description: 'Lerne uns kennen – kein Cent, kein Haken.'
   },
   {
-    icon: CheckCircle2,
-    title: 'Krankenkasse übernimmt bis zu 100%',
-    description: 'Wir helfen dir aktiv bei der Erstattung. Du musst dich um fast nichts kümmern.'
+    icon: CalendarX2,
+    title: 'Kein Abo, keine Falle',
+    description: '8 Wochen – danach entscheidest du frei. Kein Abo, keine Verlängerung.'
   },
   {
     icon: Award,
     title: '30 Jahre Erfahrung in Trier',
-    description: 'FIT-INN ist seit 1996 für Trier und Umgebung da. Tausende zufriedene Teilnehmer sprechen für uns.'
+    description: 'FIT-INN seit 1996. Tausende zufriedene Teilnehmer in Trier & Umgebung.'
   }
 ]
 
@@ -53,8 +53,19 @@ export function GuaranteeSection() {
             Du gehst <span className="text-primary">kein Risiko</span> ein
           </h2>
           <p className={`text-muted-foreground text-lg max-w-xl mx-auto mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-            Wir wissen, dass Vertrauen verdient werden muss. Deshalb machen wir es dir so leicht wie möglich.
+            Keine Fallen, keine Ausreden. Nur Klarheit.
           </p>
+
+          {/* Geld-zurück-Callout */}
+          <div className={`mb-10 p-5 rounded-2xl bg-primary/10 border border-primary/30 max-w-lg mx-auto materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.45s' }}>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <RotateCcw className="w-5 h-5 text-primary shrink-0" />
+              <span className="text-primary font-bold">Geld-zurück-Garantie</span>
+            </div>
+            <p className="text-sm text-muted-foreground text-center leading-relaxed">
+              Wird dein Kurs nicht von der Krankenkasse bezuschusst, erstatten wir dir den vollen Preis zurück.<sup>²</sup> Bei Problemen stehen die Coaches von happyfigur jederzeit zur Verfügung.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {guarantees.map((g, i) => (
