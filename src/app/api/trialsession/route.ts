@@ -34,30 +34,61 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Alle Felder sind erforderlich' }, { status: 400 })
     }
 
-    const res = await fetch(`${BASE_URL}/trialsession`, {
+    const studioIdNum = parseInt(STUDIO_ID)
+
+    // Schritt 1: Lead anlegen → customerId
+    const leadRes = await fetch(`${BASE_URL}/lead`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        studioId: parseInt(STUDIO_ID),
-        startDateTime,
+        studioId: studioIdNum,
         firstName,
         lastName,
         email,
-        phone,
+        mobilephone: phone,
       }),
     })
 
-    if (!res.ok) {
-      const errText = await res.text().catch(() => '')
-      console.error('Magicline booking error:', res.status, errText)
+    const leadText = await leadRes.text()
+    console.log('Lead response:', leadRes.status, leadText)
+
+    if (!leadRes.ok) {
       return NextResponse.json(
-        { error: `Buchung fehlgeschlagen (${res.status})`, details: errText },
-        { status: res.status }
+        { error: `Lead-Erstellung fehlgeschlagen (${leadRes.status})`, details: leadText },
+        { status: leadRes.status }
       )
     }
 
-    const data = await res.json().catch(() => ({ success: true }))
-    return NextResponse.json({ success: true, ...data })
+    const leadData = JSON.parse(leadText)
+    const customerId: string = leadData.customerId ?? leadData.id ?? leadData.uuid
+
+    if (!customerId) {
+      console.error('No customerId in lead response:', leadData)
+      return NextResponse.json({ error: 'Keine Kunden-ID erhalten', details: leadText }, { status: 500 })
+    }
+
+    // Schritt 2: Probetraining buchen
+    const bookRes = await fetch(`${BASE_URL}/trialsession/book`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        studioId: studioIdNum,
+        customerId,
+        startDateTime,
+      }),
+    })
+
+    const bookText = await bookRes.text()
+    console.log('Book response:', bookRes.status, bookText)
+
+    if (!bookRes.ok) {
+      return NextResponse.json(
+        { error: `Buchung fehlgeschlagen (${bookRes.status})`, details: bookText },
+        { status: bookRes.status }
+      )
+    }
+
+    return NextResponse.json({ success: true })
   } catch (err) {
     console.error('Booking proxy error:', err)
     return NextResponse.json({ error: 'Buchung konnte nicht abgeschlossen werden' }, { status: 500 })
