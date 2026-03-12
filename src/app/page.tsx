@@ -61,11 +61,11 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-top md:object-[right_top] opacity-50 md:opacity-35"
+            className="object-cover object-top md:object-[right_top] opacity-30 md:opacity-35"
             priority
           />
           {/* Mobile overlay: oben mittel (Frau sichtbar), unten stark (Text lesbar) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/40 to-background/90 md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/50 to-background/95 md:hidden" />
           {/* Desktop overlay: links dunkel (Text), rechts transparent (Frau) */}
           <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
           {/* Accent blobs */}

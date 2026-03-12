@@ -23,8 +23,8 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ease-out ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
+      className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
       <div className="bg-card/95 backdrop-blur-md border-t border-border shadow-2xl">
