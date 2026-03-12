@@ -1,6 +1,6 @@
 'use client'
 
-import { Shield, CalendarX2, Award, RotateCcw } from 'lucide-react'
+import { Shield, CalendarX2, Award, HeartHandshake } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const guarantees = [
@@ -59,11 +59,11 @@ export function GuaranteeSection() {
           {/* Geld-zurück-Callout */}
           <div className={`mb-10 p-5 rounded-2xl bg-primary/10 border border-primary/30 max-w-lg mx-auto materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.45s' }}>
             <div className="flex items-center justify-center gap-2 mb-2">
-              <RotateCcw className="w-5 h-5 text-primary shrink-0" />
-              <span className="text-primary font-bold">Geld-zurück-Garantie</span>
+              <HeartHandshake className="w-5 h-5 text-primary shrink-0" />
+              <span className="text-primary font-bold">Wir sind für dich da</span>
             </div>
             <p className="text-sm text-muted-foreground text-center leading-relaxed">
-              Wird dein Kurs nicht von der Krankenkasse bezuschusst, erstatten wir dir den vollen Preis zurück.<sup>²</sup> Bei Problemen stehen die Coaches von happyfigur jederzeit zur Verfügung.
+              Bei Problemen oder Fragen stehen dir die Coaches von happyfigur jederzeit zur Verfügung – persönlich, per WhatsApp oder Telefon.
             </p>
           </div>
 

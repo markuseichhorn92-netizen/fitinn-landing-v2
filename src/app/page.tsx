@@ -68,11 +68,11 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-[center_15%] md:object-[right_top] opacity-15 md:opacity-25"
+            className="object-cover object-[center_15%] md:object-[right_top] opacity-25 md:opacity-30"
             priority
           />
           {/* Mobile: heavy overlay so text stays readable over the person */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background/95 md:bg-gradient-to-r md:from-background/90 md:via-background/60 md:to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 md:bg-gradient-to-r md:from-background/90 md:via-background/60 md:to-background/20" />
           {/* Accent blobs */}
           <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />

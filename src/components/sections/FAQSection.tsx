@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: 'Was wenn meine Krankenkasse nicht erstattet?',
-    answer: 'Kein Rezept, keine Vorab-Genehmigung. Nach dem Kurs Bestätigung einreichen – Geld kommt zurück. Falls deine Kasse ausnahmsweise nicht zahlt: Wir erstatten den vollen Preis.²'
+    answer: 'Kein Rezept, keine Vorab-Genehmigung. Nach dem Kurs Bestätigung einreichen – Geld kommt zurück. Bei Fragen helfen dir die Coaches von happyfigur jederzeit weiter.'
   },
   {
     question: 'Wie beantrage ich die Erstattung bei meiner Krankenkasse?',
