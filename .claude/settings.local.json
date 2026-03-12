@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(xargs ls:*)",
+      "Bash(find 'c:/Users/Markus/Download Synology/Happyfigur angebot' -type f -name *.tsx -o -name *.ts -o -name *.css)",
+      "WebSearch",
+      "WebFetch(domain:fit-inn-trier.api.magicline.com)",
+      "WebFetch(domain:connectapi.developer.magicline.com)",
+      "WebFetch(domain:developer.magicline.com)",
+      "WebFetch(domain:developer.sportalliance.com)",
+      "WebFetch(domain:clever-fit.api.magicline.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:apitracker.io)",
+      "WebFetch(domain:stoplight.io)",
+      "Bash(curl -s \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession?studioId=1210005460&startDate=2026-03-12&endDate=2026-03-15\")",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216364314,\"\"startDateTime\"\":\"\"2026-03-13T10:00:00\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216364314,\"\"startDateTime\"\":\"\"2026-03-13T10:00:00.000Z\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/lead\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"firstname\"\":\"\"Test\"\",\"\"lastname\"\":\"\"User\"\",\"\"email\"\":\"\"test-curl@example.com\"\",\"\"mobilephone\"\":\"\"+4917600000000\"\",\"\"gender\"\":\"\"MALE\"\",\"\"dateofbirth\"\":\"\"1990-01-01\"\",\"\"address\"\":{\"\"street\"\":\"\"Teststr\"\",\"\"housenumber\"\":\"\"1\"\",\"\"zipcode\"\":\"\"54290\"\",\"\"city\"\":\"\"Trier\"\",\"\"country\"\":\"\"DE\"\"}}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216369290,\"\"startDateTime\"\":\"\"2026-03-13T10:00:00\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216369290,\"\"startDateTime\"\":\"\"2026-03-13T10:00:00.000Z\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216369290,\"\"startDateTime\"\":\"\"2026-03-13T09:00:00\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession/book\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216369290,\"\"startDateTime\"\":\"\"2026-03-14T12:00:00\"\"}')",
+      "Bash(curl -s -X POST \"https://fit-inn-trier.api.magicline.com/connect/v1/trialsession\" -H \"Content-Type: application/json\" -d '{\"\"studioId\"\":1210005460,\"\"customerId\"\":1216369290,\"\"startDateTime\"\":\"\"2026-03-13T10:00:00\"\"}')",
+      "Bash(explorer \"c:\\\\Users\\\\Markus\\\\Download Synology\\\\Happyfigur angebot\\\\public\")",
+      "Bash(start \"\" \"c:\\\\Users\\\\Markus\\\\Download Synology\\\\Happyfigur angebot\\\\public\")",
+      "Bash(npm install:*)",
+      "WebFetch(domain:www.dein.happyfigur24.de)"
+    ]
+  }
+}

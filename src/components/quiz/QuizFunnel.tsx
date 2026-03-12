@@ -337,6 +337,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     && contact.zip.trim().length >= 4
     && contact.city.trim().length > 1
 
+  const nextDisabled =
+    (step === 2 && !(data.height >= 130 && data.weight >= 40 && data.targetWeight >= 40)) ||
+    (step === 7 && !selectedSlot)
+  const nextLabel = step === 4 ? 'Das will ich auch!' : 'Weiter'
+
   // Loading Screen (nach Commitment)
   if (isCalculating) {
     return (
@@ -434,7 +439,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
 
       {/* ── Step 2: Körpermaße ── */}
       {step === 2 && (
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <span className="text-3xl">📏</span>
@@ -490,20 +495,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </div>
             <p className="text-xs text-muted-foreground text-center">🔒 Deine Angaben sind vertraulich und werden nur für deine Analyse verwendet.</p>
           </div>
-          <div className="mt-10 flex justify-center gap-6">
-            <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-            <button onClick={nextStep}
-              disabled={!(data.height >= 130 && data.weight >= 40 && data.targetWeight >= 40)}
-              className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
-              Weiter <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
         </div>
       )}
 
       {/* ── Step 3: Probleme ── */}
       {step === 3 && (
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
               Was <span className="text-accent">hält dich zurück</span>?
@@ -540,16 +537,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <p className="text-sm font-semibold mt-1">Thomas K. <span className="text-primary">• -9 kg</span></p>
             </div>
           </div>
-          <div className="mt-10 flex justify-center gap-6">
-            <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-            <button onClick={nextStep} className="btn-primary inline-flex items-center gap-2">Weiter <ArrowRight className="w-5 h-5" /></button>
-          </div>
         </div>
       )}
 
       {/* ── Step 4: Transformation ── */}
       {step === 4 && (
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
               So kann deine <span className="text-primary">Transformation</span> aussehen
@@ -580,10 +573,6 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
           </div>
           <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-2xl w-full">
             <p className="text-sm text-center"><span className="font-semibold text-primary">💡 Das ist möglich:</span> 93% unserer Teilnehmer berichten von deutlich mehr Energie bereits nach 2 Wochen.</p>
-          </div>
-          <div className="mt-10 flex justify-center gap-6">
-            <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-            <button onClick={nextStep} className="btn-primary inline-flex items-center gap-2">Das will ich auch! <ArrowRight className="w-5 h-5" /></button>
           </div>
         </div>
       )}
@@ -805,19 +794,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             )
           })()}
 
-          <div className="mt-10 flex justify-center gap-6">
-            <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-            <button onClick={nextStep} disabled={!selectedSlot}
-              className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
-              Weiter <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
         </div>
       )}
 
       {/* ── Step 8: Kontaktdaten ── */}
       {step === 8 && selectedSlot && (
-        <div className="flex-1 flex flex-col items-center px-6 py-16 md:py-20 quiz-step-enter">
+        <div className="flex-1 flex flex-col items-center px-6 py-16 pb-40 md:py-20 md:pb-40 quiz-step-enter">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <User className="w-8 h-8 text-primary" />
@@ -1052,42 +1034,23 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </div>
           </div>
 
-          {/* Actions below card */}
-          <div className="w-full max-w-lg mt-6 space-y-4">
-
-            {bookingError && (
-              <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-2xl">
-                <div className="flex items-start gap-3 mb-3">
-                  <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
-                  <p className="text-sm text-destructive font-semibold">{bookingError}</p>
-                </div>
-                <a href={buildWALink(selectedSlot.startDateTime)}
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn-cta inline-flex items-center justify-center gap-2 w-full text-sm py-3">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L0 24l6.314-1.489A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.375l-.359-.214-3.748.883.934-3.646-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818s9.818 4.398 9.818 9.818-4.398 9.818-9.818 9.818z"/>
-                  </svg>
-                  Stattdessen per WhatsApp buchen
-                </a>
+          {bookingError && (
+            <div className="w-full max-w-lg mt-6 p-4 bg-destructive/10 border border-destructive/30 rounded-2xl">
+              <div className="flex items-start gap-3 mb-3">
+                <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
+                <p className="text-sm text-destructive font-semibold">{bookingError}</p>
               </div>
-            )}
-
-            <button onClick={submitBooking} disabled={!contactValid}
-              className="btn-cta inline-flex items-center justify-center gap-2 w-full text-lg py-4 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed">
-              Jetzt verbindlich buchen <ArrowRight className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1.5"><svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg> Sicher übertragen</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-              <span>Deutschland (DE)</span>
+              <a href={buildWALink(selectedSlot.startDateTime)}
+                target="_blank" rel="noopener noreferrer"
+                className="btn-cta inline-flex items-center justify-center gap-2 w-full text-sm py-3">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L0 24l6.314-1.489A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.375l-.359-.214-3.748.883.934-3.646-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818s9.818 4.398 9.818 9.818-4.398 9.818-9.818 9.818z"/>
+                </svg>
+                Stattdessen per WhatsApp buchen
+              </a>
             </div>
-          </div>
-
-          <div className="mt-6 flex justify-center">
-            <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"><ArrowLeft className="w-4 h-4" /> Zurück</button>
-          </div>
+          )}
         </div>
       )}
 
@@ -1290,6 +1253,44 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               className="px-8 py-3 text-muted-foreground hover:text-foreground border border-border rounded-xl transition-colors">
               Schließen
             </button>
+          </div>
+        </div>
+      )}
+      {/* ── Sticky Navigation (Steps 2–4, 7–8) ── */}
+      {[2, 3, 4, 7, 8].includes(step) && (
+        <div className="fixed bottom-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-md border-t border-border">
+          <div className="max-w-lg mx-auto px-6 py-4">
+            {step === 8 ? (
+              <div className="space-y-3">
+                <button onClick={submitBooking} disabled={!contactValid}
+                  className="btn-cta inline-flex items-center justify-center gap-2 w-full text-lg py-4 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed">
+                  Jetzt verbindlich buchen <ArrowRight className="w-5 h-5" />
+                </button>
+                <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                    Sicher übertragen
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+                  <span>Deutschland (DE)</span>
+                </div>
+                <div className="flex justify-center">
+                  <button onClick={prevStep} className="px-6 py-2 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2">
+                    <ArrowLeft className="w-4 h-4" /> Zurück
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-center gap-6">
+                <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2">
+                  <ArrowLeft className="w-4 h-4" /> Zurück
+                </button>
+                <button onClick={nextStep} disabled={nextDisabled}
+                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                  {nextLabel} <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

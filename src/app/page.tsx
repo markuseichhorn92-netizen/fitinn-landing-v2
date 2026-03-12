@@ -68,11 +68,11 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-[center_15%] md:object-[right_top] opacity-25 md:opacity-30"
+            className="object-cover object-[right_top] opacity-40 md:opacity-35"
             priority
           />
           {/* Mobile: heavy overlay so text stays readable over the person */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 md:bg-gradient-to-r md:from-background/90 md:via-background/60 md:to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/10" />
           {/* Accent blobs */}
           <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />
@@ -316,7 +316,7 @@ export default function Home() {
       </footer>
 
       {/* Sticky Bar */}
-      <StickyBar onStartQuiz={startQuiz} />
+      <StickyBar onStartQuiz={startQuiz} quizOpen={showQuiz} />
 
       {/* Quiz Modal – Fullscreen Funnel */}
       {showQuiz && (

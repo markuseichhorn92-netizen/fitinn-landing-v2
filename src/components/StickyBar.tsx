@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 
-export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function StickyBar({ onStartQuiz, quizOpen }: { onStartQuiz: () => void; quizOpen: boolean }) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ease-out ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
+        isVisible && !quizOpen ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       <div className="bg-card/95 backdrop-blur-md border-t border-border shadow-2xl">
