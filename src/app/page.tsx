@@ -11,6 +11,7 @@ import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
 import { ProcessSection } from '@/components/sections/ProcessSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
+import { TrainerSection } from '@/components/sections/TrainerSection'
 import { StickyBar } from '@/components/StickyBar'
 import { Navbar } from '@/components/Navbar'
 
@@ -95,7 +96,10 @@ export default function Home() {
               <span className="block text-primary mt-2">Jetzt nimmst du wirklich ab.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-primary font-medium max-w-xl mx-auto mb-3">
+              8-Wochen-Programm · Personal Training · Ernährungsbegleitung · FIT-INN Trier
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
               Das Problem ist nicht deine Disziplin –{' '}
               <strong className="text-foreground">es ist der falsche Ansatz.</strong>{' '}
               happyfigur setzt gezielt an deinem Stoffwechsel an.
@@ -199,6 +203,9 @@ export default function Home() {
 
       {/* Process Section */}
       <ProcessSection />
+
+      {/* Trainer / Coach */}
+      <TrainerSection />
 
       {/* Studio Einblick */}
       <section className="relative py-12 overflow-hidden">

@@ -86,22 +86,57 @@ export function Testimonials() {
 
               {/* Author */}
               <div className="flex items-center gap-4 pt-4 border-t border-border">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-black shrink-0"
-                  style={{ backgroundColor: testimonial.color }}
-                >
-                  {testimonial.initials}
+                <div className="relative shrink-0">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-black"
+                    style={{ backgroundColor: testimonial.color }}
+                    title="[PLATZHALTER: echtes Foto des Teilnehmers einfügen]"
+                  >
+                    {testimonial.initials}
+                  </div>
                 </div>
                 <div>
                   <h4 className="font-semibold">{testimonial.name}, {testimonial.age}</h4>
-                  <p className="text-xs text-muted-foreground">Verifizierter Teilnehmer</p>
+                  <p className="text-xs text-muted-foreground">Verifizierter Teilnehmer · FIT-INN Trier</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
+        {/* Google-Bewertungs-CTA */}
+        <div className="mt-10 p-5 rounded-2xl bg-card border border-border/50 max-w-lg mx-auto text-center">
+          <div className="flex items-center justify-center gap-1 mb-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+            ))}
+            <span className="ml-2 font-bold text-foreground">4.9 / 5</span>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3">
+            Bewertet von 127 Teilnehmern auf Google
+          </p>
+          <a
+            href="https://www.google.com/search?q=FIT-INN+Trier+Bewertungen"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
+          >
+            Alle Bewertungen auf Google ansehen →
+          </a>
+        </div>
+
+        {/* Trust-Leiste */}
+        <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5"><span className="text-primary font-bold">30+</span> Jahre in Trier</span>
+          <span className="text-border">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-primary font-bold">127.000+</span> Teilnehmer</span>
+          <span className="text-border">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-primary font-bold">§ 20 SGB V</span> zertifiziert</span>
+          <span className="text-border">·</span>
+          <span className="flex items-center gap-1.5"><span className="text-primary font-bold">Persönliche</span> Betreuung</span>
+        </div>
+
         {/* Durchschnittswerte */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">-7,2 kg</div>
             <div className="text-sm text-muted-foreground mt-1">Ø Gewichtsverlust<sup>¹</sup></div>

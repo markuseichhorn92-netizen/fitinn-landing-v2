@@ -88,8 +88,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             <div className="mt-6 bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Einmaliger Programmpreis</p>
               <div className="text-5xl font-bold text-primary">179€<sup className="text-2xl">¹</sup></div>
-              <p className="text-sm text-primary font-medium mt-2">Kein Abo · Keine Mitgliedschaft</p>
-              <p className="text-xs text-muted-foreground mt-1">Nur diese 8 Wochen – danach entscheidest du frei</p>
+              <p className="text-sm text-primary font-semibold mt-2">Einmalig · Für 8 Wochen · Kein Abo</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Das sind nur <strong className="text-foreground">3,20€/Tag</strong> — weniger als ein Kaffee.<sup>¹</sup>
+              </p>
             </div>
           </div>
 
