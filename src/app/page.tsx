@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { ProblemSection } from '@/components/sections/ProblemSection'
-import { SolutionSection } from '@/components/sections/SolutionSection'
+import { WhySection } from '@/components/sections/WhySection'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
 import { ProcessSection } from '@/components/sections/ProcessSection'
@@ -19,17 +18,17 @@ const heroFeatures = [
   {
     icon: Dumbbell,
     title: 'Kein Trial-and-Error mehr',
-    text: 'Du bekommst einen Plan, der speziell für deinen Körper funktioniert. Dein Trainer setzt gezielt an deinem Stoffwechsel an – damit du endlich Ergebnisse siehst, nicht irgendwann, sondern ab Woche 1.',
+    text: 'Dein Trainer setzt gezielt an deinem Stoffwechsel an — kein Allgemeinplan. Ergebnisse ab Woche 1.',
   },
   {
     icon: Apple,
     title: 'Abnehmen ohne Verzicht',
-    text: 'Diäten scheitern, weil sie dein Leben ignorieren. Das happyfigur-Prinzip nicht. Kein Kalorienzählen, keine Verbote – ein System, das du auch in zwei Jahren noch lebst.',
+    text: 'Kein Kalorienzählen, keine Verbote. Ein System, das du auch in zwei Jahren noch lebst.',
   },
   {
     icon: HeartPulse,
     title: 'Viele zahlen am Ende 0€',
-    text: 'Was die meisten nicht wissen: Deine Krankenkasse übernimmt nach § 20 SGB V bis zu 100% der Kosten. Du nimmst teil, reichst die Bestätigung ein – und bekommst dein Geld zurück.',
+    text: '§ 20 SGB V: Deine Kasse übernimmt bis zu 100%.<sup>²³</sup> Einfach teilnehmen, Bestätigung einreichen, Geld zurück.',
   },
 ]
 
@@ -85,7 +84,7 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-8">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.9] mb-8">
               Du hast
               <span
                 className={`block text-accent relative glitch-text ${heroAnimated ? 'animate' : ''}`}
@@ -189,11 +188,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Problem Section */}
-      <ProblemSection />
-
-      {/* Solution Section */}
-      <SolutionSection onStartQuiz={startQuiz} />
+      {/* Why Section (Problem + Solution zusammengelegt) */}
+      <WhySection onStartQuiz={startQuiz} />
 
       {/* Process Section */}
       <ProcessSection />
@@ -253,8 +249,8 @@ export default function Home() {
             <span className="text-sm font-medium text-accent uppercase tracking-wider">Jetzt handeln</span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-up delay-100">
-            Dein kostenloser <span className="text-primary">Platz wartet</span> auf dich
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-up delay-100">
+            Dein erster Schritt kostet nichts.
           </h2>
           <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
             Starte heute mit einem kostenlosen Probetraining.
@@ -270,9 +266,15 @@ export default function Home() {
               Jetzt kostenloses Probetraining buchen
               <ArrowRight className="w-6 h-6" />
             </button>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-sm font-medium text-accent">Noch 3 Plätze frei · Angebot endet bald</span>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
+                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                <span className="text-sm font-medium text-accent">Noch 3 Plätze frei · Angebot endet bald</span>
+              </div>
+              <a href="tel:+496513085240" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Phone className="w-3.5 h-3.5" />
+                0651 308524
+              </a>
             </div>
           </div>
 
@@ -293,6 +295,7 @@ export default function Home() {
             <div className="text-center md:text-left space-y-2">
               <p className="font-bold text-lg">FIT-INN Trier</p>
               <p className="text-sm text-muted-foreground">Auf Hirtenberg 8, 54296 Trier · Seit 1996</p>
+              <a href="mailto:info@fit-inn-trier.de" className="text-sm text-muted-foreground hover:text-foreground transition-colors">info@fit-inn-trier.de</a>
               <div className="flex flex-col sm:flex-row gap-2 mt-3">
                 <a
                   href="tel:+496513085240"

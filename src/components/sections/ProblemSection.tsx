@@ -37,7 +37,7 @@ export function ProblemSection() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-accent uppercase tracking-widest font-semibold">Das Problem</span>
-          <h2 className="text-4xl md:text-6xl font-bold mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
             Warum <span className="text-accent">Diäten scheitern</span>
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
@@ -55,7 +55,7 @@ export function ProblemSection() {
               <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                 <problem.icon className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="text-lg font-bold mb-2">{problem.title}</h3>
+              <h3 className="text-lg font-semibold mb-2">{problem.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{problem.description}</p>
             </div>
           ))}

@@ -43,7 +43,7 @@ export function Testimonials() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Aus der Region · Echte Ergebnisse</span>
-          <h2 className="text-4xl md:text-6xl font-bold mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
             Was Teilnehmer aus <span className="text-primary">Trier & Umgebung</span> sagen
           </h2>
           <div className="flex items-center justify-center gap-1 mt-4">

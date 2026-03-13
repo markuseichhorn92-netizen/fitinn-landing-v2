@@ -49,7 +49,7 @@ export function GuaranteeSection() {
           <span className={`inline-block text-sm text-primary uppercase tracking-widest font-semibold materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             Unser Versprechen
           </span>
-          <h2 className={`text-3xl md:text-5xl font-bold mt-4 mb-4 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.3s' }}>
+          <h2 className={`text-3xl md:text-4xl font-bold mt-4 mb-4 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.3s' }}>
             Du gehst <span className="text-primary">kein Risiko</span> ein
           </h2>
           <p className={`text-muted-foreground text-lg max-w-xl mx-auto mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
@@ -77,7 +77,7 @@ export function GuaranteeSection() {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                   <g.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-bold text-base">{g.title}</h3>
+                <h3 className="font-semibold text-base">{g.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{g.description}</p>
               </div>
             ))}

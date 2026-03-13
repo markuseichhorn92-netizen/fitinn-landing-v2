@@ -52,8 +52,8 @@ export function FAQSection() {
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center mb-16 animate-fade-up">
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Häufige Fragen</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4">
-            Alles, was du <span className="text-primary">wissen möchtest</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+            Deine Fragen — <span className="text-primary">ehrliche Antworten</span>
           </h2>
         </div>
 

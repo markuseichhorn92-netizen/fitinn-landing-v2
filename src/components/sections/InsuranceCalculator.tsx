@@ -54,7 +54,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-accent uppercase tracking-widest font-semibold">Was kostet happyfigur wirklich?</span>
-          <h2 className="text-3xl md:text-5xl font-bold mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
             179€ einmalig –{' '}
             <span className="text-primary">oft zurückerstattet</span>
           </h2>

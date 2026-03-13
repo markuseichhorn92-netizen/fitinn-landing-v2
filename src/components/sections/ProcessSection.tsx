@@ -38,7 +38,7 @@ export function ProcessSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">So einfach geht&apos;s</span>
-          <h2 className="text-4xl md:text-6xl font-bold mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
             3 Schritte zu <span className="text-primary">deinem Ziel</span>
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-xl mx-auto">
@@ -73,7 +73,7 @@ export function ProcessSection() {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <h3 className="text-lg font-semibold mb-3">{step.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
               </div>
 
