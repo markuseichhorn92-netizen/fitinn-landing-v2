@@ -164,12 +164,15 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             <div className="flex-1" />
 
             {/* CTA */}
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center space-y-3">
               <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg w-full justify-center">
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <p className="text-xs text-muted-foreground mt-3">
+              <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
+                Noch Fragen? Schreib uns auf WhatsApp
+              </a>
+              <p className="text-xs text-muted-foreground mt-1">
                 Du zahlst bei Trainingsstart<sup>¹</sup>, Krankenkasse erstattet dir das Geld zurück.<sup>²</sup>
               </p>
             </div>

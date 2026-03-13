@@ -96,10 +96,10 @@ export function ProcessSection() {
 
         {/* Soft CTA */}
         <div className="mt-10 text-center">
-          <a href="tel:+496513085240" className="btn-outline">
-            Kostenloses Erstgespräch vereinbaren
+          <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            Fragen? Wir antworten auf WhatsApp
           </a>
-          <p className="text-xs text-muted-foreground mt-3">Ruf einfach an — kein Formular, kein Risiko</p>
+          <p className="text-xs text-muted-foreground mt-3">Schnell, unkompliziert — wir melden uns</p>
         </div>
 
       </div>

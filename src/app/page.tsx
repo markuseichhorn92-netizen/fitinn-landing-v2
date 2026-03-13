@@ -283,9 +283,9 @@ export default function Home() {
               Jetzt kostenloses Probetraining buchen
               <ArrowRight className="w-6 h-6" />
             </button>
-            <a href="tel:+496513085240" className="btn-outline">
-              <Phone className="w-4 h-4" />
-              Lieber anrufen: 0651 308524
+            <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <MessageCircle className="w-4 h-4" />
+              Fragen? Schreib uns auf WhatsApp
             </a>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">

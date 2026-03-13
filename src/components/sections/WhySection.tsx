@@ -119,8 +119,8 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
               Jetzt Probetraining sichern
               <ArrowRight className="w-5 h-5" />
             </button>
-            <a href="tel:+496513085240" className="btn-outline">
-              Erstgespräch vereinbaren
+            <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
+              Fragen? Schreib uns auf WhatsApp
             </a>
           </div>
           <p className="text-muted-foreground text-sm mt-3">✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert</p>
