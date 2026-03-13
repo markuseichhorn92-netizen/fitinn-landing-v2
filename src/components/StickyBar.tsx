@@ -20,7 +20,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 bg-background transition-all duration-300 ease-out ${
+      className={`fixed bottom-0 left-0 right-0 z-40 pb-safe bg-background transition-all duration-300 ease-out ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
@@ -67,6 +67,9 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
           </div>
         </div>
       </div>
+
+      {/* iOS Safe Area Filler - ensures no gap below on notch iPhones */}
+      <div style={{ height: 'env(safe-area-inset-bottom, 0px)' }} className="bg-background" />
     </div>
   )
 }

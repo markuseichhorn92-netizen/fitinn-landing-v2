@@ -79,6 +79,9 @@ body::after {
   * {
     border-color: var(--border);
   }
+  html {
+    background-color: var(--background);
+  }
   body {
     background-color: var(--background);
     color: var(--foreground);
@@ -231,14 +234,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Safe Area Utilities (iOS Home-Bar, Android Navigation Bar) */
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.pb-safe-4 {
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-}
-.pt-safe {
-  padding-top: env(safe-area-inset-top, 0px);
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: max(0px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .pb-safe-4 {
+    padding-bottom: calc(1rem + max(0px, env(safe-area-inset-bottom, 0px))) !important;
+  }
+  .pt-safe {
+    padding-top: max(0px, env(safe-area-inset-top, 0px)) !important;
+  }
 }
 
 /* Hover-Effekte nur auf Geräten mit echter Maus */
