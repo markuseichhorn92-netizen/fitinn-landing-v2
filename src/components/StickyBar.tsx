@@ -20,6 +20,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
 
   return (
     <div
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       className={`fixed bottom-0 left-0 right-0 z-40 bg-background transition-all duration-300 ease-out ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}

@@ -31,6 +31,7 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
 
   return (
     <nav
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled || mobileOpen
           ? 'bg-background backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
