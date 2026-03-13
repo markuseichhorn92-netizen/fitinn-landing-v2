@@ -234,16 +234,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Safe Area Utilities (iOS Home-Bar, Android Navigation Bar) */
-@supports (padding: max(0px)) {
-  .pb-safe {
-    padding-bottom: max(0px, env(safe-area-inset-bottom, 0px)) !important;
-  }
-  .pb-safe-4 {
-    padding-bottom: calc(1rem + max(0px, env(safe-area-inset-bottom, 0px))) !important;
-  }
-  .pt-safe {
-    padding-top: max(0px, env(safe-area-inset-top, 0px)) !important;
-  }
+.pb-safe {
+  padding-bottom: constant(safe-area-inset-bottom, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pb-safe-4 {
+  padding-bottom: calc(1rem + constant(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+.pt-safe {
+  padding-top: constant(safe-area-inset-top, 0px);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Extends a fixed-bottom element into the iOS safe area with matching background */
+.sticky-bottom-safe::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: constant(safe-area-inset-bottom, 0px);
+  height: env(safe-area-inset-bottom, 0px);
+  background-color: var(--background);
 }
 
 /* Hover-Effekte nur auf Geräten mit echter Maus */
