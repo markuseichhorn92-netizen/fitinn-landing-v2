@@ -25,8 +25,8 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       }`}
     >
       {/* Mobile */}
-      <div className="sm:hidden bg-background/98 backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
-        <div className="px-4 pt-2 pb-safe-4">
+      <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+        <div className="px-4 pt-2" style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 20px)' }}>
           {/* Urgency */}
           <div className="flex items-center justify-center gap-1.5 mb-2">
             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />

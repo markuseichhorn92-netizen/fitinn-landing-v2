@@ -33,8 +33,8 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
     <nav
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled || mobileOpen
-          ? 'bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
-          : 'bg-background/75 backdrop-blur-md border-b border-white/5'
+          ? 'bg-background/98 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
+          : 'bg-background/98 backdrop-blur-xl border-b border-border/30 md:bg-background/60 md:backdrop-blur-md md:border-white/5'
       }`}
     >
       {/* iOS Safe-Area-Spacer — füllt den Bereich hinter der Statusleiste */}
