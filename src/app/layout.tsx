@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="de" className="dark">
       <body className={`${barlow.variable} ${barlowCondensed.variable}`}>
+        <ScrollProgress />
         {children}
       </body>
     </html>

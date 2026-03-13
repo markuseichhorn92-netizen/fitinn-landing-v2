@@ -30,7 +30,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.05)
 
   return (
-    <section id="programm" className="py-12 relative overflow-hidden" ref={section.ref}>
+    <section id="programm" className="py-8 relative overflow-hidden" ref={section.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent" />
       </div>
@@ -49,11 +49,11 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         <div className={`grid md:grid-cols-2 gap-6 mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.15s' }}>
           {/* Left: Problems */}
           <div className="rounded-2xl bg-accent/5 border border-accent/20 p-6">
-            <p className="text-sm text-accent uppercase tracking-widest font-semibold mb-4">Das kennst du</p>
+            <p className="text-sm text-red-400 uppercase tracking-widest font-semibold mb-4">Das kennst du</p>
             <ul className="space-y-3">
               {problems.map((p, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <X className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <X className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
                   <span className="text-sm text-muted-foreground leading-relaxed">{p}</span>
                 </li>
               ))}
@@ -98,7 +98,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         </div>
 
         {/* Mockup */}
-        <div className="mt-12 relative max-w-2xl mx-auto">
+        <div className="mt-8 relative max-w-2xl mx-auto">
           <Image
             src="/mockup-paket.png"
             alt="Happyfigur – App, Online-Plattform, Ernährungsplan und Rezeptbuch"

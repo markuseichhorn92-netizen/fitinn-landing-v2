@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
-import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { WhySection } from '@/components/sections/WhySection'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
@@ -19,19 +19,41 @@ const heroFeatures = [
   {
     icon: Dumbbell,
     title: 'Kein Trial-and-Error mehr',
-    text: 'Dein Trainer setzt gezielt an deinem Stoffwechsel an — kein Allgemeinplan. Ergebnisse ab Woche 1.',
+    text: <>Dein Trainer setzt gezielt an deinem Stoffwechsel an — kein Allgemeinplan. Ergebnisse ab Woche 1.</>,
   },
   {
     icon: Apple,
     title: 'Abnehmen ohne Verzicht',
-    text: 'Kein Kalorienzählen, keine Verbote. Ein System, das du auch in zwei Jahren noch lebst.',
+    text: <>Kein Kalorienzählen, keine Verbote. Ein System, das du auch in zwei Jahren noch lebst.</>,
   },
   {
     icon: HeartPulse,
     title: 'Viele zahlen am Ende 0€',
-    text: '§ 20 SGB V: Deine Kasse übernimmt bis zu 100%.<sup>²³</sup> Einfach teilnehmen, Bestätigung einreichen, Geld zurück.',
+    text: <>§ 20 SGB V: Deine Kasse übernimmt bis zu 100%.<sup>²³</sup> Einfach teilnehmen, Bestätigung einreichen, Geld zurück.</>,
   },
 ]
+
+function StatItem({ endValue, format, label, sub, delay, isVisible }: {
+  endValue: number
+  format: (n: number) => string
+  label: string
+  sub: string
+  delay: number
+  isVisible: boolean
+}) {
+  const count = useCountUp(endValue, 2000, isVisible)
+  return (
+    <div className="text-center relative">
+      <div className="relative inline-block">
+        <div className="text-2xl md:text-3xl font-bold text-primary glow-text">
+          {format(count)}
+        </div>
+      </div>
+      <div className="text-xs font-semibold mt-1 uppercase tracking-wider">{label}</div>
+      <div className="text-xs text-muted-foreground mt-0.5">{sub}</div>
+    </div>
+  )
+}
 
 export default function Home() {
   const router = useRouter()
@@ -55,15 +77,17 @@ export default function Home() {
       <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Hero background image */}
-          <Image
-            src="/dooken-magic-edit-1773336253189.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover object-top md:object-[right_top] opacity-30 md:opacity-35"
-            priority
-          />
+          {/* Hero background image — Ken Burns */}
+          <div className="hero-ken-burns absolute inset-0">
+            <Image
+              src="/dooken-magic-edit-1773336253189.png"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover object-top md:object-[right_top] opacity-30 md:opacity-35"
+              priority
+            />
+          </div>
           {/* Mobile overlay: oben mittel (Frau sichtbar), unten stark (Text lesbar) */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/50 to-background/95 md:hidden" />
           {/* Desktop overlay: links dunkel (Text), rechts transparent (Frau) */}
@@ -109,7 +133,7 @@ export default function Home() {
             <div className="flex flex-col items-center gap-4">
               <button
                 onClick={startQuiz}
-                className="btn-cta inline-flex items-center gap-3 text-xl px-10 py-5"
+                className="btn-cta cta-pulse inline-flex items-center gap-3 text-xl px-10 py-5"
               >
                 <Target className="w-6 h-6" />
                 Kostenloses Probetraining sichern
@@ -157,43 +181,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof Bar — Number Slam */}
-      <section className="py-12 border-y border-border/50" ref={stats.ref}>
+      {/* Social Proof Bar — Counter Animation */}
+      <section className="py-8 border-y border-border/50" ref={stats.ref}>
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '30+', label: 'Jahre Erfahrung', sub: 'FIT-INN seit 1996' },
-              { value: '127.000+', label: 'happyfigur Teilnehmer', sub: 'deutschlandweit' },
-              { value: '4.9★', label: 'Google Bewertung', sub: '127 Rezensionen' },
-              { value: '-7,2 kg', label: 'Ø Gewichtsverlust', sub: 'in 8 Wochen¹' },
-            ].map((stat, i) => (
-              <div key={i} className="text-center relative">
-                <div className="relative inline-block">
-                  <div
-                    className={`text-2xl md:text-3xl font-bold text-primary glow-text number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
-                    style={{ animationDelay: `${i * 0.15}s` }}
-                  >
-                    {stat.value}
-                  </div>
-                  <div
-                    className={`impact-ring ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
-                    style={{ animationDelay: `${i * 0.15}s` }}
-                  />
-                </div>
-                <div
-                  className={`text-xs font-semibold mt-1 uppercase tracking-wider number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
-                  style={{ animationDelay: `${i * 0.15 + 0.2}s` }}
-                >
-                  {stat.label}
-                </div>
-                <div
-                  className={`text-xs text-muted-foreground mt-0.5 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
-                  style={{ animationDelay: `${i * 0.15 + 0.3}s` }}
-                >
-                  {stat.sub}
-                </div>
-              </div>
-            ))}
+            <StatItem endValue={30} format={n => `${n}+`} label="Jahre Erfahrung" sub="FIT-INN seit 1996" delay={0} isVisible={stats.isVisible} />
+            <StatItem endValue={127000} format={n => `${n.toLocaleString('de-DE')}+`} label="happyfigur Teilnehmer" sub="deutschlandweit" delay={0.15} isVisible={stats.isVisible} />
+            <StatItem endValue={49} format={n => `${(n / 10).toFixed(1)}★`} label="Google Bewertung" sub="127 Rezensionen" delay={0.3} isVisible={stats.isVisible} />
+            <StatItem endValue={72} format={n => `-${(n / 10).toFixed(1).replace('.', ',')} kg`} label="Ø Gewichtsverlust" sub="in 8 Wochen¹" delay={0.45} isVisible={stats.isVisible} />
           </div>
         </div>
       </section>
@@ -210,7 +205,7 @@ export default function Home() {
       <TrainerSection />
 
       {/* Studio Einblick — leicht abgehoben */}
-      <section className="relative py-12 overflow-hidden bg-card/30">
+      <section className="relative py-8 overflow-hidden bg-card/30">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
@@ -255,7 +250,7 @@ export default function Home() {
       <FAQSection />
 
       {/* Final CTA */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-14 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-t from-primary/8 to-transparent" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-3xl" />

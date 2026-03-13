@@ -49,7 +49,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   const isFree = eigenanteil === 0
 
   return (
-    <section id="krankenkasse" className="py-16 relative" ref={section.ref}>
+    <section id="krankenkasse" className="py-10 relative" ref={section.ref}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
@@ -76,10 +76,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {included.map((item, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-                style={{ animationDelay: `${0.4 + i * 0.08}s` }}
+                className={`checklist-item flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+                style={{ animationDelay: `${0.4 + i * 0.2}s` }}
               >
-                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                <CheckCircle2 className="check-icon w-4 h-4 text-primary shrink-0" />
                 <span className="text-sm text-muted-foreground">{item}</span>
               </div>
             ))}
@@ -87,7 +87,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {/* Real price box */}
             <div className="mt-6 bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Einmaliger Programmpreis</p>
-              <div className="text-5xl font-bold text-primary">179€<sup className="text-2xl">¹</sup></div>
+              <div className={`text-5xl font-bold text-primary price-shimmer ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '1.6s' }}>179€<sup className="text-2xl">¹</sup></div>
               <p className="text-sm text-primary font-semibold mt-2">Einmalig · Für 8 Wochen · Kein Abo</p>
               <p className="text-xs text-muted-foreground mt-1">
                 Das sind nur <strong className="text-foreground">3,20€/Tag</strong> — weniger als ein Kaffee.<sup>¹</sup>
