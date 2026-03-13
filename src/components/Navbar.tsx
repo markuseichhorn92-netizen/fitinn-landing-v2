@@ -33,15 +33,19 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
-          : 'bg-background/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none'
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 pt-safe ${
+        scrolled || mobileOpen
+          ? 'bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
+          : 'bg-background/70 backdrop-blur-md border-b border-white/5'
       }`}
     >
       <div className="mx-auto max-w-7xl px-5 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="#hero" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="shrink-0">
+        <a
+          href="#hero"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="shrink-0"
+        >
           <Image
             src="/logo.png"
             alt="FIT-INN Trier"
@@ -75,41 +79,37 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex items-center justify-center w-11 h-11 rounded-xl bg-white/5 text-foreground transition-colors active:bg-white/10"
-          aria-label="Menü öffnen"
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-white/8 border border-white/10 text-foreground transition-all active:scale-95"
+          aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Menu – Fullscreen Overlay */}
+      {/* Mobile Menu Dropdown */}
       {mobileOpen && (
-        <div className="md:hidden bg-background/98 backdrop-blur-2xl border-b border-border/50">
-          <div className="px-5 pt-2 pb-6 flex flex-col">
-            {/* Nav Links */}
+        <div className="md:hidden border-t border-border/40">
+          <div className="px-4 py-3 flex flex-col gap-1">
             {navLinks.map((link, i) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className={`text-left px-4 py-4 text-base font-medium text-muted-foreground active:text-foreground active:bg-white/5 rounded-xl transition-colors ${
-                  i < navLinks.length - 1 ? 'border-b border-border/30' : ''
-                }`}
+                className="text-left px-4 py-3.5 text-[15px] font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-colors"
               >
                 {link.label}
               </button>
             ))}
 
-            {/* CTA Block */}
-            <div className="mt-5 space-y-3">
+            <div className="mt-2 pt-3 border-t border-border/30 space-y-2">
               <button
                 onClick={() => { setMobileOpen(false); onStartQuiz() }}
-                className="btn-cta w-full inline-flex items-center justify-center gap-2 text-base py-4 rounded-xl"
+                className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] py-3.5 rounded-xl"
               >
                 Kostenloses Probetraining
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <p className="text-center text-xs text-muted-foreground">
-                ✓ Unverbindlich · ✓ 100% kostenlos · ✓ Krankenkasse bis 100%
+              <p className="text-center text-xs text-muted-foreground pb-1">
+                ✓ Unverbindlich · ✓ 100% kostenlos
               </p>
             </div>
           </div>

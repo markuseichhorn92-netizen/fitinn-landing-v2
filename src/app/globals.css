@@ -237,6 +237,9 @@ h1, h2, h3, h4, h5, h6 {
 .pb-safe-4 {
   padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
 }
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
 
 /* Hover-Effekte nur auf Geräten mit echter Maus */
 @media (hover: none) {

@@ -27,46 +27,49 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className="bg-card/97 backdrop-blur-xl border-t border-border/60 shadow-[0_-8px_32px_rgba(0,0,0,0.4)]">
-
-        {/* Mobile Layout: Urgency-Text + vollbreiter Button */}
-        <div className="sm:hidden px-4 pt-3 pb-safe-4">
-          <div className="flex items-center justify-center gap-2 mb-2.5">
-            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-medium text-muted-foreground">
-              <span className="text-accent font-semibold">Noch 3 Plätze</span> · Kostenlos & unverbindlich
+      {/* Mobile */}
+      <div className="sm:hidden bg-background/97 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_24px_rgba(0,0,0,0.35)]">
+        <div className="px-4 pt-2.5 pb-safe-4">
+          {/* Urgency row */}
+          <div className="flex items-center justify-center gap-1.5 mb-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
+            <span className="text-[11px] font-medium text-muted-foreground leading-none">
+              <span className="text-accent font-semibold">Noch 3 Plätze</span>
+              {' · '}Kostenlos & unverbindlich
             </span>
           </div>
+          {/* CTA Button */}
           <button
             onClick={onStartQuiz}
-            className="btn-cta w-full inline-flex items-center justify-center gap-2 text-base py-3.5 rounded-xl"
+            className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl tracking-wide"
           >
-            Probetraining sichern
+            PROBETRAINING SICHERN
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
+      </div>
 
-        {/* Desktop Layout: Trust links + Button rechts */}
-        <div className="hidden sm:block pb-safe">
-          <div className="mx-auto max-w-7xl px-6 py-3">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-sm text-muted-foreground">
-                  <span className="text-foreground font-semibold">§ 20 SGB V</span> · Bis zu 100% von der Krankenkasse erstattet<sup>²³</sup>
-                </span>
-              </div>
-              <button
-                onClick={onStartQuiz}
-                className="btn-cta inline-flex items-center gap-2 text-sm py-2.5 px-5 shrink-0"
-              >
-                Probetraining sichern
-                <ArrowRight className="w-4 h-4" />
-              </button>
+      {/* Desktop */}
+      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_24px_rgba(0,0,0,0.3)] pb-safe">
+        <div className="mx-auto max-w-7xl px-6 py-3">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span className="text-sm text-muted-foreground">
+                <span className="text-foreground font-semibold">§ 20 SGB V</span>
+                {' · '}Bis zu 100% von der Krankenkasse erstattet
+                <sup>*</sup>
+              </span>
             </div>
+            <button
+              onClick={onStartQuiz}
+              className="btn-cta inline-flex items-center gap-2 text-sm py-2.5 px-5 shrink-0"
+            >
+              Probetraining sichern
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
-
       </div>
     </div>
   )
