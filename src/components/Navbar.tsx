@@ -37,10 +37,6 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
           : 'bg-background border-b border-border/20 md:bg-background/60 md:backdrop-blur-md md:border-white/5'
       }`}
     >
-      {/* iOS Safe-Area-Spacer — füllt den Bereich hinter der Statusleiste */}
-      <div style={{ height: 'env(safe-area-inset-top, 0px)' }} aria-hidden="true" />
-
-      {/* Navbar-Inhalt */}
       <div className="mx-auto max-w-7xl px-5 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a

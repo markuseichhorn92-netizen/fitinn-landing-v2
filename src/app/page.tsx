@@ -52,7 +52,7 @@ export default function Home() {
       <Navbar onStartQuiz={startQuiz} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-center" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 5rem)' }}>
+      <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Hero background image */}
