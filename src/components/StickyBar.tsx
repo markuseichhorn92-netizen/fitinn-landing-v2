@@ -11,12 +11,9 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
     if (!hero) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(!entry.isIntersecting)
-      },
+      ([entry]) => setIsVisible(!entry.isIntersecting),
       { threshold: 0 }
     )
-
     observer.observe(hero)
     return () => observer.disconnect()
   }, [])
@@ -28,20 +25,20 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       }`}
     >
       {/* Mobile */}
-      <div className="sm:hidden bg-background/97 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_24px_rgba(0,0,0,0.35)]">
-        <div className="px-4 pt-2.5 pb-safe-4">
-          {/* Urgency row */}
+      <div className="sm:hidden bg-background/98 backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+        <div className="px-4 pt-2 pb-safe-4">
+          {/* Urgency */}
           <div className="flex items-center justify-center gap-1.5 mb-2">
             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-            <span className="text-[11px] font-medium text-muted-foreground leading-none">
+            <span className="text-[11px] font-medium text-muted-foreground">
               <span className="text-accent font-semibold">Noch 3 Plätze</span>
               {' · '}Kostenlos & unverbindlich
             </span>
           </div>
-          {/* CTA Button */}
+          {/* Button */}
           <button
             onClick={onStartQuiz}
-            className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl tracking-wide"
+            className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl"
           >
             PROBETRAINING SICHERN
             <ArrowRight className="w-4 h-4" />
@@ -50,15 +47,14 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       </div>
 
       {/* Desktop */}
-      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_24px_rgba(0,0,0,0.3)] pb-safe">
+      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe">
         <div className="mx-auto max-w-7xl px-6 py-3">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
               <span className="text-sm text-muted-foreground">
                 <span className="text-foreground font-semibold">§ 20 SGB V</span>
-                {' · '}Bis zu 100% von der Krankenkasse erstattet
-                <sup>*</sup>
+                {' · '}Bis zu 100% von der Krankenkasse erstattet<sup>*</sup>
               </span>
             </div>
             <button

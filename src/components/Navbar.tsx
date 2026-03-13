@@ -26,19 +26,21 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
   const handleNavClick = (href: string) => {
     setMobileOpen(false)
     const el = document.querySelector(href)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 pt-safe ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled || mobileOpen
           ? 'bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
-          : 'bg-background/70 backdrop-blur-md border-b border-white/5'
+          : 'bg-background/75 backdrop-blur-md border-b border-white/5'
       }`}
     >
+      {/* iOS Safe-Area-Spacer — füllt den Bereich hinter der Statusleiste */}
+      <div style={{ height: 'env(safe-area-inset-top, 0px)' }} aria-hidden="true" />
+
+      {/* Navbar-Inhalt */}
       <div className="mx-auto max-w-7xl px-5 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a
@@ -90,7 +92,7 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
       {mobileOpen && (
         <div className="md:hidden border-t border-border/40">
           <div className="px-4 py-3 flex flex-col gap-1">
-            {navLinks.map((link, i) => (
+            {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
@@ -99,7 +101,6 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
                 {link.label}
               </button>
             ))}
-
             <div className="mt-2 pt-3 border-t border-border/30 space-y-2">
               <button
                 onClick={() => { setMobileOpen(false); onStartQuiz() }}
