@@ -67,6 +67,9 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
           </div>
         </div>
       </div>
+
+      {/* iOS Safe Area Filler - ensures no gap below on notch iPhones */}
+      <div style={{ height: 'env(safe-area-inset-bottom, 0px)' }} className="bg-background" />
     </div>
   )
 }
