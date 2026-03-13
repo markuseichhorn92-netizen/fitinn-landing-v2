@@ -84,7 +84,7 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.9] mb-8">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.95] mb-8">
               Du hast
               <span
                 className={`block text-accent relative glitch-text ${heroAnimated ? 'animate' : ''}`}
@@ -116,6 +116,12 @@ export default function Home() {
                 <span className="flex items-center gap-1"><span className="text-primary">✓</span> 100% kostenlos</span>
                 <span className="flex items-center gap-1"><span className="text-primary">✓</span> Krankenkasse bis 100%<sup>³</sup></span>
               </div>
+              <p className="text-sm text-muted-foreground">
+                Oder ruf uns direkt an:{' '}
+                <a href="tel:+496513085240" className="text-accent hover:underline font-medium">
+                  0651 308524
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -160,7 +166,7 @@ export default function Home() {
               <div key={i} className="text-center relative">
                 <div className="relative inline-block">
                   <div
-                    className={`text-4xl md:text-5xl font-bold text-primary glow-text number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                    className={`text-2xl md:text-3xl font-bold text-primary glow-text number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
                     style={{ animationDelay: `${i * 0.15}s` }}
                   >
                     {stat.value}
@@ -171,13 +177,13 @@ export default function Home() {
                   />
                 </div>
                 <div
-                  className={`text-sm font-semibold mt-1 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                  className={`text-xs font-semibold mt-1 uppercase tracking-wider number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
                   style={{ animationDelay: `${i * 0.15 + 0.2}s` }}
                 >
                   {stat.label}
                 </div>
                 <div
-                  className={`text-xs text-muted-foreground mt-1 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
+                  className={`text-xs text-muted-foreground mt-0.5 number-slam ${stats.isReady ? 'anim-ready' : ''} ${stats.isVisible ? 'animate' : ''}`}
                   style={{ animationDelay: `${i * 0.15 + 0.3}s` }}
                 >
                   {stat.sub}
@@ -249,7 +255,7 @@ export default function Home() {
             <span className="text-sm font-medium text-accent uppercase tracking-wider">Jetzt handeln</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-up delay-100">
+          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mb-6 animate-fade-up delay-100">
             Dein erster Schritt kostet nichts.
           </h2>
           <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
@@ -290,45 +296,53 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-            {/* Kontakt-Block */}
-            <div className="text-center md:text-left space-y-2">
-              <p className="font-bold text-lg">FIT-INN Trier</p>
-              <p className="text-sm text-muted-foreground">Auf Hirtenberg 8, 54296 Trier · Seit 1996</p>
-              <a href="mailto:info@fit-inn-trier.de" className="text-sm text-muted-foreground hover:text-foreground transition-colors">info@fit-inn-trier.de</a>
-              <div className="flex flex-col sm:flex-row gap-2 mt-3">
-                <a
-                  href="tel:+496513085240"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+
+            {/* Spalte 1: Kontakt */}
+            <div className="space-y-3">
+              <p className="font-bold text-base">FIT-INN Trier</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Auf Hörstenberg 8<br />54296 Trier
+              </p>
+              <div className="space-y-2">
+                <a href="tel:+496513085240" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-4 h-4 shrink-0" />
                   0651 308524
                 </a>
-                <a
-                  href="https://wa.me/4915679610457"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4" />
+                <a href="mailto:info@fit-inn-trier.de" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <span className="w-4 h-4 shrink-0 text-center text-xs">@</span>
+                  info@fit-inn-trier.de
+                </a>
+                <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <MessageCircle className="w-4 h-4 shrink-0" />
                   WhatsApp
                 </a>
               </div>
             </div>
-            {/* Legal + Social */}
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-3">
-                <a href="#" aria-label="Instagram" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
-                  <Instagram className="w-4 h-4" />
+
+            {/* Spalte 2: Social Media */}
+            <div className="space-y-3">
+              <p className="font-bold text-base">Social Media</p>
+              <div className="flex flex-col gap-2">
+                <a href="#" aria-label="Instagram" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Instagram className="w-4 h-4 shrink-0" />
+                  Instagram
                 </a>
-                <a href="#" aria-label="Facebook" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
-                  <Facebook className="w-4 h-4" />
+                <a href="#" aria-label="Facebook" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Facebook className="w-4 h-4 shrink-0" />
+                  Facebook
                 </a>
-                <a href="#" aria-label="YouTube" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
-                  <Youtube className="w-4 h-4" />
+                <a href="#" aria-label="YouTube" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Youtube className="w-4 h-4 shrink-0" />
+                  YouTube
                 </a>
               </div>
-              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+            </div>
+
+            {/* Spalte 3: Rechtliches */}
+            <div className="space-y-3">
+              <p className="font-bold text-base">Rechtliches</p>
+              <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                 <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
                 <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
                 <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>
@@ -336,7 +350,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 pb-20 border-t border-border/50 text-xs text-muted-foreground max-w-3xl mx-auto space-y-2">
+
+          <div className="pt-8 border-t border-border/50 text-center mb-6">
+            <p className="text-xs text-muted-foreground">© 2026 FIT-INN Trier. Alle Rechte vorbehalten.</p>
+          </div>
+          <div className="pb-20 text-xs text-muted-foreground max-w-3xl mx-auto space-y-2">
             <p><strong className="text-foreground/60">¹ Ablauf & Zahlung:</strong> Der Kurspreis von 179€ (inkl. MwSt.) ist bei Trainingsstart in Vorkasse an FIT-INN Trier zu entrichten. Erst nach Zahlungseingang beginnt das Programm. Das Programm umfasst 8 Kurseinheiten innerhalb von 8–12 Wochen.</p>
             <p><strong className="text-foreground/60">² Erstattung durch die Krankenkasse:</strong> Der Kurs „happyfigur – genussvoll abnehmen" ist nach § 20 SGB V zertifiziert. Voraussetzung für die Erstattung ist die vollständige, erfolgreiche Teilnahme an allen 8 Kurseinheiten inkl. Wissensüberprüfung. Nach Abschluss erhältst du eine Teilnahmebestätigung, die du eigenständig bei deiner gesetzlichen Krankenkasse einreichst. Die Erstattung erfolgt direkt von deiner Krankenkasse an dich – nicht an FIT-INN. FIT-INN hat keinen Einfluss auf den Erstattungsprozess. Eine Barauszahlung des Erstattungsbetrags durch FIT-INN ist ausgeschlossen.</p>
             <p><strong className="text-foreground/60">³ Erstattungshöhe:</strong> Die Höhe der Erstattung variiert je nach Krankenkasse und liegt erfahrungsgemäß zwischen 75€ und 100% der Kursgebühr. Alle Angaben zu Erstattungsbeträgen auf dieser Seite sind ohne Gewähr – maßgeblich ist die jeweils gültige Satzung deiner Krankenkasse.</p>

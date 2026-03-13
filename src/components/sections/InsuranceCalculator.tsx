@@ -54,13 +54,12 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-accent uppercase tracking-widest font-semibold">Was kostet happyfigur wirklich?</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
             179€ einmalig –{' '}
             <span className="text-primary">oft zurückerstattet</span>
           </h2>
-          <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Kein Abo, kein monatlicher Beitrag. Du zahlst einmal –
-            und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.
+          <p className="text-muted-foreground text-base mt-3 max-w-xl mx-auto">
+            Kein Abo. Du zahlst einmal – und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.<sup>²³</sup>
           </p>
         </div>
 

@@ -29,7 +29,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.05)
 
   return (
-    <section id="programm" className="py-20 relative overflow-hidden" ref={section.ref}>
+    <section id="programm" className="py-12 relative overflow-hidden" ref={section.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent" />
       </div>
@@ -39,7 +39,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Warum happyfigur</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
             Kein Diät-Plan. Ein System, das <span className="text-primary">wirklich funktioniert.</span>
           </h2>
         </div>

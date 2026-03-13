@@ -5,21 +5,21 @@ import { Plus, X } from 'lucide-react'
 
 const faqs = [
   {
+    question: 'Was genau ist HappyFigur?',
+    answer: 'HappyFigur ist ein 8-Wochen-Abnehmprogramm von FIT-INN Trier, zertifiziert nach § 20 SGB V. Du bekommst Körperanalyse, individuellen Trainings- und Ernährungsplan – und persönliche Betreuung vor Ort.'
+  },
+  {
+    question: 'Muss ich ins Studio kommen?',
+    answer: 'Ja, das Training findet im FIT-INN Trier (Auf Hörstenberg 8, Trier) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen – auch mit Job und Familie gut machbar.'
+  },
+  {
     question: 'Was kostet das Programm?',
-    answer: '179€ einmalig – kein Abo, keine Mitgliedschaft. Deine Krankenkasse erstattet je nach Kasse 75€ bis 100%. Bei vielen zahlst du am Ende 0€.²³'
+    answer: '179€ einmalig – kein Abo, keine Mitgliedschaft. Im kostenlosen Probetraining klären wir, ob es zu dir passt – ohne Risiko.¹'
   },
   {
-    question: 'Muss ich nach dem Programm weiter Mitglied bleiben?',
-    answer: 'Nein. 8 Wochen – fertig. Keine automatische Verlängerung, kein Abo, kein Druck.'
+    question: 'Ich hab schon alles probiert — warum soll das klappen?',
+    answer: 'Weil wir nicht mit Diätplänen arbeiten, sondern deinen Stoffwechsel analysieren. Das Programm wird individuell auf dich zugeschnitten – nicht auf den Durchschnitt.⁴'
   },
-  {
-    question: 'Wie schnell sehe ich erste Ergebnisse?',
-    answer: 'Viele spüren nach 2–3 Wochen mehr Energie. Sichtbare Veränderungen ab Woche 3–4.'
-  },
-  {
-    question: 'Wie viel Zeit brauche ich pro Woche?',
-    answer: '2–3 Einheiten à 30–60 Min. reichen. Passt in jeden Alltag – auch mit Job und Familie.'
-  }
 ]
 
 export function FAQSection() {
@@ -30,9 +30,9 @@ export function FAQSection() {
   return (
     <section id="faq" className="py-16 relative">
       <div className="mx-auto max-w-3xl px-6">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className="text-center mb-10 animate-fade-up">
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Häufige Fragen</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
             Deine Fragen — <span className="text-primary">ehrliche Antworten</span>
           </h2>
         </div>

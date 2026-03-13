@@ -49,10 +49,10 @@ export function GuaranteeSection() {
           <span className={`inline-block text-sm text-primary uppercase tracking-widest font-semibold materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             Unser Versprechen
           </span>
-          <h2 className={`text-3xl md:text-4xl font-bold mt-4 mb-4 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.3s' }}>
+          <h2 className={`text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4 mb-4 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.3s' }}>
             Du gehst <span className="text-primary">kein Risiko</span> ein
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-xl mx-auto mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+          <p className={`text-muted-foreground text-base max-w-xl mx-auto mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
             Keine Fallen, keine Ausreden. Nur Klarheit.
           </p>
 
