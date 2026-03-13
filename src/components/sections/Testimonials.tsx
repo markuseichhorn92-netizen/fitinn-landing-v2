@@ -34,7 +34,7 @@ export function Testimonials() {
   const section = useScrollReveal(0.1)
 
   return (
-    <section id="erfahrungen" className="py-24 relative" ref={section.ref}>
+    <section id="erfahrungen" className="py-16 relative" ref={section.ref}>
       {/* Background Glow */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />

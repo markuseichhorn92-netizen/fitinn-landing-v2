@@ -25,7 +25,7 @@ export function GuaranteeSection() {
   const section = useScrollReveal(0.15)
 
   return (
-    <section className="py-24 relative overflow-hidden" ref={section.ref}>
+    <section className="py-16 relative overflow-hidden" ref={section.ref}>
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] bg-primary/5 rounded-full blur-3xl" />

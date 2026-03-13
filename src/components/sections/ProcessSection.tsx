@@ -29,7 +29,7 @@ export function ProcessSection() {
   const section = useScrollReveal(0.15)
 
   return (
-    <section id="ablauf" className="py-24 relative overflow-hidden" ref={section.ref}>
+    <section id="ablauf" className="py-16 relative overflow-hidden" ref={section.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />

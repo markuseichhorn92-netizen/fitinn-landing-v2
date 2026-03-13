@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle } from 'lucide-react'
+import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { WhySection } from '@/components/sections/WhySection'
 import { Testimonials } from '@/components/sections/Testimonials'
@@ -195,7 +195,7 @@ export default function Home() {
       <ProcessSection />
 
       {/* Studio Einblick */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
@@ -238,7 +238,7 @@ export default function Home() {
       <FAQSection />
 
       {/* Final CTA */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-t from-primary/8 to-transparent" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-3xl" />
@@ -315,12 +315,25 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            {/* Legal Links */}
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
-              <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
-              <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>
-              <a href="/widerruf" className="hover:text-foreground transition-colors">Widerruf</a>
+            {/* Legal + Social */}
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-3">
+                <a href="#" aria-label="Instagram" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a href="#" aria-label="Facebook" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="#" aria-label="YouTube" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-border/40 text-muted-foreground hover:text-foreground transition-colors">
+                  <Youtube className="w-4 h-4" />
+                </a>
+              </div>
+              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
+                <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
+                <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>
+                <a href="/widerruf" className="hover:text-foreground transition-colors">Widerruf</a>
+              </div>
             </div>
           </div>
           <div className="mt-8 pt-8 pb-20 border-t border-border/50 text-xs text-muted-foreground max-w-3xl mx-auto space-y-2">
