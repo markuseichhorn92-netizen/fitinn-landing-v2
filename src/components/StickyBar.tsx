@@ -7,7 +7,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const hero = document.getElementById('hero')
+    const hero = document.getElementById('hero-cta')
     if (!hero) return
 
     const observer = new IntersectionObserver(
@@ -26,15 +26,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
     >
       {/* Mobile */}
       <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
-        <div className="px-4 pt-2 pb-4">
-          {/* Urgency */}
-          <div className="flex items-center justify-center gap-1.5 mb-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-            <span className="text-[11px] font-medium text-muted-foreground">
-              <span className="text-accent font-semibold">Noch 3 Plätze</span>
-              {' · '}Kostenlos & unverbindlich
-            </span>
-          </div>
+        <div className="px-4 pt-3 pb-4">
           {/* Primary CTA */}
           <button
             onClick={onStartQuiz}

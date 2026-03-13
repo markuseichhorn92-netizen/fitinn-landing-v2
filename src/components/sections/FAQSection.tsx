@@ -28,7 +28,7 @@ export function FAQSection() {
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section id="faq" className="py-16 relative">
+    <section id="faq" className="py-7 relative">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center mb-10 animate-fade-up">
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Häufige Fragen</span>

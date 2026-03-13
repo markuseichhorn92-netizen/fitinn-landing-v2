@@ -132,6 +132,7 @@ export default function Home() {
             {/* CTA Button */}
             <div className="flex flex-col items-center gap-4">
               <button
+                id="hero-cta"
                 onClick={startQuiz}
                 className="btn-cta cta-pulse inline-flex items-center gap-3 text-xl px-10 py-5"
               >
@@ -182,7 +183,7 @@ export default function Home() {
       </section>
 
       {/* Social Proof Bar — Counter Animation */}
-      <section className="py-8 border-y border-border/50" ref={stats.ref}>
+      <section className="py-5 border-y border-border/50" ref={stats.ref}>
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <StatItem endValue={30} format={n => `${n}+`} label="Jahre Erfahrung" sub="FIT-INN seit 1996" delay={0} isVisible={stats.isVisible} />
@@ -205,7 +206,7 @@ export default function Home() {
       <TrainerSection />
 
       {/* Studio Einblick — leicht abgehoben */}
-      <section className="relative py-8 overflow-hidden bg-card/30">
+      <section className="relative py-6 overflow-hidden bg-card/30">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
@@ -282,16 +283,10 @@ export default function Home() {
               <MessageCircle className="w-4 h-4" />
               Fragen? Schreib uns auf WhatsApp
             </a>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="text-sm font-medium text-accent">Noch 3 Plätze frei · Angebot endet bald</span>
-              </div>
-              <a href="tel:+496513085240" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Phone className="w-3.5 h-3.5" />
-                0651 308524
-              </a>
-            </div>
+            <a href="tel:+496513085240" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Phone className="w-3.5 h-3.5" />
+              0651 308524
+            </a>
           </div>
 
           {/* Mini Trust */}
@@ -302,6 +297,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Fußnoten */}
+      <div className="mx-auto max-w-3xl px-6 pt-8 pb-6 text-xs text-muted-foreground space-y-1.5 border-t border-border/30">
+        <p><sup>¹</sup> Kurspreis 179 € inkl. MwSt., fällig bei Trainingsstart (Vorkasse). 8 Einheiten in 8–12 Wochen.</p>
+        <p><sup>²</sup> Erstattung nach § 20 SGB V: Teilnahmebestätigung selbst einreichen, kein Vorab-Antrag nötig. Bei Nicht-Erstattung erstattet FIT-INN den vollen Betrag.</p>
+        <p><sup>³</sup> Erstattungshöhe variiert je Krankenkasse (erfahrungsgemäß 75 €–100 %). Alle Angaben ohne Gewähr.</p>
+        <p><sup>⁴</sup> Präventionsprogramm, kein Ersatz für ärztliche Beratung. Ergebnisse individuell verschieden.</p>
+      </div>
 
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">

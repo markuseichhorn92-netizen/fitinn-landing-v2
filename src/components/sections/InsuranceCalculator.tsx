@@ -49,7 +49,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   const isFree = eigenanteil === 0
 
   return (
-    <section id="krankenkasse" className="py-10 relative" ref={section.ref}>
+    <section id="krankenkasse" className="py-7 relative" ref={section.ref}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
