@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight, X } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
@@ -96,12 +97,32 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
           ))}
         </div>
 
+        {/* Mockup */}
+        <div className="mt-12 relative max-w-2xl mx-auto">
+          <Image
+            src="/mockup-paket.png"
+            alt="Happyfigur – App, Online-Plattform, Ernährungsplan und Rezeptbuch"
+            width={900}
+            height={600}
+            className="w-full h-auto drop-shadow-2xl"
+          />
+          <div className="absolute inset-0 -z-10 bg-primary/10 rounded-3xl blur-3xl scale-90" />
+          <p className="text-center text-xs text-muted-foreground mt-2">
+            happyfigur – App, Online-Lernplattform & individueller Ernährungsplan
+          </p>
+        </div>
+
         {/* CTA */}
-        <div className={`mt-12 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
-          <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
-            Jetzt kostenloses Probetraining sichern
-            <ArrowRight className="w-5 h-5" />
-          </button>
+        <div className={`mt-10 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
+              Jetzt Probetraining sichern
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <a href="tel:+496513085240" className="btn-outline">
+              Erstgespräch vereinbaren
+            </a>
+          </div>
           <p className="text-muted-foreground text-sm mt-3">✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert</p>
         </div>
 

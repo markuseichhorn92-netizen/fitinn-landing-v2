@@ -94,6 +94,14 @@ export function ProcessSection() {
           ))}
         </div>
 
+        {/* Soft CTA */}
+        <div className="mt-10 text-center">
+          <a href="tel:+496513085240" className="btn-outline">
+            Kostenloses Erstgespräch vereinbaren
+          </a>
+          <p className="text-xs text-muted-foreground mt-3">Ruf einfach an — kein Formular, kein Risiko</p>
+        </div>
+
       </div>
     </section>
   )

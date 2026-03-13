@@ -201,14 +201,16 @@ export default function Home() {
       {/* Why Section (Problem + Solution zusammengelegt) */}
       <WhySection onStartQuiz={startQuiz} />
 
-      {/* Process Section */}
-      <ProcessSection />
+      {/* Process Section — leicht abgehoben */}
+      <div className="bg-card/40">
+        <ProcessSection />
+      </div>
 
       {/* Trainer / Coach */}
       <TrainerSection />
 
-      {/* Studio Einblick */}
-      <section className="relative py-12 overflow-hidden">
+      {/* Studio Einblick — leicht abgehoben */}
+      <section className="relative py-12 overflow-hidden bg-card/30">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
@@ -244,8 +246,10 @@ export default function Home() {
       {/* Insurance Calculator */}
       <InsuranceCalculator onStartQuiz={startQuiz} />
 
-      {/* Guarantee Section */}
-      <GuaranteeSection />
+      {/* Guarantee Section — leicht abgehoben */}
+      <div className="bg-card/40">
+        <GuaranteeSection />
+      </div>
 
       {/* FAQ Section */}
       <FAQSection />
@@ -279,6 +283,10 @@ export default function Home() {
               Jetzt kostenloses Probetraining buchen
               <ArrowRight className="w-6 h-6" />
             </button>
+            <a href="tel:+496513085240" className="btn-outline">
+              <Phone className="w-4 h-4" />
+              Lieber anrufen: 0651 308524
+            </a>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
