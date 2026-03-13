@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Phone, MessageCircle } from 'lucide-react'
 
 const navLinks = [
   { label: 'Programm', href: '#programm' },
@@ -65,9 +65,16 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
               {link.label}
             </button>
           ))}
+          <a
+            href="tel:+496513085240"
+            className="ml-2 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            0651 308524
+          </a>
           <button
             onClick={onStartQuiz}
-            className="ml-3 btn-cta text-sm px-5 py-2.5 inline-flex items-center gap-2"
+            className="ml-1 btn-cta text-sm px-5 py-2.5 inline-flex items-center gap-2"
           >
             Probetraining
             <ArrowRight className="w-4 h-4" />
@@ -105,9 +112,27 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
                 Kostenloses Probetraining
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <p className="text-center text-xs text-muted-foreground pb-1">
+              <p className="text-center text-xs text-muted-foreground">
                 ✓ Unverbindlich · ✓ 100% kostenlos
               </p>
+              <div className="flex gap-2 pt-1">
+                <a
+                  href="tel:+496513085240"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground active:scale-95 transition-all"
+                >
+                  <Phone className="w-4 h-4" />
+                  Anrufen
+                </a>
+                <a
+                  href="https://wa.me/4915679610457"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground active:scale-95 transition-all"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>

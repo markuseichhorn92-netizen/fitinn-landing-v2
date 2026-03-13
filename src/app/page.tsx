@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse } from 'lucide-react'
+import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { SolutionSection } from '@/components/sections/SolutionSection'
@@ -288,13 +288,32 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-center md:text-left">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+            {/* Kontakt-Block */}
+            <div className="text-center md:text-left space-y-2">
               <p className="font-bold text-lg">FIT-INN Trier</p>
-              <p className="text-sm text-muted-foreground">Auf Hirtenberg 8, 54296 Trier</p>
-              <p className="text-sm text-muted-foreground">Seit 1996 · Tel: 0651 308524</p>
+              <p className="text-sm text-muted-foreground">Auf Hirtenberg 8, 54296 Trier · Seit 1996</p>
+              <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                <a
+                  href="tel:+496513085240"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  0651 308524
+                </a>
+                <a
+                  href="https://wa.me/4915679610457"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </a>
+              </div>
             </div>
-            <div className="flex gap-6 text-sm text-muted-foreground">
+            {/* Legal Links */}
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <a href="/impressum" className="hover:text-foreground transition-colors">Impressum</a>
               <a href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</a>
               <a href="/agb" className="hover:text-foreground transition-colors">AGB</a>

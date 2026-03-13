@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone, MessageCircle } from 'lucide-react'
 
 export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -35,7 +35,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
               {' · '}Kostenlos & unverbindlich
             </span>
           </div>
-          {/* Button */}
+          {/* Primary CTA */}
           <button
             onClick={onStartQuiz}
             className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl"
@@ -43,6 +43,25 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
             PROBETRAINING SICHERN
             <ArrowRight className="w-4 h-4" />
           </button>
+          {/* Secondary contact */}
+          <div className="flex gap-2 mt-2">
+            <a
+              href="tel:+496513085240"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 border border-border/40 text-xs text-muted-foreground active:scale-95 transition-all"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              Anrufen
+            </a>
+            <a
+              href="https://wa.me/4915679610457"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 border border-border/40 text-xs text-muted-foreground active:scale-95 transition-all"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              WhatsApp
+            </a>
+          </div>
         </div>
       </div>
 
