@@ -21,7 +21,7 @@ const steps = [
     icon: Target,
     step: '03',
     title: '8 Wochen durchstarten',
-    description: 'Mit individuellem Trainings- und Ernährungsplan erreichst du dein Ziel – begleitet von echten Profis.',
+    description: 'Mit individuellem Trainings- und Ernährungsplan erreichst du dein Ziel – ein Coach ist jederzeit für dich da.',
   },
 ]
 

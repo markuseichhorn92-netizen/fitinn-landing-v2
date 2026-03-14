@@ -19,7 +19,7 @@ const heroFeatures = [
   {
     icon: Dumbbell,
     title: 'Kein Trial-and-Error mehr',
-    text: 'Du bekommst einen Plan, der speziell für deinen Körper funktioniert. Dein Trainer setzt gezielt an deinem Stoffwechsel an – damit du endlich Ergebnisse siehst, nicht irgendwann, sondern ab Woche 1.',
+    text: 'Du bekommst einen Plan, der speziell für deinen Körper funktioniert – damit du endlich Ergebnisse siehst, nicht irgendwann, sondern ab Woche 1. Bei Fragen ist immer ein Coach für dich da.',
   },
   {
     icon: Apple,

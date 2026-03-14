@@ -25,8 +25,8 @@ const features = [
   },
   {
     icon: Users,
-    title: 'Personal Coaching',
-    description: 'Persönliche Einweisung + Trainer an deiner Seite. Bei Problemen stehen die Coaches jederzeit zur Verfügung.',
+    title: 'Coaching & Support',
+    description: 'Persönliche Einweisung zum Start. Danach trainierst du eigenständig – mit einem Coach vor Ort, der jederzeit für dich da ist.',
     highlight: 'Du bist nie allein'
   },
   {

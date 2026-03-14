@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: 'Bin ich fit genug für das Programm?',
-    answer: 'Ja! Das Programm startet bei Null. Dein Trainer erstellt einen Plan passend zu deinem Fitnesslevel – und passt ihn laufend an.'
+    answer: 'Ja! Das Programm startet bei Null. Du bekommst einen individuellen Plan passend zu deinem Fitnesslevel – und ein Coach ist jederzeit für dich da, wenn du Fragen hast.'
   },
   {
     question: 'Kann ich mitmachen, wenn ich hormonelle Veränderungen oder gesundheitliche Besonderheiten habe?',
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     question: 'Werde ich beim Training betreut?',
-    answer: 'Ja. Persönliche Einweisung zum Start, danach Trainer bei jedem Besuch. Du bist nie allein.'
+    answer: 'Ja. Du bekommst eine persönliche Einweisung zum Start und trainierst dann selbstständig nach deinem Plan. Bei Fragen oder Unsicherheiten ist immer ein Coach vor Ort für dich da – du bist nie allein.'
   },
   {
     question: 'Wie viel Zeit brauche ich pro Woche?',

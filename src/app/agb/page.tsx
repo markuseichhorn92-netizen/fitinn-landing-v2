@@ -37,7 +37,7 @@ export default function AGBPage() {
         <li>Individueller Ernährungsplan „Figurplan" als Buch und PDF mit über 88 Rezepten</li>
         <li>Zugang zur Online-Plattform unter www.happyfigur24.de (Dauer: 8–12 Wochen)</li>
         <li>3x Körperanalyse (InBody) im Studio</li>
-        <li>Einweisung und Trainerbetreuung im Studio</li>
+        <li>Einweisung und Coaching-Support im Studio</li>
         <li>8 Wochen Studionutzung bei FIT-INN Trier</li>
         <li>Persönlicher Support per WhatsApp</li>
       </ul>

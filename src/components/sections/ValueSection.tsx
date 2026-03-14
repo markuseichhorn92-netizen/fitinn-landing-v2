@@ -4,7 +4,7 @@ const valueItems = [
   { name: '3x Körperanalyse', value: '120€' },
   { name: '8 Wochen Studionutzung', value: '160€' },
   { name: 'Individueller Ernährungsplan', value: '79€' },
-  { name: 'Einweisung + Trainerbetreuung', value: '200€' },
+  { name: 'Einweisung + Coaching-Support', value: '200€' },
   { name: 'Online-Lernplattform', value: '49€' },
   { name: '24/7 WhatsApp-Support', value: '50€' },
 ]
