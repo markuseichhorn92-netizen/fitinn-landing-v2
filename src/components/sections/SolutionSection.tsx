@@ -62,7 +62,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Die Lösung</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
             Was ist <span className="text-primary">happyfigur</span>?
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">

@@ -101,11 +101,19 @@ export default function Home() {
           <div className="text-center animate-fade-up">
 
             {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-8">
+            <div className="inline-flex flex-wrap justify-center items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-sm font-medium text-accent uppercase tracking-wider">
-                FIT-INN Trier · Abnehmprogramm happyfigur
+              <span className="text-sm font-medium text-accent uppercase tracking-wider text-center">
+                Das 8-Wochen Stoffwechsel-Programm in Trier
               </span>
+            </div>
+
+            {/* Krankenkassen-Badge Hero */}
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-primary font-medium text-sm">
+                <Shield className="w-4 h-4" />
+                <span>§ 20 SGB V zertifiziert · Bis zu 100% Kostenübernahme</span>
+              </div>
             </div>
 
             {/* Headline */}
@@ -130,22 +138,40 @@ export default function Home() {
             </p>
 
             {/* CTA Button */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-5 mt-6">
               <button
                 id="hero-cta"
                 onClick={startQuiz}
-                className="btn-cta cta-pulse inline-flex items-center gap-3 text-xl px-10 py-5"
+                className="btn-cta cta-pulse inline-flex items-center gap-3 text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
               >
-                <Target className="w-6 h-6" />
-                Kostenloses Probetraining sichern
-                <ArrowRight className="w-6 h-6" />
+                <Target className="w-6 h-6 shrink-0" />
+                <span className="text-left leading-tight">Passt das Programm zu dir?<br/><span className="text-sm font-normal opacity-90">Finde es in 1 Min heraus</span></span>
+                <ArrowRight className="w-6 h-6 shrink-0" />
               </button>
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Unverbindlich</span>
-                <span className="flex items-center gap-1"><span className="text-primary">✓</span> 100% kostenlos</span>
-                <span className="flex items-center gap-1"><span className="text-primary">✓</span> Krankenkasse bis 100%<sup>³</sup></span>
+              
+              {/* Trust & Social Proof under CTA */}
+              <div className="flex flex-col items-center gap-2 mt-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-3">
+                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmerin" />
+                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmer" />
+                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmerin" />
+                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmer" />
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <div className="flex text-accent text-sm">
+                      {'★★★★★'.split('').map((star, i) => <span key={i}>{star}</span>)}
+                    </div>
+                    <span className="text-xs text-muted-foreground font-medium">Bereits über 127.000 erfolgreiche Teilnehmer</span>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground">
+
+              <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-sm text-muted-foreground mt-2">
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindliches Quiz</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-2">
                 Oder ruf uns direkt an:{' '}
                 <a href="tel:+496513085240" className="text-accent hover:underline font-medium">
                   0651 308524
@@ -156,13 +182,15 @@ export default function Home() {
         </div>
 
         {/* Feature-Karten */}
-        <div className="relative z-10 w-full px-6 lg:px-8 pb-12">
-          <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="relative z-10 w-full px-6 lg:px-8 pb-12 mt-8 md:mt-12">
+          <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {heroFeatures.map(({ icon: Icon, title, text }, i) => (
-              <div key={i} className="rounded-2xl bg-card border-t-2 border-primary p-6">
-                <Icon className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-foreground font-bold text-lg mb-2">{title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
+              <div key={i} className="relative rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute -inset-1 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                <Icon className="w-8 h-8 text-primary mb-4 relative z-10" />
+                <h3 className="text-foreground font-bold text-lg mb-2 relative z-10">{title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed relative z-10">{text}</p>
               </div>
             ))}
           </div>
@@ -265,7 +293,7 @@ export default function Home() {
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mb-6 animate-fade-up delay-100">
             Dein erster Schritt kostet nichts.
           </h2>
-          <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
+          <p className="text-base md:text-lg text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
             Starte heute mit einem kostenlosen Probetraining.
             Kein Risiko, keine Verpflichtung – nur dein erster Schritt zum Wunschgewicht.
           </p>
@@ -273,11 +301,11 @@ export default function Home() {
             Bei vielen Krankenkassen komplett kostenlos<sup>²³</sup> — sonst ab 3,20€/Tag.<sup>¹</sup>
           </p>
 
-          <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
-            <button onClick={startQuiz} className="btn-cta text-xl px-12 py-5 inline-flex items-center gap-3">
-              <Target className="w-6 h-6" />
-              Jetzt kostenloses Probetraining buchen
-              <ArrowRight className="w-6 h-6" />
+          <div className="flex flex-col items-center gap-4 animate-fade-up delay-300 mt-6">
+            <button onClick={startQuiz} className="btn-cta cta-pulse text-lg px-10 py-4 inline-flex items-center gap-3">
+              <Target className="w-6 h-6 shrink-0" />
+              <span className="text-left leading-tight">Passt das Programm zu dir?<br/><span className="text-sm font-normal opacity-90">Finde es in 1 Min heraus</span></span>
+              <ArrowRight className="w-6 h-6 shrink-0" />
             </button>
             <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
               <MessageCircle className="w-4 h-4" />
