@@ -9,7 +9,7 @@ const steps = [
     icon: Calendar,
     step: '01',
     title: 'Probetraining buchen',
-    description: 'Sichere dir deinen kostenlosen Termin per WhatsApp oder Telefon – in unter 2 Minuten.',
+    description: 'Sichere dir dein kostenloses Probetraining inkl. Erstgespräch – in unter 2 Minuten.',
   },
   {
     icon: BarChart2,

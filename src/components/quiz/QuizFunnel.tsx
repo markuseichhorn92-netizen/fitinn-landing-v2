@@ -138,13 +138,13 @@ function formatDateShort(isoStr: string): string {
 
 function buildCalendarLink(startIso: string, endIso: string): string {
   const fmt = (s: string) => new Date(s).toISOString().replace(/[-:]/g, '').replace('.000Z', 'Z')
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Probetraining+happyfigur&dates=${fmt(startIso)}/${fmt(endIso)}&location=FIT-INN+Trier,+Im+Gartenfeld+7,+54295+Trier&details=Kostenloses+Probetraining+bei+happyfigur`
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Probetraining+inkl.+Erstgespr%C3%A4ch+-+happyfigur&dates=${fmt(startIso)}/${fmt(endIso)}&location=FIT-INN+Trier,+Im+Gartenfeld+7,+54295+Trier&details=Kostenloses+Probetraining+inkl.+Erstgespr%C3%A4ch+bei+happyfigur`
 }
 
 function buildWALink(startIso: string): string {
   const dateStr = formatDateShort(startIso)
   const time = formatTime(startIso)
-  const text = encodeURIComponent(`Hallo! Ich möchte am ${dateStr} um ${time} Uhr ein kostenloses Probetraining buchen.`)
+  const text = encodeURIComponent(`Hallo! Ich möchte am ${dateStr} um ${time} Uhr ein kostenloses Probetraining inkl. Erstgespräch buchen.`)
   return `https://wa.me/4915679610457?text=${text}`
 }
 
@@ -684,7 +684,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <div>
                 <p className="text-sm font-semibold text-destructive">Termine konnten nicht geladen werden</p>
                 <p className="text-xs text-muted-foreground mt-1">{slotsError}</p>
-                <a href="https://wa.me/4915679610457?text=Ich%20möchte%20ein%20kostenloses%20Probetraining%20buchen"
+                <a href="https://wa.me/4915679610457?text=Ich%20möchte%20ein%20kostenloses%20Probetraining%20inkl.%20Erstgespr%C3%A4ch%20buchen"
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-accent hover:underline">
                   Per WhatsApp buchen →
@@ -1064,7 +1064,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <div className="w-14 h-14 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-3">
                 <CheckCircle2 className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-primary mb-1">Termin bestätigt!</h3>
+              <h3 className="text-xl font-bold text-primary mb-1">Probetraining inkl. Erstgespräch bestätigt!</h3>
               <p className="text-sm font-semibold">
                 {formatDateShort(selectedSlot.startDateTime)} · {formatTime(selectedSlot.startDateTime)} – {formatTime(selectedSlot.endDateTime)} Uhr
               </p>

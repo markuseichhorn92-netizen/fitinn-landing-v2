@@ -5,8 +5,8 @@ import { Dumbbell, ChartLine, Target, CheckCircle2 } from 'lucide-react'
 const steps = [
   {
     icon: Dumbbell,
-    title: 'Kostenloses Probetraining',
-    description: 'Körperanalyse + Beratung + Geräte-Einweisung',
+    title: 'Kostenloses Probetraining inkl. Erstgespräch',
+    description: 'Körperanalyse + persönliches Erstgespräch + Geräte-Einweisung',
     time: 'Dein erster Termin',
     active: true,
   },
@@ -72,7 +72,7 @@ export function Timeline() {
         
         {/* CTA */}
         <div className="text-center mt-16 animate-fade-up delay-300">
-          <p className="text-muted-foreground mb-4">Alles beginnt mit deinem kostenlosen Probetraining</p>
+          <p className="text-muted-foreground mb-4">Alles beginnt mit deinem kostenlosen Probetraining inkl. Erstgespräch</p>
           <button className="btn-primary inline-flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5" />
             Jetzt Termin sichern

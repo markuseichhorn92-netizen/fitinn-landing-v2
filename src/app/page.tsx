@@ -257,7 +257,7 @@ export default function Home() {
             Dein kostenloser <span className="text-primary">Platz wartet</span> auf dich
           </h2>
           <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
-            Starte heute mit einem kostenlosen Probetraining.
+            Starte heute mit einem kostenlosen Probetraining inkl. Erstgespräch.
             Kein Risiko, keine Verpflichtung – nur dein erster Schritt zum Wunschgewicht.
           </p>
           <p className="text-base text-primary font-semibold mb-10 animate-fade-up delay-200">

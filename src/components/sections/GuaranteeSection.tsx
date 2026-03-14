@@ -6,7 +6,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal'
 const guarantees = [
   {
     icon: Shield,
-    title: 'Probetraining 100% kostenlos',
+    title: 'Probetraining inkl. Erstgespräch – 100% kostenlos',
     description: 'Lerne uns kennen – kein Cent, kein Haken.'
   },
   {

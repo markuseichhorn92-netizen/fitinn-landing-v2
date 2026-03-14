@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: 'Kann ich mitmachen, wenn ich hormonelle Veränderungen oder gesundheitliche Besonderheiten habe?',
-    answer: 'Das Programm richtet sich an gesunde Erwachsene. Bei bestehenden Erkrankungen empfehlen wir, vorab den Arzt zu fragen. Im Probetraining sprechen wir gerne mit dir darüber.'
+    answer: 'Das Programm richtet sich an gesunde Erwachsene. Bei bestehenden Erkrankungen empfehlen wir, vorab den Arzt zu fragen. Im Probetraining inkl. Erstgespräch klären wir das gerne mit dir.'
   },
   {
     question: 'Was ist der Unterschied zu einem normalen Fitnessstudio?',
