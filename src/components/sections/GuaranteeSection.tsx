@@ -32,9 +32,7 @@ export function GuaranteeSection() {
       </div>
 
       <div className="relative mx-auto max-w-4xl px-6">
-        <div className={`feature-card corner-decorator p-10 md:p-14 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-          <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
+        <div className={`feature-card p-10 md:p-14 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
 
           {/* Shield Icon with Forge Animation */}
           <div className="relative w-20 h-20 mx-auto mb-6">

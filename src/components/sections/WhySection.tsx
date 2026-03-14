@@ -18,12 +18,12 @@ const solutions = [
 ]
 
 const features = [
-  { icon: ChartLine, title: '3× Körperanalyse', desc: 'Start, Mitte, Ende — du siehst in Zahlen was sich verändert.' },
-  { icon: Dumbbell, title: '8 Wochen Training', desc: 'Individueller Plan, unbegrenzter Zugang, keine Allgemeinroutine.' },
-  { icon: Utensils, title: 'Ernährungsplan', desc: 'Passend zu deinem Alltag. Kein Hungern, keine Verbote.' },
-  { icon: Users, title: 'Personal Coaching', desc: 'Persönliche Einweisung + Trainer jederzeit vor Ort ansprechbar.' },
-  { icon: Smartphone, title: '24/7 Support', desc: 'WhatsApp, E-Mail, Telefon — wir sind immer erreichbar.' },
-  { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Deine Kasse erstattet 75€–179€ — bei vielen komplett kostenlos.²³' },
+  { icon: ChartLine, title: '3× Körperanalyse', desc: 'Start, Mitte, Ende — du siehst in Zahlen was sich verändert.', pillar: 'training' as const },
+  { icon: Dumbbell, title: '8 Wochen Training', desc: 'Individueller Plan, unbegrenzter Zugang, keine Allgemeinroutine.', pillar: 'training' as const },
+  { icon: Users, title: 'Personal Coaching', desc: 'Persönliche Einweisung + Trainer jederzeit vor Ort ansprechbar.', pillar: 'training' as const },
+  { icon: Utensils, title: 'Ernährungsplan', desc: 'Passend zu deinem Alltag. Kein Hungern, keine Verbote.', pillar: 'ernaehrung' as const },
+  { icon: Smartphone, title: '24/7 Support', desc: 'WhatsApp, E-Mail, Telefon — wir sind immer erreichbar.', pillar: 'ernaehrung' as const },
+  { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Deine Kasse erstattet 75€–179€ — bei vielen komplett kostenlos.²³', pillar: 'ernaehrung' as const },
 ]
 
 export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
@@ -39,16 +39,16 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
 
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Warum happyfigur</span>
+          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Training + Ernährung = Ergebnis</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Kein Diät-Plan. Ein System, das <span className="text-primary">wirklich funktioniert.</span>
+            Kein Diät-Plan. Ein System aus <span className="text-primary">Training</span> & <span className="text-accent">Ernährung</span>, das funktioniert.
           </h2>
         </div>
 
         {/* 2-Column: Problem vs. Solution */}
         <div className={`grid md:grid-cols-2 gap-6 mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.15s' }}>
           {/* Left: Problems */}
-          <div className="rounded-2xl bg-accent/5 border border-accent/20 p-6">
+          <div className="rounded-2xl bg-white/3 border border-white/8 p-6">
             <p className="text-sm text-red-400 uppercase tracking-widest font-semibold mb-4">Das kennst du</p>
             <ul className="space-y-3">
               {problems.map((p, i) => (
@@ -79,17 +79,28 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
           {features.map((f, i) => (
             <div
               key={i}
-              className={`feature-card corner-decorator p-5 group scan-reveal ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              className={`feature-card p-5 group lift-in ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
               style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
-              <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-              <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                  <f.icon className="w-5 h-5 text-primary" />
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  f.pillar === 'training'
+                    ? 'bg-primary/10 group-hover:bg-primary/20'
+                    : 'bg-accent/10 group-hover:bg-accent/20'
+                }`}>
+                  <f.icon className={`w-5 h-5 ${f.pillar === 'training' ? 'text-primary' : 'text-accent'}`} />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold mb-1">{f.title}</h3>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-base font-semibold">{f.title}</h3>
+                    <span className={`text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${
+                      f.pillar === 'training'
+                        ? 'bg-primary/10 text-primary'
+                        : 'bg-accent/10 text-accent'
+                    }`}>
+                      {f.pillar === 'training' ? 'Training' : 'Ernährung'}
+                    </span>
+                  </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
               </div>

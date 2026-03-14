@@ -25,7 +25,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       }`}
     >
       {/* Mobile */}
-      <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+      <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] sticky-accent-border">
         <div className="px-4 pt-3 pb-4">
           {/* Primary CTA */}
           <button
@@ -58,7 +58,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       </div>
 
       {/* Desktop */}
-      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe">
+      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe sticky-accent-border">
         <div className="mx-auto max-w-7xl px-6 py-3">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2.5">

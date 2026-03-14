@@ -34,17 +34,25 @@ Tailwind 4 generates utilities like `bg-card` as `background-color: var(--color-
 
 **Without this block, all `bg-*` / `text-*` / `border-*` utilities that reference shadcn tokens resolve to nothing (transparent).** When adding new shadcn CSS variables to `:root`, always add the corresponding `--color-*` mapping in `@theme inline`.
 
-## Design Tokens (Dark Fitness Theme)
+## Design Tokens (Athletic Dark Fitness Theme)
 
-Defined in `:root` in `globals.css`:
+Defined in `:root` in `globals.css`. The color system uses **Grün (Training) + Gold (Ernährung)** as the two thematic pillars:
 
 | Token | Value | Usage |
 |---|---|---|
-| `--primary` | `#cfe5ea` (light teal) | Trust, results, highlights; `#0a4958` (dark teal) used as foreground/gradient |
-| `--accent` | `#ffb54f` (warm gold) | All CTA buttons (`.btn-cta`), emphasis in problem/vorher sections |
+| `--primary` | `#7dd87d` (vital green) | Training, health, results — the "fitness" pillar |
+| `--primary-foreground` | `#0a2e0a` (dark green) | Text on primary backgrounds |
+| `--accent` | `#f5a623` (warm gold) | Ernährung, CTA buttons (`.btn-cta`), nutrition-related UI |
+| `--accent-foreground` | `#1a0f00` | Text on accent backgrounds |
 | `--destructive` | `#ef4444` (red) | **Errors only** – API failures, form validation. Never for emphasis or design elements |
-| `--card` | `#111111` | Card/modal backgrounds |
+| `--card` | `#131613` (green-tinted dark) | Card/modal backgrounds — subtle green undertone |
 | `--background` | `#0a0a0a` | Page background |
+
+**Two-pillar color system:** Training content uses `--primary` (green), Ernährung content uses `--accent` (gold). Feature cards have a `.feature-card--nutrition` variant with gold left-border instead of green.
+
+**Card design:** Cards use a clean left-border accent (3px) instead of glassmorphism. No corner decorators — those were removed as "too tech/SaaS."
+
+**Background patterns:** `.bg-fitness` (green dot pattern for training sections), `.bg-nutrition` (gold dot pattern for nutrition sections). Body overlay uses diagonal athletic stripes instead of grain noise.
 
 Native `<select>` and `<option>` elements require `color-scheme: dark` + explicit `background-color` / `color` overrides in `@layer base` – CSS utility classes do not apply to native browser form elements.
 
@@ -173,7 +181,9 @@ const section = useScrollReveal(0.1)
 <div className={`materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
 ```
 
-**Animation classes:** `materialize`, `number-slam`, `float-in-left`, `float-in-right`, `scan-reveal`, `shield-forge`, `strike-wipe`, `glitch-text`, `heartbeat-line`, `energy-beam`, `hero-ken-burns` (hero bg zoom), `cta-pulse` (orange glow pulse on CTA buttons), `checklist-item` (slide-in-right), `price-shimmer` (gradient sweep on price text), `process-frame` / `frame-draw` / `frame-shimmer-path` (SVG rect draws itself as frame around ProcessSection steps, then shimmer loops along the border)
+**Animation classes:** `materialize` (blur+scale reveal), `lift-in` (weight-lift overshoot), `number-slam` (stats impact), `float-in-left`/`float-in-right` (remapped to lift-in), `pulse-alive` (gentle breathing loop), `progress-fill` (scaleX bar fill), `strike-wipe` (line-through), `heartbeat-line` (SVG pulse), `hero-ken-burns` (hero bg zoom), `cta-pulse` (gold glow pulse on CTA buttons), `checklist-item` (slide-in-right), `price-shimmer` (gradient sweep on price text)
+
+**Removed tech animations:** `glitch-text`, `scan-reveal`, `energy-beam`, `shield-forge`, `forge-ring` — these had sci-fi/cyberpunk aesthetics incompatible with the fitness theme. Legacy CSS aliases exist so old class names still work (they map to `lift-in`).
 
 **Quiz-specific classes:** `animate-funnel-enter` (fullscreen fade-in), `quiz-step-enter` (fade + slide up), `quiz-progress-fill` (progress bar glow), `quiz-option-card` (hover/selected glow)
 
@@ -181,7 +191,6 @@ const section = useScrollReveal(0.1)
 - `.anim-ready` must set `opacity: 0` (or clip-path) — never the base class
 - Use `animation-fill-mode: both` (not `forwards`) when elements use `animationDelay` via inline styles
 - Every `@keyframes` must explicitly set `opacity: 1` in the 100% frame if it starts at `opacity: 0`
-- Companion elements (`.impact-ring`, `.forge-ring`) follow the same `.anim-ready`/`.animate` pattern
 
 ## Legal Disclaimer & Footnote System
 

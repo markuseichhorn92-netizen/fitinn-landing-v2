@@ -26,12 +26,12 @@ const INSURANCE_DATA = [
 const PROGRAM_PRICE = 179
 
 const included = [
-  '3x Körperanalyse (Inbody)',
-  '8 Wochen Studionutzung',
-  'Individueller Ernährungsplan',
-  'Einweisung + Coach vor Ort',
-  'Online-Lernplattform happyfigur',
-  'Persönlicher Support per WhatsApp',
+  { text: '3x Körperanalyse (Inbody)', pillar: 'training' as const },
+  { text: '8 Wochen Studionutzung', pillar: 'training' as const },
+  { text: 'Einweisung + Coach vor Ort', pillar: 'training' as const },
+  { text: 'Individueller Ernährungsplan', pillar: 'ernaehrung' as const },
+  { text: 'Online-Lernplattform happyfigur', pillar: 'ernaehrung' as const },
+  { text: 'Persönlicher Support per WhatsApp', pillar: 'ernaehrung' as const },
 ]
 
 export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
@@ -67,9 +67,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
         <div className="grid md:grid-cols-2 gap-8">
 
           {/* Left: What's included */}
-          <div className={`feature-card corner-decorator p-6 md:p-8 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-            <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-            <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
+          <div className={`feature-card p-6 md:p-8 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
 
             <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Im Programm enthalten</h3>
 
@@ -79,8 +77,13 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                 className={`checklist-item flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
                 style={{ animationDelay: `${0.4 + i * 0.2}s` }}
               >
-                <CheckCircle2 className="check-icon w-4 h-4 text-primary shrink-0" />
-                <span className="text-sm text-muted-foreground">{item}</span>
+                <CheckCircle2 className={`check-icon w-4 h-4 shrink-0 ${item.pillar === 'training' ? 'text-primary' : 'text-accent'}`} />
+                <span className="text-sm text-muted-foreground flex-1">{item.text}</span>
+                <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded shrink-0 ${
+                  item.pillar === 'training' ? 'bg-primary/10 text-primary' : 'bg-accent/10 text-accent'
+                }`}>
+                  {item.pillar === 'training' ? 'Training' : 'Ernährung'}
+                </span>
               </div>
             ))}
 
@@ -96,9 +99,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
           </div>
 
           {/* Right: Insurance Calculator */}
-          <div className={`feature-card corner-decorator p-6 md:p-8 flex flex-col float-in-right ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.35s' }}>
-            <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-            <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
+          <div className={`feature-card p-6 md:p-8 flex flex-col float-in-right ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.35s' }}>
 
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">

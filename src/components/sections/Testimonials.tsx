@@ -10,7 +10,7 @@ const testimonials = [
     age: 42,
     result: "-8 kg in 8 Wochen",
     initials: "SK",
-    color: "#cfe5ea"
+    color: "#7dd87d"
   },
   {
     text: "Ich war skeptisch, aber die Zahlen lügen nicht. Bei der Zwischen-Analyse hatte ich schon 4 kg weniger – das hat mich so motiviert!",
@@ -18,7 +18,7 @@ const testimonials = [
     age: 48,
     result: "-11 kg in 8 Wochen",
     initials: "TM",
-    color: "#ffb54f"
+    color: "#f5a623"
   },
   {
     text: "Endlich ein Konzept, das zu meinem Alltag passt. 2x 30 Minuten pro Woche – mehr brauche ich nicht. Und die Ergebnisse sprechen für sich.",
@@ -26,7 +26,7 @@ const testimonials = [
     age: 55,
     result: "-6 kg, 2 Kleidergrößen",
     initials: "MH",
-    color: "#cfe5ea"
+    color: "#7dd87d"
   }
 ]
 
@@ -42,7 +42,7 @@ export function Testimonials() {
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Aus der Region · Echte Ergebnisse</span>
+          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Echte Ergebnisse · Training + Ernährung</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
             Was Teilnehmer aus <span className="text-primary">Trier & Umgebung</span> sagen
           </h2>
@@ -58,14 +58,12 @@ export function Testimonials() {
           {testimonials.map((testimonial, i) => (
             <div
               key={i}
-              className={`feature-card corner-decorator p-6 flex flex-col ${
+              className={`feature-card testimonial-quote p-6 flex flex-col ${
                 i % 2 === 0 ? 'float-in-left' : 'float-in-right'
               } ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
               style={{ animationDelay: `${0.2 + i * 0.2}s` }}
             >
               {/* Corner decorators */}
-              <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-              <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
 
               {/* Stars */}
               <div className="flex items-center gap-1 mb-4">

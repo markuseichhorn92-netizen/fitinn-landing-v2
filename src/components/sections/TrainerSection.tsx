@@ -17,15 +17,13 @@ export function TrainerSection() {
 
       <div className="relative mx-auto max-w-4xl px-6">
         <div className={`text-center mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Persönliche Betreuung</span>
+          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Training & Ernährung — persönlich betreut</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Dein <span className="text-primary">Coach</span>
+            Dein <span className="text-primary">Coach</span> für beides
           </h2>
         </div>
 
-        <div className={`feature-card corner-decorator p-8 md:p-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-          <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-          <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
+        <div className={`feature-card p-8 md:p-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
 
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
 
@@ -74,16 +72,22 @@ export function TrainerSection() {
               {/* Tags */}
               <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                 {[
-                  '17 Jahre Erfahrung',
-                  'FIT-INN Trier seit 1996',
-                  '§ 20 SGB V zertifiziert',
-                  'Personal Trainer',
+                  { text: 'Personal Trainer', pillar: 'training' },
+                  { text: 'Ernährungscoach', pillar: 'ernaehrung' },
+                  { text: '17 Jahre Erfahrung', pillar: 'neutral' },
+                  { text: '§ 20 SGB V zertifiziert', pillar: 'neutral' },
                 ].map((tag, i) => (
                   <span
                     key={i}
-                    className="text-xs px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium"
+                    className={`text-xs px-3 py-1.5 rounded-full font-medium border ${
+                      tag.pillar === 'training'
+                        ? 'bg-primary/10 border-primary/20 text-primary'
+                        : tag.pillar === 'ernaehrung'
+                        ? 'bg-accent/10 border-accent/20 text-accent'
+                        : 'bg-primary/10 border-primary/20 text-primary'
+                    }`}
                   >
-                    {tag}
+                    {tag.text}
                   </span>
                 ))}
               </div>

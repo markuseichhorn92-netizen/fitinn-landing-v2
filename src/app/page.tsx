@@ -18,16 +18,19 @@ import { Navbar } from '@/components/Navbar'
 const heroFeatures = [
   {
     icon: Dumbbell,
-    title: 'Kein Trial-and-Error mehr',
-    text: <>Gezielt an deinem Stoffwechsel — kein Allgemeinplan. Vor Ort ist immer ein Coach für dich da.</>,
+    pillar: 'training' as const,
+    title: 'Gezieltes Training',
+    text: <>Individueller Trainingsplan, angepasst an deinen Stoffwechsel. Vor Ort ist immer ein Coach für dich da.</>,
   },
   {
     icon: Apple,
-    title: 'Abnehmen ohne Verzicht',
-    text: <>Kein Kalorienzählen, keine Verbote. Ein System, das du auch in zwei Jahren noch lebst.</>,
+    pillar: 'ernaehrung' as const,
+    title: 'Ernährung ohne Verbote',
+    text: <>Kein Kalorienzählen, keine Diät. Ein Ernährungsplan, den du auch in zwei Jahren noch lebst.</>,
   },
   {
     icon: HeartPulse,
+    pillar: 'kasse' as const,
     title: 'Viele zahlen am Ende 0€',
     text: <>§ 20 SGB V: Deine Kasse übernimmt bis zu 100%.<sup>²³</sup> Einfach teilnehmen, Bestätigung einreichen, Geld zurück.</>,
   },
@@ -120,16 +123,21 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.95] mb-8">
               Du hast
               <span
-                className={`block text-accent relative glitch-text ${heroAnimated ? 'animate' : ''}`}
-                data-text="alles versucht"
+                className={`block text-accent relative lift-in ${heroAnimated ? 'animate' : ''}`}
               >
                 alles versucht
               </span>
               <span className="block text-primary mt-2">Jetzt nimmst du wirklich ab.</span>
             </h1>
 
-            <p className="text-base md:text-lg text-primary font-medium max-w-xl mx-auto mb-3">
-              8-Wochen-Programm · Personal Training · Ernährungsbegleitung · FIT-INN Trier
+            <p className="text-base md:text-lg font-medium max-w-xl mx-auto mb-3">
+              <span className="text-primary">Training</span>
+              {' · '}
+              <span className="text-accent">Ernährung</span>
+              {' · '}
+              <span className="text-primary">Coaching</span>
+              {' · '}
+              <span className="text-muted-foreground">8 Wochen · FIT-INN Trier</span>
             </p>
             <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
               Das Problem ist nicht deine Disziplin –{' '}
@@ -153,10 +161,14 @@ export default function Home() {
               <div className="flex flex-col items-center gap-2 mt-2">
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-3">
-                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmerin" />
-                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmer" />
-                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmerin" />
-                    <img className="w-8 h-8 rounded-full border-2 border-background object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&h=64&q=80" alt="Teilnehmer" />
+                    {[
+                      { initials: 'SK', bg: '#7dd87d' },
+                      { initials: 'TM', bg: '#f5a623' },
+                      { initials: 'MH', bg: '#7dd87d' },
+                      { initials: 'JR', bg: '#f5a623' },
+                    ].map((p, i) => (
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-background flex items-center justify-center text-[10px] font-bold text-black" style={{ backgroundColor: p.bg }}>{p.initials}</div>
+                    ))}
                   </div>
                   <div className="flex flex-col text-left">
                     <div className="flex text-accent text-sm">
@@ -184,11 +196,22 @@ export default function Home() {
         {/* Feature-Karten */}
         <div className="relative z-10 w-full px-6 lg:px-8 pb-12 mt-8 md:mt-12">
           <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {heroFeatures.map(({ icon: Icon, title, text }, i) => (
-              <div key={i} className="relative rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 overflow-hidden group hover:-translate-y-1 transition-all duration-300">
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute -inset-1 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-                <Icon className="w-8 h-8 text-primary mb-4 relative z-10" />
+            {heroFeatures.map(({ icon: Icon, pillar, title, text }, i) => (
+              <div key={i} className="feature-card p-6 group">
+                <div className="flex items-center gap-3 mb-4 relative z-10">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    pillar === 'training' ? 'bg-primary/15' : pillar === 'ernaehrung' ? 'bg-accent/15' : 'bg-primary/10'
+                  }`}>
+                    <Icon className={`w-5 h-5 ${pillar === 'ernaehrung' ? 'text-accent' : 'text-primary'}`} />
+                  </div>
+                  <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${
+                    pillar === 'training' ? 'bg-primary/10 text-primary'
+                    : pillar === 'ernaehrung' ? 'bg-accent/10 text-accent'
+                    : 'bg-primary/10 text-primary'
+                  }`}>
+                    {pillar === 'training' ? 'Training' : pillar === 'ernaehrung' ? 'Ernährung' : '§ 20 SGB V'}
+                  </span>
+                </div>
                 <h3 className="text-foreground font-bold text-lg mb-2 relative z-10">{title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed relative z-10">{text}</p>
               </div>
@@ -198,14 +221,14 @@ export default function Home() {
       </section>
 
       {/* Krankenkassen Banner */}
-      <section className="py-5 bg-primary relative overflow-hidden">
+      <section className="py-5 bg-gradient-to-r from-[#0a2e0a] via-[#1a4d1a] to-[#0a2e0a] relative overflow-hidden">
         <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,transparent,transparent_10px,rgba(0,0,0,0.05)_10px,rgba(0,0,0,0.05)_20px)]" />
         <div className="relative mx-auto max-w-7xl px-6 text-center">
-          <p className="text-primary-foreground text-lg font-semibold">
-            § 20 SGB V · Deine Krankenkasse übernimmt bis zu{' '}
-            <span className="underline decoration-2 font-black">100% der Kosten</span>
+          <p className="text-primary text-lg font-semibold">
+            <Shield className="w-5 h-5 inline-block mr-2 -mt-0.5" />
+            § 20 SGB V zertifiziert · Training + Ernährung ·{' '}
+            <span className="underline decoration-2 font-black text-white">bis zu 100% erstattet</span>
             <sup>²³</sup>
-            {' '}· Bei vielen Kassen komplett gratis
           </p>
         </div>
       </section>
@@ -223,48 +246,105 @@ export default function Home() {
       </section>
 
       {/* Why Section (Problem + Solution zusammengelegt) */}
+      <div className="section-divider" />
       <WhySection onStartQuiz={startQuiz} />
 
       {/* Process Section — leicht abgehoben */}
-      <div className="bg-card/40">
+      <div className="bg-card/40 bg-fitness">
         <ProcessSection />
       </div>
 
       {/* Trainer / Coach */}
       <TrainerSection />
 
-      {/* Studio Einblick — leicht abgehoben */}
-      <section className="relative py-6 overflow-hidden bg-card/30">
+      {/* Die 2 Säulen: Training + Ernährung */}
+      <section className="relative py-10 overflow-hidden bg-card/30 bg-nutrition">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-              <Image
-                src="/studio-1.avif"
-                alt="FIT-INN Trier – Trainingsbereich"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
-              />
+          <div className="text-center mb-10">
+            <span className="text-sm text-primary uppercase tracking-widest font-semibold">Dein Programm — zwei Säulen</span>
+            <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
+              <span className="text-primary">Training</span> + <span className="text-accent">Ernährung</span> = Ergebnis
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Säule 1: Training */}
+            <div className="feature-card p-0 overflow-hidden group">
+              <div className="studio-image relative aspect-[16/10]">
+                <Image
+                  src="/studio-1.avif"
+                  alt="FIT-INN Trier – Trainingsbereich"
+                  width={800}
+                  height={500}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                      <Dumbbell className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-bold text-primary uppercase tracking-wider">Training</span>
+                  </div>
+                  <h3 className="text-lg font-bold mb-1">Gezieltes Stoffwechsel-Training</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    2–3× pro Woche, je 30 Min. Individuell auf deinen Körper abgestimmt — im modernsten Studio Triers.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Säule 2: Ernährung */}
+            <div className="feature-card p-0 overflow-hidden group">
+              <div className="studio-image relative aspect-[16/10]">
+                <Image
+                  src="/food-smoothie.jpg"
+                  alt="Gesunde Ernährung – Smoothie"
+                  width={800}
+                  height={500}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                      <Apple className="w-4 h-4 text-accent" />
+                    </div>
+                    <span className="text-sm font-bold text-accent uppercase tracking-wider">Ernährung</span>
+                  </div>
+                  <h3 className="text-lg font-bold mb-1">Essen ohne Verbote</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Kein Kalorienzählen, keine Diät. Ein alltagstauglicher Ernährungsplan, der zu dir und deinem Leben passt.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Zweite Reihe: Studio + Food Details */}
+          <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
+              <Image src="/studio-2.avif" alt="FIT-INN Trier – Gerätepark" width={400} height={300} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-              <Image
-                src="/studio-2.avif"
-                alt="FIT-INN Trier – Gerätepark"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
-              />
+            <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
+              <Image src="/food-lentils.jpg" alt="Gesunde Mahlzeit – Linsen" width={400} height={300} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            </div>
+            <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
+              <Image src="/food-mango.jpg" alt="Frisches Obst – Mango" width={400} height={300} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
           </div>
+
           <p className="text-center text-sm text-muted-foreground mt-6">
-            FIT-INN Trier – Über 800m² mit modernster Technogym-Ausstattung
+            FIT-INN Trier – Über 800m² mit modernster Technogym-Ausstattung · Gesunde Rezepte inklusive
           </p>
         </div>
       </section>
 
       {/* Testimonials */}
+      <div className="section-divider" />
       <Testimonials />
 
       {/* Insurance Calculator */}
@@ -276,6 +356,7 @@ export default function Home() {
       </div>
 
       {/* FAQ Section */}
+      <div className="section-divider" />
       <FAQSection />
 
       {/* Final CTA */}
@@ -335,7 +416,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-border/50">
+      <footer className="py-12 border-t border-border/50 footer-glow">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 

@@ -15,12 +15,30 @@ const navLinks = [
 export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Active section detection via IntersectionObserver
+  useEffect(() => {
+    const ids = navLinks.map(l => l.href.replace('#', ''))
+    const observers: IntersectionObserver[] = []
+    ids.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const io = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection('#' + id) },
+        { rootMargin: '-40% 0px -55% 0px' }
+      )
+      io.observe(el)
+      observers.push(io)
+    })
+    return () => observers.forEach(io => io.disconnect())
   }, [])
 
   const handleNavClick = (href: string) => {
@@ -60,9 +78,15 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-white/5"
+              className={`relative px-3 py-2 text-sm transition-colors rounded-lg hover:bg-white/5 group ${
+                activeSection === link.href ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
               {link.label}
+              {/* Animated underline */}
+              <span className={`absolute bottom-0.5 left-3 right-3 h-px bg-primary transition-all duration-300 ${
+                activeSection === link.href ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover:opacity-50 group-hover:scale-x-100'
+              }`} style={{ transformOrigin: 'center' }} />
             </button>
           ))}
           <a
