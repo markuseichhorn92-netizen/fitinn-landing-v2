@@ -131,11 +131,11 @@ export default function Home() {
             </h1>
 
             <p className="text-base md:text-lg font-medium max-w-xl mx-auto mb-3">
-              <span className="text-primary">Training</span>
+              <span className="text-accent">Training</span>
               {' · '}
-              <span className="text-accent">Ernährung</span>
+              <span className="text-primary">Ernährung</span>
               {' · '}
-              <span className="text-primary">Coaching</span>
+              <span className="text-accent">Coaching</span>
               {' · '}
               <span className="text-muted-foreground">8 Wochen · FIT-INN Trier</span>
             </p>
@@ -200,13 +200,13 @@ export default function Home() {
               <div key={i} className="feature-card p-6 group">
                 <div className="flex items-center gap-3 mb-4 relative z-10">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    pillar === 'training' ? 'bg-primary/15' : pillar === 'ernaehrung' ? 'bg-accent/15' : 'bg-primary/10'
+                    pillar === 'training' ? 'bg-accent/15' : pillar === 'ernaehrung' ? 'bg-primary/15' : 'bg-primary/10'
                   }`}>
-                    <Icon className={`w-5 h-5 ${pillar === 'ernaehrung' ? 'text-accent' : 'text-primary'}`} />
+                    <Icon className={`w-5 h-5 ${pillar === 'training' ? 'text-accent' : 'text-primary'}`} />
                   </div>
                   <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${
-                    pillar === 'training' ? 'bg-primary/10 text-primary'
-                    : pillar === 'ernaehrung' ? 'bg-accent/10 text-accent'
+                    pillar === 'training' ? 'bg-accent/10 text-accent'
+                    : pillar === 'ernaehrung' ? 'bg-primary/10 text-primary'
                     : 'bg-primary/10 text-primary'
                   }`}>
                     {pillar === 'training' ? 'Training' : pillar === 'ernaehrung' ? 'Ernährung' : '§ 20 SGB V'}
@@ -250,7 +250,7 @@ export default function Home() {
       <WhySection onStartQuiz={startQuiz} />
 
       {/* Process Section — leicht abgehoben */}
-      <div className="bg-card/40 bg-fitness">
+      <div className="bg-card/40 bg-nutrition">
         <ProcessSection />
       </div>
 
@@ -258,12 +258,12 @@ export default function Home() {
       <TrainerSection />
 
       {/* Die 2 Säulen: Training + Ernährung */}
-      <section className="relative py-10 overflow-hidden bg-card/30 bg-nutrition">
+      <section className="relative py-10 overflow-hidden bg-card/30 bg-fitness">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center mb-10">
             <span className="text-sm text-primary uppercase tracking-widest font-semibold">Dein Programm — zwei Säulen</span>
             <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-              <span className="text-primary">Training</span> + <span className="text-accent">Ernährung</span> = Ergebnis
+              <span className="text-accent">Training</span> + <span className="text-primary">Ernährung</span> = Ergebnis
             </h2>
           </div>
 
@@ -281,10 +281,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Dumbbell className="w-4 h-4 text-primary" />
+                    <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                      <Dumbbell className="w-4 h-4 text-accent" />
                     </div>
-                    <span className="text-sm font-bold text-primary uppercase tracking-wider">Training</span>
+                    <span className="text-sm font-bold text-accent uppercase tracking-wider">Training</span>
                   </div>
                   <h3 className="text-lg font-bold mb-1">Gezieltes Stoffwechsel-Training</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -307,10 +307,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
-                      <Apple className="w-4 h-4 text-accent" />
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                      <Apple className="w-4 h-4 text-primary" />
                     </div>
-                    <span className="text-sm font-bold text-accent uppercase tracking-wider">Ernährung</span>
+                    <span className="text-sm font-bold text-primary uppercase tracking-wider">Ernährung</span>
                   </div>
                   <h3 className="text-lg font-bold mb-1">Essen ohne Verbote</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">

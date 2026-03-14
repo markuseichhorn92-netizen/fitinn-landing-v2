@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Coins, CheckCircle2, ArrowRight } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, EuroSvg, ShieldCheckSvg } from '@/components/FloatingDecor'
 
 const INSURANCE_DATA = [
   { value: 'aok-rlp', label: 'AOK Rheinland-Pfalz', amount: 179 },
@@ -36,6 +38,7 @@ const included = [
 
 export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.1)
+  const float = useScrollFloat(0.05)
   const [selected, setSelected] = useState('')
   const [amount, setAmount] = useState(0)
 
@@ -49,7 +52,18 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   const isFree = eigenanteil === 0
 
   return (
-    <section id="krankenkasse" className="py-7 relative" ref={section.ref}>
+    <section id="krankenkasse" className="py-7 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '8%', right: '4%' }} isVisible={float.isVisible} delay={0.2} size={52}>
+        <EuroSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '10%', left: '3%' }} isVisible={float.isVisible} delay={0.4} size={44}>
+        <ShieldCheckSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ top: '30%', left: '5%' }} isVisible={float.isVisible} delay={0.3} size={38}>
+        <EuroSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+
       <div className="mx-auto max-w-6xl px-6">
         {/* Section Header */}
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
@@ -77,10 +91,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                 className={`checklist-item flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
                 style={{ animationDelay: `${0.4 + i * 0.2}s` }}
               >
-                <CheckCircle2 className={`check-icon w-4 h-4 shrink-0 ${item.pillar === 'training' ? 'text-primary' : 'text-accent'}`} />
+                <CheckCircle2 className={`check-icon w-4 h-4 shrink-0 ${item.pillar === 'training' ? 'text-accent' : 'text-primary'}`} />
                 <span className="text-sm text-muted-foreground flex-1">{item.text}</span>
                 <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded shrink-0 ${
-                  item.pillar === 'training' ? 'bg-primary/10 text-primary' : 'bg-accent/10 text-accent'
+                  item.pillar === 'training' ? 'bg-accent/10 text-accent' : 'bg-primary/10 text-primary'
                 }`}>
                   {item.pillar === 'training' ? 'Training' : 'Ernährung'}
                 </span>

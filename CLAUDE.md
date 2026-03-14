@@ -36,19 +36,19 @@ Tailwind 4 generates utilities like `bg-card` as `background-color: var(--color-
 
 ## Design Tokens (Athletic Dark Fitness Theme)
 
-Defined in `:root` in `globals.css`. The color system uses **Grün (Training) + Gold (Ernährung)** as the two thematic pillars:
+Defined in `:root` in `globals.css`. The color system uses **Grün (Ernährung) + Gold (Training)** as the two thematic pillars:
 
 | Token | Value | Usage |
 |---|---|---|
-| `--primary` | `#7dd87d` (vital green) | Training, health, results — the "fitness" pillar |
+| `--primary` | `#7dd87d` (vital green) | Ernährung, health, results — the "nutrition" pillar |
 | `--primary-foreground` | `#0a2e0a` (dark green) | Text on primary backgrounds |
-| `--accent` | `#f5a623` (warm gold) | Ernährung, CTA buttons (`.btn-cta`), nutrition-related UI |
+| `--accent` | `#f5a623` (warm gold) | Training, CTA buttons (`.btn-cta`), workout-related UI |
 | `--accent-foreground` | `#1a0f00` | Text on accent backgrounds |
 | `--destructive` | `#ef4444` (red) | **Errors only** – API failures, form validation. Never for emphasis or design elements |
 | `--card` | `#131613` (green-tinted dark) | Card/modal backgrounds — subtle green undertone |
 | `--background` | `#0a0a0a` | Page background |
 
-**Two-pillar color system:** Training content uses `--primary` (green), Ernährung content uses `--accent` (gold). Feature cards have a `.feature-card--nutrition` variant with gold left-border instead of green.
+**Two-pillar color system:** Ernährung content uses `--primary` (green), Training content uses `--accent` (gold). Feature cards have a `.feature-card--nutrition` variant with green left-border (primary). Where `pillar === 'training'`, use accent (gold); where `pillar === 'ernaehrung'`, use primary (green).
 
 **Card design:** Cards use a clean left-border accent (3px) instead of glassmorphism. No corner decorators — those were removed as "too tech/SaaS."
 
@@ -186,6 +186,8 @@ const section = useScrollReveal(0.1)
 **Removed tech animations:** `glitch-text`, `scan-reveal`, `energy-beam`, `shield-forge`, `forge-ring` — these had sci-fi/cyberpunk aesthetics incompatible with the fitness theme. Legacy CSS aliases exist so old class names still work (they map to `lift-in`).
 
 **Quiz-specific classes:** `animate-funnel-enter` (fullscreen fade-in), `quiz-step-enter` (fade + slide up), `quiz-progress-fill` (progress bar glow), `quiz-option-card` (hover/selected glow)
+
+**Floating section decorations:** Each section has themed SVG decorations (`FloatingDecor` component) that fade in/out based on scroll visibility using `useScrollFloat` hook (bidirectional IntersectionObserver). SVGs are defined in `src/components/FloatingDecor.tsx` (DumbbellSvg, AppleSvg, LeafSvg, HeartbeatSvg, StarSvg, ShieldCheckSvg, EuroSvg, MedalSvg, ScaleSvg). Opacity is capped at 7% for a subtle, non-distracting effect. Training sections get gold-colored icons, Ernährung sections get green-colored icons.
 
 **Critical rules for new animations:**
 - `.anim-ready` must set `opacity: 0` (or clip-path) — never the base class

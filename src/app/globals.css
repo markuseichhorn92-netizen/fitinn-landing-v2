@@ -26,7 +26,7 @@
   --color-ring: var(--ring);
 }
 
-/* Athletic Dark Fitness Theme — Grün (Training) + Gold (Ernährung) */
+/* Athletic Dark Fitness Theme — Grün (Ernährung/Primary) + Gold (Training/Accent) */
 :root {
   --background: #0a0a0a;
   --foreground: #fafafa;

@@ -4,16 +4,30 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { User, Star } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, MedalSvg, DumbbellSvg, LeafSvg } from '@/components/FloatingDecor'
 
 export function TrainerSection() {
   const section = useScrollReveal(0.1)
+  const float = useScrollFloat(0.05)
   const [imgError, setImgError] = useState(false)
 
   return (
-    <section className="py-10 relative overflow-hidden" ref={section.ref}>
+    <section className="py-10 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/4 rounded-full blur-3xl" />
       </div>
+
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '10%', right: '5%' }} isVisible={float.isVisible} delay={0.2} size={48}>
+        <MedalSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} delay={0.4} size={44}>
+        <DumbbellSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ top: '30%', left: '3%' }} isVisible={float.isVisible} delay={0.3} size={36}>
+        <LeafSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
 
       <div className="relative mx-auto max-w-4xl px-6">
         <div className={`text-center mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
@@ -81,9 +95,9 @@ export function TrainerSection() {
                     key={i}
                     className={`text-xs px-3 py-1.5 rounded-full font-medium border ${
                       tag.pillar === 'training'
-                        ? 'bg-primary/10 border-primary/20 text-primary'
-                        : tag.pillar === 'ernaehrung'
                         ? 'bg-accent/10 border-accent/20 text-accent'
+                        : tag.pillar === 'ernaehrung'
+                        ? 'bg-primary/10 border-primary/20 text-primary'
                         : 'bg-primary/10 border-primary/20 text-primary'
                     }`}
                   >

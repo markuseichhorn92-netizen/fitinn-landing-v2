@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight, X } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, DumbbellSvg, AppleSvg, LeafSvg } from '@/components/FloatingDecor'
 
 const problems = [
   'Die Waage bewegt sich nicht — egal was du isst',
@@ -28,12 +30,27 @@ const features = [
 
 export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.05)
+  const float = useScrollFloat(0.05)
 
   return (
-    <section id="programm" className="py-8 relative overflow-hidden" ref={section.ref}>
+    <section id="programm" className="py-8 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent" />
       </div>
+
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '8%', left: '3%' }} isVisible={float.isVisible} delay={0.1} size={56}>
+        <DumbbellSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ top: '15%', right: '5%' }} isVisible={float.isVisible} delay={0.3} size={44}>
+        <AppleSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '20%', left: '5%' }} isVisible={float.isVisible} delay={0.5} size={40}>
+        <LeafSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '12%', right: '3%' }} isVisible={float.isVisible} delay={0.4} size={50}>
+        <DumbbellSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
 
       <div className="relative mx-auto max-w-7xl px-6">
 
@@ -41,7 +58,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Training + Ernährung = Ergebnis</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Kein Diät-Plan. Ein System aus <span className="text-primary">Training</span> & <span className="text-accent">Ernährung</span>, das funktioniert.
+            Kein Diät-Plan. Ein System aus <span className="text-accent">Training</span> & <span className="text-primary">Ernährung</span>, das funktioniert.
           </h2>
         </div>
 
@@ -85,18 +102,18 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
               <div className="flex items-start gap-4">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                   f.pillar === 'training'
-                    ? 'bg-primary/10 group-hover:bg-primary/20'
-                    : 'bg-accent/10 group-hover:bg-accent/20'
+                    ? 'bg-accent/10 group-hover:bg-accent/20'
+                    : 'bg-primary/10 group-hover:bg-primary/20'
                 }`}>
-                  <f.icon className={`w-5 h-5 ${f.pillar === 'training' ? 'text-primary' : 'text-accent'}`} />
+                  <f.icon className={`w-5 h-5 ${f.pillar === 'training' ? 'text-accent' : 'text-primary'}`} />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="text-base font-semibold">{f.title}</h3>
                     <span className={`text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${
                       f.pillar === 'training'
-                        ? 'bg-primary/10 text-primary'
-                        : 'bg-accent/10 text-accent'
+                        ? 'bg-accent/10 text-accent'
+                        : 'bg-primary/10 text-primary'
                     }`}>
                       {f.pillar === 'training' ? 'Training' : 'Ernährung'}
                     </span>

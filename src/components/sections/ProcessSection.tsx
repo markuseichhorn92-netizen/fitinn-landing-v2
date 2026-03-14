@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { MessageSquare, BarChart2, Dumbbell, Target } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, DumbbellSvg, ScaleSvg, HeartbeatSvg } from '@/components/FloatingDecor'
 
 const steps = [
   {
@@ -57,6 +59,7 @@ function buildTimelinePath(
 
 export function ProcessSection() {
   const heading = useScrollReveal(0.15)
+  const float = useScrollFloat(0.05)
   const timelineRef = useRef<HTMLDivElement>(null)
   const fillPathRef = useRef<SVGPathElement>(null)
   const tipRef = useRef<SVGCircleElement>(null)
@@ -171,11 +174,22 @@ export function ProcessSection() {
   }, [measure])
 
   return (
-    <section id="ablauf" className="py-16 md:py-20 relative overflow-hidden">
+    <section id="ablauf" className="py-16 md:py-20 relative overflow-hidden" ref={float.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
+
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '5%', right: '4%' }} isVisible={float.isVisible} delay={0.1} size={52}>
+        <DumbbellSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '8%', left: '3%' }} isVisible={float.isVisible} delay={0.3} size={44}>
+        <ScaleSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ top: '40%', left: '2%' }} isVisible={float.isVisible} delay={0.5} size={40}>
+        <HeartbeatSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
 
       <div className="mx-auto max-w-5xl px-6">
         {/* Heading */}

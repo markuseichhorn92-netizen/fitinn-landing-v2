@@ -2,6 +2,8 @@
 
 import { Shield, CalendarX2, Award, HeartHandshake } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, ShieldCheckSvg } from '@/components/FloatingDecor'
 
 const guarantees = [
   {
@@ -23,9 +25,18 @@ const guarantees = [
 
 export function GuaranteeSection() {
   const section = useScrollReveal(0.15)
+  const float = useScrollFloat(0.05)
 
   return (
-    <section className="py-7 relative overflow-hidden" ref={section.ref}>
+    <section className="py-7 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '12%', right: '5%' }} isVisible={float.isVisible} delay={0.2} size={46}>
+        <ShieldCheckSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} delay={0.4} size={40}>
+        <ShieldCheckSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
+
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] bg-primary/5 rounded-full blur-3xl" />

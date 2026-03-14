@@ -2,6 +2,8 @@
 
 import { Star } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useScrollFloat } from '@/hooks/useScrollFloat'
+import { FloatingDecor, StarSvg, HeartbeatSvg } from '@/components/FloatingDecor'
 
 const testimonials = [
   {
@@ -32,13 +34,25 @@ const testimonials = [
 
 export function Testimonials() {
   const section = useScrollReveal(0.1)
+  const float = useScrollFloat(0.05)
 
   return (
-    <section id="erfahrungen" className="py-10 relative" ref={section.ref}>
+    <section id="erfahrungen" className="py-10 relative" ref={(node) => { section.ref(node); float.ref(node) }}>
       {/* Background Glow */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
       </div>
+
+      {/* Floating Decorations */}
+      <FloatingDecor position={{ top: '10%', right: '4%' }} isVisible={float.isVisible} delay={0.2} size={40}>
+        <StarSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ bottom: '15%', left: '3%' }} isVisible={float.isVisible} delay={0.4} size={36}>
+        <StarSvg className="w-full h-full text-accent" />
+      </FloatingDecor>
+      <FloatingDecor position={{ top: '25%', left: '4%' }} isVisible={float.isVisible} delay={0.3} size={48}>
+        <HeartbeatSvg className="w-full h-full text-primary" />
+      </FloatingDecor>
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className={`text-center mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
