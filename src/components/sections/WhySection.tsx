@@ -39,16 +39,16 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
       </div>
 
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '8%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.1} parallax={40} sizeClass="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16">
+      <FloatingDecor position={{ top: '8%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.1} parallax={80} sizeClass="w-6 h-6 md:w-14 md:h-14 lg:w-16 lg:h-16">
         <DumbbellSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ top: '15%', right: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={-25} sizeClass="w-8 h-8 md:w-11 md:h-11 lg:w-14 lg:h-14">
+      <FloatingDecor position={{ top: '15%', right: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={-50} sizeClass="w-5 h-5 md:w-11 md:h-11 lg:w-14 lg:h-14">
         <AppleSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '20%', left: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.5} parallax={35} sizeClass="w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12">
+      <FloatingDecor position={{ bottom: '20%', left: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.5} parallax={60} sizeClass="w-4 h-4 md:w-10 md:h-10 lg:w-12 lg:h-12">
         <LeafSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '12%', right: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={-30} sizeClass="w-9 h-9 md:w-12 md:h-12 lg:w-14 lg:h-14">
+      <FloatingDecor position={{ bottom: '12%', right: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={-70} sizeClass="w-5 h-5 md:w-12 md:h-12 lg:w-14 lg:h-14">
         <DumbbellSvg className="w-full h-full text-accent" />
       </FloatingDecor>
 

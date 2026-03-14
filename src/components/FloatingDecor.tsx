@@ -28,23 +28,23 @@ export function FloatingDecor({
   isVisible,
   progress = 0,
   delay = 0,
-  parallax = 30,
-  sizeClass = 'w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14',
+  parallax = 60,
+  sizeClass = 'w-6 h-6 md:w-12 md:h-12 lg:w-14 lg:h-14',
 }: FloatingDecorProps) {
   // Parallax: translate based on scroll progress (-half to +half of travel)
   const parallaxY = (progress - 0.5) * parallax
 
   return (
     <div
-      className={`absolute pointer-events-none select-none transition-opacity duration-700 ease-out hidden md:block ${sizeClass} ${
-        isVisible ? 'opacity-[0.07]' : 'opacity-0'
+      className={`absolute pointer-events-none select-none ${sizeClass} ${
+        isVisible ? 'opacity-[0.08]' : 'opacity-0'
       }`}
       style={{
         ...position,
         transform: isVisible
-          ? `translateY(${parallaxY}px) rotate(${(progress - 0.5) * 8}deg)`
-          : 'translateY(20px) scale(0.9)',
-        transition: `opacity 0.7s ease-out ${delay}s, transform 0.15s ease-out`,
+          ? `translateY(${parallaxY}px) rotate(${(progress - 0.5) * 15}deg)`
+          : 'translateY(30px) scale(0.8)',
+        transition: `opacity 0.7s ease-out ${delay}s, transform 0.1s linear`,
       }}
     >
       {children}
