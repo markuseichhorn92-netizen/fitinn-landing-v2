@@ -13,7 +13,7 @@ const problems = [
 const solutions = [
   'Gezielt auf deinen Stoffwechsel — kein Allgemeinplan',
   'Kein Kalorienzählen, keine Verbote',
-  'Trainer an deiner Seite — persönlich, nicht per App',
+  'Trainer vor Ort immer ansprechbar — persönlich, nicht per App',
   '§ 20 SGB V: Deine Kasse übernimmt bis zu 100%²³',
 ]
 
@@ -21,7 +21,7 @@ const features = [
   { icon: ChartLine, title: '3× Körperanalyse', desc: 'Start, Mitte, Ende — du siehst in Zahlen was sich verändert.' },
   { icon: Dumbbell, title: '8 Wochen Training', desc: 'Individueller Plan, unbegrenzter Zugang, keine Allgemeinroutine.' },
   { icon: Utensils, title: 'Ernährungsplan', desc: 'Passend zu deinem Alltag. Kein Hungern, keine Verbote.' },
-  { icon: Users, title: 'Personal Coaching', desc: 'Persönliche Einweisung + Trainer bei jedem Besuch.' },
+  { icon: Users, title: 'Personal Coaching', desc: 'Persönliche Einweisung + Trainer jederzeit vor Ort ansprechbar.' },
   { icon: Smartphone, title: '24/7 Support', desc: 'WhatsApp, E-Mail, Telefon — wir sind immer erreichbar.' },
   { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Deine Kasse erstattet 75€–179€ — bei vielen komplett kostenlos.²³' },
 ]

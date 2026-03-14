@@ -590,6 +590,59 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 8px rgba(207, 229, 234, 0.4);
 }
 
+/* Process Frame — SVG-Rahmen der sich zeichnet */
+
+/* Frame zeichnet sich (stroke-dashoffset 100 → 0) */
+@keyframes drawFrame {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+.process-frame.anim-ready { opacity: 0; }
+.process-frame.animate { opacity: 1; }
+
+.frame-draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.process-frame.animate .frame-draw {
+  animation: drawFrame 3.2s ease-in-out both;
+  animation-delay: inherit;
+}
+
+/* Shimmer wandert endlos den Rahmen entlang */
+@keyframes shimmerLoop {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { stroke-dashoffset: -100; opacity: 0; }
+}
+.frame-shimmer-path {
+  stroke-dasharray: 8 92;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+.process-frame.animate .frame-shimmer-path {
+  animation: shimmerLoop 6s linear 3.8s infinite;
+}
+
+/* Step Icon Box — leuchtet auf */
+.step-icon-box {
+  background: rgba(207,229,234,0.06);
+  border: 1.5px solid rgba(207,229,234,0.15);
+  border-radius: 1rem;
+}
+.step-icon-box.anim-ready {
+  border-color: rgba(207,229,234,0.15);
+  box-shadow: none;
+}
+.step-icon-box.animate {
+  animation: iconActivate 0.5s ease-out both;
+}
+@keyframes iconActivate {
+  0% { border-color: rgba(207,229,234,0.15); box-shadow: none; background: rgba(207,229,234,0.06); }
+  100% { border-color: rgba(207,229,234,0.35); box-shadow: 0 0 20px rgba(207,229,234,0.15); background: rgba(207,229,234,0.1); }
+}
+
 /* 5. Card Materialize — cards build from particles/static */
 @keyframes materialize {
   0% {

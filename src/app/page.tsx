@@ -19,7 +19,7 @@ const heroFeatures = [
   {
     icon: Dumbbell,
     title: 'Kein Trial-and-Error mehr',
-    text: <>Dein Trainer setzt gezielt an deinem Stoffwechsel an — kein Allgemeinplan. Ergebnisse ab Woche 1.</>,
+    text: <>Gezielt an deinem Stoffwechsel — kein Allgemeinplan. Vor Ort ist immer ein Coach für dich da.</>,
   },
   {
     icon: Apple,

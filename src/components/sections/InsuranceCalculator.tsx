@@ -29,7 +29,7 @@ const included = [
   '3x Körperanalyse (Inbody)',
   '8 Wochen Studionutzung',
   'Individueller Ernährungsplan',
-  'Einweisung + Trainerbetreuung',
+  'Einweisung + Coach vor Ort',
   'Online-Lernplattform happyfigur',
   'Persönlicher Support per WhatsApp',
 ]

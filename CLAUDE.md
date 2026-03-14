@@ -61,7 +61,7 @@ Navbar → Hero → KK-Vertrauens-Banner → SocialProofStrip → ProblemSection
 **Section IDs** for nav scroll targets: `#hero`, `#programm` (SolutionSection), `#ablauf` (ProcessSection), `#erfahrungen` (Testimonials), `#krankenkasse` (InsuranceCalculator), `#faq` (FAQSection).
 
 State in `page.tsx`:
-- `showQuiz` / `showBooking` – controls which modal overlay is active
+- `startQuiz()` calls `router.push('/quiz')` — the quiz lives at `/quiz`, not as a modal overlay
 - `startQuiz()` is passed as `onStartQuiz` prop to every section with a CTA button
 
 **Every section that has a CTA button needs the `onStartQuiz: () => void` prop** – missing this prop = dead button.
@@ -87,8 +87,8 @@ State in `page.tsx`:
 
 **Insurance step** is embedded in Step 9 result screen (top 5 as tile buttons + "Andere Kasse" toggle for full `<select>`).
 
-**Quiz UI** is a fullscreen takeover (not a card modal). Key patterns:
-- Modal wrapper in `page.tsx`: `fixed inset-0 z-50 bg-background` with ambient glow div
+**Quiz UI** is a fullscreen page at `/quiz` (not a modal). Key patterns:
+- Page wrapper in `src/app/quiz/page.tsx`: `fixed inset-0 z-50 bg-background` with ambient glow div
 - Progress bar: `fixed top-0` thin bar (h-1), full viewport width, `quiz-progress-fill` glow class
 - Each step: `flex-1 flex flex-col items-center justify-center` with `quiz-step-enter` animation
 - Option cards: `quiz-option-card` class for hover glow, `rounded-2xl`, `hover:scale-[1.02]`
@@ -132,7 +132,7 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 
 - **WhatsApp fallback**: `https://wa.me/4915679610457`
 - **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – `INSURANCE_DATA` array with 16 insurers + reimbursement amounts (75–179€). 2-column layout: left = included features list + 179€ price box, right = dropdown calculator. Result shows 0€ prominently when KK covers 100%.
-- **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when `#hero` scrolls out of view
+- **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when the `#hero-cta` button scrolls out of view (not the whole `#hero` section)
 - **Navbar** (`src/components/Navbar.tsx`): Fixed top bar with logo, section nav links (smooth scroll), mobile hamburger menu, glassmorphism on scroll. Needs `onStartQuiz` prop.
 
 ## Component Structure
@@ -141,19 +141,22 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 src/
   app/
     globals.css               ← All design tokens, @theme blocks, global utilities
-    layout.tsx
-    page.tsx                  ← Single page, all section orchestration + modals
+    layout.tsx                ← Imports ScrollProgress
+    page.tsx                  ← Single page, all section orchestration
+    quiz/
+      page.tsx                ← /quiz route — renders QuizFunnel fullscreen
     api/trialsession/
       route.ts                ← GET (slots proxy) + POST (booking proxy) für Magicline
   components/
     Navbar.tsx                ← Fixed header with logo + nav + mobile menu
+    ScrollProgress.tsx        ← Fixed top scroll progress bar (rAF-based)
     quiz/
       QuizFunnel.tsx          ← Most complex component; self-contained quiz + booking state
     sections/                 ← One file per page section, all receive onStartQuiz prop
-    StickyBar.tsx             ← IntersectionObserver on #hero
+    StickyBar.tsx             ← IntersectionObserver on #hero-cta button
     ui/                       ← shadcn primitives (button, card, etc.)
   hooks/
-    useScrollReveal.ts        ← IntersectionObserver hook for scroll-triggered animations
+    useScrollReveal.ts        ← IntersectionObserver hook + useCountUp for counter animations
 ```
 
 ## Scroll Animation System
@@ -170,7 +173,7 @@ const section = useScrollReveal(0.1)
 <div className={`materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
 ```
 
-**Animation classes:** `materialize`, `number-slam`, `float-in-left`, `float-in-right`, `scan-reveal`, `shield-forge`, `strike-wipe`, `glitch-text`, `heartbeat-line`, `energy-beam`
+**Animation classes:** `materialize`, `number-slam`, `float-in-left`, `float-in-right`, `scan-reveal`, `shield-forge`, `strike-wipe`, `glitch-text`, `heartbeat-line`, `energy-beam`, `hero-ken-burns` (hero bg zoom), `cta-pulse` (orange glow pulse on CTA buttons), `checklist-item` (slide-in-right), `price-shimmer` (gradient sweep on price text), `process-frame` / `frame-draw` / `frame-shimmer-path` (SVG rect draws itself as frame around ProcessSection steps, then shimmer loops along the border)
 
 **Quiz-specific classes:** `animate-funnel-enter` (fullscreen fade-in), `quiz-step-enter` (fade + slide up), `quiz-progress-fill` (progress bar glow), `quiz-option-card` (hover/selected glow)
 
@@ -182,7 +185,7 @@ const section = useScrollReveal(0.1)
 
 ## Legal Disclaimer & Footnote System
 
-The footer in `page.tsx` contains numbered disclaimer sections (¹²³⁴). Superscript references (`<sup>¹</sup>` etc.) are placed at every pricing, reimbursement, and health claim across all components:
+There are two disclaimer areas in `page.tsx`: a **short footnote block** (4 lines, ¹²³⁴) directly above the `<footer>`, and a **full legal text block** inside the footer (`pb-20` div). Both must stay in sync when copy changes. Superscript references (`<sup>¹</sup>` etc.) are placed at every pricing, reimbursement, and health claim across all components:
 
 | Ref | Topic | Where to use |
 |-----|-------|-------------|
@@ -199,6 +202,7 @@ When adding new pricing or insurance claims, always include the appropriate `<su
 - **Stats source**: `-7,2 kg` average, `-8 cm` Bauchumfang, `127.000+` Teilnehmer, `4.9★` / 127 Rezensionen — from happyfigur24.de. Don't invent new statistics.
 - **§ 20 SGB V**: The program is certified. KK reimbursement requires no pre-approval (Vorab-Genehmigung) — customer attends, submits Teilnahmebestätigung afterward.
 - **Geld-zurück-Garantie**: If KK doesn't reimburse, FIT-INN refunds the full price (referenced as `²` in disclaimers).
+- **Trainer-Formulierung**: Ein Trainer/Coach ist immer **vor Ort ansprechbar** für Fragen und Korrekturen — aber nicht bei jedem Training persönlich dabei. Keine Formulierungen wie "Trainer an deiner Seite bei jedem Training".
 
 ## Avatars / Images
 

@@ -10,7 +10,7 @@ export function TrainerSection() {
   const [imgError, setImgError] = useState(false)
 
   return (
-    <section className="py-16 relative overflow-hidden" ref={section.ref}>
+    <section className="py-10 relative overflow-hidden" ref={section.ref}>
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/4 rounded-full blur-3xl" />
       </div>
