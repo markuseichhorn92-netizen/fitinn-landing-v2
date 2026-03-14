@@ -19,13 +19,13 @@ export function TrainerSection() {
       </div>
 
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '10%', right: '5%' }} isVisible={float.isVisible} delay={0.2} size={48}>
+      <FloatingDecor position={{ top: '10%', right: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-25} sizeClass="w-9 h-9 md:w-12 md:h-12 lg:w-14 lg:h-14">
         <MedalSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} delay={0.4} size={44}>
+      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={30} sizeClass="w-8 h-8 md:w-11 md:h-11 lg:w-13 lg:h-13">
         <DumbbellSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ top: '30%', left: '3%' }} isVisible={float.isVisible} delay={0.3} size={36}>
+      <FloatingDecor position={{ top: '30%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={20} sizeClass="w-7 h-7 md:w-9 md:h-9 lg:w-11 lg:h-11">
         <LeafSvg className="w-full h-full text-primary" />
       </FloatingDecor>
 

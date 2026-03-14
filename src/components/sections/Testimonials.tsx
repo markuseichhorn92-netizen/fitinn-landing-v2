@@ -44,13 +44,13 @@ export function Testimonials() {
       </div>
 
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '10%', right: '4%' }} isVisible={float.isVisible} delay={0.2} size={40}>
+      <FloatingDecor position={{ top: '10%', right: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-20} sizeClass="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
         <StarSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '15%', left: '3%' }} isVisible={float.isVisible} delay={0.4} size={36}>
+      <FloatingDecor position={{ bottom: '15%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={25} sizeClass="w-7 h-7 md:w-9 md:h-9 lg:w-11 lg:h-11">
         <StarSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ top: '25%', left: '4%' }} isVisible={float.isVisible} delay={0.3} size={48}>
+      <FloatingDecor position={{ top: '25%', left: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={35} sizeClass="w-9 h-9 md:w-12 md:h-12 lg:w-14 lg:h-14">
         <HeartbeatSvg className="w-full h-full text-primary" />
       </FloatingDecor>
 

@@ -54,13 +54,13 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   return (
     <section id="krankenkasse" className="py-7 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '8%', right: '4%' }} isVisible={float.isVisible} delay={0.2} size={52}>
+      <FloatingDecor position={{ top: '8%', right: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-30} sizeClass="w-9 h-9 md:w-13 md:h-13 lg:w-16 lg:h-16">
         <EuroSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '10%', left: '3%' }} isVisible={float.isVisible} delay={0.4} size={44}>
+      <FloatingDecor position={{ bottom: '10%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={25} sizeClass="w-8 h-8 md:w-11 md:h-11 lg:w-14 lg:h-14">
         <ShieldCheckSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ top: '30%', left: '5%' }} isVisible={float.isVisible} delay={0.3} size={38}>
+      <FloatingDecor position={{ top: '30%', left: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={35} sizeClass="w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12">
         <EuroSvg className="w-full h-full text-accent" />
       </FloatingDecor>
 

@@ -181,13 +181,13 @@ export function ProcessSection() {
       </div>
 
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '5%', right: '4%' }} isVisible={float.isVisible} delay={0.1} size={52}>
+      <FloatingDecor position={{ top: '5%', right: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.1} parallax={40} sizeClass="w-10 h-10 md:w-13 md:h-13 lg:w-16 lg:h-16">
         <DumbbellSvg className="w-full h-full text-accent" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '8%', left: '3%' }} isVisible={float.isVisible} delay={0.3} size={44}>
+      <FloatingDecor position={{ bottom: '8%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={-30} sizeClass="w-8 h-8 md:w-11 md:h-11 lg:w-14 lg:h-14">
         <ScaleSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ top: '40%', left: '2%' }} isVisible={float.isVisible} delay={0.5} size={40}>
+      <FloatingDecor position={{ top: '40%', left: '2%' }} isVisible={float.isVisible} progress={float.progress} delay={0.5} parallax={25} sizeClass="w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12">
         <HeartbeatSvg className="w-full h-full text-accent" />
       </FloatingDecor>
 

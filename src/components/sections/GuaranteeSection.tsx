@@ -30,10 +30,10 @@ export function GuaranteeSection() {
   return (
     <section className="py-7 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
       {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '12%', right: '5%' }} isVisible={float.isVisible} delay={0.2} size={46}>
+      <FloatingDecor position={{ top: '12%', right: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-20} sizeClass="w-8 h-8 md:w-11 md:h-11 lg:w-14 lg:h-14">
         <ShieldCheckSvg className="w-full h-full text-primary" />
       </FloatingDecor>
-      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} delay={0.4} size={40}>
+      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={25} sizeClass="w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12">
         <ShieldCheckSvg className="w-full h-full text-primary" />
       </FloatingDecor>
 

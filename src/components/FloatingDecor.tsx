@@ -13,21 +13,38 @@ interface FloatingDecorProps {
   children: ReactNode
   position: Position
   isVisible: boolean
+  /** Scroll progress 0→1 for parallax movement */
+  progress?: number
   delay?: number
-  size?: number
+  /** Parallax travel distance in px (positive = moves down as you scroll) */
+  parallax?: number
+  /** Responsive size classes, e.g. "w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14" */
+  sizeClass?: string
 }
 
-export function FloatingDecor({ children, position, isVisible, delay = 0, size = 48 }: FloatingDecorProps) {
+export function FloatingDecor({
+  children,
+  position,
+  isVisible,
+  progress = 0,
+  delay = 0,
+  parallax = 30,
+  sizeClass = 'w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14',
+}: FloatingDecorProps) {
+  // Parallax: translate based on scroll progress (-half to +half of travel)
+  const parallaxY = (progress - 0.5) * parallax
+
   return (
     <div
-      className={`absolute pointer-events-none select-none transition-all duration-700 ease-out ${
-        isVisible ? 'opacity-[0.07] translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90'
+      className={`absolute pointer-events-none select-none transition-opacity duration-700 ease-out hidden md:block ${sizeClass} ${
+        isVisible ? 'opacity-[0.07]' : 'opacity-0'
       }`}
       style={{
         ...position,
-        width: size,
-        height: size,
-        transitionDelay: `${delay}s`,
+        transform: isVisible
+          ? `translateY(${parallaxY}px) rotate(${(progress - 0.5) * 8}deg)`
+          : 'translateY(20px) scale(0.9)',
+        transition: `opacity 0.7s ease-out ${delay}s, transform 0.15s ease-out`,
       }}
     >
       {children}
