@@ -3,6 +3,8 @@ import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -147,6 +149,8 @@ export default function RootLayout({
         {children}
         <CookieBanner />
         <ConditionalAnalytics />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

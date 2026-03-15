@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         studioId: 1210005460,
         startDateTime,
-        trainerRequired: false,
+        trainerRequired: true,
         note: quizNote,
         leadCustomer: {
           firstname: firstName,
