@@ -18,6 +18,7 @@ const barlowCondensed = Barlow_Condensed({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 1,
   themeColor: '#0a0a0a',
 }
 

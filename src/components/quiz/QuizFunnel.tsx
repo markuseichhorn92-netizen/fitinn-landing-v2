@@ -414,7 +414,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <Target className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Was ist dein <span className="text-primary">Hauptziel</span>?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Klicke auf dein Ziel – wir gehen sofort weiter.</p>
@@ -452,7 +452,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <span className="text-3xl">📏</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Deine <span className="text-primary">Ausgangssituation</span>
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Damit wir realistische Ziele für dich berechnen können.</p>
@@ -510,7 +510,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 3 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Was <span className="text-accent">hält dich zurück</span>?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Wähle alle Herausforderungen, die du kennst:</p>
@@ -555,17 +555,17 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <ShieldCheck className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               {data.goal === 'abnehmen' && <>Dein 8-Wochen-Plan zum <span className="text-primary">Abnehmen</span></>}
               {data.goal === 'straffen' && <>Dein 8-Wochen-Plan zum <span className="text-primary">Straffen</span></>}
               {data.goal === 'energie' && <>Dein 8-Wochen-Plan für <span className="text-primary">mehr Energie</span></>}
               {data.goal === 'gesundheit' && <>Dein 8-Wochen-Plan für <span className="text-primary">deine Gesundheit</span></>}
               {!data.goal && <>Dein <span className="text-primary">8-Wochen-Plan</span></>}
             </h2>
-            <p className="text-lg text-muted-foreground mt-3">happyfigur ist ein zertifizierter Präventionskurs bei FIT-INN Trier — kein Online-Kurs, kein Diätplan aus dem Internet.</p>
+            <p className="text-base md:text-lg text-muted-foreground mt-3 max-w-md mx-auto">happyfigur ist ein zertifizierter Präventionskurs bei FIT-INN Trier — kein Online-Kurs, kein Diätplan aus dem Internet.</p>
           </div>
           <div className="grid gap-4 max-w-xl w-full">
-            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
                 <BarChart2 className="w-6 h-6 text-accent" />
               </div>
@@ -574,7 +574,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <p className="text-sm text-muted-foreground mt-1">Start, Mitte, Ende — du siehst in Zahlen, was sich verändert.</p>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
                 <Dumbbell className="w-6 h-6 text-accent" />
               </div>
@@ -583,7 +583,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <p className="text-sm text-muted-foreground mt-1">Individueller Plan, Trainer vor Ort für Fragen & Korrekturen.</p>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-primary border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-primary border-l-[3px]">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <Utensils className="w-6 h-6 text-primary" />
               </div>
@@ -603,7 +603,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 5 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               So läuft dein <span className="text-primary">Programm</span> ab
             </h2>
             <p className="text-lg text-muted-foreground mt-3">4 einfache Schritte — wir begleiten dich die gesamte Zeit.</p>
@@ -643,7 +643,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 6 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Warum es <span className="text-accent">diesmal</span> anders wird
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Du hast uns erzählt, was dich zurückhält. So lösen wir das:</p>
@@ -663,12 +663,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               )
             })}
           </div>
-          <div className="mt-8 flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">127.000+</span> Teilnehmer
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-            <span className="font-semibold text-foreground">4,9★</span> Bewertung
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-            <span className="font-semibold text-foreground">-7,2 kg</span> Durchschnitt<sup>⁴</sup>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
+            <span><span className="font-semibold text-foreground">127.000+</span> Teilnehmer</span>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-muted-foreground/30" />
+            <span><span className="font-semibold text-foreground">4,9★</span> Bewertung</span>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-muted-foreground/30" />
+            <span><span className="font-semibold text-foreground">-7,2 kg</span> Durchschnitt<sup>⁴</sup></span>
           </div>
         </div>
       )}
@@ -677,7 +677,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 7 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Wie viel <span className="text-primary">Zeit</span> kannst du investieren?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Klicke auf deine Antwort – wir gehen sofort weiter.</p>
@@ -721,7 +721,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 8 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Was kostet <span className="text-primary">happyfigur</span>?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Spoiler: Für viele Teilnehmer ist es komplett kostenlos.<sup>²³</sup></p>
@@ -730,7 +730,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
           <div className="max-w-lg w-full space-y-6">
             {/* Preis-Reveal */}
             <div className="text-center">
-              <div className="text-5xl font-bold text-muted-foreground/40 line-through decoration-accent decoration-[3px]">179€<sup>¹</sup></div>
+              <div className="text-4xl sm:text-5xl font-bold text-muted-foreground/40 line-through decoration-accent decoration-[3px]">179€<sup>¹</sup></div>
               <p className="text-sm text-muted-foreground mt-3">happyfigur ist § 20 SGB V zertifiziert. Deine Krankenkasse erstattet bis zu 100%.<sup>²³</sup></p>
             </div>
 
@@ -797,7 +797,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {step === 9 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Wie <span className="text-primary">bereit</span> bist du für Veränderung?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Klicke – wir zeigen dir sofort freie Termine.</p>
@@ -842,7 +842,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <Calendar className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Wähle deinen <span className="text-primary">Termin</span>
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Kostenlos & unverbindlich – wähle einfach einen freien Slot.</p>
@@ -981,7 +981,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <User className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Fast <span className="text-primary">geschafft!</span>
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Nur noch deine Daten – dann ist der Termin gebucht.</p>
