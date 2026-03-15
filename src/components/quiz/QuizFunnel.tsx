@@ -410,7 +410,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 1: Ziel ── */}
       {step === 1 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <Target className="w-8 h-8 text-primary" />
             </div>
@@ -425,13 +425,14 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               { value: 'straffen', icon: '💪', title: 'Körper straffen', desc: 'Weniger Fett, mehr Definition' },
               { value: 'energie', icon: '⚡', title: 'Mehr Energie', desc: 'Weniger müde und schlapp' },
               { value: 'gesundheit', icon: '❤️', title: 'Gesünder leben', desc: 'Langfristig fit bleiben' },
-            ].map(opt => (
+            ].map((opt, i) => (
               <button key={opt.value} onClick={() => selectGoal(opt.value)}
-                className={cn("quiz-option-card flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
+                className={cn("quiz-option-card quiz-card-stagger flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
                   data.goal === opt.value ? "border-primary bg-primary/10 selected" : "border-border hover:border-primary/50 bg-card"
-                )}>
+                )}
+                style={{ animationDelay: `${i * 80}ms` }}>
                 <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all shrink-0",
-                  data.goal === opt.value ? "border-primary bg-primary" : "border-muted-foreground")}>
+                  data.goal === opt.value ? "border-primary bg-primary quiz-select-pop" : "border-muted-foreground")}>
                   {data.goal === opt.value && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
                 </div>
                 <span className="text-2xl">{opt.icon}</span>
@@ -448,7 +449,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 2: Körpermaße ── */}
       {step === 2 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <span className="text-3xl">📏</span>
             </div>
@@ -509,7 +510,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 3: Probleme ── */}
       {step === 3 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Was <span className="text-accent">hält dich zurück</span>?
             </h2>
@@ -521,13 +522,14 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               { value: 'hunger', icon: Pizza, title: 'Heißhunger', desc: 'Kann Süßes nicht widerstehen' },
               { value: 'zeit', icon: Clock, title: 'Zeitmangel', desc: 'Kaum Zeit für Sport' },
               { value: 'motivation', icon: Frown, title: 'Motivation fehlt', desc: 'Gebe schnell auf' },
-            ].map(opt => (
+            ].map((opt, i) => (
               <button key={opt.value} onClick={() => toggleProblem(opt.value)}
-                className={cn("quiz-option-card flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
+                className={cn("quiz-option-card quiz-card-stagger flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
                   data.problems.includes(opt.value) ? "border-primary bg-primary/10 selected" : "border-border hover:border-primary/50 bg-card"
-                )}>
+                )}
+                style={{ animationDelay: `${i * 80}ms` }}>
                 <div className={cn("w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all shrink-0",
-                  data.problems.includes(opt.value) ? "border-primary bg-primary" : "border-muted-foreground")}>
+                  data.problems.includes(opt.value) ? "border-primary bg-primary quiz-select-pop" : "border-muted-foreground")}>
                   {data.problems.includes(opt.value) && <CheckCircle2 className="w-4 h-4 text-primary-foreground" />}
                 </div>
                 <opt.icon className="w-6 h-6 text-muted-foreground shrink-0" />
@@ -538,7 +540,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               </button>
             ))}
           </div>
-          <div className="mt-6 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-xl w-full">
+          <div className="mt-6 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-xl w-full quiz-testimonial">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-sm font-bold text-black shrink-0">TK</div>
             <div>
               <p className="text-sm text-muted-foreground italic">&ldquo;Genau diese Probleme hatte ich auch. Die Körperanalyse hat mir gezeigt, dass mein Körper anders funktioniert als ich dachte.&rdquo;</p>
@@ -551,7 +553,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 4: Dein Programm ── */}
       {step === 4 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <ShieldCheck className="w-8 h-8 text-primary" />
             </div>
@@ -565,7 +567,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <p className="text-base md:text-lg text-muted-foreground mt-3 max-w-md mx-auto">happyfigur ist ein zertifizierter Präventionskurs bei FIT-INN Trier — kein Online-Kurs, kein Diätplan aus dem Internet.</p>
           </div>
           <div className="grid gap-4 max-w-xl w-full">
-            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px] quiz-card-stagger" style={{ animationDelay: '80ms' }}>
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
                 <BarChart2 className="w-6 h-6 text-accent" />
               </div>
@@ -574,7 +576,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <p className="text-sm text-muted-foreground mt-1">Start, Mitte, Ende — du siehst in Zahlen, was sich verändert.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px] quiz-card-stagger" style={{ animationDelay: '160ms' }}>
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
                 <Dumbbell className="w-6 h-6 text-accent" />
               </div>
@@ -583,7 +585,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <p className="text-sm text-muted-foreground mt-1">Individueller Plan, Trainer vor Ort für Fragen & Korrekturen.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-primary border-l-[3px]">
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border-2 border-border bg-card border-l-primary border-l-[3px] quiz-card-stagger" style={{ animationDelay: '240ms' }}>
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <Utensils className="w-6 h-6 text-primary" />
               </div>
@@ -593,7 +595,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               </div>
             </div>
           </div>
-          <div className="mt-6 flex items-center gap-2 text-sm text-primary font-semibold">
+          <div className="mt-6 flex items-center gap-2 text-sm text-primary font-semibold quiz-testimonial">
             <ShieldCheck className="w-4 h-4" /> § 20 SGB V zertifiziert — von deiner Krankenkasse anerkannt
           </div>
         </div>
@@ -602,7 +604,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 5: So funktioniert's ── */}
       {step === 5 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               So läuft dein <span className="text-primary">Programm</span> ab
             </h2>
@@ -614,22 +616,36 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               { num: '02', title: 'Körperanalyse + Plan', desc: 'InBody-Messung, individueller Trainings- & Ernährungsplan', color: 'accent' },
               { num: '03', title: '8 Wochen Training', desc: '2–3x pro Woche im FIT-INN — Trainer immer ansprechbar', color: 'accent' },
               { num: '04', title: 'Ergebnis sehen', desc: 'Abschluss-Analyse — du siehst schwarz auf weiß, was sich verändert hat', color: 'primary' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-4 relative">
-                {i < 3 && <div className="absolute left-[19px] top-[44px] w-0.5 h-[calc(100%-20px)] bg-border" />}
-                <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 z-10",
-                  item.color === 'primary' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
-                )}>
-                  {item.num}
+            ].map((item, i) => {
+              const baseDelay = i * 400
+              return (
+                <div key={i} className="flex items-start gap-4 relative">
+                  {i < 3 && (
+                    <div
+                      className="absolute left-[19px] top-[44px] w-0.5 h-[calc(100%-20px)] bg-border quiz-timeline-line"
+                      style={{ animationDelay: `${baseDelay + 300}ms` }}
+                    />
+                  )}
+                  <div
+                    className={cn("w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 z-10 quiz-timeline-circle",
+                      item.color === 'primary' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
+                    )}
+                    style={{ animationDelay: `${baseDelay}ms` }}
+                  >
+                    {item.num}
+                  </div>
+                  <div
+                    className="pb-6 quiz-timeline-text"
+                    style={{ animationDelay: `${baseDelay + 150}ms` }}
+                  >
+                    <h3 className="font-semibold">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-0.5">{item.desc}</p>
+                  </div>
                 </div>
-                <div className="pb-6">
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-0.5">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
-          <div className="mt-4 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-md w-full">
+          <div className="mt-4 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-md w-full quiz-testimonial">
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-black shrink-0">MR</div>
             <div>
               <p className="text-sm text-muted-foreground italic">&ldquo;Ich hätte nie gedacht, dass 2x pro Woche reicht. Nach 8 Wochen passte meine alte Jeans wieder!&rdquo;</p>
@@ -642,18 +658,18 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 6: Warum es diesmal klappt ── */}
       {step === 6 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Warum es <span className="text-accent">diesmal</span> anders wird
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Du hast uns erzählt, was dich zurückhält. So lösen wir das:</p>
           </div>
           <div className="grid gap-4 max-w-xl w-full">
-            {(data.problems.length > 0 ? data.problems : ['jojo', 'hunger', 'zeit', 'motivation']).map(key => {
+            {(data.problems.length > 0 ? data.problems : ['jojo', 'hunger', 'zeit', 'motivation']).map((key, i) => {
               const item = PROBLEM_EXPLANATIONS[key]
               if (!item) return null
               return (
-                <div key={key} className="p-5 rounded-2xl border-2 border-border bg-card">
+                <div key={key} className="p-5 rounded-2xl border-2 border-border bg-card quiz-card-stagger" style={{ animationDelay: `${i * 80}ms` }}>
                   <div className="flex items-center gap-3 mb-2">
                     <item.icon className="w-5 h-5 text-accent shrink-0" />
                     <span className="text-sm font-semibold text-accent">{item.problem}</span>
@@ -664,11 +680,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             })}
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-            <span><span className="font-semibold text-foreground">127.000+</span> Teilnehmer</span>
+            <span className="quiz-card-stagger" style={{ animationDelay: '300ms' }}><span className="font-semibold text-foreground">127.000+</span> Teilnehmer</span>
             <span className="hidden sm:inline w-1 h-1 rounded-full bg-muted-foreground/30" />
-            <span><span className="font-semibold text-foreground">4,9★</span> Bewertung</span>
+            <span className="quiz-card-stagger" style={{ animationDelay: '380ms' }}><span className="font-semibold text-foreground">4,9★</span> Bewertung</span>
             <span className="hidden sm:inline w-1 h-1 rounded-full bg-muted-foreground/30" />
-            <span><span className="font-semibold text-foreground">-7,2 kg</span> Durchschnitt<sup>⁴</sup></span>
+            <span className="quiz-card-stagger" style={{ animationDelay: '460ms' }}><span className="font-semibold text-foreground">-7,2 kg</span> Durchschnitt<sup>⁴</sup></span>
           </div>
         </div>
       )}
@@ -676,7 +692,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 7: Zeit ── */}
       {step === 7 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Wie viel <span className="text-primary">Zeit</span> kannst du investieren?
             </h2>
@@ -687,13 +703,14 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               { value: 'wenig', icon: '⏱️', title: '1-2 Stunden pro Woche', desc: 'Wenig Zeit, aber will Ergebnisse' },
               { value: 'mittel', icon: '📅', title: '2-3 Stunden pro Woche', desc: 'Kann mir regelmäßig Zeit nehmen' },
               { value: 'viel', icon: '💯', title: '4+ Stunden pro Woche', desc: 'Bin bereit durchzustarten' },
-            ].map(opt => (
+            ].map((opt, i) => (
               <button key={opt.value} onClick={() => selectTime(opt.value)}
-                className={cn("quiz-option-card flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
+                className={cn("quiz-option-card quiz-card-stagger flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
                   data.time === opt.value ? "border-primary bg-primary/10 selected" : "border-border hover:border-primary/50 bg-card"
-                )}>
+                )}
+                style={{ animationDelay: `${i * 80}ms` }}>
                 <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all shrink-0",
-                  data.time === opt.value ? "border-primary bg-primary" : "border-muted-foreground")}>
+                  data.time === opt.value ? "border-primary bg-primary quiz-select-pop" : "border-muted-foreground")}>
                   {data.time === opt.value && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
                 </div>
                 <span className="text-2xl">{opt.icon}</span>
@@ -704,7 +721,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               </button>
             ))}
           </div>
-          <div className="mt-6 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-xl w-full">
+          <div className="mt-6 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-xl w-full quiz-testimonial">
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-black shrink-0">SB</div>
             <div>
               <p className="text-sm text-muted-foreground italic">&ldquo;Als Mutter von 2 Kindern habe ich wenig Zeit. 2x 30 Min pro Woche sind machbar – und die Ergebnisse sind unglaublich!&rdquo;</p>
@@ -720,7 +737,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 8: Deine Investition ── */}
       {step === 8 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Was kostet <span className="text-primary">happyfigur</span>?
             </h2>
@@ -730,7 +747,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
           <div className="max-w-lg w-full space-y-6">
             {/* Preis-Reveal */}
             <div className="text-center">
-              <div className="text-4xl sm:text-5xl font-bold text-muted-foreground/40 line-through decoration-accent decoration-[3px]">179€<sup>¹</sup></div>
+              <div className="text-4xl sm:text-5xl font-bold text-muted-foreground/40 quiz-price-reveal quiz-strike">179€<sup>¹</sup></div>
               <p className="text-sm text-muted-foreground mt-3">happyfigur ist § 20 SGB V zertifiziert. Deine Krankenkasse erstattet bis zu 100%.<sup>²³</sup></p>
             </div>
 
@@ -796,7 +813,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 9: Commitment ── */}
       {step === 9 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 quiz-headline">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               Wie <span className="text-primary">bereit</span> bist du für Veränderung?
             </h2>
@@ -812,13 +829,14 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               { value: 'unsicher', icon: HelpCircle, title: 'Noch unsicher', desc: 'Ich informiere mich erstmal' },
               { value: 'bereit', icon: ThumbsUp, title: 'Bereit anzufangen', desc: 'Ich will jetzt etwas ändern' },
               { value: 'entschlossen', icon: Flame, title: 'Voll entschlossen', desc: 'Diesmal ziehe ich es durch!' },
-            ].map(opt => (
+            ].map((opt, i) => (
               <button key={opt.value} onClick={() => selectCommitment(opt.value)}
-                className={cn("quiz-option-card flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
+                className={cn("quiz-option-card quiz-card-stagger flex items-center gap-4 p-5 md:p-6 rounded-2xl border-2 text-left hover:scale-[1.02]",
                   data.commitment === opt.value ? "border-primary bg-primary/10 selected" : "border-border hover:border-primary/50 bg-card"
-                )}>
+                )}
+                style={{ animationDelay: `${i * 80}ms` }}>
                 <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all shrink-0",
-                  data.commitment === opt.value ? "border-primary bg-primary" : "border-muted-foreground")}>
+                  data.commitment === opt.value ? "border-primary bg-primary quiz-select-pop" : "border-muted-foreground")}>
                   {data.commitment === opt.value && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
                 </div>
                 <opt.icon className="w-6 h-6 text-muted-foreground shrink-0" />
@@ -838,7 +856,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 10: Kalender / Terminauswahl ── */}
       {step === 10 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 quiz-headline">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <Calendar className="w-8 h-8 text-primary" />
             </div>
@@ -977,7 +995,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       {/* ── Step 11: Kontaktdaten ── */}
       {step === 11 && selectedSlot && (
         <div className="flex-1 flex flex-col items-center px-6 py-16 pb-40 md:py-20 md:pb-40 quiz-step-enter">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 quiz-headline">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <User className="w-8 h-8 text-primary" />
             </div>

@@ -741,6 +741,84 @@ h1, h2, h3, h4, h5, h6 {
              priceShimmer 3s ease-in-out 1.8s 1;
 }
 
+/* ── Quiz: Gestaffelte Card-Einblendung ── */
+@keyframes quizCardIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.quiz-card-stagger {
+  opacity: 0;
+  animation: quizCardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Quiz: Headline Blur-Reveal ── */
+@keyframes quizHeadlineIn {
+  from { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.quiz-headline {
+  animation: quizHeadlineIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Quiz: Auswahl-Bestätigung (Radio/Checkbox Pop) ── */
+.quiz-select-pop {
+  animation: checkPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Quiz: Testimonial verzögerter Eingang ── */
+.quiz-testimonial {
+  opacity: 0;
+  animation: quizCardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+/* ── Quiz: Preis-Reveal + animierte Durchstreichung ── */
+.quiz-price-reveal {
+  opacity: 0;
+  animation: quizCardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+@keyframes strikeReveal {
+  from { text-decoration-color: transparent; }
+  to   { text-decoration-color: var(--accent); }
+}
+.quiz-strike {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: transparent;
+  animation: strikeReveal 0.8s ease 0.7s forwards;
+}
+
+/* ── Quiz: Timeline Sequenz-Animation (Step 5) ── */
+@keyframes timelineGrow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+.quiz-timeline-line {
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: timelineGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes timelineCirclePop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.3); opacity: 1; }
+  80%  { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.quiz-timeline-circle {
+  transform: scale(0);
+  opacity: 0;
+  animation: timelineCirclePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes timelineTextSlide {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.quiz-timeline-text {
+  opacity: 0;
+  animation: timelineTextSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ── Section Divider — dual-tone gradient (Training → Ernährung) ── */
 .section-divider {
   height: 2px;

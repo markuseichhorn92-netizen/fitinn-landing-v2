@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>happyfigur Kampagne — Mitarbeiter-Anleitung</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111; background: #fff; }
+
+    @media print {
+      @page { size: A4 portrait; margin: 10mm 12mm; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 10pt; line-height: 1.4; }
+      .no-print { display: none !important; }
+      .page { padding: 0 !important; max-width: 100% !important; }
+      .card { break-inside: avoid; }
+    }
+    @media screen {
+      .page { max-width: 210mm; }
+      body { background: #f3f4f6; }
+    }
+
+    .page { margin: 0 auto; padding: 20px; }
+    .no-print { position: fixed; top: 16px; right: 16px; z-index: 50; display: flex; gap: 8px; }
+    .btn-print { padding: 8px 16px; background: #111; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-print:hover { background: #333; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 2px solid #111; margin-bottom: 8px; }
+    .header h1 { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+    .header .sub { font-size: 11px; color: #999; margin-top: 1px; }
+    .header .right { text-align: right; font-size: 11px; color: #aaa; }
+    .header .right .brand { font-weight: 700; color: #555; font-size: 14px; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .col-span-2 { grid-column: span 2; }
+
+    .card { border-radius: 6px; padding: 10px 12px; border: 1px solid; }
+    .card h2 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .badge { width: 20px; height: 20px; border-radius: 3px; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+    .card-info { background: #f9fafb; border-color: #e5e7eb; }
+    .card-probe { background: #fffbeb; border-color: #fde68a; }
+    .card-verkauf { background: #f0fdf4; border-color: #bbf7d0; }
+    .card-bestell { background: #faf5ff; border-color: #d8b4fe; }
+    .card-betreuung { background: #eff6ff; border-color: #bfdbfe; }
+    .card-einwand { background: #fef2f2; border-color: #fecaca; }
+    .card-regeln { background: #111; color: #fff; border-color: #111; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; text-align: center; }
+    .stat { background: #fff; border-radius: 4px; padding: 5px 4px; border: 1px solid #e5e7eb; }
+    .stat .num { font-size: 20px; font-weight: 700; color: #16a34a; }
+    .stat .label { font-size: 11px; color: #888; line-height: 1.2; }
+
+    .note { font-size: 11px; color: #888; margin-top: 5px; }
+    .note strong { color: #555; }
+
+    ol, ul { list-style: none; }
+    .step { display: flex; gap: 6px; margin-bottom: 5px; font-size: 13px; color: #444; }
+    .step .arrow { font-weight: 700; flex-shrink: 0; }
+    .step strong { color: #222; }
+
+    .arrow-amber { color: #d97706; }
+    .arrow-green { color: #16a34a; }
+    .arrow-purple { color: #9333ea; }
+
+    .tip { margin-top: 6px; padding: 5px 8px; background: #fff; border-radius: 3px; font-size: 11px; }
+    .tip-amber { border: 1px solid #fde68a; color: #92400e; }
+    .tip-green { border: 1px solid #bbf7d0; color: #166534; }
+    .tip-purple { border: 1px solid #d8b4fe; color: #6b21a8; }
+
+    .timeline .row { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; font-size: 13px; color: #444; }
+    .timeline .week { font-weight: 700; color: #3b82f6; flex-shrink: 0; min-width: 44px; }
+
+    .einwand { margin-bottom: 5px; font-size: 13px; }
+    .einwand .q { font-weight: 700; color: #dc2626; }
+    .einwand .a { color: #555; }
+
+    .regeln-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; }
+    .regel { display: flex; gap: 6px; font-size: 13px; }
+    .regel .check { color: #4ade80; flex-shrink: 0; }
+    .regel strong { color: #fff; }
+
+    .qr-section { display: flex; gap: 10px; align-items: flex-start; margin-top: 5px; }
+    .qr-box { text-align: center; flex-shrink: 0; }
+    .qr-box img { width: 72px; height: 72px; border: 1px solid #e5e7eb; border-radius: 4px; }
+    .qr-box .qr-label { font-size: 10px; color: #888; margin-top: 2px; font-weight: 600; }
+    .qr-steps { flex: 1; }
+
+    .footer { margin-top: 8px; text-align: center; font-size: 10px; color: #ccc; border-top: 1px solid #e5e7eb; padding-top: 5px; }
+
+    .highlight-box { background: #fef3c7; border: 1px solid #fde68a; border-radius: 3px; padding: 5px 8px; font-size: 11px; color: #92400e; margin-top: 5px; }
+  </style>
+</head>
+<body>
+
+  <div class="no-print">
+    <button class="btn-print" onclick="window.print()">🖨️ Drucken / PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1>happyfigur Kampagne</h1>
+        <div class="sub">Interne Anleitung · FIT-INN Trier · Vertraulich</div>
+      </div>
+      <div class="right">
+        <div class="brand">FIT-INN</div>
+        <div>Stand: März 2026</div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- Block 1: Programm-Überblick -->
+      <div class="card card-info col-span-2">
+        <h2><span class="badge" style="background:#16a34a">i</span> Das Programm auf einen Blick</h2>
+        <div class="stats">
+          <div class="stat"><div class="num">8</div><div class="label">Wochen Laufzeit</div></div>
+          <div class="stat"><div class="num">3x</div><div class="label">Körperanalyse (InBody)</div></div>
+          <div class="stat"><div class="num">179€</div><div class="label">Preis (Vorkasse)</div></div>
+          <div class="stat"><div class="num">0€</div><div class="label">bei vielen Kassen</div></div>
+        </div>
+        <div class="note">§ 20 SGB V zertifiziert → Krankenkasse erstattet 75–179€. Kunde zahlt vorab, reicht Teilnahmebestätigung ein, bekommt Geld zurück. <strong>Keine Vorab-Genehmigung nötig.</strong></div>
+      </div>
+
+      <!-- Block 2: Probetraining -->
+      <div class="card card-probe">
+        <h2><span class="badge" style="background:#d97706">1</span> Probetraining</h2>
+        <div class="step"><span class="arrow arrow-amber">→</span><span><strong>Begrüßung</strong> — Vorstellung, Wohlfühl-Atmosphäre. „Was ist dein Ziel?"</span></div>
+        <div class="step"><span class="arrow arrow-amber">→</span><span><strong>Studio-Tour</strong> — Geräte zeigen, Atmosphäre, Fragen ermutigen</span></div>
+        <div class="step"><span class="arrow arrow-amber">→</span><span><strong>Probe-Einheit</strong> — 3–4 Geräte testen, Technik erklären</span></div>
+        <div class="step"><span class="arrow arrow-amber">→</span><span><strong>Abschlussgespräch</strong> — happyfigur vorstellen (→ Verkauf)</span></div>
+        <div class="tip tip-amber">💡 <strong>Ziel:</strong> Kunde soll sich wohlfühlen und verstehen, dass er betreut wird.</div>
+      </div>
+
+      <!-- Block 3: Verkauf -->
+      <div class="card card-verkauf">
+        <h2><span class="badge" style="background:#16a34a">2</span> Verkaufsgespräch</h2>
+        <div class="step"><span class="arrow arrow-green">→</span><span><strong>Problem bestätigen</strong> — „Dein Ziel ist [X]. Genau dafür ist happyfigur."</span></div>
+        <div class="step"><span class="arrow arrow-green">→</span><span><strong>Programm erklären</strong> — 8 Wo., 3x Analyse, Training + Ernährung</span></div>
+        <div class="step"><span class="arrow arrow-green">→</span><span><strong>KK-Argument</strong> — „179€, aber Kasse erstattet bis zu 100%."</span></div>
+        <div class="step"><span class="arrow arrow-green">→</span><span><strong>Support</strong> — „Bei Fragen helfen dir unsere Ernährungsexperten jederzeit."</span></div>
+        <div class="tip tip-green">🎯 <strong>Abschluss:</strong> „Sollen wir dich direkt für nächste Woche eintragen?"</div>
+      </div>
+
+      <!-- Block 4: Bestellung / Anmeldung -->
+      <div class="card card-bestell col-span-2">
+        <h2><span class="badge" style="background:#9333ea">3</span> happyfigur Bestellung — Schritt für Schritt</h2>
+        <div class="qr-section">
+          <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fhappyfigur24.de%2Fregistrierung%2Fformular&color=9333ea" alt="QR Bestellseite">
+            <div class="qr-label">Bestellseite</div>
+          </div>
+          <div class="qr-steps" style="display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;">
+            <div class="step"><span class="arrow arrow-purple">1.</span><span>Link öffnen (QR) → auf <strong>„Los geht's"</strong> klicken</span></div>
+            <div class="step"><span class="arrow arrow-purple">4.</span><span><strong>Gutscheincode</strong> von der Kasse eingeben + <strong>durchstreichen!</strong></span></div>
+            <div class="step"><span class="arrow arrow-purple">2.</span><span>Formular <strong>gemeinsam mit dem Kunden</strong> ausfüllen</span></div>
+            <div class="step"><span class="arrow arrow-purple">5.</span><span>Alle Fragen im nächsten Schritt beantworten</span></div>
+            <div class="step"><span class="arrow arrow-purple">3.</span><span>Auf <strong>„Anmelden"</strong> klicken</span></div>
+            <div class="step"><span class="arrow arrow-purple">6.</span><span>Fertig! → Kunde informieren (s. unten)</span></div>
+          </div>
+          <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.dein.happyfigur24.de%2Finfosite%2Ffit-inn-trier-infoseite-2%23kkrechner&color=16a34a" alt="QR KK-Rechner">
+            <div class="qr-label">KK-Rechner</div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          ⚠️ <strong>WICHTIG — Bezahlprozess:</strong> Einen der Gutscheincodes eingeben, die bei der Kasse liegen. Danach den verwendeten Code auf der Liste <strong>durchstreichen</strong>, damit kein Code doppelt verwendet wird!
+        </div>
+      </div>
+
+      <!-- Block 5: Kunde informieren -->
+      <div class="card card-betreuung">
+        <h2><span class="badge" style="background:#2563eb">4</span> Kunde informieren</h2>
+        <div class="timeline">
+          <div class="row"><span class="week" style="min-width:44px">48 Std.</span><span>Rezepte als <strong>PDF per E-Mail</strong></span></div>
+          <div class="row"><span class="week" style="min-width:44px">7–10 T.</span><span><strong>Gedrucktes Buch</strong> per Post</span></div>
+          <div class="row"><span class="week" style="min-width:44px">12 Wo.</span><span>Frist: Alle <strong>8 Kurseinheiten + Wissensquiz</strong> abschließen</span></div>
+        </div>
+        <div class="tip" style="border:1px solid #bfdbfe;color:#1e40af;background:#fff;margin-top:5px;">
+          📋 <strong>Teilnahmebestätigung:</strong> Erst nach Abschluss aller 8 Einheiten + Quiz erhält der Kunde die Bestätigung. <strong>Erst dann</strong> kann er bei der Krankenkasse einreichen und Geld zurückbekommen!
+        </div>
+      </div>
+
+      <!-- Block 6: Einwände -->
+      <div class="card card-einwand">
+        <h2><span class="badge" style="background:#dc2626">!</span> Häufige Einwände</h2>
+        <div class="einwand"><span class="q">„Zu teuer"</span> <span class="a">→ „Kasse erstattet bis 100%. Das sind nur 3,20€/Tag — weniger als ein Kaffee."</span></div>
+        <div class="einwand"><span class="q">„Keine Zeit"</span> <span class="a">→ „2x 30 Min/Woche reichen. Passt in jeden Alltag."</span></div>
+        <div class="einwand"><span class="q">„Muss überlegen"</span> <span class="a">→ „Soll ich kurz zeigen, was deine Kasse erstattet?" (→ KK-Rechner QR)</span></div>
+        <div class="einwand"><span class="q">„Diäten probiert"</span> <span class="a">→ „Keine Diät. Körperanalyse zeigt, was DEIN Körper braucht."</span></div>
+      </div>
+
+      <!-- Block 7: Regeln -->
+      <div class="card card-regeln col-span-2">
+        <h2><span class="badge" style="background:#fff;color:#111">✓</span> Wichtige Regeln</h2>
+        <div class="regeln-grid">
+          <div class="regel"><span class="check">✓</span><span>Trainer ist <strong>vor Ort ansprechbar</strong> — nicht „bei jedem Training dabei"</span></div>
+          <div class="regel"><span class="check">✓</span><span>Keine Heilversprechen — „erfahrungsgemäß", „viele berichten"</span></div>
+          <div class="regel"><span class="check">✓</span><span>KK-Erstattung braucht <strong>keine Vorab-Genehmigung</strong></span></div>
+          <div class="regel"><span class="check">✓</span><span>Kunde muss <strong>8 Einheiten + Quiz in 12 Wochen</strong> schaffen</span></div>
+          <div class="regel"><span class="check">✓</span><span>Gutscheincode <strong>immer durchstreichen</strong> nach Verwendung</span></div>
+          <div class="regel"><span class="check">✓</span><span><strong>Ernährungsexperten</strong> unterstützen bei Problemen</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">Nur zur internen Verwendung · FIT-INN Trier · Im Gartenfeld 7, 54295 Trier · Fragen an die Studioleitung</div>
+
+  </div>
+
+</body>
+</html>
