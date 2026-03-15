@@ -23,6 +23,12 @@ export default function ImpressumPage() {
         E-Mail: info@fit-inn-trier.de
       </p>
 
+      <h3>Umsatzsteuer-ID</h3>
+      <p>
+        Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
+        DE179498447
+      </p>
+
       <h3>Angaben zur Berufshaftpflichtversicherung</h3>
       <p>
         <strong>Name und Sitz des Versicherers:</strong><br />

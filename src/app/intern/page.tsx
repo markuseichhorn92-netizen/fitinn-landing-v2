@@ -186,7 +186,7 @@ export default function InternPage() {
         </div>
 
         <div className="mt-1.5 text-center text-[10px] text-gray-400 border-t border-gray-200 pt-1.5">
-          Nur zur internen Verwendung · FIT-INN Trier · Im Gartenfeld 7, 54295 Trier · Fragen an die Studioleitung
+          Nur zur internen Verwendung · FIT-INN Trier · Auf Hirtenberg 8, 54296 Trier · Fragen an die Studioleitung
         </div>
 
       </div>

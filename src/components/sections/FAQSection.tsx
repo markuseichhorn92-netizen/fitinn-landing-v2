@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: 'Muss ich ins Studio kommen?',
-    answer: 'Ja, das Training findet im FIT-INN Trier (Auf Hörstenberg 8, Trier) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen – auch mit Job und Familie gut machbar.'
+    answer: 'Ja, das Training findet im FIT-INN Trier (Auf Hirtenberg 8, Trier) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen – auch mit Job und Familie gut machbar.'
   },
   {
     question: 'Was kostet das Programm?',

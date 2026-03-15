@@ -38,7 +38,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
           {/* Secondary contact */}
           <div className="flex gap-2 mt-2">
             <a
-              href="tel:+496513085240"
+              href="tel:+49651308524"
               className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 border border-border/40 text-xs text-muted-foreground active:scale-95 transition-all"
             >
               <Phone className="w-3.5 h-3.5" />
@@ -65,7 +65,7 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
               <span className="text-sm text-muted-foreground">
                 <span className="text-foreground font-semibold">§ 20 SGB V</span>
-                {' · '}Bis zu 100% von der Krankenkasse erstattet<sup>*</sup>
+                {' · '}Bis zu 100% von der Krankenkasse erstattet<sup>²³</sup>
               </span>
             </div>
             <button

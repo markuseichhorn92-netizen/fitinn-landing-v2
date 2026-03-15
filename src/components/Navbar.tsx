@@ -90,7 +90,7 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
             </button>
           ))}
           <a
-            href="tel:+496513085240"
+            href="tel:+49651308524"
             className="ml-2 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
           >
             <Phone className="w-3.5 h-3.5" />
@@ -141,7 +141,7 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
               </p>
               <div className="flex gap-2 pt-1">
                 <a
-                  href="tel:+496513085240"
+                  href="tel:+49651308524"
                   className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground active:scale-95 transition-all"
                 >
                   <Phone className="w-4 h-4" />

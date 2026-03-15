@@ -185,7 +185,7 @@ export default function Home() {
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 Oder ruf uns direkt an:{' '}
-                <a href="tel:+496513085240" className="text-accent hover:underline font-medium">
+                <a href="tel:+49651308524" className="text-accent hover:underline font-medium">
                   0651 308524
                 </a>
               </p>
@@ -392,7 +392,7 @@ export default function Home() {
               <MessageCircle className="w-4 h-4" />
               Fragen? Schreib uns auf WhatsApp
             </a>
-            <a href="tel:+496513085240" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="tel:+49651308524" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-3.5 h-3.5" />
               0651 308524
             </a>
@@ -424,10 +424,10 @@ export default function Home() {
             <div className="space-y-3">
               <p className="font-bold text-base">FIT-INN Trier</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Auf Hörstenberg 8<br />54296 Trier
+                Auf Hirtenberg 8<br />54296 Trier
               </p>
               <div className="space-y-2">
-                <a href="tel:+496513085240" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href="tel:+49651308524" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Phone className="w-4 h-4 shrink-0" />
                   0651 308524
                 </a>

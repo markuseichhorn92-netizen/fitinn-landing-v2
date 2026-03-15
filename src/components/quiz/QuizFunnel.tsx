@@ -139,7 +139,7 @@ function formatDateShort(isoStr: string): string {
 
 function buildCalendarLink(startIso: string, endIso: string): string {
   const fmt = (s: string) => new Date(s).toISOString().replace(/[-:]/g, '').replace('.000Z', 'Z')
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Probetraining+happyfigur&dates=${fmt(startIso)}/${fmt(endIso)}&location=FIT-INN+Trier,+Im+Gartenfeld+7,+54295+Trier&details=Kostenloses+Probetraining+bei+happyfigur`
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Probetraining+happyfigur&dates=${fmt(startIso)}/${fmt(endIso)}&location=FIT-INN+Trier,+Auf+Hirtenberg+8,+54296+Trier&details=Kostenloses+Probetraining+bei+happyfigur`
 }
 
 function buildWALink(startIso: string): string {
