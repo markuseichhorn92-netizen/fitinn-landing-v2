@@ -406,14 +406,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Fußnoten */}
-      <div className="mx-auto max-w-3xl px-6 pt-8 pb-6 text-xs text-muted-foreground space-y-1.5 border-t border-border/30">
-        <p><sup>¹</sup> Kurspreis 179 € inkl. MwSt., fällig bei Trainingsstart (Vorkasse). 8 Einheiten in 8–12 Wochen.</p>
-        <p><sup>²</sup> Erstattung nach § 20 SGB V: Teilnahmebestätigung selbst einreichen, kein Vorab-Antrag nötig. Bei Nicht-Erstattung erstattet FIT-INN den vollen Betrag.</p>
-        <p><sup>³</sup> Erstattungshöhe variiert je Krankenkasse (erfahrungsgemäß 75 €–100 %). Alle Angaben ohne Gewähr.</p>
-        <p><sup>⁴</sup> Präventionsprogramm, kein Ersatz für ärztliche Beratung. Ergebnisse individuell verschieden.</p>
-      </div>
-
       {/* Footer */}
       <footer className="py-12 border-t border-border/50 footer-glow">
         <div className="mx-auto max-w-7xl px-6">
