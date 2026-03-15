@@ -874,25 +874,6 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-/* ── LiveChat Widget über StickyBar positionieren ── */
-#chat-widget-container,
-[data-livechat-widget-container] {
-  z-index: 45 !important;
-}
-/* Mobile: Chat-Widget höher setzen wegen StickyBar */
-@media (max-width: 640px) {
-  #chat-widget-container,
-  [data-livechat-widget-container] {
-    bottom: 100px !important;
-  }
-}
-@media (min-width: 641px) {
-  #chat-widget-container,
-  [data-livechat-widget-container] {
-    bottom: 70px !important;
-  }
-}
-
 /* ── Footer ambient glow ── */
 .footer-glow {
   position: relative;

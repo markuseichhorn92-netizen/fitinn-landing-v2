@@ -12,7 +12,6 @@ import { ProcessSection } from '@/components/sections/ProcessSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { TrainerSection } from '@/components/sections/TrainerSection'
-import { StickyBar } from '@/components/StickyBar'
 import { Navbar } from '@/components/Navbar'
 
 const heroFeatures = [
@@ -485,8 +484,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Sticky Bar */}
-      <StickyBar onStartQuiz={startQuiz} />
+      {/* StickyBar entfernt — LiveChat-Widget übernimmt CTA */}
     </main>
   )
 }
