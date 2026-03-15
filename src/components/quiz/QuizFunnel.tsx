@@ -7,6 +7,7 @@ import {
   ShieldCheck, Utensils, BarChart2, MapPin, MessageSquare, Dumbbell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { track } from '@vercel/analytics'
 
 interface QuizData {
   goal: string
@@ -223,7 +224,16 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
   const [bookingSuccess, setBookingSuccess] = useState(false)
 
   const totalSteps = 12
-  const nextStep = () => setStep(s => Math.min(s + 1, totalSteps))
+  const nextStep = () => {
+    // Track step transitions with relevant data
+    if (step === 2) {
+      track('quiz_body', { height: data.height, weight: data.weight, targetWeight: data.targetWeight })
+    } else if (step === 3) {
+      track('quiz_problems', { problems: data.problems.join(', ') })
+    }
+    track('quiz_step', { step: step + 1 })
+    setStep(s => Math.min(s + 1, totalSteps))
+  }
   const prevStep = () => setStep(s => Math.max(s - 1, 1))
 
   const autoAdvance = (fn: () => void) => {
@@ -231,7 +241,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     setTimeout(() => nextStep(), 350)
   }
 
-  const selectGoal = (goal: string) => autoAdvance(() => setData(d => ({ ...d, goal })))
+  const selectGoal = (goal: string) => {
+    track('quiz_goal', { goal })
+    autoAdvance(() => setData(d => ({ ...d, goal })))
+  }
   const toggleProblem = (problem: string) => {
     setData(d => ({
       ...d,
@@ -240,17 +253,25 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         : [...d.problems, problem]
     }))
   }
-  const selectTime = (time: string) => autoAdvance(() => setData(d => ({ ...d, time })))
+  const selectTime = (time: string) => {
+    track('quiz_time', { time })
+    autoAdvance(() => setData(d => ({ ...d, time })))
+  }
   const selectCommitment = (commitment: string) => {
+    track('quiz_commitment', { commitment })
     setData(d => ({ ...d, commitment }))
     setIsCalculating(true)
     setTimeout(() => { setIsCalculating(false); nextStep() }, 1800)
   }
   const selectInsurance = (insurance: string) => {
+    track('quiz_insurance', { insurance, amount: INSURANCE_VALUES[insurance] || 100 })
     setData(d => ({ ...d, insurance, insuranceAmount: INSURANCE_VALUES[insurance] || 100 }))
   }
 
   // Slots laden wenn Schritt 7 erreicht wird
+  // Quiz-Start tracken
+  useEffect(() => { track('quiz_start') }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (step !== 10) return
     setSlotsLoading(true)
@@ -324,6 +345,13 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         setBookingError((result.error || 'Buchung fehlgeschlagen') + detail)
       } else {
         setBookingSuccess(true)
+        track('quiz_booking_success', {
+          goal: data.goal,
+          problems: data.problems.join(', '),
+          time: data.time,
+          commitment: data.commitment,
+          insurance: data.insurance,
+        })
         nextStep()
       }
     } catch {
