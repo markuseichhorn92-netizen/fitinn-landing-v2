@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -39,8 +38,8 @@ export default function RootLayout({
       <body className={`${barlow.variable} ${barlowCondensed.variable}`}>
         <ScrollProgress />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <CookieBanner />
+        <ConditionalAnalytics />
       </body>
     </html>
   );
