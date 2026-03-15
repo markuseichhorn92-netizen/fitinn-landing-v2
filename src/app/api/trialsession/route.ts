@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   try {
     const res = await fetch(
       `${BASE_URL}/trialsession?studioId=${STUDIO_ID}&startDate=${startDate}&endDate=${endDate}`,
-      { next: { revalidate: 300 } }
+      { next: { revalidate: 300 }, signal: AbortSignal.timeout(15000) }
     )
     if (!res.ok) throw new Error(`Magicline ${res.status}`)
     const data = await res.json()
@@ -64,6 +64,7 @@ export async function POST(request: NextRequest) {
     const bookRes = await fetch(`${BASE_URL}/trialsession/book`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
         studioId: 1210005460,
         startDateTime,

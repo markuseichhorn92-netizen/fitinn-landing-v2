@@ -3,7 +3,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import {
   ArrowRight, ArrowLeft, Target, RefreshCw, Pizza, Clock, Frown,
-  CheckCircle2, Flame, ThumbsUp, HelpCircle, Loader2, Calendar, User, AlertCircle
+  CheckCircle2, Flame, ThumbsUp, HelpCircle, Loader2, Calendar, User, AlertCircle,
+  ShieldCheck, Utensils, BarChart2, MapPin, MessageSquare, Dumbbell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -184,6 +185,13 @@ const ALL_INSURANCE = [
   { value: 'andere', label: 'Andere Krankenkasse (~100€)' },
 ]
 
+const PROBLEM_EXPLANATIONS: Record<string, { icon: typeof RefreshCw; problem: string; solution: string }> = {
+  jojo: { icon: RefreshCw, problem: 'Jo-Jo-Effekt nach jeder Diät', solution: 'Die Körperanalyse zeigt deinen echten Stoffwechsel. Wir arbeiten MIT deinem Körper — kein Hungern, kein Jojo.' },
+  hunger: { icon: Pizza, problem: 'Heißhunger-Attacken', solution: 'Dein Ernährungsplan ist auf DICH abgestimmt. Satt essen statt verzichten — Heißhunger verschwindet erfahrungsgemäß nach 2–3 Wochen.' },
+  zeit: { icon: Clock, problem: 'Zeitmangel', solution: '2x 30 Min pro Woche reichen aus. Das Programm passt in jeden Alltag — auch mit Job, Kindern, Stress.' },
+  motivation: { icon: Frown, problem: 'Motivation fehlt', solution: 'Du trainierst nicht allein zu Hause. Im Studio hast du einen festen Ansprechpartner — die Körperanalyse zeigt Fortschritte, das motiviert.' },
+}
+
 // ─── Hauptkomponente ─────────────────────────────────────────────────────────
 
 export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
@@ -214,7 +222,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
   const [bookingError, setBookingError] = useState<string | null>(null)
   const [bookingSuccess, setBookingSuccess] = useState(false)
 
-  const totalSteps = 9
+  const totalSteps = 12
   const nextStep = () => setStep(s => Math.min(s + 1, totalSteps))
   const prevStep = () => setStep(s => Math.max(s - 1, 1))
 
@@ -244,7 +252,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
 
   // Slots laden wenn Schritt 7 erreicht wird
   useEffect(() => {
-    if (step !== 7) return
+    if (step !== 10) return
     setSlotsLoading(true)
     setSlotsError(null)
     const today = new Date()
@@ -339,8 +347,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
 
   const nextDisabled =
     (step === 2 && !(data.height >= 130 && data.weight >= 40 && data.targetWeight >= 40)) ||
-    (step === 7 && !selectedSlot)
-  const nextLabel = step === 4 ? 'Das will ich auch!' : 'Weiter'
+    (step === 10 && !selectedSlot)
+  const nextLabel = step === 4 ? 'Das klingt gut — weiter' : 'Weiter'
 
   // Loading Screen (nach Commitment)
   if (isCalculating) {
@@ -387,7 +395,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
     )
   }
 
-  const result = step === 9 ? calcResult(data) : null
+  const result = step === 12 ? calcResult(data) : null
 
   return (
     <div className="relative min-h-[100dvh] flex flex-col">
@@ -540,45 +548,133 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 4: Transformation ── */}
+      {/* ── Step 4: Dein Programm ── */}
       {step === 4 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
           <div className="text-center mb-10">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+              <ShieldCheck className="w-8 h-8 text-primary" />
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
-              So kann deine <span className="text-primary">Transformation</span> aussehen
+              {data.goal === 'abnehmen' && <>Dein 8-Wochen-Plan zum <span className="text-primary">Abnehmen</span></>}
+              {data.goal === 'straffen' && <>Dein 8-Wochen-Plan zum <span className="text-primary">Straffen</span></>}
+              {data.goal === 'energie' && <>Dein 8-Wochen-Plan für <span className="text-primary">mehr Energie</span></>}
+              {data.goal === 'gesundheit' && <>Dein 8-Wochen-Plan für <span className="text-primary">deine Gesundheit</span></>}
+              {!data.goal && <>Dein <span className="text-primary">8-Wochen-Plan</span></>}
             </h2>
-            <p className="text-lg text-muted-foreground mt-3">Das erleben unsere Teilnehmer typischerweise:</p>
+            <p className="text-lg text-muted-foreground mt-3">happyfigur ist ein zertifizierter Präventionskurs bei FIT-INN Trier — kein Online-Kurs, kein Diätplan aus dem Internet.</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl w-full">
-            <div className="p-6 rounded-xl bg-accent/10 border border-accent/30">
-              <div className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">Vorher</div>
-              <div className="text-4xl mb-4">😔</div>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Ständig müde & antriebslos</li>
-                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Kleidung sitzt nicht mehr</li>
-                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Heißhunger-Attacken</li>
-                <li className="flex items-center gap-2"><span className="text-accent">✗</span> Frustriert von Diäten</li>
-              </ul>
+          <div className="grid gap-4 max-w-xl w-full">
+            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                <BarChart2 className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <h3 className="font-semibold">3x InBody-Körperanalyse</h3>
+                <p className="text-sm text-muted-foreground mt-1">Start, Mitte, Ende — du siehst in Zahlen, was sich verändert.</p>
+              </div>
             </div>
-            <div className="p-6 rounded-xl bg-primary/10 border border-primary/30">
-              <div className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Nach 8 Wochen</div>
-              <div className="text-4xl mb-4">😊</div>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2"><span className="text-primary">✓</span> Voller Energie</li>
-                <li className="flex items-center gap-2"><span className="text-primary">✓</span> Kleidung sitzt wieder</li>
-                <li className="flex items-center gap-2"><span className="text-primary">✓</span> Kontrolliertes Essverhalten</li>
-                <li className="flex items-center gap-2"><span className="text-primary">✓</span> Stolz auf dich selbst</li>
-              </ul>
+            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-accent border-l-[3px]">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                <Dumbbell className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <h3 className="font-semibold">8 Wochen Training im Studio</h3>
+                <p className="text-sm text-muted-foreground mt-1">Individueller Plan, Trainer vor Ort für Fragen & Korrekturen.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-5 rounded-2xl border-2 border-border bg-card border-l-primary border-l-[3px]">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Utensils className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Persönlicher Ernährungsplan</h3>
+                <p className="text-sm text-muted-foreground mt-1">Passend zu deinem Alltag — kein Kalorienzählen, keine Verbote.</p>
+              </div>
             </div>
           </div>
-          <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-2xl w-full">
-            <p className="text-sm text-center"><span className="font-semibold text-primary">💡 Das ist möglich:</span> 93% unserer Teilnehmer berichten von deutlich mehr Energie bereits nach 2 Wochen.</p>
+          <div className="mt-6 flex items-center gap-2 text-sm text-primary font-semibold">
+            <ShieldCheck className="w-4 h-4" /> § 20 SGB V zertifiziert — von deiner Krankenkasse anerkannt
           </div>
         </div>
       )}
 
-      {/* ── Step 5: Zeit ── */}
+      {/* ── Step 5: So funktioniert's ── */}
       {step === 5 && (
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+              So läuft dein <span className="text-primary">Programm</span> ab
+            </h2>
+            <p className="text-lg text-muted-foreground mt-3">4 einfache Schritte — wir begleiten dich die gesamte Zeit.</p>
+          </div>
+          <div className="max-w-md w-full">
+            {[
+              { num: '01', title: 'Kostenloses Probetraining', desc: 'Lerne das Studio kennen & besprich deine Ziele', color: 'accent' },
+              { num: '02', title: 'Körperanalyse + Plan', desc: 'InBody-Messung, individueller Trainings- & Ernährungsplan', color: 'accent' },
+              { num: '03', title: '8 Wochen Training', desc: '2–3x pro Woche im FIT-INN — Trainer immer ansprechbar', color: 'accent' },
+              { num: '04', title: 'Ergebnis sehen', desc: 'Abschluss-Analyse — du siehst schwarz auf weiß, was sich verändert hat', color: 'primary' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 relative">
+                {i < 3 && <div className="absolute left-[19px] top-[44px] w-0.5 h-[calc(100%-20px)] bg-border" />}
+                <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 z-10",
+                  item.color === 'primary' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
+                )}>
+                  {item.num}
+                </div>
+                <div className="pb-6">
+                  <h3 className="font-semibold">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-0.5">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-md w-full">
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-black shrink-0">MR</div>
+            <div>
+              <p className="text-sm text-muted-foreground italic">&ldquo;Ich hätte nie gedacht, dass 2x pro Woche reicht. Nach 8 Wochen passte meine alte Jeans wieder!&rdquo;</p>
+              <p className="text-sm font-semibold mt-1">Marina R. <span className="text-primary">• -6 kg</span></p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 6: Warum es diesmal klappt ── */}
+      {step === 6 && (
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+              Warum es <span className="text-accent">diesmal</span> anders wird
+            </h2>
+            <p className="text-lg text-muted-foreground mt-3">Du hast uns erzählt, was dich zurückhält. So lösen wir das:</p>
+          </div>
+          <div className="grid gap-4 max-w-xl w-full">
+            {(data.problems.length > 0 ? data.problems : ['jojo', 'hunger', 'zeit', 'motivation']).map(key => {
+              const item = PROBLEM_EXPLANATIONS[key]
+              if (!item) return null
+              return (
+                <div key={key} className="p-5 rounded-2xl border-2 border-border bg-card">
+                  <div className="flex items-center gap-3 mb-2">
+                    <item.icon className="w-5 h-5 text-accent shrink-0" />
+                    <span className="text-sm font-semibold text-accent">{item.problem}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.solution}</p>
+                </div>
+              )
+            })}
+          </div>
+          <div className="mt-8 flex items-center justify-center gap-6 text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">127.000+</span> Teilnehmer
+            <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+            <span className="font-semibold text-foreground">4,9★</span> Bewertung
+            <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+            <span className="font-semibold text-foreground">-7,2 kg</span> Durchschnitt<sup>⁴</sup>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 7: Zeit ── */}
+      {step === 7 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
           <div className="text-center mb-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
@@ -621,14 +717,95 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 6: Commitment ── */}
-      {step === 6 && (
+      {/* ── Step 8: Deine Investition ── */}
+      {step === 8 && (
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 pb-28 md:py-24 md:pb-28 quiz-step-enter">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+              Was kostet <span className="text-primary">happyfigur</span>?
+            </h2>
+            <p className="text-lg text-muted-foreground mt-3">Spoiler: Für viele Teilnehmer ist es komplett kostenlos.<sup>²³</sup></p>
+          </div>
+
+          <div className="max-w-lg w-full space-y-6">
+            {/* Preis-Reveal */}
+            <div className="text-center">
+              <div className="text-5xl font-bold text-muted-foreground/40 line-through decoration-accent decoration-[3px]">179€<sup>¹</sup></div>
+              <p className="text-sm text-muted-foreground mt-3">happyfigur ist § 20 SGB V zertifiziert. Deine Krankenkasse erstattet bis zu 100%.<sup>²³</sup></p>
+            </div>
+
+            {/* KK-Tiles */}
+            <div className="p-5 bg-primary/10 border-2 border-primary rounded-xl">
+              <h4 className="text-center font-semibold mb-4">💰 Was erstattet deine Krankenkasse?</h4>
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                {TOP_INSURANCE.map(ins => (
+                  <button key={ins.value} onClick={() => selectInsurance(ins.value)}
+                    className={cn("p-3 rounded-xl border-2 text-left transition-all duration-200 text-sm",
+                      data.insurance === ins.value ? "border-primary bg-primary/20" : "border-border hover:border-primary/50 bg-card"
+                    )}>
+                    <div className="font-semibold text-xs leading-tight">{ins.label}</div>
+                    <div className={cn("text-lg font-bold mt-1", ins.amount >= 179 ? "text-primary" : "text-foreground")}>
+                      {ins.amount >= 179 ? '✓ Gratis' : `${ins.amount}€`}
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <button onClick={() => setShowAllInsurance(v => !v)}
+                className="w-full text-sm text-muted-foreground hover:text-foreground text-center py-2 underline">
+                {showAllInsurance ? 'Weniger anzeigen' : 'Andere Krankenkasse auswählen'}
+              </button>
+              {showAllInsurance && (
+                <select value={data.insurance} onChange={e => selectInsurance(e.target.value)}
+                  className="w-full mt-2 p-3 rounded-xl bg-card border border-border text-foreground cursor-pointer text-sm">
+                  <option value="">— Alle Krankenkassen —</option>
+                  {ALL_INSURANCE.map(ins => (
+                    <option key={ins.value} value={ins.value}>{ins.label}</option>
+                  ))}
+                </select>
+              )}
+              {data.insuranceAmount > 0 && (
+                <div className="mt-4 p-4 bg-card rounded-xl text-center animate-scale-in">
+                  {data.insuranceAmount >= 179 ? (
+                    <>
+                      <div className="text-3xl font-bold text-primary">🎉 Komplett kostenlos!<sup>²</sup></div>
+                      <p className="text-sm text-muted-foreground mt-1">Deine Krankenkasse erstattet die vollen 179€.<sup>³</sup></p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-3xl font-bold text-accent">Nur {((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag<sup>¹³</sup></div>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Deine Krankenkasse erstattet {data.insuranceAmount}€ von 179€<sup>³</sup> – weniger als ein Kaffee pro Tag!
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Garantie */}
+            <div className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl">
+              <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Geld-zurück-Garantie:</span> Erstattet deine Kasse nicht? Wir erstatten dir den vollen Preis.<sup>²</sup>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 9: Commitment ── */}
+      {step === 9 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
           <div className="text-center mb-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
               Wie <span className="text-primary">bereit</span> bist du für Veränderung?
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Klicke – wir zeigen dir sofort freie Termine.</p>
+            {data.insuranceAmount > 0 && (
+              <p className="text-sm text-primary font-semibold mt-2">
+                Dein Plan: 8 Wochen Training + Ernährung bei FIT-INN Trier {data.insuranceAmount >= 179 ? '— komplett von deiner Kasse erstattet!' : `— ab nur ${((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag`}
+              </p>
+            )}
           </div>
           <div className="grid gap-3 max-w-xl w-full">
             {[
@@ -658,8 +835,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 7: Kalender / Terminauswahl ── */}
-      {step === 7 && (
+      {/* ── Step 10: Kalender / Terminauswahl ── */}
+      {step === 10 && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 md:py-24 quiz-step-enter">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
@@ -797,8 +974,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 8: Kontaktdaten ── */}
-      {step === 8 && selectedSlot && (
+      {/* ── Step 11: Kontaktdaten ── */}
+      {step === 11 && selectedSlot && (
         <div className="flex-1 flex flex-col items-center px-6 py-16 pb-40 md:py-20 md:pb-40 quiz-step-enter">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
@@ -1054,8 +1231,8 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Step 9: Personalisiertes Ergebnis + Buchungsbestätigung ── */}
-      {step === 9 && result && (
+      {/* ── Step 12: Personalisiertes Ergebnis + Buchungsbestätigung ── */}
+      {step === 12 && result && (
         <div className="flex-1 flex flex-col items-center px-6 pt-16 pb-12 md:pt-20 quiz-step-enter">
 
           {/* Buchungsbestätigung oben */}
@@ -1200,53 +1377,16 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </div>
           )}
 
-          {/* Krankenkassen-Kacheln */}
-          <div className="p-5 bg-primary/10 border-2 border-primary rounded-xl max-w-lg mx-auto mb-6">
-            <h4 className="text-center font-semibold mb-4">💰 Was erstattet deine Krankenkasse?<sup>²³</sup></h4>
-            <div className="grid grid-cols-2 gap-2 mb-3">
-              {TOP_INSURANCE.map(ins => (
-                <button key={ins.value} onClick={() => selectInsurance(ins.value)}
-                  className={cn("p-3 rounded-xl border-2 text-left transition-all duration-200 text-sm",
-                    data.insurance === ins.value ? "border-primary bg-primary/20" : "border-border hover:border-primary/50 bg-card"
-                  )}>
-                  <div className="font-semibold text-xs leading-tight">{ins.label}</div>
-                  <div className={cn("text-lg font-bold mt-1", ins.amount >= 179 ? "text-primary" : "text-foreground")}>
-                    {ins.amount >= 179 ? '✓ Gratis' : `${ins.amount}€`}
-                  </div>
-                </button>
-              ))}
+          {/* KK-Ergebnis (bereits in Step 8 ausgewählt) */}
+          {data.insuranceAmount > 0 && (
+            <div className="p-4 bg-primary/10 border border-primary/30 rounded-xl max-w-lg mx-auto mb-6 text-center">
+              {data.insuranceAmount >= 179 ? (
+                <div className="text-lg font-bold text-primary">🎉 Komplett kostenlos — deine Kasse erstattet 179€<sup>²³</sup></div>
+              ) : (
+                <div className="text-lg font-bold text-accent">Dein Eigenanteil: nur {((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag<sup>¹³</sup></div>
+              )}
             </div>
-            <button onClick={() => setShowAllInsurance(v => !v)}
-              className="w-full text-sm text-muted-foreground hover:text-foreground text-center py-2 underline">
-              {showAllInsurance ? 'Weniger anzeigen' : 'Andere Krankenkasse auswählen'}
-            </button>
-            {showAllInsurance && (
-              <select value={data.insurance} onChange={e => selectInsurance(e.target.value)}
-                className="w-full mt-2 p-3 rounded-xl bg-card border border-border text-foreground cursor-pointer text-sm">
-                <option value="">— Alle Krankenkassen —</option>
-                {ALL_INSURANCE.map(ins => (
-                  <option key={ins.value} value={ins.value}>{ins.label}</option>
-                ))}
-              </select>
-            )}
-            {data.insuranceAmount > 0 && (
-              <div className="mt-4 p-4 bg-card rounded-xl text-center animate-scale-in">
-                {data.insuranceAmount >= 179 ? (
-                  <>
-                    <div className="text-3xl font-bold text-primary">🎉 Komplett kostenlos!<sup>²</sup></div>
-                    <p className="text-sm text-muted-foreground mt-1">Deine Krankenkasse erstattet die vollen 179€.<sup>³</sup></p>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-3xl font-bold text-accent">Nur {((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag<sup>¹³</sup></div>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Deine Krankenkasse erstattet {data.insuranceAmount}€ von 179€<sup>³</sup> – weniger als ein Kaffee pro Tag!
-                    </p>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
+          )}
 
           <div className="mt-4 flex justify-center">
             <button onClick={onComplete}
@@ -1257,10 +1397,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
       {/* ── Sticky Navigation (Steps 2–4, 7–8) ── */}
-      {[2, 3, 4, 7, 8].includes(step) && (
+      {[2, 3, 4, 5, 6, 8, 10, 11].includes(step) && (
         <div className="fixed bottom-0 left-0 right-0 z-[110] bg-background/95 backdrop-blur-md border-t border-border">
           <div className="max-w-lg mx-auto px-6 pt-4 pb-safe-4">
-            {step === 8 ? (
+            {step === 11 ? (
               <div className="space-y-3">
                 <button onClick={submitBooking} disabled={!contactValid}
                   className="btn-cta inline-flex items-center justify-center gap-2 w-full text-lg py-4 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed">

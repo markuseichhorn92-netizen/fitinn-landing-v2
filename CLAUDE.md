@@ -76,24 +76,27 @@ State in `page.tsx`:
 
 ## Quiz Funnel (`src/components/quiz/QuizFunnel.tsx`)
 
-9-step quiz ending with a confirmed Probetraining booking. Steps:
+12-step quiz combining education, motivation, and data collection — ending with a confirmed Probetraining booking. Steps:
 
 1. **Ziel** – goal selection (abnehmen / straffen / energie / gesundheit) → auto-advances after 350ms
 2. **Körpermaße** – height (cm), current weight (kg), target weight (kg)
-3. **Probleme** – multi-select pain points
-4. **Transformation** – showcase screen
-5. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
-6. **Commitment** – (unsicher / bereit / entschlossen) → triggers 1.8s loading screen
-7. **Kalender** – Terminauswahl (lädt Slots via `/api/trialsession` GET)
-8. **Kontaktdaten** – Formular + API-Buchung → Ladescreen
-9. **Ergebnis** – personalisiertes Ergebnis + Buchungsbestätigung
+3. **Probleme** – multi-select pain points (jojo / hunger / zeit / motivation)
+4. **Dein Programm** – explains what happyfigur is: 3 feature cards (Körperanalyse, Training, Ernährungsplan) + §20 SGB V badge. Headline personalized by goal.
+5. **So funktioniert's** – 4-step vertical timeline (Probetraining → Analyse+Plan → 8 Wochen Training → Ergebnis) + testimonial
+6. **Warum es diesmal klappt** – dynamic cards addressing user's selected problems from Step 3 with personalized solutions + social proof stats
+7. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
+8. **Deine Investition** – price reveal (179€ strike-through) + KK-Rechner (top 5 tiles + dropdown) + Geld-zurück-Garantie badge. Insurance selection saved for Step 12.
+9. **Commitment** – (unsicher / bereit / entschlossen) → shows insurance cost context line → triggers 1.8s loading screen
+10. **Kalender** – Terminauswahl (lädt Slots via `/api/trialsession` GET)
+11. **Kontaktdaten** – Formular + API-Buchung → Ladescreen
+12. **Ergebnis** – personalisiertes Ergebnis + Buchungsbestätigung + vereinfachte KK-Zusammenfassung
 
 `calcResult(data: QuizData)` computes all result values:
 - `kgLoss` = `baseKg[time] × mult[commitment]`, capped by actual `weight - targetWeight`
 - Dynamic SVG bezier path generated from `kgLoss → endY` for the progress chart
 - BMI, projected weight, problem-specific insights all derived from user inputs
 
-**Insurance step** is embedded in Step 9 result screen (top 5 as tile buttons + "Andere Kasse" toggle for full `<select>`).
+**Insurance step** is in Step 8 (before commitment). Step 12 shows a simplified insurance summary based on the Step 8 selection.
 
 **Quiz UI** is a fullscreen page at `/quiz` (not a modal). Key patterns:
 - Page wrapper in `src/app/quiz/page.tsx`: `fixed inset-0 z-50 bg-background` with ambient glow div
