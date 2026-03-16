@@ -59,7 +59,7 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Training + Ernährung = Ergebnis</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Kein Diät-Plan. Ein System aus <span className="text-accent">Training</span> & <span className="text-primary">Ernährung</span>, das funktioniert.
+            Kein Diät-Plan. Ein Stoffwechsel-System aus <span className="text-accent">Training</span> & <span className="text-primary">Ernährung</span> zum Abnehmen.
           </h2>
         </div>
 

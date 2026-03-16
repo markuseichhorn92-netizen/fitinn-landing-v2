@@ -121,11 +121,11 @@ export default function Home() {
 
             {/* Headline */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.95] mb-8">
-              Du hast
+              Abnehmen in Trier
               <span
                 className={`block text-accent relative lift-in ${heroAnimated ? 'animate' : ''}`}
               >
-                alles versucht
+                — alles versucht?
               </span>
               <span className="block text-primary mt-2">Jetzt nimmst du wirklich ab.</span>
             </h1>
@@ -374,11 +374,11 @@ export default function Home() {
           </div>
 
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mb-6 animate-fade-up delay-100">
-            Dein erster Schritt kostet nichts.
+            Jetzt Abnehmen starten — dein erster Schritt kostet nichts.
           </h2>
           <p className="text-base md:text-lg text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-up delay-200">
-            Starte heute mit einem kostenlosen Probetraining.
-            Kein Risiko, keine Verpflichtung – nur dein erster Schritt zum Wunschgewicht.
+            Starte heute mit einem kostenlosen Probetraining im FIT-INN Trier.
+            Kein Risiko, keine Verpflichtung – nur dein erster Schritt zum Abnehmen mit dem Stoffwechsel-Programm.
           </p>
           <p className="text-base text-primary font-semibold mb-10 animate-fade-up delay-200">
             Bei vielen Krankenkassen komplett kostenlos<sup>²³</sup> — sonst ab 3,20€/Tag.<sup>¹</sup>

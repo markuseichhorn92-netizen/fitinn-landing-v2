@@ -38,7 +38,7 @@ export function ProblemSection() {
         <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
           <span className="text-sm text-accent uppercase tracking-widest font-semibold">Das Problem</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-4">
-            Warum <span className="text-accent">Diäten scheitern</span>
+            Warum <span className="text-accent">Diäten beim Abnehmen scheitern</span>
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
             Studien zeigen: Die meisten Diäten scheitern langfristig. Das liegt nicht an dir – sondern am falschen Ansatz.

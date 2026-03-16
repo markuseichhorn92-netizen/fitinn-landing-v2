@@ -200,7 +200,7 @@ export function ProcessSection() {
         >
           <span className="text-sm text-primary uppercase tracking-widest font-semibold">Deine Erfolgsreise</span>
           <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            4 Schritte zu <span className="text-primary">deinem Ergebnis</span>
+            4 Schritte zum <span className="text-primary">Abnehmen mit Stoffwechsel-Training</span>
           </h2>
         </div>
 

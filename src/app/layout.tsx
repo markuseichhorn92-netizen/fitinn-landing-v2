@@ -28,15 +28,18 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier",
+    default: "Abnehmen in Trier | Stoffwechsel-Programm happyfigur – FIT-INN",
     template: "%s | happyfigur – FIT-INN Trier",
   },
-  description: "8-Wochen-Programm mit Körperanalyse, individuellem Trainings- & Ernährungsplan. Bis zu 100 % von der Krankenkasse erstattet (§ 20 SGB V). Jetzt kostenloses Probetraining buchen!",
+  description: "Abnehmen in Trier: 8-Wochen Stoffwechsel-Programm mit Körperanalyse, Trainings- & Ernährungsplan. Bis zu 100 % von der Krankenkasse erstattet (§ 20 SGB V). Kostenloses Probetraining im FIT-INN Trier buchen!",
   keywords: [
-    "happyfigur", "FIT-INN Trier", "Abnehmen Trier", "Fitnessstudio Trier",
-    "Krankenkasse Fitness", "§ 20 SGB V", "Präventionskurs",
-    "Ernährungsplan", "Körperanalyse", "Probetraining", "Wunschgewicht",
+    "Abnehmen Trier", "Stoffwechsel Trier", "Stoffwechsel anregen Trier",
+    "Gewicht verlieren Trier", "happyfigur", "FIT-INN Trier",
+    "Fitnessstudio Trier", "Abnehmprogramm Trier", "Ernährungsberatung Trier",
+    "Krankenkasse Fitness", "§ 20 SGB V", "Präventionskurs Trier",
+    "Ernährungsplan", "Körperanalyse", "Probetraining Trier",
     "Personal Training Trier", "Gesundheitskurs Trier",
+    "Stoffwechseltraining", "Abnehmen mit Krankenkasse",
   ],
   authors: [{ name: "FIT-INN Trier" }],
   creator: "FIT-INN Trier",
@@ -50,8 +53,8 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: "https://fitinn-trier.de",
     siteName: "happyfigur – FIT-INN Trier",
-    title: "happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier",
-    description: "8-Wochen-Programm mit Körperanalyse & individuellem Trainings- und Ernährungsplan. Bis zu 100 % von der Krankenkasse erstattet. Jetzt kostenloses Probetraining buchen!",
+    title: "Abnehmen in Trier | Stoffwechsel-Programm happyfigur – FIT-INN",
+    description: "Abnehmen in Trier: 8-Wochen Stoffwechsel-Programm mit Körperanalyse & individuellem Trainings- und Ernährungsplan. Bis zu 100 % von der Krankenkasse erstattet. Kostenloses Probetraining buchen!",
     images: [
       {
         url: "/Download.jpg",
@@ -63,8 +66,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier",
-    description: "8-Wochen-Programm mit Körperanalyse. Bis zu 100 % von der Krankenkasse erstattet. Kostenloses Probetraining buchen!",
+    title: "Abnehmen in Trier | Stoffwechsel-Programm happyfigur – FIT-INN",
+    description: "8-Wochen Stoffwechsel-Programm zum Abnehmen in Trier. Bis zu 100 % von der Krankenkasse erstattet. Kostenloses Probetraining buchen!",
     images: ["/Download.jpg"],
   },
   robots: {
@@ -99,7 +102,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "HealthClub",
               name: "FIT-INN Trier",
-              description: "Fitnessstudio in Trier mit zertifiziertem Präventionskurs happyfigur – 8 Wochen Training & Ernährung, bis zu 100 % von der Krankenkasse erstattet.",
+              description: "Abnehmen in Trier: Fitnessstudio mit zertifiziertem Stoffwechsel-Programm happyfigur – 8 Wochen gezieltes Training & Ernährung zum Abnehmen, bis zu 100 % von der Krankenkasse erstattet.",
               url: "https://fitinn-trier.de",
               telephone: "+49651308524",
               address: {
@@ -135,8 +138,8 @@ export default function RootLayout({
                 name: "happyfigur Präventionskurs",
                 itemListElement: [{
                   "@type": "Offer",
-                  name: "happyfigur 8-Wochen-Programm",
-                  description: "Zertifizierter Präventionskurs nach § 20 SGB V mit Körperanalyse, Trainings- und Ernährungsplan",
+                  name: "happyfigur 8-Wochen Stoffwechsel-Programm zum Abnehmen",
+                  description: "Zertifizierter Präventionskurs nach § 20 SGB V: Stoffwechseltraining, Körperanalyse, individueller Trainings- und Ernährungsplan zum Abnehmen in Trier",
                   price: "179",
                   priceCurrency: "EUR",
                 }],
