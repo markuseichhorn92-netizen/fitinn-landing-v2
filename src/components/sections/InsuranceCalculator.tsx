@@ -129,6 +129,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             <select
               value={selected}
               onChange={(e) => handleChange(e.target.value)}
+              aria-label="Krankenkasse auswählen"
               className="w-full p-3.5 rounded-xl bg-secondary border-2 border-border text-foreground cursor-pointer text-base hover:border-primary/50 transition-colors focus:border-primary focus:outline-none"
             >
               <option value="">— Wähle deine Krankenkasse —</option>

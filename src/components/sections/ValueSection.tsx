@@ -6,7 +6,7 @@ const valueItems = [
   { name: 'Individueller Ernährungsplan', value: '79€' },
   { name: 'Einweisung + Coach vor Ort', value: '200€' },
   { name: 'Online-Lernplattform', value: '49€' },
-  { name: '24/7 WhatsApp-Support', value: '50€' },
+  { name: '24/7 Live-Chat-Support', value: '50€' },
 ]
 
 const totalValue = 658

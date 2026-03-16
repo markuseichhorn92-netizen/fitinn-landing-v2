@@ -32,7 +32,7 @@ const features = [
   {
     icon: Smartphone,
     title: '24/7 Support',
-    description: 'WhatsApp, E-Mail, Telefon – wir sind für dich da.',
+    description: 'Live Chat, E-Mail, Telefon – wir sind für dich da.',
     highlight: 'Immer erreichbar'
   },
   {

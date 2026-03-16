@@ -5,7 +5,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { LiveChat } from "@/components/LiveChat";
+import { LazyLiveChat } from "@/components/LazyLiveChat";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -22,7 +22,7 @@ const barlowCondensed = Barlow_Condensed({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   themeColor: '#0a0a0a',
 }
 
@@ -152,7 +152,7 @@ export default function RootLayout({
         <ConditionalAnalytics />
         <Analytics />
         <SpeedInsights />
-        <LiveChat />
+        <LazyLiveChat />
       </body>
     </html>
   );

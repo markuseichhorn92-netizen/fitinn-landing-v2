@@ -212,7 +212,7 @@ export default function Home() {
                     {pillar === 'training' ? 'Training' : pillar === 'ernaehrung' ? 'Ernährung' : '§ 20 SGB V'}
                   </span>
                 </div>
-                <h3 className="text-foreground font-bold text-lg mb-2 relative z-10">{title}</h3>
+                <h2 className="text-foreground font-bold text-lg mb-2 relative z-10">{title}</h2>
                 <p className="text-muted-foreground text-sm leading-relaxed relative z-10">{text}</p>
               </div>
             ))}

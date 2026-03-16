@@ -72,7 +72,7 @@ export function GuaranteeSection() {
               <span className="text-primary font-bold">Wir sind für dich da</span>
             </div>
             <p className="text-sm text-muted-foreground text-center leading-relaxed">
-              Bei Problemen oder Fragen stehen dir die Coaches von happyfigur jederzeit zur Verfügung – persönlich, per WhatsApp oder Telefon.
+              Bei Problemen oder Fragen stehen dir die Coaches von happyfigur jederzeit zur Verfügung – persönlich, per Live Chat oder Telefon.
             </p>
           </div>
 

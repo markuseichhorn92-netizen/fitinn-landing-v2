@@ -796,6 +796,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               </button>
               {showAllInsurance && (
                 <select value={data.insurance} onChange={e => selectInsurance(e.target.value)}
+                  aria-label="Krankenkasse auswählen"
                   className="w-full mt-2 p-3 rounded-xl bg-card border border-border text-foreground cursor-pointer text-sm">
                   <option value="">— Alle Krankenkassen —</option>
                   {ALL_INSURANCE.map(ins => (
@@ -1091,6 +1092,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <div className="grid grid-cols-3 gap-2">
                   <div className="relative">
                     <select
+                      aria-label="Geburtstag"
                       value={contact.dateOfBirth ? parseInt(contact.dateOfBirth.split('-')[2] || '0') : ''}
                       onChange={e => {
                         const parts = (contact.dateOfBirth || '--').split('-')
@@ -1110,6 +1112,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                   </div>
                   <div className="relative">
                     <select
+                      aria-label="Geburtsmonat"
                       value={contact.dateOfBirth ? parseInt(contact.dateOfBirth.split('-')[1] || '0') : ''}
                       onChange={e => {
                         const parts = (contact.dateOfBirth || '--').split('-')
@@ -1129,6 +1132,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                   </div>
                   <div className="relative">
                     <select
+                      aria-label="Geburtsjahr"
                       value={contact.dateOfBirth ? parseInt(contact.dateOfBirth.split('-')[0] || '0') : ''}
                       onChange={e => {
                         const parts = (contact.dateOfBirth || '--').split('-')
