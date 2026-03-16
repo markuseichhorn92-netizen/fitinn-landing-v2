@@ -338,7 +338,7 @@ function MilestoneDot({ step, active, size = 'md', dotRef }: {
       >
         <step.icon
           className={`${iconPx} transition-colors duration-700 ${
-            active ? 'text-accent' : 'text-muted-foreground/60'
+            active ? 'text-accent' : 'text-muted-foreground'
           }`}
         />
       </div>

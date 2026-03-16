@@ -297,13 +297,15 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
-/* ── CTA Puls-Glow ── */
-@keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 4px 30px rgba(245,166,35,0.3); }
-  50%       { box-shadow: 0 4px 70px rgba(245,166,35,0.65), 0 0 100px rgba(245,166,35,0.2); }
+/* ── CTA Puls-Glow (GPU-composited via transform) ── */
+@keyframes ctaPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.03); opacity: 0.92; }
 }
 .cta-pulse {
-  animation: ctaGlow 3s ease-in-out infinite;
+  box-shadow: 0 4px 30px rgba(245,166,35,0.3);
+  animation: ctaPulse 3s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* ── Checklist Slide-In ── */
@@ -480,16 +482,18 @@ h1, h2, h3, h4, h5, h6 {
   100% { stroke-dashoffset: 0; }
 }
 @keyframes heartbeatGlow {
-  0%, 100% { filter: drop-shadow(0 0 2px rgba(125, 216, 125, 0.3)); }
-  50% { filter: drop-shadow(0 0 12px rgba(125, 216, 125, 0.8)); }
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 .heartbeat-line {
   stroke-dasharray: 600;
   stroke-dashoffset: 600;
+  filter: drop-shadow(0 0 6px rgba(125, 216, 125, 0.5));
 }
 .heartbeat-line.animate {
   animation: heartbeatDraw 2s cubic-bezier(0.4, 0, 0.2, 1) forwards,
              heartbeatGlow 2s ease-in-out 2s infinite;
+  will-change: opacity;
 }
 
 /* 2. Lift In — like a weight being lifted, fitness-appropriate reveal */

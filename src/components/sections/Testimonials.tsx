@@ -164,7 +164,7 @@ export function Testimonials() {
             <div className="text-sm text-muted-foreground mt-1">Programmdauer</div>
           </div>
         </div>
-        <p className="text-center text-xs text-muted-foreground/50 mt-6">
+        <p className="text-center text-xs text-muted-foreground mt-6">
           Individuelle Ergebnisse können variieren. Erfahrungsberichte verifizierter Kursteilnehmer.
         </p>
       </div>

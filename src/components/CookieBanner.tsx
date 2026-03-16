@@ -85,7 +85,7 @@ export function CookieBanner() {
                   Technisch erforderliche Cookies für den Betrieb der Website. Speichert deine Cookie-Einstellungen
                   und ermöglicht grundlegende Funktionen wie Navigation und Formulare. Kein Tracking, keine Weitergabe an Dritte.
                 </p>
-                <div className="mt-2 text-xs text-muted-foreground/70">
+                <div className="mt-2 text-xs text-muted-foreground">
                   <span className="font-medium">Cookies:</span> cookie-consent (localStorage) · <span className="font-medium">Speicherdauer:</span> 1 Jahr
                 </div>
               </div>
@@ -100,7 +100,7 @@ export function CookieBanner() {
                   Vercel Web Analytics erfasst anonymisierte Seitenaufrufe (keine IP-Adressen, keine persönlichen Daten).
                   Vercel Speed Insights misst Ladezeiten zur Performance-Verbesserung der Website.
                 </p>
-                <div className="mt-2 text-xs text-muted-foreground/70">
+                <div className="mt-2 text-xs text-muted-foreground">
                   <span className="font-medium">Anbieter:</span> Vercel Inc., San Francisco, USA ·
                   <span className="font-medium"> Datenbasis:</span> anonymisiert, keine Cookies, kein Cross-Site-Tracking
                 </div>
