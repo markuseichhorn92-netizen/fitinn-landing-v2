@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ArrowRight, Phone, MessageCircle } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 
 export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -44,15 +45,14 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
               <Phone className="w-3.5 h-3.5" />
               Anrufen
             </a>
-            <a
-              href="https://wa.me/4915679610457"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => openLiveChat()}
               className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 border border-border/40 text-xs text-muted-foreground active:scale-95 transition-all"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              WhatsApp
-            </a>
+              Live-Chat
+            </button>
           </div>
         </div>
       </div>

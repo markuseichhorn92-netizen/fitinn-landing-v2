@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Menu, X, ArrowRight, Phone, MessageCircle } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 
 const navLinks = [
   { label: 'Programm', href: '#programm' },
@@ -147,15 +148,14 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
                   <Phone className="w-4 h-4" />
                   Anrufen
                 </a>
-                <a
-                  href="https://wa.me/4915679610457"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => { setMobileOpen(false); openLiveChat() }}
                   className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground active:scale-95 transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  WhatsApp
-                </a>
+                  Live-Chat
+                </button>
               </div>
             </div>
           </div>

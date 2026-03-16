@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Coins, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Coins, CheckCircle2, ArrowRight, MessageCircle } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollFloat } from '@/hooks/useScrollFloat'
 import { FloatingDecor, EuroSvg, ShieldCheckSvg } from '@/components/FloatingDecor'
@@ -184,9 +185,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
-                Noch Fragen? Schreib uns auf WhatsApp
-              </a>
+              <button type="button" onClick={() => openLiveChat()} className="btn-outline w-full justify-center">
+                <MessageCircle className="w-4 h-4" />
+                Noch Fragen? Chatte mit uns
+              </button>
               <p className="text-xs text-muted-foreground mt-1">
                 Du zahlst bei Trainingsstart<sup>¹</sup>, Krankenkasse erstattet dir das Geld zurück.<sup>²</sup>
               </p>

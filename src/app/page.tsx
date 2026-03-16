@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { WhySection } from '@/components/sections/WhySection'
 import { Testimonials } from '@/components/sections/Testimonials'
@@ -387,10 +388,10 @@ export default function Home() {
               <span className="text-left leading-tight">Passt das Programm zu dir?<br/><span className="text-sm font-normal opacity-90">Finde es in 1 Min heraus</span></span>
               <ArrowRight className="w-6 h-6 shrink-0" />
             </button>
-            <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <button type="button" onClick={() => openLiveChat()} className="btn-outline">
               <MessageCircle className="w-4 h-4" />
-              Fragen? Schreib uns auf WhatsApp
-            </a>
+              Fragen? Chatte mit uns
+            </button>
             <a href="tel:+49651308524" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-3.5 h-3.5" />
               0651 308524
@@ -426,10 +427,10 @@ export default function Home() {
                   <span className="w-4 h-4 shrink-0 text-center text-xs">@</span>
                   info@fit-inn-trier.de
                 </a>
-                <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <button type="button" onClick={() => openLiveChat()} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <MessageCircle className="w-4 h-4 shrink-0" />
-                  WhatsApp
-                </a>
+                  Live-Chat
+                </button>
               </div>
             </div>
 

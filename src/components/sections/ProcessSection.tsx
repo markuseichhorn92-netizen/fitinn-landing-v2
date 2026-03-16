@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { MessageSquare, BarChart2, Dumbbell, Target } from 'lucide-react'
+import { MessageSquare, BarChart2, Dumbbell, Target, MessageCircle } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollFloat } from '@/hooks/useScrollFloat'
 import { FloatingDecor, DumbbellSvg, ScaleSvg, HeartbeatSvg } from '@/components/FloatingDecor'
@@ -304,9 +305,10 @@ export function ProcessSection() {
 
         {/* Soft CTA */}
         <div className="mt-14 text-center">
-          <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
-            Fragen? Wir antworten auf WhatsApp
-          </a>
+          <button type="button" onClick={() => openLiveChat()} className="btn-outline">
+            <MessageCircle className="w-4 h-4" />
+            Fragen? Chatte mit uns
+          </button>
           <p className="text-xs text-muted-foreground mt-3">Schnell, unkompliziert — wir melden uns</p>
         </div>
       </div>

@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight, X } from 'lucide-react'
+import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight, X, MessageCircle } from 'lucide-react'
+import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollFloat } from '@/hooks/useScrollFloat'
 import { FloatingDecor, DumbbellSvg, AppleSvg, LeafSvg } from '@/components/FloatingDecor'
@@ -147,9 +148,10 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
               Jetzt Probetraining sichern
               <ArrowRight className="w-5 h-5" />
             </button>
-            <a href="https://wa.me/4915679610457" target="_blank" rel="noopener noreferrer" className="btn-outline">
-              Fragen? Schreib uns auf WhatsApp
-            </a>
+            <button type="button" onClick={() => openLiveChat()} className="btn-outline">
+              <MessageCircle className="w-4 h-4" />
+              Fragen? Chatte mit uns
+            </button>
           </div>
           <p className="text-muted-foreground text-sm mt-3">✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert</p>
         </div>
