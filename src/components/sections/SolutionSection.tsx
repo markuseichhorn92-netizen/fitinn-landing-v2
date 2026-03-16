@@ -75,7 +75,7 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
           {/* Mockup */}
           <div className="relative max-w-3xl mx-auto">
             <Image
-              src="/mockup-paket.png"
+              src="/mockup-paket.avif"
               alt="Happyfigur Komplettpaket – App, Online-Plattform, Ernährungsplan und Rezeptbuch"
               width={900}
               height={600}

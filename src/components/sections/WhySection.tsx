@@ -129,10 +129,11 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         {/* Mockup */}
         <div className="mt-8 relative max-w-2xl mx-auto">
           <Image
-            src="/mockup-paket.png"
+            src="/mockup-paket.avif"
             alt="Happyfigur – App, Online-Plattform, Ernährungsplan und Rezeptbuch"
             width={900}
             height={600}
+            sizes="(max-width: 768px) 100vw, 672px"
             className="w-full h-auto drop-shadow-2xl"
           />
           <div className="absolute inset-0 -z-10 bg-primary/10 rounded-3xl blur-3xl scale-90" />

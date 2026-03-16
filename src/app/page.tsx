@@ -83,7 +83,7 @@ export default function Home() {
           {/* Hero background image — Ken Burns */}
           <div className="hero-ken-burns absolute inset-0">
             <Image
-              src="/dooken-magic-edit-1773336253189.png"
+              src="/hero-bg.avif"
               alt=""
               fill
               sizes="100vw"
@@ -276,6 +276,7 @@ export default function Home() {
                   alt="FIT-INN Trier – Trainingsbereich"
                   width={800}
                   height={500}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
@@ -302,6 +303,7 @@ export default function Home() {
                   alt="Gesunde Ernährung – Smoothie"
                   width={800}
                   height={500}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
@@ -324,15 +326,15 @@ export default function Home() {
           {/* Zweite Reihe: Studio + Food Details */}
           <div className="grid grid-cols-3 gap-4 mt-4">
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/studio-2.avif" alt="FIT-INN Trier – Gerätepark" width={400} height={300} className="w-full h-full object-cover" />
+              <Image src="/studio-2.avif" alt="FIT-INN Trier – Gerätepark" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/food-lentils.jpg" alt="Gesunde Mahlzeit – Linsen" width={400} height={300} className="w-full h-full object-cover" />
+              <Image src="/food-lentils.jpg" alt="Gesunde Mahlzeit – Linsen" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/food-mango.jpg" alt="Frisches Obst – Mango" width={400} height={300} className="w-full h-full object-cover" />
+              <Image src="/food-mango.jpg" alt="Frisches Obst – Mango" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
           </div>

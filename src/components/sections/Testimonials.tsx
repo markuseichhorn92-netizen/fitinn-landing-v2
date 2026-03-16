@@ -108,7 +108,7 @@ export function Testimonials() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold">{testimonial.name}, {testimonial.age}</h4>
+                  <h3 className="font-semibold">{testimonial.name}, {testimonial.age}</h3>
                   <p className="text-xs text-muted-foreground">Verifizierter Teilnehmer · FIT-INN Trier</p>
                 </div>
               </div>
