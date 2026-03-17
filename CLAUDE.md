@@ -85,7 +85,7 @@ State in `page.tsx`:
 5. **So funktioniert's** – 4-step vertical timeline (Probetraining → Analyse+Plan → 8 Wochen Training → Ergebnis) + testimonial
 6. **Warum es diesmal klappt** – dynamic cards addressing user's selected problems from Step 3 with personalized solutions + social proof stats
 7. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
-8. **Deine Investition** – price reveal (179€ strike-through) + KK-Rechner (top 5 tiles + dropdown) + Geld-zurück-Garantie badge. Insurance selection saved for Step 12.
+8. **Deine Investition** – price reveal (179€ strike-through) + KK-Rechner (top 5 tiles + dropdown) + Coach-Support badge. Insurance selection saved for Step 12.
 9. **Commitment** – (unsicher / bereit / entschlossen) → shows insurance cost context line → triggers 1.8s loading screen
 10. **Kalender** – Terminauswahl (lädt Slots via `/api/trialsession` GET)
 11. **Kontaktdaten** – Formular + API-Buchung → Ladescreen
@@ -215,7 +215,7 @@ When adding new pricing or insurance claims, always include the appropriate `<su
 - **Keine Heilversprechen** (German UWG): No guaranteed weight loss numbers, no medical condition promises. Use "können variieren", "erfahrungsgemäß", "viele Teilnehmer berichten" hedges.
 - **Stats source**: `-7,2 kg` average, `-8 cm` Bauchumfang, `127.000+` Teilnehmer, `4.9★` / 127 Rezensionen — from happyfigur24.de. Don't invent new statistics.
 - **§ 20 SGB V**: The program is certified. KK reimbursement requires no pre-approval (Vorab-Genehmigung) — customer attends, submits Teilnahmebestätigung afterward.
-- **Geld-zurück-Garantie**: If KK doesn't reimburse, FIT-INN refunds the full price (referenced as `²` in disclaimers).
+- **Coach-Unterstützung**: Bei Fragen zur Erstattung oder zum Programm helfen die happyfigur Coaches jederzeit weiter. Es gibt KEINE Geld-zurück-Garantie durch FIT-INN.
 - **Trainer-Formulierung**: Ein Trainer/Coach ist immer **vor Ort ansprechbar** für Fragen und Korrekturen — aber nicht bei jedem Training persönlich dabei. Keine Formulierungen wie "Trainer an deiner Seite bei jedem Training".
 
 ## Avatars / Images

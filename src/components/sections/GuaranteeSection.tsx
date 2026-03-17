@@ -65,7 +65,7 @@ export function GuaranteeSection() {
             Keine Fallen, keine Ausreden. Nur Klarheit.
           </p>
 
-          {/* Geld-zurück-Callout */}
+          {/* Coach-Support Callout */}
           <div className={`mb-10 p-5 rounded-2xl bg-primary/10 border border-primary/30 max-w-lg mx-auto materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.45s' }}>
             <div className="flex items-center justify-center gap-2 mb-2">
               <HeartHandshake className="w-5 h-5 text-primary shrink-0" />

@@ -218,6 +218,18 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
   const [bookingError, setBookingError] = useState<string | null>(null)
   const [bookingSuccess, setBookingSuccess] = useState(false)
 
+  // Milestone toast state
+  const [milestoneMessage, setMilestoneMessage] = useState<string | null>(null)
+
+  // Checkmark overlay state
+  const [showCheckmark, setShowCheckmark] = useState(false)
+
+  // 8-week date motivation
+  const eightWeekMonth = useMemo(() => {
+    const d = new Date(Date.now() + 56 * 86400000)
+    return d.toLocaleDateString('de-DE', { month: 'long' })
+  }, [])
+
   const totalSteps = 12
   const nextStep = () => {
     // Track step transitions with relevant data
@@ -227,7 +239,27 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
       track('quiz_problems', { problems: data.problems.join(', ') })
     }
     track('quiz_step', { step: step + 1 })
+
+    // Milestone toasts
+    if (step === 4) {
+      setMilestoneMessage('Profil komplett')
+      setTimeout(() => setMilestoneMessage(null), 2500)
+    } else if (step === 8) {
+      setMilestoneMessage('Nur noch dein Termin!')
+      setTimeout(() => setMilestoneMessage(null), 2500)
+    }
+
     setStep(s => Math.min(s + 1, totalSteps))
+  }
+
+  // Checkmark animation for manual "Weiter" steps
+  const nextWithCheckmark = () => {
+    if ([3, 4, 5, 6, 8].includes(step)) {
+      setShowCheckmark(true)
+      setTimeout(() => { setShowCheckmark(false); nextStep() }, 500)
+    } else {
+      nextStep()
+    }
   }
   const prevStep = () => setStep(s => Math.max(s - 1, 1))
 
@@ -386,8 +418,20 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
           </div>
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-2">Deine Analyse wird berechnet…</h3>
-            <p className="text-muted-foreground">Wir erstellen deine persönliche Empfehlung.</p>
+            <h3 className="text-2xl font-bold mb-2">
+              {data.goal === 'abnehmen' && 'Wir berechnen dein realistisches Abnehmziel…'}
+              {data.goal === 'straffen' && 'Wir erstellen deinen Straffungs-Plan…'}
+              {data.goal === 'energie' && 'Wir optimieren dein Energie-Programm…'}
+              {data.goal === 'gesundheit' && 'Wir stellen dein Gesundheits-Programm zusammen…'}
+              {!data.goal && 'Deine Analyse wird berechnet…'}
+            </h3>
+            <p className="text-muted-foreground">
+              {data.commitment === 'entschlossen' && 'Deine Entschlossenheit ist der beste Startpunkt!'}
+              {data.commitment === 'bereit' && 'Gut, dass du bereit bist – der erste Schritt ist getan.'}
+              {data.commitment === 'unsicher' && 'Kein Druck – schau dir erstmal die freien Termine an.'}
+              {!data.commitment && 'Wir erstellen deine persönliche Empfehlung.'}
+            </p>
+            <p className="text-sm text-primary font-semibold mt-3">In 8 Wochen ist {eightWeekMonth} – starte jetzt!</p>
           </div>
           <div className="w-48 h-2 bg-secondary rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full animate-pulse w-3/4" />
@@ -422,13 +466,49 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
 
   return (
     <div className="relative min-h-[100dvh] flex flex-col">
-      {/* Progress Bar – fixed full-width top */}
-      <div className="fixed top-0 left-0 right-0 z-10 h-1 bg-secondary">
-        <div
-          className="h-full bg-gradient-to-r from-primary to-emerald-400 quiz-progress-fill rounded-r-full transition-all duration-500 ease-out"
-          style={{ width: `${(step / totalSteps) * 100}%` }}
-        />
+      {/* Progress Bar – fixed full-width top with milestones */}
+      <div className="fixed top-0 left-0 right-0 z-10">
+        <div className="relative h-1 bg-secondary">
+          <div
+            className="h-full bg-gradient-to-r from-primary to-emerald-400 quiz-progress-fill rounded-r-full transition-all duration-500 ease-out"
+            style={{ width: `${(step / totalSteps) * 100}%` }}
+          />
+          {/* Milestone dots at 33%, 66%, 100% */}
+          {[
+            { pct: 33.33, label: 'Profil', atStep: 4 },
+            { pct: 66.66, label: 'Plan', atStep: 8 },
+            { pct: 100, label: 'Termin', atStep: 12 },
+          ].map(m => (
+            <div key={m.label} className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col items-center" style={{ left: `${m.pct}%` }}>
+              <div className={cn(
+                "w-3 h-3 rounded-full border-2 transition-all duration-500",
+                step >= m.atStep ? "bg-primary border-primary shadow-[0_0_6px_rgba(125,216,125,0.5)]" : "bg-secondary border-border"
+              )} />
+              <span className={cn(
+                "hidden md:block text-[9px] font-semibold mt-1.5 transition-colors duration-500",
+                step >= m.atStep ? "text-primary" : "text-muted-foreground/50"
+              )}>{m.label}</span>
+            </div>
+          ))}
+        </div>
+        {/* Milestone toast */}
+        {milestoneMessage && (
+          <div className="flex justify-center mt-3 quiz-milestone-toast">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 border border-primary/30 text-sm font-semibold text-primary">
+              <CheckCircle2 className="w-4 h-4" /> {milestoneMessage}
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Checkmark overlay */}
+      {showCheckmark && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/60 quiz-checkmark-overlay">
+          <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center quiz-checkmark-pop">
+            <CheckCircle2 className="w-10 h-10 text-primary" />
+          </div>
+        </div>
+      )}
 
       {/* ── Step 1: Ziel ── */}
       {step === 1 && (
@@ -823,12 +903,21 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               )}
             </div>
 
-            {/* Garantie */}
+            {/* Coach-Unterstützung */}
             <div className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl">
               <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
               <p className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Geld-zurück-Garantie:</span> Erstattet deine Kasse nicht? Wir erstatten dir den vollen Preis.<sup>²</sup>
+                <span className="font-semibold text-foreground">Unsere Coaches helfen dir:</span> Bei Fragen zur Erstattung oder zum Programm – die happyfigur Coaches sind jederzeit für dich da.
               </p>
+            </div>
+
+            {/* Testimonial – KK-Erstattung */}
+            <div className="p-4 bg-card border border-border rounded-xl flex items-start gap-4 quiz-testimonial">
+              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-black shrink-0">AM</div>
+              <div>
+                <p className="text-sm text-muted-foreground italic">&ldquo;Ich habe keinen Cent bezahlt. Kurs gemacht, Bescheinigung eingereicht, 2 Wochen später war das Geld auf dem Konto.&rdquo;</p>
+                <p className="text-sm font-semibold mt-1">Andrea M. <span className="text-primary">• AOK Rheinland-Pfalz</span></p>
+              </div>
             </div>
           </div>
         </div>
@@ -889,6 +978,48 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             </h2>
             <p className="text-lg text-muted-foreground mt-3">Kostenlos & unverbindlich – wähle einfach einen freien Slot.</p>
           </div>
+
+          {/* Recap-Card */}
+          <div className="w-full max-w-2xl mb-5 p-4 bg-card/50 border border-border rounded-xl flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm quiz-card-stagger">
+            {data.goal && (
+              <span className="flex items-center gap-1.5 text-muted-foreground">
+                <Target className="w-4 h-4 text-primary shrink-0" />
+                {data.goal === 'abnehmen' && 'Gewicht verlieren'}
+                {data.goal === 'straffen' && 'Körper straffen'}
+                {data.goal === 'energie' && 'Mehr Energie'}
+                {data.goal === 'gesundheit' && 'Gesünder leben'}
+              </span>
+            )}
+            {data.time && (
+              <span className="flex items-center gap-1.5 text-muted-foreground">
+                <Clock className="w-4 h-4 text-primary shrink-0" />
+                {data.time === 'wenig' && '1-2 Std/Woche'}
+                {data.time === 'mittel' && '2-3 Std/Woche'}
+                {data.time === 'viel' && '4+ Std/Woche'}
+              </span>
+            )}
+            {data.insuranceAmount > 0 && (
+              <span className="flex items-center gap-1.5 text-muted-foreground">
+                <span className="w-4 h-4 text-primary shrink-0 text-center font-bold text-xs">€</span>
+                {data.insuranceAmount >= 179 ? <span className="text-primary font-semibold">Kostenlos</span> : `${((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag`}
+              </span>
+            )}
+          </div>
+
+          {/* Slot-Verfügbarkeit */}
+          {!slotsLoading && !slotsError && slots.length > 0 && (() => {
+            const now = new Date()
+            const endOfWeek = new Date(now)
+            endOfWeek.setDate(now.getDate() + (7 - now.getDay()))
+            const thisWeekSlots = slots.filter(s => new Date(s.startDateTime) <= endOfWeek).length
+            if (thisWeekSlots === 0) return null
+            return (
+              <div className="w-full max-w-2xl mb-4 flex items-center justify-center gap-2 text-sm text-muted-foreground quiz-card-stagger" style={{ animationDelay: '100ms' }}>
+                <MapPin className="w-4 h-4 text-accent shrink-0" />
+                <span>Noch <span className="font-semibold text-foreground">{thisWeekSlots}</span> {thisWeekSlots === 1 ? 'Termin' : 'Termine'} diese Woche verfügbar</span>
+              </div>
+            )
+          })()}
 
           {slotsLoading && (
             <div className="flex flex-col items-center gap-4 py-12">
@@ -1012,6 +1143,15 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
             )
           })()}
 
+          {/* Testimonial – Willkommens-Erfahrung */}
+          <div className="mt-5 p-4 bg-card border border-border rounded-xl flex items-start gap-4 max-w-2xl w-full quiz-testimonial">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-sm font-bold text-black shrink-0">LT</div>
+            <div>
+              <p className="text-sm text-muted-foreground italic">&ldquo;Ich war so nervös vor dem ersten Termin. Aber das Team war super nett – ich hab mich sofort wohlgefühlt.&rdquo;</p>
+              <p className="text-sm font-semibold mt-1">Lisa T. <span className="text-primary">• -5 kg</span></p>
+            </div>
+          </div>
+
         </div>
       )}
 
@@ -1037,6 +1177,12 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <div className="text-xs font-medium text-primary uppercase tracking-wider">Dein Termin</div>
               <div className="text-base font-bold mt-0.5">{formatDateShort(selectedSlot.startDateTime)} · {formatTime(selectedSlot.startDateTime)} – {formatTime(selectedSlot.endDateTime)} Uhr</div>
             </div>
+          </div>
+
+          {/* Vertrauens-Nachricht */}
+          <div className="w-full max-w-lg flex items-center gap-3 p-3 mb-4 rounded-xl bg-card/50 border border-border text-xs text-muted-foreground">
+            <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
+            <span>Deine Daten werden sicher an FIT-INN Trier übermittelt und nicht an Dritte weitergegeben.</span>
           </div>
 
           {/* Form Card */}
@@ -1465,7 +1611,7 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <button onClick={prevStep} className="px-6 py-3 text-sm text-muted-foreground hover:text-foreground flex items-center gap-2">
                   <ArrowLeft className="w-4 h-4" /> Zurück
                 </button>
-                <button onClick={nextStep} disabled={nextDisabled}
+                <button onClick={nextWithCheckmark} disabled={nextDisabled}
                   className="btn-primary inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
                   {nextLabel} <ArrowRight className="w-5 h-5" />
                 </button>
