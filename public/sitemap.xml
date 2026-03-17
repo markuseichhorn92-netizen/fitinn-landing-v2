@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fitinn-trier.de/</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fitinn-trier.de/quiz</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/quiz</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fitinn-trier.de/impressum</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/impressum</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://fitinn-trier.de/datenschutz</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/datenschutz</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://fitinn-trier.de/agb</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/agb</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://fitinn-trier.de/widerruf</loc>
+    <loc>https://happyfigur.fit-inn-trier.de/widerruf</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

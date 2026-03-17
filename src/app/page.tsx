@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
+import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { WhySection } from '@/components/sections/WhySection'
@@ -440,17 +440,13 @@ export default function Home() {
             <div className="space-y-3">
               <p className="font-bold text-base">Social Media</p>
               <div className="flex flex-col gap-2">
-                <a href="#" aria-label="Instagram" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://www.instagram.com/fit_inn_trier/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Instagram className="w-4 h-4 shrink-0" />
                   Instagram
                 </a>
-                <a href="#" aria-label="Facebook" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://www.facebook.com/FitInnFeyen" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Facebook className="w-4 h-4 shrink-0" />
                   Facebook
-                </a>
-                <a href="#" aria-label="YouTube" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  <Youtube className="w-4 h-4 shrink-0" />
-                  YouTube
                 </a>
               </div>
             </div>

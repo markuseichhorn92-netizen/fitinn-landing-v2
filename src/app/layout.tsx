@@ -46,14 +46,14 @@ export const metadata: Metadata = {
   authors: [{ name: "FIT-INN Trier" }],
   creator: "FIT-INN Trier",
   publisher: "FIT-INN Trier",
-  metadataBase: new URL("https://fitinn-trier.de"),
+  metadataBase: new URL("https://happyfigur.fit-inn-trier.de"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "de_DE",
-    url: "https://fitinn-trier.de",
+    url: "https://happyfigur.fit-inn-trier.de",
     siteName: "happyfigur – FIT-INN Trier",
     title: "Abnehmen in Trier | Stoffwechsel-Programm happyfigur – FIT-INN",
     description: "Abnehmen in Trier: 8-Wochen Stoffwechsel-Programm mit Körperanalyse & individuellem Trainings- und Ernährungsplan. Bis zu 100 % von der Krankenkasse erstattet. Kostenloses Probetraining buchen!",
@@ -105,7 +105,7 @@ export default function RootLayout({
               "@type": "HealthClub",
               name: "FIT-INN Trier",
               description: "Abnehmen in Trier: Fitnessstudio mit zertifiziertem Stoffwechsel-Programm happyfigur – 8 Wochen gezieltes Training & Ernährung zum Abnehmen, bis zu 100 % von der Krankenkasse erstattet.",
-              url: "https://fitinn-trier.de",
+              url: "https://happyfigur.fit-inn-trier.de",
               telephone: "+49651308524",
               address: {
                 "@type": "PostalAddress",
