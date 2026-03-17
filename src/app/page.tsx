@@ -6,14 +6,16 @@ import Image from 'next/image'
 import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
-import { WhySection } from '@/components/sections/WhySection'
-import { Testimonials } from '@/components/sections/Testimonials'
-import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
-import { ProcessSection } from '@/components/sections/ProcessSection'
-import { FAQSection } from '@/components/sections/FAQSection'
-import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
-import { TrainerSection } from '@/components/sections/TrainerSection'
+import dynamic from 'next/dynamic'
 import { Navbar } from '@/components/Navbar'
+
+const WhySection = dynamic(() => import('@/components/sections/WhySection').then(m => ({ default: m.WhySection })))
+const ProcessSection = dynamic(() => import('@/components/sections/ProcessSection').then(m => ({ default: m.ProcessSection })))
+const TrainerSection = dynamic(() => import('@/components/sections/TrainerSection').then(m => ({ default: m.TrainerSection })))
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials').then(m => ({ default: m.Testimonials })))
+const InsuranceCalculator = dynamic(() => import('@/components/sections/InsuranceCalculator').then(m => ({ default: m.InsuranceCalculator })))
+const GuaranteeSection = dynamic(() => import('@/components/sections/GuaranteeSection').then(m => ({ default: m.GuaranteeSection })))
+const FAQSection = dynamic(() => import('@/components/sections/FAQSection').then(m => ({ default: m.FAQSection })))
 
 const heroFeatures = [
   {
@@ -277,6 +279,7 @@ export default function Home() {
                   width={800}
                   height={500}
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
@@ -304,6 +307,7 @@ export default function Home() {
                   width={800}
                   height={500}
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
@@ -326,15 +330,15 @@ export default function Home() {
           {/* Zweite Reihe: Studio + Food Details */}
           <div className="grid grid-cols-3 gap-4 mt-4">
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/studio-2.avif" alt="FIT-INN Trier – Gerätepark" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
+              <Image src="/studio-2.avif" alt="FIT-INN Trier – Gerätepark" width={400} height={300} sizes="33vw" loading="lazy" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/food-lentils.jpg" alt="Gesunde Mahlzeit – Linsen" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
+              <Image src="/food-lentils.jpg" alt="Gesunde Mahlzeit – Linsen" width={400} height={300} sizes="33vw" loading="lazy" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
             <div className="studio-image relative aspect-[4/3] rounded-xl overflow-hidden border border-border/30">
-              <Image src="/food-mango.jpg" alt="Frisches Obst – Mango" width={400} height={300} sizes="33vw" className="w-full h-full object-cover" />
+              <Image src="/food-mango.jpg" alt="Frisches Obst – Mango" width={400} height={300} sizes="33vw" loading="lazy" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
           </div>

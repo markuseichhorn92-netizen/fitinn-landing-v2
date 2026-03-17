@@ -3,21 +3,20 @@ import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LazyLiveChat } from "@/components/LazyLiveChat";
+import { LazyAnalytics } from "@/components/LazyAnalytics";
 
 const barlow = Barlow({
   variable: "--font-barlow",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -155,8 +154,7 @@ export default function RootLayout({
         {children}
         <CookieBanner />
         <ConditionalAnalytics />
-        <Analytics />
-        <SpeedInsights />
+        <LazyAnalytics />
         <LazyLiveChat />
       </body>
     </html>

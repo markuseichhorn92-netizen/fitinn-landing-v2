@@ -1,5 +1,6 @@
 'use client'
 
+import './quiz.css'
 import { useRouter } from 'next/navigation'
 import { X } from 'lucide-react'
 import { QuizFunnel } from '@/components/quiz/QuizFunnel'
