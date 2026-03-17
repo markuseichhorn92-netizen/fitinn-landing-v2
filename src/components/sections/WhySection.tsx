@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight, X, MessageCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
@@ -29,7 +30,7 @@ const features = [
   { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Deine Kasse erstattet 75€–179€ — bei vielen komplett kostenlos.²³', pillar: 'ernaehrung' as const },
 ]
 
-export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function WhySection() {
   const section = useScrollReveal(0.05)
   const float = useScrollFloat(0.05)
 
@@ -145,10 +146,10 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
         {/* CTA */}
         <div className={`mt-10 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
+            <Link href="/quiz" className="btn-cta inline-flex items-center gap-3 text-lg">
               Jetzt Probetraining sichern
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
             <button type="button" onClick={() => openLiveChat()} className="btn-outline">
               <MessageCircle className="w-4 h-4" />
               Fragen? Chatte mit uns

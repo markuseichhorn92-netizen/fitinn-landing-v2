@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Coins, CheckCircle2, ArrowRight, MessageCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
@@ -37,7 +38,7 @@ const included = [
   { text: 'Persönlicher Support per WhatsApp', pillar: 'ernaehrung' as const },
 ]
 
-export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function InsuranceCalculator() {
   const section = useScrollReveal(0.1)
   const float = useScrollFloat(0.05)
   const [selected, setSelected] = useState('')
@@ -182,10 +183,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
 
             {/* CTA */}
             <div className="mt-6 text-center space-y-3">
-              <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg w-full justify-center">
+              <Link href="/quiz" className="btn-cta inline-flex items-center gap-3 text-lg w-full justify-center">
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
               <button type="button" onClick={() => openLiveChat()} className="btn-outline w-full justify-center">
                 <MessageCircle className="w-4 h-4" />
                 Noch Fragen? Chatte mit uns

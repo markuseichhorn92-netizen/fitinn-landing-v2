@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { ArrowRight, Phone, MessageCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 
-export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function StickyBar() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -29,13 +30,13 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] sticky-accent-border">
         <div className="px-4 pt-3 pb-4">
           {/* Primary CTA */}
-          <button
-            onClick={onStartQuiz}
+          <Link
+            href="/quiz"
             className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl"
           >
             PROBETRAINING SICHERN
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
           {/* Secondary contact */}
           <div className="flex gap-2 mt-2">
             <a
@@ -68,13 +69,13 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
                 {' · '}Bis zu 100% von der Krankenkasse erstattet<sup>²³</sup>
               </span>
             </div>
-            <button
-              onClick={onStartQuiz}
+            <Link
+              href="/quiz"
               className="btn-cta inline-flex items-center gap-2 text-sm py-2.5 px-5 shrink-0"
             >
               Probetraining sichern
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Menu, X, ArrowRight, Phone, MessageCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 
@@ -13,7 +14,7 @@ const navLinks = [
   { label: 'FAQ', href: '#faq' },
 ]
 
-export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -97,13 +98,13 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
             <Phone className="w-3.5 h-3.5" />
             0651 308524
           </a>
-          <button
-            onClick={onStartQuiz}
+          <Link
+            href="/quiz"
             className="ml-1 btn-cta text-sm px-5 py-2.5 inline-flex items-center gap-2"
           >
             Probetraining
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Hamburger */}
@@ -130,13 +131,14 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
               </button>
             ))}
             <div className="mt-2 pt-3 border-t border-border/30 space-y-2">
-              <button
-                onClick={() => { setMobileOpen(false); onStartQuiz() }}
+              <Link
+                href="/quiz"
+                onClick={() => setMobileOpen(false)}
                 className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] py-3.5 rounded-xl"
               >
                 Kostenloses Probetraining
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
               <p className="text-center text-xs text-muted-foreground">
                 ✓ Unverbindlich · ✓ 100% kostenlos
               </p>

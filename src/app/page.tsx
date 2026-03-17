@@ -1,13 +1,11 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
-import { openLiveChat } from '@/lib/livechat'
-import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { Target, ArrowRight, CheckCircle2, Shield, Dumbbell, Apple, HeartPulse, Phone, MessageCircle, Instagram, Facebook, Youtube } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
+import { HeroHeadline } from '@/components/HeroHeadline'
+import { SocialProofStrip } from '@/components/SocialProofStrip'
+import { LiveChatButton } from '@/components/LiveChatButton'
 
 const WhySection = dynamic(() => import('@/components/sections/WhySection').then(m => ({ default: m.WhySection })))
 const ProcessSection = dynamic(() => import('@/components/sections/ProcessSection').then(m => ({ default: m.ProcessSection })))
@@ -38,45 +36,12 @@ const heroFeatures = [
   },
 ]
 
-function StatItem({ endValue, format, label, sub, delay, isVisible }: {
-  endValue: number
-  format: (n: number) => string
-  label: string
-  sub: string
-  delay: number
-  isVisible: boolean
-}) {
-  const count = useCountUp(endValue, 2000, isVisible)
-  return (
-    <div className="text-center relative">
-      <div className="relative inline-block">
-        <div className="text-2xl md:text-3xl font-bold text-primary glow-text">
-          {format(count)}
-        </div>
-      </div>
-      <div className="text-xs font-semibold mt-1 uppercase tracking-wider">{label}</div>
-      <div className="text-xs text-muted-foreground mt-0.5">{sub}</div>
-    </div>
-  )
-}
-
 export default function Home() {
-  const router = useRouter()
-  const startQuiz = () => router.push('/quiz')
-
-  const [heroAnimated, setHeroAnimated] = useState(false)
-  const stats = useScrollReveal(0.3)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setHeroAnimated(true), 400)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <main className="min-h-screen overflow-x-hidden">
 
       {/* Navbar */}
-      <Navbar onStartQuiz={startQuiz} />
+      <Navbar />
 
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24">
@@ -124,11 +89,7 @@ export default function Home() {
             {/* Headline */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.95] mb-8">
               Abnehmen in Trier
-              <span
-                className={`block text-accent relative lift-in ${heroAnimated ? 'animate' : ''}`}
-              >
-                — alles versucht?
-              </span>
+              <HeroHeadline />
               <span className="block text-primary mt-2">Jetzt nimmst du wirklich ab.</span>
             </h1>
 
@@ -149,16 +110,16 @@ export default function Home() {
 
             {/* CTA Button */}
             <div className="flex flex-col items-center gap-5 mt-6">
-              <button
+              <Link
                 id="hero-cta"
-                onClick={startQuiz}
+                href="/quiz"
                 className="btn-cta cta-pulse inline-flex items-center gap-3 text-lg md:text-xl px-8 md:px-10 py-4 md:py-5"
               >
                 <Target className="w-6 h-6 shrink-0" />
                 <span className="text-left leading-tight">Passt das Programm zu dir?<br/><span className="text-sm font-normal opacity-90">Finde es in 1 Min heraus</span></span>
                 <ArrowRight className="w-6 h-6 shrink-0" />
-              </button>
-              
+              </Link>
+
               {/* Trust & Social Proof under CTA */}
               <div className="flex flex-col items-center gap-2 mt-2">
                 <div className="flex items-center gap-3">
@@ -236,20 +197,11 @@ export default function Home() {
       </section>
 
       {/* Social Proof Bar — Counter Animation */}
-      <section className="py-5 border-y border-border/50" ref={stats.ref}>
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatItem endValue={30} format={n => `${n}+`} label="Jahre Erfahrung" sub="FIT-INN seit 1996" delay={0} isVisible={stats.isVisible} />
-            <StatItem endValue={127000} format={n => `${n.toLocaleString('de-DE')}+`} label="happyfigur Teilnehmer" sub="deutschlandweit" delay={0.15} isVisible={stats.isVisible} />
-            <StatItem endValue={49} format={n => `${(n / 10).toFixed(1)}★`} label="Google Bewertung" sub="127 Rezensionen" delay={0.3} isVisible={stats.isVisible} />
-            <StatItem endValue={72} format={n => `-${(n / 10).toFixed(1).replace('.', ',')} kg`} label="Ø Gewichtsverlust" sub="in 8 Wochen¹" delay={0.45} isVisible={stats.isVisible} />
-          </div>
-        </div>
-      </section>
+      <SocialProofStrip />
 
       {/* Why Section (Problem + Solution zusammengelegt) */}
       <div className="section-divider" />
-      <WhySection onStartQuiz={startQuiz} />
+      <WhySection />
 
       {/* Process Section — leicht abgehoben */}
       <div className="bg-card/40 bg-nutrition">
@@ -354,7 +306,7 @@ export default function Home() {
       <Testimonials />
 
       {/* Insurance Calculator */}
-      <InsuranceCalculator onStartQuiz={startQuiz} />
+      <InsuranceCalculator />
 
       {/* Guarantee Section — leicht abgehoben */}
       <div className="bg-card/40">
@@ -389,15 +341,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col items-center gap-4 animate-fade-up delay-300 mt-6">
-            <button onClick={startQuiz} className="btn-cta cta-pulse text-lg px-10 py-4 inline-flex items-center gap-3">
+            <Link href="/quiz" className="btn-cta cta-pulse text-lg px-10 py-4 inline-flex items-center gap-3">
               <Target className="w-6 h-6 shrink-0" />
               <span className="text-left leading-tight">Passt das Programm zu dir?<br/><span className="text-sm font-normal opacity-90">Finde es in 1 Min heraus</span></span>
               <ArrowRight className="w-6 h-6 shrink-0" />
-            </button>
-            <button type="button" onClick={() => openLiveChat()} className="btn-outline">
-              <MessageCircle className="w-4 h-4" />
-              Fragen? Chatte mit uns
-            </button>
+            </Link>
+            <LiveChatButton className="btn-outline" />
             <a href="tel:+49651308524" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-border/40 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-3.5 h-3.5" />
               0651 308524
@@ -433,10 +382,10 @@ export default function Home() {
                   <span className="w-4 h-4 shrink-0 text-center text-xs">@</span>
                   info@fit-inn-trier.de
                 </a>
-                <button type="button" onClick={() => openLiveChat()} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <LiveChatButton className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <MessageCircle className="w-4 h-4 shrink-0" />
                   Live-Chat
-                </button>
+                </LiveChatButton>
               </div>
             </div>
 

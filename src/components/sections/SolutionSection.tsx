@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
@@ -49,7 +50,7 @@ const foodImages = [
   { src: '/food-mango.jpg', alt: 'Mango Smoothie Bowl mit Blaubeeren' },
 ]
 
-export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function SolutionSection() {
   const section = useScrollReveal(0.05)
 
   return (
@@ -135,10 +136,10 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
 
         {/* CTA */}
         <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
-          <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
+          <Link href="/quiz" className="btn-cta inline-flex items-center gap-3 text-lg">
             Jetzt kostenloses Probetraining sichern
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </Link>
           <p className="text-muted-foreground text-sm mt-4">
             ✓ Unverbindlich · ✓ 2 Minuten · ✓ 100% kostenlos
           </p>

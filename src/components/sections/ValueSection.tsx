@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
 
 const valueItems = [
@@ -11,7 +12,7 @@ const valueItems = [
 
 const totalValue = 658
 
-export function ValueSection({ onStartQuiz }: { onStartQuiz: () => void }) {
+export function ValueSection() {
   return (
     <section className="py-24 bg-card relative">
       <div className="mx-auto max-w-4xl px-6">
@@ -73,10 +74,10 @@ export function ValueSection({ onStartQuiz }: { onStartQuiz: () => void }) {
 
           {/* CTA */}
           <div className="text-center">
-            <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
+            <Link href="/quiz" className="btn-cta inline-flex items-center gap-3 text-lg">
               Jetzt Probetraining buchen
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
             <p className="text-sm text-muted-foreground mt-4">
               Du zahlst bei Trainingsstart<sup>¹</sup>, Krankenkasse erstattet dir das Geld zurück.<sup>²</sup>
             </p>
