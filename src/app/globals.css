@@ -296,6 +296,70 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
+/* Section background variants */
+.section-bg-subtle {
+  position: relative;
+  background-color: var(--secondary);
+}
+.section-bg-subtle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 300px at 10% 50%, rgba(45,138,45,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 300px at 90% 50%, rgba(196,138,26,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Glow orbs — floating decorative blurs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.8s;
+}
+.glow-orb--green {
+  background: radial-gradient(circle, rgba(45,138,45,0.12) 0%, transparent 70%);
+}
+.glow-orb--gold {
+  background: radial-gradient(circle, rgba(196,138,26,0.10) 0%, transparent 70%);
+}
+
+/* Soft section transition — curved SVG divider */
+.section-wave {
+  display: block;
+  width: 100%;
+  height: 48px;
+  color: var(--secondary);
+}
+.section-wave--flip {
+  transform: scaleY(-1);
+}
+
+/* Floating icon drift animation */
+@keyframes float-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  50% { transform: translateY(-18px) rotate(6deg); opacity: 0.7; }
+}
+
+/* Dot grid pattern background */
+.bg-dot-grid {
+  position: relative;
+}
+.bg-dot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 70%);
+}
+
 /* Testimonial quote decoration */
 .testimonial-quote::before {
   content: '\201C';

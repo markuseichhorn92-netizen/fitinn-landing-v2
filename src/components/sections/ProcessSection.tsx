@@ -99,8 +99,37 @@ export function ProcessSection() {
         {/* ═══ DESKTOP: Horizontal sequential timeline ═══ */}
         <div className="hidden md:block">
           <div className="relative">
-            {/* Background line */}
-            <div className="absolute top-8 left-[calc(12.5%)] right-[calc(12.5%)] h-0.5 bg-border" />
+            {/* Background line segments BETWEEN icons (not through them) */}
+            {/* Each segment: from right edge of icon i to left edge of icon i+1 */}
+            {/* Icon centers are at 12.5%, 37.5%, 62.5%, 87.5%. Icon width = 64px = ~4rem */}
+            {[0, 1, 2].map(i => (
+              <div
+                key={`bg-${i}`}
+                className="absolute top-8 h-0.5 bg-border"
+                style={{
+                  left: `calc(${12.5 + i * 25}% + 36px)`,
+                  right: `calc(${87.5 - (i + 1) * 25}% + 36px)`,
+                }}
+              />
+            ))}
+
+            {/* Animated colored line segments */}
+            {[0, 1, 2].map(i => {
+              const colors = colorMap[steps[i].color]
+              const shouldFill = i < activeStep
+              return (
+                <div
+                  key={`line-${i}`}
+                  className={`absolute top-8 h-0.5 origin-left transition-transform ease-out ${colors.line}`}
+                  style={{
+                    left: `calc(${12.5 + i * 25}% + 36px)`,
+                    right: `calc(${87.5 - (i + 1) * 25}% + 36px)`,
+                    transform: shouldFill ? 'scaleX(1)' : 'scaleX(0)',
+                    transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
+                  }}
+                />
+              )
+            })}
 
             <div className="grid grid-cols-4">
               {steps.map((step, i) => {
@@ -110,17 +139,6 @@ export function ProcessSection() {
 
                 return (
                   <div key={i} className="flex flex-col items-center relative">
-                    {/* Animated line segment to next step */}
-                    {i < steps.length - 1 && (
-                      <div
-                        className={`absolute top-8 left-1/2 h-0.5 transition-all ease-out ${colors.line}`}
-                        style={{
-                          width: isActive && activeStep > i ? '100%' : '0%',
-                          transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
-                        }}
-                      />
-                    )}
-
                     {/* Icon dot */}
                     <div
                       className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 ${

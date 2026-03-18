@@ -8,7 +8,7 @@ export function GuaranteeSection() {
   const section = useScrollReveal(0.1)
 
   return (
-    <section ref={section.ref} className="py-12 md:py-24 px-5">
+    <section id="garantie" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="07" label="Kein Risiko" />
 

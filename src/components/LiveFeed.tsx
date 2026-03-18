@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react'
 import { MapPin, CheckCircle2 } from 'lucide-react'
 
 const FEED_ITEMS = [
-  { city: 'Trier', action: 'Probetraining gebucht', icon: '📅', accent: false },
-  { city: 'Konz', action: '-8 kg in 8 Wochen erreicht', icon: '🎉', accent: true },
-  { city: 'Schweich', action: 'Probetraining gebucht', icon: '📅', accent: false },
-  { city: 'Trier', action: 'Körperanalyse abgeschlossen', icon: '📊', accent: false },
-  { city: 'Saarburg', action: '-6 kg erreicht', icon: '🎉', accent: true },
-  { city: 'Wittlich', action: 'Probetraining gebucht', icon: '📅', accent: false },
+  { name: 'Julia M.', city: 'Trier', action: 'Probetraining gebucht', icon: '📅', accent: false },
+  { name: 'Thomas K.', city: 'Konz', action: '-8 kg in 8 Wochen erreicht', icon: '🎉', accent: true },
+  { name: 'Sandra L.', city: 'Schweich', action: 'Probetraining gebucht', icon: '📅', accent: false },
+  { name: 'Markus W.', city: 'Trier', action: 'Körperanalyse abgeschlossen', icon: '📊', accent: false },
+  { name: 'Andrea S.', city: 'Saarburg', action: '-6 kg erreicht', icon: '🎉', accent: true },
+  { name: 'Nina B.', city: 'Wittlich', action: 'Probetraining gebucht', icon: '📅', accent: false },
 ]
 
 export function LiveFeedCards() {
@@ -73,6 +73,8 @@ function MiniCard({ item, opacity, scale, active }: {
       <span className="text-lg">{item.icon}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
+          <span className="text-xs font-semibold text-foreground">{item.name}</span>
+          <span className="text-muted-foreground/40">·</span>
           <MapPin className="w-3 h-3 text-muted-foreground shrink-0" />
           <span className="text-xs text-muted-foreground">{item.city}</span>
           {active && <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse ml-1" />}

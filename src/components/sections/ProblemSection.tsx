@@ -10,7 +10,7 @@ export function ProblemSection() {
   const counter2 = useCountUp(9, 1000, section.isVisible)
 
   return (
-    <section ref={section.ref} className="py-12 md:py-24 px-5">
+    <section id="problem" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="01" label="Das Problem" />
 

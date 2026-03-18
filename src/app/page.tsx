@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, AlertTriangle, Sparkles, BarChart2, Star, Users, Euro, ShieldCheck, HelpCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
@@ -17,6 +17,7 @@ import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { ArchitectureSection } from '@/components/sections/ArchitectureSection'
 import { InsuranceBenchmark } from '@/components/InsuranceBenchmark'
+import { DecoIcons, problemIcons, solutionIcons, processIcons, testimonialIcons, trainerIcons, insuranceIcons, guaranteeIcons, faqIcons, ctaIcons } from '@/components/SectionDecorations'
 
 export default function Home() {
   const router = useRouter()
@@ -30,7 +31,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           HERO — Clean, centered, KPI Dashboard
           ═══════════════════════════════════════ */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-20 pb-16 px-5">
+      <section id="hero" className="relative min-h-screen flex flex-col justify-end pt-20 pb-24 px-5">
         {/* Hero background image */}
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -38,21 +39,23 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-top md:object-[right_top] opacity-10 md:opacity-15"
+            className="object-cover object-top md:object-[right_top] opacity-25 md:opacity-35"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 mb-8 animate-fade-up">
+        {/* Eyebrow — positioned higher */}
+        <div className="absolute top-28 left-0 right-0 z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 animate-fade-up">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             <span className="text-sm font-medium text-accent uppercase tracking-wider">
               Das 8-Wochen Programm in Trier
             </span>
           </div>
+        </div>
 
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
           {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold leading-[0.95] mb-6 animate-fade-up delay-100">
             Abnehmen in Trier —<br />
@@ -87,63 +90,97 @@ export default function Home() {
         <KPIDashboard />
       </section>
 
-      {/* Section Divider */}
-      <div className="section-divider" />
+      {/* ═══ Journey Navigation ═══ */}
+      <JourneyNav />
 
       {/* 01 — Das Problem */}
-      <ProblemSection />
-
-      <div className="section-divider" />
-
-      {/* 02 — Die Lösung */}
-      <SolutionSection onStartQuiz={startQuiz} />
-
-      <div className="section-divider" />
-
-      {/* Architektur-Diagramm */}
-      <ArchitectureSection />
-
-      <div className="section-divider" />
-
-      {/* 03 — Dein Weg */}
-      <ProcessSection />
-
-      <div className="section-divider" />
-
-      {/* 04 — Ergebnisse */}
-      <Testimonials />
-
-      <div className="section-divider" />
-
-      {/* 05 — Dein Team */}
-      <TrainerSection />
-
-      <div className="section-divider" />
-
-      {/* 06 — Investition */}
-      <InsuranceCalculator onStartQuiz={startQuiz} />
-
-      {/* Benchmark: Erstattung nach Krankenkasse */}
-      <div className="mx-auto max-w-5xl px-5 pb-20">
-        <InsuranceBenchmark />
+      <div className="relative overflow-hidden">
+        <DecoIcons icons={problemIcons} />
+        <ProblemSection />
       </div>
 
-      <div className="section-divider" />
+      {/* Wave transition → subtle bg */}
+      <SectionWave />
+
+      {/* 02 — Die Lösung */}
+      <div className="section-bg-subtle relative overflow-hidden">
+        <div className="glow-orb glow-orb--green w-[400px] h-[400px] -top-32 -left-48" />
+        <DecoIcons icons={solutionIcons} />
+        <SolutionSection onStartQuiz={startQuiz} />
+      </div>
+
+      <SectionWave flip />
+
+      {/* Architektur-Diagramm */}
+      <div className="relative bg-dot-grid">
+        <ArchitectureSection />
+      </div>
+
+      <SectionWave />
+
+      {/* 03 — Dein Weg */}
+      <div className="section-bg-subtle relative overflow-hidden">
+        <div className="glow-orb glow-orb--gold w-[350px] h-[350px] top-20 -right-32" />
+        <DecoIcons icons={processIcons} />
+        <ProcessSection />
+      </div>
+
+      <SectionWave flip />
+
+      {/* 04 — Ergebnisse */}
+      <div className="relative overflow-hidden">
+        <div className="glow-orb glow-orb--green w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <DecoIcons icons={testimonialIcons} />
+        <Testimonials />
+      </div>
+
+      <SectionWave />
+
+      {/* 05 — Dein Team */}
+      <div className="section-bg-subtle relative overflow-hidden">
+        <div className="glow-orb glow-orb--gold w-[300px] h-[300px] -top-20 -left-32" />
+        <DecoIcons icons={trainerIcons} />
+        <TrainerSection />
+      </div>
+
+      <SectionWave flip />
+
+      {/* 06 — Investition */}
+      <div className="relative overflow-hidden">
+        <div className="glow-orb glow-orb--green w-[400px] h-[400px] bottom-0 right-0" />
+        <DecoIcons icons={insuranceIcons} />
+        <InsuranceCalculator onStartQuiz={startQuiz} />
+
+        {/* Benchmark: Erstattung nach Krankenkasse */}
+        <div className="mx-auto max-w-5xl px-5 pb-20">
+          <InsuranceBenchmark />
+        </div>
+      </div>
+
+      <SectionWave />
 
       {/* 07 — Kein Risiko */}
-      <GuaranteeSection />
+      <div className="section-bg-subtle relative overflow-hidden">
+        <DecoIcons icons={guaranteeIcons} />
+        <GuaranteeSection />
+      </div>
 
-      <div className="section-divider" />
+      <SectionWave flip />
 
       {/* 08 — FAQ */}
-      <FAQSection />
+      <div className="relative bg-dot-grid overflow-hidden">
+        <DecoIcons icons={faqIcons} />
+        <FAQSection />
+      </div>
 
       <div className="section-divider" />
 
       {/* ═══════════════════════════════════════
           FINAL CTA
           ═══════════════════════════════════════ */}
-      <section className="py-14 md:py-32 px-5">
+      <section className="py-14 md:py-32 px-5 relative overflow-hidden">
+        <div className="glow-orb glow-orb--green w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <DecoIcons icons={ctaIcons} />
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl md:text-5xl font-bold mb-6">
             Dein erster Schritt<br />
@@ -242,6 +279,126 @@ export default function Home() {
         </div>
       </footer>
     </main>
+  )
+}
+
+/* ─── Journey Navigation ─── */
+const journeySteps = [
+  { number: '01', label: 'Das Problem', icon: AlertTriangle, href: '#problem', pillar: 'muted' as const },
+  { number: '02', label: 'Die Lösung', icon: Sparkles, href: '#programm', pillar: 'green' as const },
+  { number: '03', label: 'Dein Weg', icon: BarChart2, href: '#ablauf', pillar: 'gold' as const },
+  { number: '04', label: 'Ergebnisse', icon: Star, href: '#erfahrungen', pillar: 'gold' as const },
+  { number: '05', label: 'Dein Team', icon: Users, href: '#team', pillar: 'gold' as const },
+  { number: '06', label: 'Investition', icon: Euro, href: '#krankenkasse', pillar: 'green' as const },
+  { number: '07', label: 'Sicherheit', icon: ShieldCheck, href: '#garantie', pillar: 'green' as const },
+  { number: '08', label: 'FAQ', icon: HelpCircle, href: '#faq', pillar: 'muted' as const },
+]
+
+const pillarStyles = {
+  muted: {
+    dot: 'bg-muted-foreground/30',
+    dotActive: 'bg-muted-foreground',
+    text: 'text-muted-foreground',
+    line: 'bg-muted-foreground/20',
+  },
+  green: {
+    dot: 'bg-primary/30',
+    dotActive: 'bg-primary',
+    text: 'text-primary',
+    line: 'bg-primary/20',
+  },
+  gold: {
+    dot: 'bg-accent/30',
+    dotActive: 'bg-accent',
+    text: 'text-accent',
+    line: 'bg-accent/20',
+  },
+}
+
+function JourneyNav() {
+  const scrollTo = (href: string) => {
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <section className="py-10 md:py-14 px-5">
+      <div className="mx-auto max-w-4xl">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-8">
+          Deine Reise auf einen Blick
+        </p>
+
+        {/* Desktop: horizontal timeline */}
+        <div className="hidden md:block">
+          <div className="relative">
+            {/* Connector line */}
+            <div className="absolute top-3 left-0 right-0 h-px bg-border" />
+
+            <div className="grid grid-cols-8">
+              {journeySteps.map((step, i) => {
+                const styles = pillarStyles[step.pillar]
+                return (
+                  <button
+                    key={i}
+                    onClick={() => scrollTo(step.href)}
+                    className="relative flex flex-col items-center group cursor-pointer bg-transparent border-0 p-0"
+                  >
+                    {/* Dot on the line */}
+                    <div className={`w-6 h-6 rounded-full border-2 border-background ${styles.dotActive} z-10 transition-transform duration-300 group-hover:scale-125 shadow-sm`} />
+
+                    {/* Number */}
+                    <span className={`mt-3 text-lg font-extrabold font-barlow-condensed ${styles.text} transition-colors`}>
+                      {step.number}
+                    </span>
+
+                    {/* Label */}
+                    <span className="text-[10px] text-muted-foreground font-medium leading-tight text-center mt-0.5 group-hover:text-foreground transition-colors">
+                      {step.label}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: compact 2-row grid */}
+        <div className="md:hidden">
+          <div className="grid grid-cols-4 gap-y-5 gap-x-2">
+            {journeySteps.map((step, i) => {
+              const styles = pillarStyles[step.pillar]
+              return (
+                <button
+                  key={i}
+                  onClick={() => scrollTo(step.href)}
+                  className="flex flex-col items-center gap-1.5 bg-transparent border-0 p-0 cursor-pointer"
+                >
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${step.pillar === 'green' ? 'bg-primary/10' : step.pillar === 'gold' ? 'bg-accent/10' : 'bg-muted'}`}>
+                    <step.icon className={`w-3.5 h-3.5 ${styles.text}`} />
+                  </div>
+                  <span className={`text-[10px] font-bold font-mono ${styles.text}`}>{step.number}</span>
+                  <span className="text-[9px] text-muted-foreground leading-tight text-center">{step.label}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Section Wave Divider ─── */
+function SectionWave({ flip }: { flip?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 1440 48"
+      preserveAspectRatio="none"
+      className={`section-wave ${flip ? 'section-wave--flip' : ''}`}
+      fill="currentColor"
+    >
+      <path d="M0 48h1440V24C1200 0 960 48 720 48S240 0 0 24v24z" />
+    </svg>
   )
 }
 
