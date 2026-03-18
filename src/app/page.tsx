@@ -54,13 +54,13 @@ export default function Home() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.95] mb-6 animate-fade-up delay-100">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold leading-[0.95] mb-6 animate-fade-up delay-100">
             Abnehmen in Trier —<br />
             <span className="text-primary">mit System statt Diät.</span>
           </h1>
 
           {/* Subline */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up delay-200">
+          <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up delay-200">
             happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V.
             Deine Krankenkasse erstattet bis zu 100%.²³
           </p>
@@ -70,7 +70,7 @@ export default function Home() {
             <button
               id="hero-cta"
               onClick={startQuiz}
-              className="btn-cta inline-flex items-center gap-3 text-lg px-8 py-4"
+              className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4"
             >
               Kostenloses Probetraining buchen
               <ArrowRight className="w-5 h-5" />
@@ -143,9 +143,9 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           FINAL CTA
           ═══════════════════════════════════════ */}
-      <section className="py-20 md:py-32 px-5">
+      <section className="py-14 md:py-32 px-5">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-5xl font-bold mb-6">
             Dein erster Schritt<br />
             <span className="text-primary">kostet nichts.</span>
           </h2>
@@ -154,7 +154,7 @@ export default function Home() {
             Kein Risiko, keine Verpflichtung.
           </p>
           <div className="flex flex-col items-center gap-4">
-            <button onClick={startQuiz} className="btn-cta inline-flex items-center gap-3 text-lg px-8 py-4">
+            <button onClick={startQuiz} className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4">
               Kostenloses Probetraining buchen
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -175,7 +175,7 @@ export default function Home() {
           ═══════════════════════════════════════ */}
       <footer className="border-t border-border py-12 px-5 footer-glow">
         <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-10">
             {/* Col 1: Kontakt */}
             <div className="col-span-2 md:col-span-1">
               <p className="font-bold mb-3">FIT-INN Trier</p>
@@ -258,7 +258,7 @@ function KPIDashboard() {
       ref={section.ref}
       className="relative z-10 mx-auto max-w-3xl mt-16 px-5 animate-fade-up delay-400"
     >
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-border pt-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t border-border pt-6 md:pt-8">
         <div>
           <span className="text-2xl md:text-3xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)]">
             {teilnehmer.toLocaleString('de-DE')}+

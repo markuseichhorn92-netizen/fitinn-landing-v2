@@ -8,12 +8,12 @@ export function GuaranteeSection() {
   const section = useScrollReveal(0.1)
 
   return (
-    <section ref={section.ref} className="py-20 md:py-32 px-5">
+    <section ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="07" label="Kein Risiko" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Du gehst <span className="text-primary">kein Risiko</span> ein
         </h2>

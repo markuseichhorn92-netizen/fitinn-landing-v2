@@ -10,12 +10,12 @@ export function ProblemSection() {
   const counter2 = useCountUp(9, 1000, section.isVisible)
 
   return (
-    <section ref={section.ref} className="py-20 md:py-32 px-5">
+    <section ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="01" label="Das Problem" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Alles versucht.<br />
           <span className="text-muted-foreground">Nichts hat funktioniert.</span>
@@ -34,7 +34,7 @@ export function ProblemSection() {
             className={`border-t border-border pt-8 pb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
             style={{ animationDelay: '0.15s' }}
           >
-            <span className="text-6xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
+            <span className="text-4xl md:text-6xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
               {counter1}%
             </span>
             <p className="text-muted-foreground mt-2">
@@ -45,8 +45,8 @@ export function ProblemSection() {
             className={`border-t border-border pt-8 pb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
             style={{ animationDelay: '0.25s' }}
           >
-            <span className="text-6xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
-              {counter2} <span className="text-3xl md:text-4xl text-muted-foreground">von 10</span>
+            <span className="text-4xl md:text-6xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
+              {counter2} <span className="text-xl md:text-3xl text-muted-foreground">von 10</span>
             </span>
             <p className="text-muted-foreground mt-2">
               geben nach 6 Wochen auf — weil der Plan nicht zu ihrem Alltag passt

@@ -35,12 +35,12 @@ export function ProcessSection() {
   const section = useScrollReveal(0.1)
 
   return (
-    <section id="ablauf" ref={section.ref} className="py-20 md:py-32 px-5">
+    <section id="ablauf" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="03" label="Dein Weg" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           4 Schritte zum <span className="text-primary">Ergebnis</span>
         </h2>

@@ -51,12 +51,12 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   const isFree = eigenanteil === 0
 
   return (
-    <section id="krankenkasse" ref={section.ref} className="py-20 md:py-32 px-5">
+    <section id="krankenkasse" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="06" label="Investition" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           179 € — bei vielen Kassen<br />
           <span className="text-primary">komplett erstattet</span>
@@ -91,7 +91,7 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {/* Price */}
             <div className="mt-8 border-t border-border pt-6">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Einmaliger Programmpreis</p>
-              <div className={`text-5xl font-bold text-primary price-shimmer ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '1s' }}>
+              <div className={`text-4xl md:text-5xl font-bold text-primary price-shimmer ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '1s' }}>
                 179€<sup className="text-2xl">¹</sup>
               </div>
               <p className="text-sm text-muted-foreground mt-2">

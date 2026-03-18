@@ -38,12 +38,12 @@ export function TrainerSection() {
   ]
 
   return (
-    <section ref={section.ref} className="py-20 md:py-32 px-5">
+    <section ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="05" label="Dein Team" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Persönliche Betreuung —<br />
           <span className="text-primary">kein App-Training.</span>

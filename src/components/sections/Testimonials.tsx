@@ -38,12 +38,12 @@ export function Testimonials() {
   const cmLoss = useCountUp(8, 1000, section.isVisible)
 
   return (
-    <section id="erfahrungen" ref={section.ref} className="py-20 md:py-32 px-5">
+    <section id="erfahrungen" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-5xl">
         <SectionBadge number="04" label="Ergebnisse" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Was Teilnehmer aus <span className="text-primary">Trier</span> sagen
         </h2>
@@ -59,7 +59,7 @@ export function Testimonials() {
         </div>
 
         {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
           {testimonials.map((t, i) => (
             <div
               key={i}
@@ -97,29 +97,29 @@ export function Testimonials() {
 
         {/* Stats Row */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-border pt-8 mb-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t border-border pt-8 mb-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           style={{ animationDelay: '0.4s' }}
         >
           <div>
-            <span className="text-3xl md:text-4xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
+            <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
               -{(kgLoss / 10).toFixed(1).replace('.', ',')} kg
             </span>
             <p className="text-xs text-muted-foreground mt-1">Ø Gewichtsverlust¹</p>
           </div>
           <div>
-            <span className="text-3xl md:text-4xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
+            <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
               -{cmLoss} cm
             </span>
             <p className="text-xs text-muted-foreground mt-1">Ø Bauchumfang¹</p>
           </div>
           <div>
-            <span className="text-3xl md:text-4xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)]">
+            <span className="text-2xl md:text-3xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)]">
               8 Wochen
             </span>
             <p className="text-xs text-muted-foreground mt-1">Programmdauer</p>
           </div>
           <div>
-            <span className="text-3xl md:text-4xl font-bold text-accent font-[family-name:var(--font-barlow-condensed)]">
+            <span className="text-2xl md:text-3xl font-bold text-accent font-[family-name:var(--font-barlow-condensed)]">
               4.9★
             </span>
             <p className="text-xs text-muted-foreground mt-1">127 Bewertungen</p>

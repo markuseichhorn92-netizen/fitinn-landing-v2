@@ -29,12 +29,12 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" ref={section.ref} className="py-20 md:py-32 px-5">
+    <section id="faq" ref={section.ref} className="py-12 md:py-24 px-5">
       <div className="mx-auto max-w-3xl">
         <SectionBadge number="08" label="Fragen" />
 
         <h2
-          className={`text-3xl md:text-5xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Häufige Fragen —<br />
           <span className="text-primary">ehrliche Antworten</span>
