@@ -27,29 +27,29 @@
 }
 
 /* ═══════════════════════════════════════════════
-   Design Tokens — Athletic Dark Fitness Theme
+   Design Tokens — Clean Light Theme (athleo-style)
    Grün (Ernährung/Primary) + Gold (Training/Accent)
    ═══════════════════════════════════════════════ */
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #111311;
-  --card-foreground: #fafafa;
-  --popover: #111311;
-  --popover-foreground: #fafafa;
-  --primary: #7dd87d;
-  --primary-foreground: #0a2e0a;
-  --secondary: #1a1d1a;
-  --secondary-foreground: #fafafa;
-  --muted: #1a1d1a;
-  --muted-foreground: #a1a1aa;
-  --accent: #e8a948;
-  --accent-foreground: #1a0f00;
+  --background: #fafafa;
+  --foreground: #0a0a0f;
+  --card: #ffffff;
+  --card-foreground: #0a0a0f;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0f;
+  --primary: #2d8a2d;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0f;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #c48a1a;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: rgba(255, 255, 255, 0.06);
-  --ring: #7dd87d;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #2d8a2d;
   --radius: 0.75rem;
 }
 
@@ -71,7 +71,7 @@
   * { -webkit-tap-highlight-color: transparent; }
   button, a, [role="button"] { touch-action: manipulation; }
   input, select, textarea { font-size: 16px !important; }
-  select { color-scheme: dark; background-color: var(--secondary); color: var(--foreground); }
+  select { color-scheme: light; background-color: var(--secondary); color: var(--foreground); }
   option { background-color: var(--secondary); color: var(--foreground); }
 }
 
@@ -231,7 +231,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
   transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232, 169, 72, 0.3); }
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196, 138, 26, 0.25); }
 .btn-cta:hover::before { left: 120%; }
 
 .btn-outline {
@@ -250,8 +250,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-outline:hover {
   color: var(--foreground);
-  border-color: rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.03);
+  border-color: var(--foreground);
+  background: var(--secondary);
   transform: translateY(-1px);
 }
 
@@ -259,8 +259,8 @@ h1, h2, h3, h4, h5, h6 {
    Cards — Clean with top-border accent
    ═══════════════════════════════════════════════ */
 .feature-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   position: relative;
   overflow: hidden;
@@ -274,8 +274,8 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 0.3s;
 }
 .feature-card:hover {
-  border-color: rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.03);
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 .feature-card:hover::before { opacity: 1; }
 
@@ -306,7 +306,7 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 600px; height: 200px;
-  background: radial-gradient(ellipse, rgba(125,216,125,0.03) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(45,138,45,0.04) 0%, transparent 70%);
   pointer-events: none;
 }
 

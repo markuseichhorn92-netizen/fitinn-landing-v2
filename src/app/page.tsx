@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
@@ -30,10 +31,17 @@ export default function Home() {
           HERO — Clean, centered, KPI Dashboard
           ═══════════════════════════════════════ */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-20 pb-16 px-5">
-        {/* Subtle gradient blobs */}
+        {/* Hero background image */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/4 rounded-full blur-3xl" />
+          <Image
+            src="/hero-bg.avif"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-top md:object-[right_top] opacity-10 md:opacity-15"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl text-center">

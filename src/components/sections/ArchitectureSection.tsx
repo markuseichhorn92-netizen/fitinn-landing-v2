@@ -3,16 +3,13 @@
 import { Dumbbell, Apple, MessageCircle, BarChart2, Users, Target } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
-const leftItems = [
-  { icon: Dumbbell, label: 'Studio-Training', sub: 'FIT-INN Trier' },
-  { icon: Apple, label: 'Ernährungsplan', sub: 'Individuell angepasst' },
-  { icon: MessageCircle, label: 'Support', sub: 'Chat, Telefon, E-Mail' },
-]
-
-const rightItems = [
-  { icon: BarChart2, label: '3× Körperanalyse', sub: 'InBody-Messung' },
-  { icon: Users, label: 'Persönliches Coaching', sub: 'Trainer vor Ort' },
-  { icon: Target, label: 'Messbares Ergebnis', sub: 'Schwarz auf weiß' },
+const allItems = [
+  { icon: Dumbbell, label: 'Studio-Training', sub: 'FIT-INN Trier', color: 'accent' as const },
+  { icon: Apple, label: 'Ernährungsplan', sub: 'Individuell angepasst', color: 'primary' as const },
+  { icon: MessageCircle, label: 'Support', sub: 'Chat, Telefon, E-Mail', color: 'primary' as const },
+  { icon: BarChart2, label: '3× Körperanalyse', sub: 'InBody-Messung', color: 'accent' as const },
+  { icon: Users, label: 'Persönliches Coaching', sub: 'Trainer vor Ort', color: 'accent' as const },
+  { icon: Target, label: 'Messbares Ergebnis', sub: 'Schwarz auf weiß', color: 'primary' as const },
 ]
 
 export function ArchitectureSection() {
@@ -25,7 +22,7 @@ export function ArchitectureSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border mb-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-border mb-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Architektur</span>
@@ -45,198 +42,152 @@ export function ArchitectureSection() {
           </p>
         </div>
 
-        {/* Architecture Diagram — Desktop with SVG connectors */}
+        {/* ═══ DESKTOP: Radial layout ═══ */}
         <div
           className={`hidden md:block relative fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           style={{ animationDelay: '0.2s' }}
         >
-          <div className="grid grid-cols-[1fr_220px_1fr] gap-0 items-center">
-            {/* Left cards */}
-            <div className="space-y-3 pr-4">
-              {leftItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/50 hover:border-primary/20 transition-colors relative"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-accent" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-semibold text-sm">{item.label}</p>
-                    <p className="text-xs text-muted-foreground">{item.sub}</p>
-                  </div>
-                  {/* Connector dot on right edge */}
-                  <div className="absolute -right-[7px] top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-card border-2 border-primary/30 z-10" />
-                </div>
-              ))}
-            </div>
+          <div className="relative" style={{ height: '420px' }}>
+            {/* SVG connector lines + animated dots */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet">
+              {/* 6 lines from outer cards to center (400, 210) */}
+              {[
+                { x: 60, y: 70 },   // top-left
+                { x: 60, y: 210 },  // mid-left
+                { x: 60, y: 350 },  // bottom-left
+                { x: 740, y: 70 },  // top-right
+                { x: 740, y: 210 }, // mid-right
+                { x: 740, y: 350 }, // bottom-right
+              ].map((pos, i) => {
+                const cx = 400, cy = 210
+                const cpx1 = pos.x < 400 ? pos.x + 120 : pos.x - 120
+                const cpx2 = pos.x < 400 ? cx - 80 : cx + 80
+                const path = `M ${pos.x} ${pos.y} C ${cpx1} ${pos.y}, ${cpx2} ${cy}, ${cx} ${cy}`
+                return (
+                  <g key={i}>
+                    <path d={path} fill="none" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="6 4" />
+                    <circle r="4" fill="var(--primary)" opacity="0.7">
+                      <animateMotion dur={`${2.2 + i * 0.25}s`} repeatCount="indefinite" path={path} />
+                    </circle>
+                    <circle cx={pos.x} cy={pos.y} r="3" fill="var(--primary)" opacity="0.25" />
+                  </g>
+                )
+              })}
+              {/* Center dot glow */}
+              <circle cx="400" cy="210" r="6" fill="var(--primary)" opacity="0.15" />
+            </svg>
 
-            {/* Center hub with SVG lines */}
-            <div className="relative flex flex-col items-center justify-center">
-              {/* SVG connector lines — left side */}
-              <svg className="absolute left-0 top-0 w-full h-full pointer-events-none overflow-visible" style={{ left: '-16px', width: 'calc(100% + 32px)' }}>
-                {/* Left connectors (3 lines from left cards to center) */}
-                {[0, 1, 2].map(i => {
-                  const cardY = 40 + i * 68 // approximate card center positions
-                  const centerY = 120 // center of hub
-                  return (
-                    <g key={`l${i}`}>
-                      <path
-                        d={`M 0 ${cardY} C 40 ${cardY}, 60 ${centerY}, 90 ${centerY}`}
-                        fill="none"
-                        stroke="rgba(125,216,125,0.15)"
-                        strokeWidth="1.5"
-                        strokeDasharray="4 4"
-                      />
-                      {/* Animated dot traveling along path */}
-                      <circle r="3" fill="var(--primary)" opacity="0.6">
-                        <animateMotion
-                          dur={`${2.5 + i * 0.3}s`}
-                          repeatCount="indefinite"
-                          path={`M 0 ${cardY} C 40 ${cardY}, 60 ${centerY}, 90 ${centerY}`}
-                        />
-                      </circle>
-                      {/* Static dot at card edge */}
-                      <circle cx="0" cy={cardY} r="3" fill="var(--primary)" opacity="0.3" />
-                    </g>
-                  )
-                })}
-                {/* Right connectors (3 lines from center to right cards) */}
-                {[0, 1, 2].map(i => {
-                  const cardY = 40 + i * 68
-                  const centerY = 120
-                  const svgW = 252 // approximate total width
-                  return (
-                    <g key={`r${i}`}>
-                      <path
-                        d={`M ${svgW - 90} ${centerY} C ${svgW - 60} ${centerY}, ${svgW - 40} ${cardY}, ${svgW} ${cardY}`}
-                        fill="none"
-                        stroke="rgba(125,216,125,0.15)"
-                        strokeWidth="1.5"
-                        strokeDasharray="4 4"
-                      />
-                      {/* Animated dot traveling along path */}
-                      <circle r="3" fill="var(--primary)" opacity="0.6">
-                        <animateMotion
-                          dur={`${2.8 + i * 0.3}s`}
-                          repeatCount="indefinite"
-                          path={`M ${svgW - 90} ${centerY} C ${svgW - 60} ${centerY}, ${svgW - 40} ${cardY}, ${svgW} ${cardY}`}
-                        />
-                      </circle>
-                      {/* Static dot at card edge */}
-                      <circle cx={svgW} cy={cardY} r="3" fill="var(--primary)" opacity="0.3" />
-                    </g>
-                  )
-                })}
-              </svg>
-
-              {/* Center card */}
-              <div className="relative z-10 w-48 p-6 rounded-2xl border-2 border-primary/20 bg-card text-center shadow-lg shadow-primary/5">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-primary text-xl font-bold">hf</span>
-                </div>
-                <p className="font-bold text-sm uppercase tracking-wider">happyfigur</p>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">8-Wochen-System</p>
-                <div className="mt-4 space-y-1.5 text-left">
-                  {['Stoffwechsel aktivieren', 'Ernährung optimieren', 'Ergebnis messen'].map((t, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="w-1 h-1 rounded-full bg-primary/60" />
-                      {t}
-                    </div>
-                  ))}
-                </div>
+            {/* Outer cards — positioned absolutely */}
+            {/* Left column */}
+            {allItems.slice(0, 3).map((item, i) => (
+              <div
+                key={`l${i}`}
+                className="absolute left-0 w-[220px]"
+                style={{ top: `${i * 130 + 20}px` }}
+              >
+                <ItemCard item={item} />
               </div>
-            </div>
+            ))}
 
-            {/* Right cards */}
-            <div className="space-y-3 pl-4">
-              {rightItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/50 hover:border-primary/20 transition-colors relative"
-                >
-                  {/* Connector dot on left edge */}
-                  <div className="absolute -left-[7px] top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-card border-2 border-primary/30 z-10" />
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">{item.label}</p>
-                    <p className="text-xs text-muted-foreground">{item.sub}</p>
-                  </div>
-                </div>
-              ))}
+            {/* Right column */}
+            {allItems.slice(3, 6).map((item, i) => (
+              <div
+                key={`r${i}`}
+                className="absolute right-0 w-[220px]"
+                style={{ top: `${i * 130 + 20}px` }}
+              >
+                <ItemCard item={item} />
+              </div>
+            ))}
+
+            {/* Center hub */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <CenterHub />
             </div>
           </div>
         </div>
 
-        {/* Mobile: Vertical flow */}
+        {/* ═══ MOBILE: Vertical with animated connectors ═══ */}
         <div
-          className={`md:hidden space-y-3 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`md:hidden fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           style={{ animationDelay: '0.2s' }}
         >
-          {/* Left items */}
-          {leftItems.map((item, i) => (
-            <div key={`l${i}`} className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/50">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                <item.icon className="w-5 h-5 text-accent" />
+          <div className="space-y-3">
+            {allItems.slice(0, 3).map((item, i) => (
+              <div key={`ml${i}`}>
+                <ItemCard item={item} />
               </div>
-              <div>
-                <p className="font-semibold text-sm">{item.label}</p>
-                <p className="text-xs text-muted-foreground">{item.sub}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          {/* Arrow down */}
-          <div className="flex justify-center py-2">
-            <div className="flex flex-col items-center gap-1">
-              <div className="w-px h-6 bg-primary/20" />
-              <div className="w-2 h-2 rounded-full bg-primary/40" />
-              <div className="w-px h-6 bg-primary/20" />
-            </div>
+          {/* Animated connector to center */}
+          <div className="flex justify-center py-4">
+            <svg width="2" height="60" className="overflow-visible">
+              <line x1="1" y1="0" x2="1" y2="60" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 4" />
+              <circle r="3" fill="var(--primary)" opacity="0.7">
+                <animateMotion dur="1.5s" repeatCount="indefinite" path="M 1 0 L 1 60" />
+              </circle>
+            </svg>
           </div>
 
           {/* Center hub */}
-          <div className="w-full p-6 rounded-2xl border-2 border-primary/20 bg-card text-center">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-              <span className="text-primary text-xl font-bold">hf</span>
-            </div>
-            <p className="font-bold text-sm uppercase tracking-wider">happyfigur</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">8-Wochen-System</p>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-              {['Stoffwechsel aktivieren', 'Ernährung optimieren', 'Ergebnis messen'].map((t, i) => (
-                <div key={i} className="text-xs text-muted-foreground">
-                  <span className="inline-block w-1 h-1 rounded-full bg-primary/60 mr-1" />
-                  {t}
-                </div>
-              ))}
-            </div>
+          <CenterHub />
+
+          {/* Animated connector from center */}
+          <div className="flex justify-center py-4">
+            <svg width="2" height="60" className="overflow-visible">
+              <line x1="1" y1="0" x2="1" y2="60" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 4" />
+              <circle r="3" fill="var(--primary)" opacity="0.7">
+                <animateMotion dur="1.5s" repeatCount="indefinite" path="M 1 0 L 1 60" />
+              </circle>
+            </svg>
           </div>
 
-          {/* Arrow down */}
-          <div className="flex justify-center py-2">
-            <div className="flex flex-col items-center gap-1">
-              <div className="w-px h-6 bg-primary/20" />
-              <div className="w-2 h-2 rounded-full bg-primary/40" />
-              <div className="w-px h-6 bg-primary/20" />
-            </div>
+          <div className="space-y-3">
+            {allItems.slice(3, 6).map((item, i) => (
+              <div key={`mr${i}`}>
+                <ItemCard item={item} />
+              </div>
+            ))}
           </div>
-
-          {/* Right items */}
-          {rightItems.map((item, i) => (
-            <div key={`r${i}`} className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card/50">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                <item.icon className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold text-sm">{item.label}</p>
-                <p className="text-xs text-muted-foreground">{item.sub}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function ItemCard({ item }: { item: typeof allItems[number] }) {
+  return (
+    <div className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors">
+      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+        item.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+      }`}>
+        <item.icon className={`w-5 h-5 ${item.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
+      </div>
+      <div>
+        <p className="font-semibold text-sm">{item.label}</p>
+        <p className="text-xs text-muted-foreground">{item.sub}</p>
+      </div>
+    </div>
+  )
+}
+
+function CenterHub() {
+  return (
+    <div className="w-52 p-6 rounded-2xl border-2 border-primary/20 bg-card text-center shadow-lg shadow-primary/5">
+      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+        <span className="text-primary text-xl font-bold">hf</span>
+      </div>
+      <p className="font-bold text-sm uppercase tracking-wider">happyfigur</p>
+      <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">8-Wochen-System</p>
+      <div className="mt-4 space-y-1.5 text-left">
+        {['Stoffwechsel aktivieren', 'Ernährung optimieren', 'Ergebnis messen'].map((t, i) => (
+          <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="w-1 h-1 rounded-full bg-primary/60" />
+            {t}
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
