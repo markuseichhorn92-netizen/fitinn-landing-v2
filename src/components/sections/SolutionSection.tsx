@@ -1,146 +1,94 @@
 'use client'
 
-import Image from 'next/image'
-import { ChartLine, Dumbbell, Utensils, Users, Smartphone, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Dumbbell, Apple, Users, Shield, ArrowRight } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { SectionBadge } from '@/components/SectionBadge'
 
-const features = [
-  {
-    icon: ChartLine,
-    title: '3x Körperanalyse',
-    description: 'Start, Mitte, Ende – du siehst in Zahlen, was sich verändert. Wir passen laufend an.',
-    highlight: 'Datenbasiert'
-  },
+const pillars = [
   {
     icon: Dumbbell,
-    title: '8 Wochen Training',
-    description: 'Unbegrenzter Zugang. Dein Plan, dein Körper, dein Ziel – kein Allgemeinplan.',
-    highlight: 'Individuell & betreut'
+    title: 'Gezieltes Training',
+    description: '2–3× pro Woche, je 30 Min. Individuell auf deinen Körper und Stoffwechsel abgestimmt — im FIT-INN Trier.',
+    color: 'accent' as const,
   },
   {
-    icon: Utensils,
-    title: 'Ernährungsplan',
-    description: 'Passend zu deinem Alltag. Kein Kalorienzählen, keine Verbote, kein Hungern.',
-    highlight: 'Passend zu deinem Leben'
+    icon: Apple,
+    title: 'Ernährung ohne Verbote',
+    description: 'Kein Kalorienzählen, keine Diät. Ein alltagstauglicher Ernährungsplan, den du auch in zwei Jahren noch lebst.',
+    color: 'primary' as const,
   },
   {
     icon: Users,
-    title: 'Personal Coaching',
-    description: 'Persönliche Einweisung + Trainer jederzeit vor Ort ansprechbar — für Fragen, Korrekturen und Motivation.',
-    highlight: 'Du bist nie allein'
+    title: 'Persönliche Betreuung',
+    description: 'Trainer immer vor Ort ansprechbar. Dazu 24/7 Support per Live-Chat, E-Mail und Telefon.',
+    color: 'primary' as const,
   },
-  {
-    icon: Smartphone,
-    title: '24/7 Support',
-    description: 'Live Chat, E-Mail, Telefon – wir sind für dich da.',
-    highlight: 'Immer erreichbar'
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Zertifiziert § 20',
-    description: '§ 20 SGB V zertifiziert. Deine Kasse erstattet 75€–179€ – bei vielen komplett kostenlos.²³',
-    highlight: 'Bis zu 100% erstattet'
-  }
-]
-
-const foodImages = [
-  { src: '/food-smoothie.jpg', alt: 'Smoothie Bowl mit Spinat und Erdbeeren' },
-  { src: '/food-lentils.jpg', alt: 'Linsen mit Süßkartoffeln und Rote Bete' },
-  { src: '/food-mango.jpg', alt: 'Mango Smoothie Bowl mit Blaubeeren' },
 ]
 
 export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
-  const section = useScrollReveal(0.05)
+  const section = useScrollReveal(0.1)
 
   return (
-    <section id="programm" className="py-24 relative overflow-hidden" ref={section.ref}>
-      {/* Background Glow */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent" />
-      </div>
+    <section id="programm" ref={section.ref} className="py-20 md:py-32 px-5">
+      <div className="mx-auto max-w-5xl">
+        <SectionBadge number="02" label="Die Lösung" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Die Lösung</span>
-          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Was ist <span className="text-primary">happyfigur</span>?
-          </h2>
-          <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Ein 8-Wochen-Programm, das nicht Kalorien zählt – sondern deinen Stoffwechsel neu aktiviert.
-          </p>
-        </div>
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+        >
+          Kein Diät-Plan.<br />
+          <span className="text-primary">Ein Stoffwechsel-System.</span>
+        </h2>
 
-        {/* Mockup + Food Strip */}
-        <div className={`mb-16 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.1s' }}>
-          {/* Mockup */}
-          <div className="relative max-w-3xl mx-auto">
-            <Image
-              src="/mockup-paket.avif"
-              alt="Happyfigur Komplettpaket – App, Online-Plattform, Ernährungsplan und Rezeptbuch"
-              width={900}
-              height={600}
-              className="w-full h-auto drop-shadow-2xl"
-              priority
-            />
-            <div className="absolute inset-0 -z-10 bg-primary/10 rounded-3xl blur-3xl scale-90" />
-          </div>
+        <p
+          className={`text-muted-foreground text-lg max-w-2xl mb-14 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.1s' }}
+        >
+          happyfigur kombiniert Training, Ernährung und Coaching zu einem 8-Wochen-Programm, das deinen Stoffwechsel neu aktiviert — nicht Kalorien zählt.
+        </p>
 
-          {/* Food Strip */}
-          <div className="grid grid-cols-3 gap-3 mt-8 max-w-2xl mx-auto">
-            {foodImages.map((img, j) => (
-              <div key={j} className="aspect-[3/2] rounded-xl overflow-hidden border border-border/20">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={300}
-                  height={200}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-xs text-muted-foreground mt-3">
-            Leckere Rezepte aus deinem individuellen Ernährungsplan
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, i) => (
+        {/* 3 Pillar Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {pillars.map((pillar, i) => (
             <div
               key={i}
-              className={`feature-card corner-decorator p-6 group scan-reveal ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.3 + i * 0.1}s` }}
+              className={`feature-card ${pillar.color === 'accent' ? 'feature-card--training' : ''} p-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.15 + i * 0.08}s` }}
             >
-              {/* Corner decorators */}
-              <span className="corner-bl absolute -bottom-px -left-px w-3 h-3 border-b-2 border-l-2 border-primary" />
-              <span className="corner-br absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-primary" />
-
-              {/* Highlight Badge */}
-              <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-4">
-                {feature.highlight}
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${
+                pillar.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+              }`}>
+                <pillar.icon className={`w-6 h-6 ${pillar.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
               </div>
-
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="w-7 h-7 text-primary" />
-              </div>
-
-              {/* Content */}
-              <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
-
+              <h3 className="text-xl font-bold mb-3">{pillar.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
             </div>
           ))}
         </div>
 
+        {/* §20 Badge */}
+        <div
+          className={`flex items-center gap-3 px-5 py-4 rounded-xl bg-primary/5 border border-primary/10 mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.4s' }}
+        >
+          <Shield className="w-5 h-5 text-primary shrink-0" />
+          <p className="text-sm">
+            <span className="text-primary font-semibold">§ 20 SGB V zertifiziert</span>
+            <span className="text-muted-foreground"> — Deine Krankenkasse erstattet bis zu 100% der Kosten.²³</span>
+          </p>
+        </div>
+
         {/* CTA */}
-        <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.9s' }}>
-          <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg">
-            Jetzt kostenloses Probetraining sichern
+        <div
+          className={`fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.45s' }}
+        >
+          <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3">
+            Jetzt Probetraining sichern
             <ArrowRight className="w-5 h-5" />
           </button>
-          <p className="text-muted-foreground text-sm mt-4">
-            ✓ Unverbindlich · ✓ 2 Minuten · ✓ 100% kostenlos
+          <p className="text-muted-foreground text-sm mt-3">
+            ✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert
           </p>
         </div>
       </div>

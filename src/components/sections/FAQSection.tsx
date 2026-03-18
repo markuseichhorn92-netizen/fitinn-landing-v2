@@ -2,67 +2,70 @@
 
 import { useState } from 'react'
 import { Plus, X } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { SectionBadge } from '@/components/SectionBadge'
 
 const faqs = [
   {
     question: 'Was genau ist HappyFigur?',
-    answer: 'HappyFigur ist ein 8-Wochen-Abnehmprogramm von FIT-INN Trier, zertifiziert nach § 20 SGB V. Du bekommst Körperanalyse, individuellen Trainings- und Ernährungsplan – und persönliche Betreuung vor Ort.'
+    answer: 'HappyFigur ist ein 8-Wochen-Abnehmprogramm von FIT-INN Trier, zertifiziert nach § 20 SGB V. Du bekommst Körperanalyse, individuellen Trainings- und Ernährungsplan — und persönliche Betreuung vor Ort.'
   },
   {
     question: 'Muss ich ins Studio kommen?',
-    answer: 'Ja, das Training findet im FIT-INN Trier (Auf Hirtenberg 8, Trier) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen – auch mit Job und Familie gut machbar.'
+    answer: 'Ja, das Training findet im FIT-INN Trier (Auf Hirtenberg 8, Trier) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen — auch mit Job und Familie gut machbar.'
   },
   {
     question: 'Was kostet das Programm?',
-    answer: '179€ einmalig – kein Abo, keine Mitgliedschaft. Im kostenlosen Probetraining klären wir, ob es zu dir passt – ohne Risiko.¹'
+    answer: '179€ einmalig — kein Abo, keine Mitgliedschaft. Im kostenlosen Probetraining klären wir, ob es zu dir passt — ohne Risiko.¹'
   },
   {
     question: 'Ich hab schon alles probiert — warum soll das klappen?',
-    answer: 'Weil wir nicht mit Diätplänen arbeiten, sondern deinen Stoffwechsel analysieren. Das Programm wird individuell auf dich zugeschnitten – nicht auf den Durchschnitt.⁴'
+    answer: 'Weil wir nicht mit Diätplänen arbeiten, sondern deinen Stoffwechsel analysieren. Das Programm wird individuell auf dich zugeschnitten — nicht auf den Durchschnitt.⁴'
   },
 ]
 
 export function FAQSection() {
+  const section = useScrollReveal(0.1)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i)
-
   return (
-    <section id="faq" className="py-7 relative">
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="text-center mb-10 animate-fade-up">
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Häufige Fragen</span>
-          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Deine Fragen — <span className="text-primary">ehrliche Antworten</span>
-          </h2>
-        </div>
+    <section id="faq" ref={section.ref} className="py-20 md:py-32 px-5">
+      <div className="mx-auto max-w-3xl">
+        <SectionBadge number="08" label="Fragen" />
 
-        <div className="flex flex-col gap-2">
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+        >
+          Häufige Fragen —<br />
+          <span className="text-primary">ehrliche Antworten</span>
+        </h2>
+
+        <div className="flex flex-col">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="feature-card overflow-hidden animate-fade-up"
-              style={{ animationDelay: `${i * 0.05}s` }}
+              className={`border-t border-border fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.1 + i * 0.06}s` }}
             >
               <button
-                className="w-full flex items-center justify-between gap-4 p-5 text-left"
-                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between gap-4 py-6 text-left"
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
               >
                 <span className="font-semibold text-base leading-snug">{faq.question}</span>
-                <span className={`shrink-0 w-7 h-7 rounded-full border border-border flex items-center justify-center transition-all duration-300 ${openIndex === i ? 'bg-primary border-primary text-primary-foreground rotate-0' : 'text-muted-foreground'}`}>
+                <span className={`shrink-0 w-7 h-7 rounded-full border border-border flex items-center justify-center transition-all duration-300 ${
+                  openIndex === i ? 'bg-primary border-primary text-primary-foreground' : 'text-muted-foreground'
+                }`}>
                   {openIndex === i ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 </span>
               </button>
 
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-out ${
-                  openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="px-5 pb-5 text-muted-foreground text-sm leading-relaxed border-t border-border pt-4">
+              <div className={`overflow-hidden transition-all duration-300 ${
+                openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}>
+                <p className="pb-6 text-muted-foreground text-sm leading-relaxed">
                   {faq.answer}
-                </div>
+                </p>
               </div>
             </div>
           ))}

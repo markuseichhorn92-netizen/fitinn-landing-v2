@@ -1,73 +1,75 @@
 'use client'
 
-import { Scale, Flame, TrendingDown, Frown } from 'lucide-react'
-import { useScrollReveal } from '@/hooks/useScrollReveal'
-
-const problems = [
-  {
-    icon: Scale,
-    title: "Die Waage bewegt sich nicht",
-    description: "Du achtest auf deine Ernährung – und trotzdem passiert nichts. Oder es wird sogar mehr."
-  },
-  {
-    icon: Flame,
-    title: "Der Stoffwechsel hat sich angepasst",
-    description: "Nach Jahren von Diäten verbrennt dein Körper weniger Energie. Das ist Biologie – keine Schwäche."
-  },
-  {
-    icon: TrendingDown,
-    title: "Der Jo-Jo-Effekt ist kein Zufall",
-    description: "Kaloriendefizit-Diäten enden immer gleich: Erst Erfolg, dann wieder alles drauf. Das System ist falsch – nicht du."
-  },
-  {
-    icon: Frown,
-    title: "Die stille Frage",
-    description: "\"Was stimmt nicht mit mir?\" Die ehrliche Antwort: Du hattest bisher nie den richtigen Ansatz."
-  }
-]
+import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
+import { SectionBadge } from '@/components/SectionBadge'
+import { X } from 'lucide-react'
 
 export function ProblemSection() {
   const section = useScrollReveal(0.1)
+  const counter1 = useCountUp(73, 1200, section.isVisible)
+  const counter2 = useCountUp(9, 1000, section.isVisible)
 
   return (
-    <section className="py-24 relative" ref={section.ref}>
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
+    <section ref={section.ref} className="py-20 md:py-32 px-5">
+      <div className="mx-auto max-w-5xl">
+        <SectionBadge number="01" label="Das Problem" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className={`text-center mb-16 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-accent uppercase tracking-widest font-semibold">Das Problem</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
-            Warum <span className="text-accent">Diäten beim Abnehmen scheitern</span>
-          </h2>
-          <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Studien zeigen: Die meisten Diäten scheitern langfristig. Das liegt nicht an dir – sondern am falschen Ansatz.
-          </p>
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+        >
+          Alles versucht.<br />
+          <span className="text-muted-foreground">Nichts hat funktioniert.</span>
+        </h2>
+
+        <p
+          className={`text-muted-foreground text-lg max-w-2xl mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.1s' }}
+        >
+          Du hast Diäten, Apps und Trainingspläne ausprobiert — aber nichts hat langfristig funktioniert. Das Problem ist nicht dein Wille. Es ist der Ansatz.
+        </p>
+
+        {/* Stat Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div
+            className={`border-t border-border pt-8 pb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.15s' }}
+          >
+            <span className="text-6xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
+              {counter1}%
+            </span>
+            <p className="text-muted-foreground mt-2">
+              aller Diäten enden im Jo-Jo-Effekt⁴
+            </p>
+          </div>
+          <div
+            className={`border-t border-border pt-8 pb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.25s' }}
+          >
+            <span className="text-6xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
+              {counter2} <span className="text-3xl md:text-4xl text-muted-foreground">von 10</span>
+            </span>
+            <p className="text-muted-foreground mt-2">
+              geben nach 6 Wochen auf — weil der Plan nicht zu ihrem Alltag passt
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, i) => (
+        {/* Problem points */}
+        <div className="space-y-4">
+          {[
+            'Die Waage bewegt sich nicht — egal was du isst',
+            'Jo-Jo-Effekt nach jeder Diät',
+            'Kein Plan, der wirklich zu deinem Alltag passt',
+          ].map((text, i) => (
             <div
               key={i}
-              className={`group p-6 bg-card border border-border rounded-xl hover:border-accent/30 transition-all duration-300 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.2 + i * 0.12}s` }}
+              className={`flex items-start gap-3 text-muted-foreground fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
-              <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                <problem.icon className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{problem.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{problem.description}</p>
+              <X className="w-5 h-5 text-destructive/60 shrink-0 mt-0.5" />
+              <span>{text}</span>
             </div>
           ))}
-        </div>
-
-        {/* Transition to Solution */}
-        <div className={`mt-16 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/30">
-            <span className="text-primary font-semibold">
-              ↓ Die gute Nachricht: Du kannst deinen Stoffwechsel neu aktivieren
-            </span>
-          </div>
         </div>
       </div>
     </section>

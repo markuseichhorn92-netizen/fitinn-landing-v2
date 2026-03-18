@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { Coins, CheckCircle2, ArrowRight, MessageCircle } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { useScrollFloat } from '@/hooks/useScrollFloat'
-import { FloatingDecor, EuroSvg, ShieldCheckSvg } from '@/components/FloatingDecor'
+import { SectionBadge } from '@/components/SectionBadge'
 
 const INSURANCE_DATA = [
   { value: 'aok-rlp', label: 'AOK Rheinland-Pfalz', amount: 179 },
@@ -29,17 +28,16 @@ const INSURANCE_DATA = [
 const PROGRAM_PRICE = 179
 
 const included = [
-  { text: '3x Körperanalyse (Inbody)', pillar: 'training' as const },
+  { text: '3× Körperanalyse (InBody)', pillar: 'training' as const },
   { text: '8 Wochen Studionutzung', pillar: 'training' as const },
   { text: 'Einweisung + Coach vor Ort', pillar: 'training' as const },
   { text: 'Individueller Ernährungsplan', pillar: 'ernaehrung' as const },
   { text: 'Online-Lernplattform happyfigur', pillar: 'ernaehrung' as const },
-  { text: 'Persönlicher Support per WhatsApp', pillar: 'ernaehrung' as const },
+  { text: 'Persönlicher Support per Chat', pillar: 'ernaehrung' as const },
 ]
 
 export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.1)
-  const float = useScrollFloat(0.05)
   const [selected, setSelected] = useState('')
   const [amount, setAmount] = useState(0)
 
@@ -53,84 +51,73 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
   const isFree = eigenanteil === 0
 
   return (
-    <section id="krankenkasse" className="py-7 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
-      {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '8%', right: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-65} sizeClass="w-6 h-6 md:w-13 md:h-13 lg:w-16 lg:h-16">
-        <EuroSvg className="w-full h-full text-primary" />
-      </FloatingDecor>
-      <FloatingDecor position={{ bottom: '10%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={55} sizeClass="w-5 h-5 md:w-11 md:h-11 lg:w-14 lg:h-14">
-        <ShieldCheckSvg className="w-full h-full text-primary" />
-      </FloatingDecor>
-      <FloatingDecor position={{ top: '30%', left: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={75} sizeClass="w-4 h-4 md:w-10 md:h-10 lg:w-12 lg:h-12">
-        <EuroSvg className="w-full h-full text-accent" />
-      </FloatingDecor>
+    <section id="krankenkasse" ref={section.ref} className="py-20 md:py-32 px-5">
+      <div className="mx-auto max-w-5xl">
+        <SectionBadge number="06" label="Investition" />
 
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Section Header */}
-        <div className={`text-center mb-12 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-accent uppercase tracking-widest font-semibold">Was kostet happyfigur wirklich?</span>
-          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            179€ einmalig –{' '}
-            <span className="text-primary">oft zurückerstattet</span>
-          </h2>
-          <p className="text-muted-foreground text-base mt-3 max-w-xl mx-auto">
-            Kein Abo. Du zahlst einmal – und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.<sup>²³</sup>
-          </p>
-        </div>
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+        >
+          179 € — bei vielen Kassen<br />
+          <span className="text-primary">komplett erstattet</span>
+        </h2>
+
+        <p
+          className={`text-muted-foreground text-lg max-w-2xl mb-14 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.1s' }}
+        >
+          Kein Abo. Du zahlst einmal — und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.²³
+        </p>
 
         {/* Two-column layout */}
         <div className="grid md:grid-cols-2 gap-8">
 
           {/* Left: What's included */}
-          <div className={`feature-card p-6 md:p-8 float-in-left ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+          <div
+            className={`fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.15s' }}
+          >
+            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-6">Im Programm enthalten</h3>
 
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Im Programm enthalten</h3>
+            <div className="space-y-0">
+              {included.map((item, i) => (
+                <div key={i} className="flex items-center gap-3 py-3 border-b border-border last:border-0">
+                  <CheckCircle2 className={`w-4 h-4 shrink-0 ${item.pillar === 'training' ? 'text-accent' : 'text-primary'}`} />
+                  <span className="text-sm">{item.text}</span>
+                </div>
+              ))}
+            </div>
 
-            {included.map((item, i) => (
-              <div
-                key={i}
-                className={`checklist-item flex items-center gap-2.5 py-3 border-b border-border/30 last:border-0 ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-                style={{ animationDelay: `${0.4 + i * 0.2}s` }}
-              >
-                <CheckCircle2 className={`check-icon w-4 h-4 shrink-0 ${item.pillar === 'training' ? 'text-accent' : 'text-primary'}`} />
-                <span className="text-sm text-muted-foreground flex-1">{item.text}</span>
-                <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded shrink-0 ${
-                  item.pillar === 'training' ? 'bg-accent/10 text-accent' : 'bg-primary/10 text-primary'
-                }`}>
-                  {item.pillar === 'training' ? 'Training' : 'Ernährung'}
-                </span>
-              </div>
-            ))}
-
-            {/* Real price box */}
-            <div className="mt-6 bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
+            {/* Price */}
+            <div className="mt-8 border-t border-border pt-6">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Einmaliger Programmpreis</p>
-              <div className={`text-5xl font-bold text-primary price-shimmer ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '1.6s' }}>179€<sup className="text-2xl">¹</sup></div>
-              <p className="text-sm text-primary font-semibold mt-2">Einmalig · Für 8 Wochen · Kein Abo</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Das sind nur <strong className="text-foreground">3,20€/Tag</strong> — weniger als ein Kaffee.<sup>¹</sup>
+              <div className={`text-5xl font-bold text-primary price-shimmer ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '1s' }}>
+                179€<sup className="text-2xl">¹</sup>
+              </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                Einmalig · 8 Wochen · Kein Abo — nur <strong className="text-foreground">3,20€/Tag</strong>¹
               </p>
             </div>
           </div>
 
-          {/* Right: Insurance Calculator */}
-          <div className={`feature-card p-6 md:p-8 flex flex-col float-in-right ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.35s' }}>
-
+          {/* Right: Calculator */}
+          <div
+            className={`feature-card p-6 md:p-8 flex flex-col fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.25s' }}
+          >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Coins className="w-5 h-5 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold">Wie viel erstattet deine Kasse?</h3>
+              <Coins className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-bold">Wie viel erstattet deine Kasse?</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-5">
-              § 20 SGB V zertifiziert – bis zu 100% der Kosten erstattet.<sup>²³</sup>
+              § 20 SGB V zertifiziert — bis zu 100% erstattet.²³
             </p>
 
             <select
               value={selected}
               onChange={(e) => handleChange(e.target.value)}
               aria-label="Krankenkasse auswählen"
-              className="w-full p-3.5 rounded-xl bg-secondary border-2 border-border text-foreground cursor-pointer text-base hover:border-primary/50 transition-colors focus:border-primary focus:outline-none"
+              className="w-full p-3.5 rounded-xl bg-secondary border border-border text-foreground cursor-pointer text-base hover:border-primary/30 transition-colors focus:border-primary focus:outline-none"
             >
               <option value="">— Wähle deine Krankenkasse —</option>
               {INSURANCE_DATA.map(insurance => (
@@ -144,55 +131,48 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
             {amount > 0 && (
               <div className="mt-5 animate-scale-in">
                 {isFree ? (
-                  <div className="p-6 bg-primary/20 border-2 border-primary rounded-xl text-center">
+                  <div className="p-6 bg-primary/10 border border-primary/20 rounded-xl text-center">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Dein Eigenanteil</p>
-                    <div className="text-6xl font-bold text-primary mb-2">0€</div>
+                    <div className="text-5xl font-bold text-primary mb-2">0€</div>
                     <div className="flex items-center justify-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary" />
-                      <span className="text-sm font-semibold text-primary">Deine Kasse zahlt alles<sup>²³</sup></span>
+                      <span className="text-sm font-semibold text-primary">Deine Kasse zahlt alles²³</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-3">
                       {amount}€ Erstattung · Du zahlst 179€ vor, bekommst {amount}€ zurück
                     </p>
                   </div>
                 ) : (
-                  <div className="p-5 bg-card border border-border rounded-xl">
+                  <div className="p-5 border border-border rounded-xl">
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-sm text-muted-foreground">Programmpreis</span>
-                      <span className="font-semibold">{PROGRAM_PRICE}€<sup>¹</sup></span>
+                      <span className="font-semibold">{PROGRAM_PRICE}€¹</span>
                     </div>
                     <div className="flex justify-between items-center mb-3 text-primary">
-                      <span className="text-sm">Erstattung Krankenkasse</span>
-                      <span className="font-semibold">−{amount}€<sup>³</sup></span>
+                      <span className="text-sm">Erstattung</span>
+                      <span className="font-semibold">−{amount}€³</span>
                     </div>
                     <div className="flex justify-between items-center pt-3 border-t border-border">
-                      <span className="font-semibold">Dein Eigenanteil</span>
-                      <span className="text-3xl font-bold text-accent">{eigenanteil.toFixed(2)}€</span>
+                      <span className="font-semibold">Eigenanteil</span>
+                      <span className="text-2xl font-bold text-accent">{eigenanteil.toFixed(2)}€</span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-3 text-center">
-                      Das sind nur <span className="text-foreground font-semibold">{(eigenanteil / 56).toFixed(2)}€/Tag<sup>¹</sup></span> — weniger als ein Kaffee
-                    </p>
                   </div>
                 )}
               </div>
             )}
 
-            {/* Spacer to push CTA to bottom */}
             <div className="flex-1" />
 
             {/* CTA */}
-            <div className="mt-6 text-center space-y-3">
-              <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 text-lg w-full justify-center">
+            <div className="mt-6 space-y-3">
+              <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3 w-full justify-center">
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
               </button>
               <button type="button" onClick={() => openLiveChat()} className="btn-outline w-full justify-center">
                 <MessageCircle className="w-4 h-4" />
-                Noch Fragen? Chatte mit uns
+                Noch Fragen?
               </button>
-              <p className="text-xs text-muted-foreground mt-1">
-                Du zahlst bei Trainingsstart<sup>¹</sup>, Krankenkasse erstattet dir das Geld zurück.<sup>²</sup>
-              </p>
             </div>
           </div>
         </div>

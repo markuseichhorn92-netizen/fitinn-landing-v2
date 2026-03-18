@@ -2,15 +2,13 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { User, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { useScrollFloat } from '@/hooks/useScrollFloat'
-import { FloatingDecor, MedalSvg, DumbbellSvg, LeafSvg } from '@/components/FloatingDecor'
+import { SectionBadge } from '@/components/SectionBadge'
 
 export function TrainerSection() {
   const section = useScrollReveal(0.1)
-  const float = useScrollFloat(0.05)
-  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({})
+  const [imgError, setImgError] = useState(false)
 
   const team = [
     {
@@ -18,7 +16,7 @@ export function TrainerSection() {
       role: 'Head Coach · Personal Trainer',
       img: '/78f9c09701964478e73aa59a376482ba473970ca-1920x2000 (1).avif',
       initials: 'ME',
-      color: 'accent',
+      color: 'accent' as const,
       tags: ['Personal Trainer', 'Head Coach', 'Seit 2009'],
     },
     {
@@ -26,7 +24,7 @@ export function TrainerSection() {
       role: 'Qualifiziertes Trainer-Team',
       img: '',
       initials: '💪',
-      color: 'accent',
+      color: 'accent' as const,
       tags: ['Betreuung vor Ort', 'Technik & Korrekturen', 'Motivation'],
     },
     {
@@ -34,83 +32,70 @@ export function TrainerSection() {
       role: 'Zertifizierte Ernährungsberatung',
       img: '',
       initials: '🥗',
-      color: 'primary',
+      color: 'primary' as const,
       tags: ['Ernährungspläne', '§ 20 zertifiziert', 'Individuelle Beratung'],
     },
   ]
 
   return (
-    <section className="py-10 relative overflow-hidden" ref={(node) => { section.ref(node); float.ref(node) }}>
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/4 rounded-full blur-3xl" />
-      </div>
+    <section ref={section.ref} className="py-20 md:py-32 px-5">
+      <div className="mx-auto max-w-5xl">
+        <SectionBadge number="05" label="Dein Team" />
 
-      {/* Floating Decorations */}
-      <FloatingDecor position={{ top: '10%', right: '5%' }} isVisible={float.isVisible} progress={float.progress} delay={0.2} parallax={-55} sizeClass="w-6 h-6 md:w-12 md:h-12 lg:w-14 lg:h-14">
-        <MedalSvg className="w-full h-full text-accent" />
-      </FloatingDecor>
-      <FloatingDecor position={{ bottom: '15%', left: '4%' }} isVisible={float.isVisible} progress={float.progress} delay={0.4} parallax={65} sizeClass="w-5 h-5 md:w-11 md:h-11 lg:w-13 lg:h-13">
-        <DumbbellSvg className="w-full h-full text-accent" />
-      </FloatingDecor>
-      <FloatingDecor position={{ top: '30%', left: '3%' }} isVisible={float.isVisible} progress={float.progress} delay={0.3} parallax={50} sizeClass="w-4 h-4 md:w-9 md:h-9 lg:w-11 lg:h-11">
-        <LeafSvg className="w-full h-full text-primary" />
-      </FloatingDecor>
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+        >
+          Persönliche Betreuung —<br />
+          <span className="text-primary">kein App-Training.</span>
+        </h2>
 
-      <div className="relative mx-auto max-w-4xl px-6">
-        <div className={`text-center mb-10 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
-          <span className="text-sm text-primary uppercase tracking-widest font-semibold">Training & Ernährung — persönlich betreut</span>
-          <h2 className="text-xl md:text-2xl font-semibold uppercase tracking-wide mt-4">
-            Unser <span className="text-primary">Team</span> für deinen Erfolg
-          </h2>
-        </div>
+        <p
+          className={`text-muted-foreground text-lg max-w-2xl mb-14 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.1s' }}
+        >
+          Bei uns trainierst du nicht allein. Unser Team ist immer vor Ort — für Fragen, Korrekturen und Motivation.
+        </p>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        {/* Team Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {team.map((member, i) => (
             <div
               key={member.name}
-              className={`feature-card p-6 text-center materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.2 + i * 0.15}s` }}
+              className={`border-t ${member.color === 'accent' ? 'border-accent/20' : 'border-primary/20'} pt-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.15 + i * 0.08}s` }}
             >
               {/* Avatar */}
               <div className="mb-4">
-                {member.img && !imgErrors[member.name] ? (
-                  <div className={`w-24 h-24 rounded-full overflow-hidden border-2 mx-auto ${member.color === 'accent' ? 'border-accent/40' : 'border-primary/40'}`}>
+                {member.img && !imgError ? (
+                  <div className="w-16 h-16 rounded-full overflow-hidden border border-accent/30">
                     <Image
                       src={member.img}
                       alt={`${member.name} – FIT-INN Trier`}
-                      width={96}
-                      height={96}
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover object-top"
-                      onError={() => setImgErrors(e => ({ ...e, [member.name]: true }))}
+                      onError={() => setImgError(true)}
                     />
                   </div>
                 ) : (
-                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto text-xl font-bold ${
-                    member.color === 'accent'
-                      ? 'bg-accent/10 border-2 border-accent/30 text-accent'
-                      : 'bg-primary/10 border-2 border-primary/30 text-primary'
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-lg ${
+                    member.color === 'accent' ? 'bg-accent/10 text-accent' : 'bg-primary/10 text-primary'
                   }`}>
                     {member.initials}
                   </div>
                 )}
               </div>
 
-              {/* Name + Rolle */}
-              <h3 className="text-lg font-bold text-foreground">{member.name}</h3>
+              <h3 className="text-lg font-bold">{member.name}</h3>
               <p className={`text-xs font-medium mb-3 ${member.color === 'accent' ? 'text-accent' : 'text-primary'}`}>
                 {member.role}
               </p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 justify-center">
+              <div className="flex flex-wrap gap-1.5">
                 {member.tags.map((tag, j) => (
                   <span
                     key={j}
-                    className={`text-[10px] px-2.5 py-1 rounded-full font-medium border ${
-                      member.color === 'accent'
-                        ? 'bg-accent/10 border-accent/20 text-accent'
-                        : 'bg-primary/10 border-primary/20 text-primary'
-                    }`}
+                    className="text-[10px] px-2.5 py-1 rounded-full bg-card border border-border text-muted-foreground"
                   >
                     {tag}
                   </span>
@@ -120,17 +105,17 @@ export function TrainerSection() {
           ))}
         </div>
 
-        {/* Team-Quote */}
-        <div className={`mt-6 feature-card p-6 materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-          <div className="flex items-center gap-1 mb-3 justify-center">
+        {/* Team Quote */}
+        <div
+          className={`flex items-center gap-3 text-sm text-muted-foreground fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.4s' }}
+        >
+          <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+              <Star key={i} className="w-3.5 h-3.5 fill-accent text-accent" />
             ))}
-            <span className="text-xs text-muted-foreground ml-2">4.9 · FIT-INN Trier</span>
           </div>
-          <blockquote className="text-center text-sm text-muted-foreground italic leading-relaxed max-w-2xl mx-auto">
-            &ldquo;Bei uns trainierst du nicht allein. Unser Team ist immer vor Ort — für Fragen, Korrekturen und Motivation. Dein Ziel ist unser Ziel.&rdquo;
-          </blockquote>
+          <span>4.9 · FIT-INN Trier · 127 Bewertungen</span>
         </div>
       </div>
     </section>

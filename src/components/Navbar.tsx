@@ -52,8 +52,8 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
     <nav
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled || mobileOpen
-          ? 'bg-background backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/20'
-          : 'bg-background border-b border-border/20 md:bg-background/60 md:backdrop-blur-md md:border-white/5'
+          ? 'bg-background/95 backdrop-blur-sm border-b border-border/10'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="mx-auto max-w-7xl px-5 flex items-center justify-between h-16 md:h-20">
