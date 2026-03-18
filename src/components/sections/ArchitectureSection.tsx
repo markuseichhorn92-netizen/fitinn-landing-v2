@@ -283,7 +283,7 @@ function CenterHub() {
         {/* FIT-INN Logo */}
         <div className="w-16 h-16 mx-auto mb-3">
           <img
-            src="/full_trimmed_transparent_color1-6.png"
+            src="/favicon.jpg"
             alt="FIT-INN Trier"
             width={64}
             height={64}

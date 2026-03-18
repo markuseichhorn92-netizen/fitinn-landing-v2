@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, AlertTriangle, Sparkles, BarChart2, Star, Users, Euro, ShieldCheck, HelpCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
@@ -90,8 +90,7 @@ export default function Home() {
         <KPIDashboard />
       </section>
 
-      {/* ═══ Journey Navigation ═══ */}
-      <JourneyNav />
+      {/* Navigation über Navbar — keine separate Journey-Nav nötig */}
 
       {/* 01 — Das Problem */}
       <div className="relative overflow-hidden">
@@ -279,112 +278,6 @@ export default function Home() {
         </div>
       </footer>
     </main>
-  )
-}
-
-/* ─── Journey Navigation ─── */
-const journeySteps = [
-  { number: '01', label: 'Das Problem', icon: AlertTriangle, href: '#problem', pillar: 'muted' as const },
-  { number: '02', label: 'Die Lösung', icon: Sparkles, href: '#programm', pillar: 'green' as const },
-  { number: '03', label: 'Dein Weg', icon: BarChart2, href: '#ablauf', pillar: 'gold' as const },
-  { number: '04', label: 'Ergebnisse', icon: Star, href: '#erfahrungen', pillar: 'gold' as const },
-  { number: '05', label: 'Dein Team', icon: Users, href: '#team', pillar: 'gold' as const },
-  { number: '06', label: 'Investition', icon: Euro, href: '#krankenkasse', pillar: 'green' as const },
-  { number: '07', label: 'Sicherheit', icon: ShieldCheck, href: '#garantie', pillar: 'green' as const },
-  { number: '08', label: 'FAQ', icon: HelpCircle, href: '#faq', pillar: 'muted' as const },
-]
-
-const pillarStyles = {
-  muted: {
-    dot: 'bg-muted-foreground/30',
-    dotActive: 'bg-muted-foreground',
-    text: 'text-muted-foreground',
-    line: 'bg-muted-foreground/20',
-  },
-  green: {
-    dot: 'bg-primary/30',
-    dotActive: 'bg-primary',
-    text: 'text-primary',
-    line: 'bg-primary/20',
-  },
-  gold: {
-    dot: 'bg-accent/30',
-    dotActive: 'bg-accent',
-    text: 'text-accent',
-    line: 'bg-accent/20',
-  },
-}
-
-function JourneyNav() {
-  const scrollTo = (href: string) => {
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  return (
-    <section className="py-10 md:py-14 px-5">
-      <div className="mx-auto max-w-4xl">
-        <p className="text-center text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-8">
-          Deine Reise auf einen Blick
-        </p>
-
-        {/* Desktop: horizontal timeline */}
-        <div className="hidden md:block">
-          <div className="relative">
-            {/* Connector line */}
-            <div className="absolute top-3 left-0 right-0 h-px bg-border" />
-
-            <div className="grid grid-cols-8">
-              {journeySteps.map((step, i) => {
-                const styles = pillarStyles[step.pillar]
-                return (
-                  <button
-                    key={i}
-                    onClick={() => scrollTo(step.href)}
-                    className="relative flex flex-col items-center group cursor-pointer bg-transparent border-0 p-0"
-                  >
-                    {/* Dot on the line */}
-                    <div className={`w-6 h-6 rounded-full border-2 border-background ${styles.dotActive} z-10 transition-transform duration-300 group-hover:scale-125 shadow-sm`} />
-
-                    {/* Number */}
-                    <span className={`mt-3 text-lg font-extrabold font-barlow-condensed ${styles.text} transition-colors`}>
-                      {step.number}
-                    </span>
-
-                    {/* Label */}
-                    <span className="text-[10px] text-muted-foreground font-medium leading-tight text-center mt-0.5 group-hover:text-foreground transition-colors">
-                      {step.label}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile: compact 2-row grid */}
-        <div className="md:hidden">
-          <div className="grid grid-cols-4 gap-y-5 gap-x-2">
-            {journeySteps.map((step, i) => {
-              const styles = pillarStyles[step.pillar]
-              return (
-                <button
-                  key={i}
-                  onClick={() => scrollTo(step.href)}
-                  className="flex flex-col items-center gap-1.5 bg-transparent border-0 p-0 cursor-pointer"
-                >
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${step.pillar === 'green' ? 'bg-primary/10' : step.pillar === 'gold' ? 'bg-accent/10' : 'bg-muted'}`}>
-                    <step.icon className={`w-3.5 h-3.5 ${styles.text}`} />
-                  </div>
-                  <span className={`text-[10px] font-bold font-mono ${styles.text}`}>{step.number}</span>
-                  <span className="text-[9px] text-muted-foreground leading-tight text-center">{step.label}</span>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
   )
 }
 

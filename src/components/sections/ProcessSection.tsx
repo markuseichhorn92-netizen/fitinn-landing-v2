@@ -182,21 +182,31 @@ export function ProcessSection() {
           </div>
         </div>
 
-        {/* ═══ MOBILE: Vertical sequential timeline ═══ */}
+        {/* ═══ MOBILE: Vertikale Timeline (gleicher Style wie Desktop) ═══ */}
         <div className="md:hidden">
-          <div className="relative pl-10">
-            {/* Vertical line */}
-            <div className="absolute left-[19px] top-0 bottom-0 w-0.5 bg-border" />
-            {/* Animated fill line */}
-            <div
-              className="absolute left-[19px] top-0 w-0.5 bg-primary transition-all ease-out"
-              style={{
-                height: activeStep >= 0 ? `${Math.min(100, (activeStep / (steps.length - 1)) * 100)}%` : '0%',
-                transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
-              }}
-            />
+          <div className="relative pl-14">
+            {/* Vertikale Hintergrund-Linie — zentriert durch Icons */}
+            <div className="absolute left-[27px] top-6 bottom-6 w-[2px] bg-border/40 rounded-full" />
 
-            <div className="space-y-8">
+            {/* Animierte farbige Segmente */}
+            {[0, 1, 2].map(i => {
+              const colors = colorMap[steps[i].color]
+              const shouldFill = i < activeStep
+              return (
+                <div
+                  key={`vseg-${i}`}
+                  className={`absolute left-[27px] w-[2px] rounded-full origin-top transition-transform ease-out ${colors.line}`}
+                  style={{
+                    top: `calc(${i * 25}% + 48px)`,
+                    height: 'calc(25% - 40px)',
+                    transform: shouldFill ? 'scaleY(1)' : 'scaleY(0)',
+                    transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
+                  }}
+                />
+              )
+            })}
+
+            <div className="space-y-10">
               {steps.map((step, i) => {
                 const colors = colorMap[step.color]
                 const isActive = i <= activeStep
@@ -204,31 +214,36 @@ export function ProcessSection() {
 
                 return (
                   <div key={i} className="relative">
-                    {/* Dot on the line */}
-                    <div
-                      className={`absolute -left-10 top-1 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                        isActive
-                          ? `${colors.iconBg} border ${colors.iconBorder} shadow-md ${colors.glow} scale-100`
-                          : 'bg-secondary border border-border scale-75 opacity-40'
-                      }`}
-                    >
-                      <step.icon className={`w-4.5 h-4.5 transition-colors duration-500 ${isActive ? colors.iconText : 'text-muted-foreground/40'}`} />
-
-                      {justActivated && (
-                        <div className={`absolute inset-0 rounded-xl border ${colors.iconBorder} animate-[ping_0.8s_ease-out_forwards]`} />
-                      )}
+                    {/* Icon — absolut links positioniert auf der Linie */}
+                    <div className="absolute -left-14 top-0">
+                      <div
+                        className={`relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 ${
+                          isActive
+                            ? `${colors.iconBorder} ${colors.iconBg} shadow-lg ${colors.glow} scale-100`
+                            : 'border-border bg-secondary scale-75 opacity-40'
+                        }`}
+                      >
+                        <step.icon className={`w-6 h-6 transition-colors duration-500 ${isActive ? colors.iconText : 'text-muted-foreground/40'}`} />
+                        {justActivated && (
+                          <div className={`absolute inset-0 rounded-2xl border-2 ${colors.iconBorder} animate-[ping_0.8s_ease-out_forwards]`} />
+                        )}
+                      </div>
                     </div>
 
                     {/* Content */}
                     <div
                       className={`transition-all duration-500 ${
-                        isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                        isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-3'
                       }`}
                     >
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-1.5 ${colors.iconBg} ${colors.numberText}`}>
+                      <div
+                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-2 transition-all duration-500 ${
+                          isActive ? `${colors.iconBg} ${colors.numberText}` : 'bg-transparent text-transparent'
+                        }`}
+                      >
                         {step.when}
-                      </span>
-                      <h3 className="text-base font-bold mb-1">{step.title}</h3>
+                      </div>
+                      <h3 className="text-lg font-bold mb-1">{step.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
                     </div>
                   </div>
