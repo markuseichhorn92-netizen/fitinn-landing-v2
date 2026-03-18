@@ -74,10 +74,10 @@ export function TrainerSection() {
             sizes="(max-width: 768px) 100vw, 960px"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-4 left-5 md:left-6">
-            <p className="text-white font-bold text-lg md:text-xl drop-shadow-md">FIT-INN Trier</p>
-            <p className="text-white/80 text-sm drop-shadow-md">Dein Studio für happyfigur</p>
+            <p className="text-white font-bold text-lg md:text-xl drop-shadow-lg" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>FIT-INN Trier</p>
+            <p className="text-white/90 text-sm drop-shadow-lg" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.5)' }}>Dein Studio für happyfigur</p>
           </div>
         </div>
 

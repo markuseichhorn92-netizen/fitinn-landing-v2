@@ -11,9 +11,9 @@ const pillars = [
     title: 'Ernährung ohne Verbote',
     description: 'Kein Kalorienzählen, keine Diät. Ein alltagstauglicher Ernährungsplan, den du auch in zwei Jahren noch lebst.',
     color: 'primary' as const,
-    image: '/mockup-paket.avif',
-    imageAlt: 'Happyfigur Paket — Ernährungsplan, Rezeptbuch, Online-Plattform',
-    isMockup: true,
+    image: '/Gemini_Generated_Image_eoal4reoal4reoal.png',
+    imageAlt: 'Gesunde Ernährung ohne Verbote — happyfigur',
+    isMockup: false,
   },
   {
     icon: Dumbbell,
@@ -29,9 +29,9 @@ const pillars = [
     title: 'Persönliche Betreuung',
     description: 'Trainer immer vor Ort ansprechbar. Dazu 24/7 Support per Live-Chat, E-Mail und Telefon.',
     color: 'primary' as const,
-    image: '/FS_Whatsapp_Mockup-web.png',
-    imageAlt: 'Persönliche Betreuung per Chat — happyfigur Support',
-    isMockup: true,
+    image: '/Gemini_Generated_Image_opjcz0opjcz0opjc.png',
+    imageAlt: 'Persönliche Betreuung — Trainerin mit Kundin im Studio',
+    isMockup: false,
   },
 ]
 
