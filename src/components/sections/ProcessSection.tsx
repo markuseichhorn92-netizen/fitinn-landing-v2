@@ -184,72 +184,68 @@ export function ProcessSection() {
 
         {/* ═══ MOBILE: Vertikale Timeline (gleicher Style wie Desktop) ═══ */}
         <div className="md:hidden">
-          <div className="relative pl-14">
-            {/* Vertikale Hintergrund-Linie — zentriert durch Icons */}
-            <div className="absolute left-[27px] top-6 bottom-6 w-[2px] bg-border/40 rounded-full" />
+          <div className="relative">
+            {steps.map((step, i) => {
+              const colors = colorMap[step.color]
+              const isActive = i <= activeStep
+              const justActivated = i === activeStep
+              const isLast = i === steps.length - 1
 
-            {/* Animierte farbige Segmente */}
-            {[0, 1, 2].map(i => {
-              const colors = colorMap[steps[i].color]
-              const shouldFill = i < activeStep
               return (
-                <div
-                  key={`vseg-${i}`}
-                  className={`absolute left-[27px] w-[2px] rounded-full origin-top transition-transform ease-out ${colors.line}`}
-                  style={{
-                    top: `calc(${i * 25}% + 48px)`,
-                    height: 'calc(25% - 40px)',
-                    transform: shouldFill ? 'scaleY(1)' : 'scaleY(0)',
-                    transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
-                  }}
-                />
-              )
-            })}
-
-            <div className="space-y-10">
-              {steps.map((step, i) => {
-                const colors = colorMap[step.color]
-                const isActive = i <= activeStep
-                const justActivated = i === activeStep
-
-                return (
-                  <div key={i} className="relative">
-                    {/* Icon — absolut links positioniert auf der Linie */}
-                    <div className="absolute -left-14 top-0">
-                      <div
-                        className={`relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 ${
-                          isActive
-                            ? `${colors.iconBorder} ${colors.iconBg} shadow-lg ${colors.glow} scale-100`
-                            : 'border-border bg-secondary scale-75 opacity-40'
-                        }`}
-                      >
-                        <step.icon className={`w-6 h-6 transition-colors duration-500 ${isActive ? colors.iconText : 'text-muted-foreground/40'}`} />
-                        {justActivated && (
-                          <div className={`absolute inset-0 rounded-2xl border-2 ${colors.iconBorder} animate-[ping_0.8s_ease-out_forwards]`} />
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Content */}
+                <div key={i} className="flex gap-4">
+                  {/* Linke Spalte: Icon + Linie */}
+                  <div className="flex flex-col items-center">
+                    {/* Icon */}
                     <div
-                      className={`transition-all duration-500 ${
-                        isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-3'
+                      className={`relative z-10 w-12 h-12 rounded-2xl flex items-center justify-center border-2 flex-shrink-0 transition-all duration-500 ${
+                        isActive
+                          ? `${colors.iconBorder} ${colors.iconBg} shadow-lg ${colors.glow} scale-100`
+                          : 'border-border bg-secondary scale-75 opacity-40'
                       }`}
                     >
-                      <div
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-2 transition-all duration-500 ${
-                          isActive ? `${colors.iconBg} ${colors.numberText}` : 'bg-transparent text-transparent'
-                        }`}
-                      >
-                        {step.when}
-                      </div>
-                      <h3 className="text-lg font-bold mb-1">{step.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                      <step.icon className={`w-5 h-5 transition-colors duration-500 ${isActive ? colors.iconText : 'text-muted-foreground/40'}`} />
+                      {justActivated && (
+                        <div className={`absolute inset-0 rounded-2xl border-2 ${colors.iconBorder} animate-[ping_0.8s_ease-out_forwards]`} />
+                      )}
                     </div>
+
+                    {/* Verbindungslinie zum nächsten Step */}
+                    {!isLast && (
+                      <div className="relative w-[2px] flex-1 my-1.5">
+                        {/* Hintergrund */}
+                        <div className="absolute inset-0 bg-border/40 rounded-full" />
+                        {/* Farbige Füllung */}
+                        <div
+                          className={`absolute inset-x-0 top-0 rounded-full origin-top transition-transform ease-out ${colors.line}`}
+                          style={{
+                            height: '100%',
+                            transform: i < activeStep ? 'scaleY(1)' : 'scaleY(0)',
+                            transitionDuration: `${STEP_INTERVAL * 0.8}ms`,
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
-                )
-              })}
-            </div>
+
+                  {/* Rechte Spalte: Content */}
+                  <div
+                    className={`flex-1 pb-6 pt-1 transition-all duration-500 ${
+                      isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-3'
+                    }`}
+                  >
+                    <div
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-1.5 transition-all duration-500 ${
+                        isActive ? `${colors.iconBg} ${colors.numberText}` : 'bg-transparent text-transparent'
+                      }`}
+                    >
+                      {step.when}
+                    </div>
+                    <h3 className="text-base font-bold mb-1">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

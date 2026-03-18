@@ -15,7 +15,7 @@ import { TrainerSection } from '@/components/sections/TrainerSection'
 import { InsuranceCalculator } from '@/components/sections/InsuranceCalculator'
 import { GuaranteeSection } from '@/components/sections/GuaranteeSection'
 import { FAQSection } from '@/components/sections/FAQSection'
-import { ArchitectureSection } from '@/components/sections/ArchitectureSection'
+// ArchitectureSection ist jetzt in SolutionSection integriert
 import { InsuranceBenchmark } from '@/components/InsuranceBenchmark'
 import { DecoIcons, problemIcons, solutionIcons, processIcons, testimonialIcons, trainerIcons, insuranceIcons, guaranteeIcons, faqIcons, ctaIcons } from '@/components/SectionDecorations'
 
@@ -98,81 +98,85 @@ export default function Home() {
         <ProblemSection />
       </div>
 
-      {/* Wave transition → subtle bg */}
-      <SectionWave />
+      {/* ── Übergang: Gradient in Grün-Hauch ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-background via-[#f0f7f0] to-[#f0f7f0]" />
 
-      {/* 02 — Die Lösung */}
-      <div className="section-bg-subtle relative overflow-hidden">
+      {/* 02 — Die Lösung (leichter Grün-Hauch) */}
+      <div className="relative overflow-hidden" style={{ backgroundColor: '#f0f7f0' }}>
         <div className="glow-orb glow-orb--green w-[400px] h-[400px] -top-32 -left-48" />
         <DecoIcons icons={solutionIcons} />
         <SolutionSection onStartQuiz={startQuiz} />
       </div>
 
-      <SectionWave flip />
-
-      {/* Architektur-Diagramm */}
-      <div className="relative bg-dot-grid">
-        <ArchitectureSection />
-      </div>
-
-      <SectionWave />
+      {/* ── Übergang: Gradient Grün → Weiß ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-[#f0f7f0] to-background" />
 
       {/* 03 — Dein Weg */}
-      <div className="section-bg-subtle relative overflow-hidden">
+      <div className="relative overflow-hidden">
         <div className="glow-orb glow-orb--gold w-[350px] h-[350px] top-20 -right-32" />
         <DecoIcons icons={processIcons} />
         <ProcessSection />
       </div>
 
-      <SectionWave flip />
+      {/* ── Übergang: Schräge in Gold-Hauch ── */}
+      <div className="relative h-16 md:h-24 overflow-hidden">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="absolute inset-0 w-full h-full" fill="#faf6ee">
+          <polygon points="0,80 1440,0 1440,80" />
+        </svg>
+      </div>
 
-      {/* 04 — Ergebnisse */}
-      <div className="relative overflow-hidden">
+      {/* 04 — Ergebnisse (leichter Gold-Hauch) */}
+      <div className="relative overflow-hidden" style={{ backgroundColor: '#faf6ee' }}>
         <div className="glow-orb glow-orb--green w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         <DecoIcons icons={testimonialIcons} />
         <Testimonials />
       </div>
 
-      <SectionWave />
+      {/* ── Übergang: Gradient Gold → Weiß ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-[#faf6ee] to-background" />
 
       {/* 05 — Dein Team */}
-      <div className="section-bg-subtle relative overflow-hidden">
+      <div className="relative overflow-hidden">
         <div className="glow-orb glow-orb--gold w-[300px] h-[300px] -top-20 -left-32" />
         <DecoIcons icons={trainerIcons} />
         <TrainerSection />
       </div>
 
-      <SectionWave flip />
+      {/* ── Übergang: Wave ── */}
+      <SectionWave />
 
-      {/* 06 — Investition */}
-      <div className="relative overflow-hidden">
+      {/* 06 — Investition (leichter Grün-Hauch) */}
+      <div className="relative overflow-hidden" style={{ backgroundColor: '#f0f7f0' }}>
         <div className="glow-orb glow-orb--green w-[400px] h-[400px] bottom-0 right-0" />
         <DecoIcons icons={insuranceIcons} />
         <InsuranceCalculator onStartQuiz={startQuiz} />
 
-        {/* Benchmark: Erstattung nach Krankenkasse */}
-        <div className="mx-auto max-w-5xl px-5 pb-20">
+        {/* Dashboard: Ergebnisse + Vergleich */}
+        <div className="mx-auto max-w-5xl px-5 pb-16">
           <InsuranceBenchmark />
         </div>
       </div>
 
-      <SectionWave />
+      {/* ── Übergang: Gradient Grün → Weiß ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-[#f0f7f0] to-background" />
 
       {/* 07 — Kein Risiko */}
-      <div className="section-bg-subtle relative overflow-hidden">
+      <div className="relative overflow-hidden">
         <DecoIcons icons={guaranteeIcons} />
         <GuaranteeSection />
       </div>
 
-      <SectionWave flip />
+      {/* ── Übergang: Gradient in warm-neutral ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5f3f0]" />
 
-      {/* 08 — FAQ */}
-      <div className="relative bg-dot-grid overflow-hidden">
+      {/* 08 — FAQ (warmer Grauton) */}
+      <div className="relative overflow-hidden" style={{ backgroundColor: '#f5f3f0' }}>
         <DecoIcons icons={faqIcons} />
         <FAQSection />
       </div>
 
-      <div className="section-divider" />
+      {/* ── Übergang: Gradient warm → Weiß ── */}
+      <div className="h-16 md:h-24 bg-gradient-to-b from-[#f5f3f0] to-background" />
 
       {/* ═══════════════════════════════════════
           FINAL CTA
@@ -325,7 +329,7 @@ function KPIDashboard() {
           <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
             -{(kgLoss / 10).toFixed(1).replace('.', ',')} kg
           </span>
-          <p className="text-xs text-muted-foreground mt-1">Ø Ergebnis¹</p>
+          <p className="text-xs text-muted-foreground mt-1">Ø Ergebnis⁴</p>
         </div>
         <div>
           <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">

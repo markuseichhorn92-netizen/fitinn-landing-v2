@@ -14,9 +14,9 @@ type FloatingIcon = {
 }
 
 const colorClass = {
-  green: 'text-primary/[0.12]',
-  gold: 'text-accent/[0.12]',
-  muted: 'text-muted-foreground/[0.08]',
+  green: 'text-primary/[0.06]',
+  gold: 'text-accent/[0.06]',
+  muted: 'text-muted-foreground/[0.04]',
 }
 
 type Side = 'left' | 'right'
@@ -30,13 +30,13 @@ function FloatingIcon({ icon: Icon, x, y, size, delay, duration, color, side }: 
   }
   return (
     <div
-      className={`absolute pointer-events-none ${colorClass[color]}`}
+      className={`absolute pointer-events-none hidden md:block ${colorClass[color]}`}
       style={{
         ...posStyle,
         animation: `float-drift ${duration}s ease-in-out ${delay}s infinite`,
       }}
     >
-      <Icon style={{ width: size, height: size }} strokeWidth={1.2} />
+      <Icon style={{ width: size, height: size }} strokeWidth={1} />
     </div>
   )
 }

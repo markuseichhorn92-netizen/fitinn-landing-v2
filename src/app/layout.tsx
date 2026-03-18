@@ -25,7 +25,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#0a0a0a',
+  themeColor: '#fafafa',
 }
 
 export const metadata: Metadata = {
@@ -95,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className="dark">
+    <html lang="de">
       <head>
         <script
           type="application/ld+json"
@@ -132,8 +132,8 @@ export default function RootLayout({
                 { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "09:00", closes: "14:00" },
               ],
               sameAs: [
-                "https://www.instagram.com/fitinn_trier",
-                "https://www.facebook.com/fitinntrier",
+                "https://www.instagram.com/fit_inn_trier/",
+                "https://www.facebook.com/FitInnFeyen",
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
