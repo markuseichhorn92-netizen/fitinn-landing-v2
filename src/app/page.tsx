@@ -98,8 +98,8 @@ export default function Home() {
         <ProblemSection />
       </div>
 
-      {/* ── Übergang: Gradient in Grün-Hauch ── */}
-      <div className="h-24 md:h-32 bg-gradient-to-b from-background via-[#f0f7f0] to-[#f0f7f0]" />
+      {/* ── Übergang: Gradient → Grün ── */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f0f7f0]" />
 
       {/* 02 — Die Lösung (leichter Grün-Hauch) */}
       <div className="relative overflow-hidden" style={{ backgroundColor: '#f0f7f0' }}>
@@ -341,3 +341,5 @@ function KPIDashboard() {
     </div>
   )
 }
+
+

@@ -1,43 +1,51 @@
 'use client'
 
-import { useState } from 'react'
-import { Dumbbell, Apple, Users, Shield, ArrowRight, MessageCircle, BarChart2, Target, Check, ChevronDown } from 'lucide-react'
+import Image from 'next/image'
+import { Dumbbell, Apple, Users, Shield, ArrowRight, BookOpen, Monitor, BarChart2, Check } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { SectionBadge } from '@/components/SectionBadge'
 
-const archItems = [
-  { icon: Dumbbell, label: 'Studio-Training', sub: 'FIT-INN Trier', color: 'accent' as const, detail: '2–3× pro Woche im FIT-INN Trier. Moderne Geräte, klimatisiert, persönliche Einweisung.' },
-  { icon: Apple, label: 'Ernährungsplan', sub: 'Individuell angepasst', color: 'primary' as const, detail: 'Kein Hungern — ein Plan der zu deinem Alltag passt. Angepasst an dein Ziel und deine Vorlieben.' },
-  { icon: MessageCircle, label: 'Support', sub: 'Chat, Telefon, E-Mail', color: 'primary' as const, detail: 'Fragen zur Ernährung, zum Training oder zur Krankenkasse? Unsere Coaches helfen jederzeit.' },
-  { icon: BarChart2, label: '3× Körperanalyse', sub: 'InBody-Messung', color: 'accent' as const, detail: 'InBody-Messung zu Beginn, nach 4 und nach 8 Wochen. Du siehst genau, was sich verändert.' },
-  { icon: Users, label: 'Persönliches Coaching', sub: 'Trainer vor Ort', color: 'accent' as const, detail: 'Ein Trainer ist immer vor Ort ansprechbar für Fragen und Korrekturen.' },
-  { icon: Target, label: 'Messbares Ergebnis', sub: 'Schwarz auf weiß', color: 'primary' as const, detail: 'Vorher-Nachher-Vergleich schwarz auf weiß. Deine Fortschritte sind dokumentiert.' },
-]
-
 const pillars = [
-  {
-    icon: Dumbbell,
-    title: 'Gezieltes Training',
-    description: '2–3× pro Woche, je 30 Min. Individuell auf deinen Körper und Stoffwechsel abgestimmt — im FIT-INN Trier.',
-    color: 'accent' as const,
-  },
   {
     icon: Apple,
     title: 'Ernährung ohne Verbote',
     description: 'Kein Kalorienzählen, keine Diät. Ein alltagstauglicher Ernährungsplan, den du auch in zwei Jahren noch lebst.',
     color: 'primary' as const,
+    image: '/mockup-paket.avif',
+    imageAlt: 'Happyfigur Paket — Ernährungsplan, Rezeptbuch, Online-Plattform',
+    isMockup: true,
+  },
+  {
+    icon: Dumbbell,
+    title: 'Gezieltes Training',
+    description: '2–3× pro Woche, je 30 Min. Individuell auf deinen Körper und Stoffwechsel abgestimmt — im FIT-INN Trier.',
+    color: 'accent' as const,
+    image: '/studio-1.avif',
+    imageAlt: 'FIT-INN Trier — modernes Fitnessstudio',
+    isMockup: false,
   },
   {
     icon: Users,
     title: 'Persönliche Betreuung',
     description: 'Trainer immer vor Ort ansprechbar. Dazu 24/7 Support per Live-Chat, E-Mail und Telefon.',
     color: 'primary' as const,
+    image: '/FS_Whatsapp_Mockup-web.png',
+    imageAlt: 'Persönliche Betreuung per Chat — happyfigur Support',
+    isMockup: true,
   },
+]
+
+const packageFeatures = [
+  { icon: Dumbbell, title: '8 Wochen Training', sub: '2–3× pro Woche im FIT-INN', color: 'accent' as const },
+  { icon: Apple, title: 'Ernährungsplan', sub: 'Individuell auf dein Ziel', color: 'primary' as const },
+  { icon: BookOpen, title: 'Rezeptbuch', sub: 'Gedruckt + digital', color: 'primary' as const },
+  { icon: Users, title: 'Persönliche Betreuung', sub: 'Trainer + Coaches per Chat', color: 'accent' as const },
+  { icon: Monitor, title: 'Online-Plattform', sub: 'Kursvideos + Wissensquiz', color: 'primary' as const },
+  { icon: BarChart2, title: '3× Körperanalyse', sub: 'Vorher · Zwischen · Nachher', color: 'accent' as const },
 ]
 
 export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
   const section = useScrollReveal(0.1)
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
     <section id="programm" ref={section.ref} className="py-12 md:py-24 px-5">
@@ -59,28 +67,62 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
           happyfigur kombiniert Training, Ernährung und Coaching zu einem 8-Wochen-Programm, das deinen Stoffwechsel neu aktiviert — nicht Kalorien zählt.
         </p>
 
-        {/* 3 Pillar Cards */}
+        {/* ═══ 3 Pillar Cards mit Bildern ═══ */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {pillars.map((pillar, i) => (
             <div
               key={i}
-              className={`feature-card ${pillar.color === 'accent' ? 'feature-card--training' : ''} p-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              className={`feature-card ${pillar.color === 'accent' ? 'feature-card--training' : ''} overflow-hidden !p-0 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
               style={{ animationDelay: `${0.15 + i * 0.08}s` }}
             >
-              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${
-                pillar.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+              <div className={`relative h-40 md:h-48 w-full ${
+                pillar.isMockup
+                  ? `bg-gradient-to-br ${pillar.color === 'primary' ? 'from-primary/5 to-primary/10' : 'from-accent/5 to-accent/10'}`
+                  : ''
               }`}>
-                <pillar.icon className={`w-6 h-6 ${pillar.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
+                <Image
+                  src={pillar.image}
+                  alt={pillar.imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className={pillar.isMockup ? 'object-contain p-3' : 'object-cover'}
+                />
               </div>
-              <h3 className="text-xl font-bold mb-3">{pillar.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
+              <div className="p-6">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${
+                  pillar.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+                }`}>
+                  <pillar.icon className={`w-5 h-5 ${pillar.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold mb-2">{pillar.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* §20 Badge */}
+        {/* ═══ Food-Galerie ═══ */}
         <div
-          className={`flex items-center gap-3 px-5 py-4 rounded-xl bg-primary/5 border border-primary/10 mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.4s' }}
+        >
+          <div className="grid grid-cols-3 gap-2 md:gap-3 rounded-2xl overflow-hidden">
+            {[
+              { src: '/food-smoothie.jpg', alt: 'Smoothie-Bowl' },
+              { src: '/food-lentils.jpg', alt: 'Linsen-Salat' },
+              { src: '/food-mango.jpg', alt: 'Mango-Bowl' },
+            ].map((img, i) => (
+              <div key={i} className="relative h-24 md:h-36">
+                <Image src={img.src} alt={img.alt} fill sizes="33vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-2">Leckere Rezepte — keine Verbote</p>
+        </div>
+
+        {/* ═══ §20 Badge ═══ */}
+        <div
+          className={`flex items-center gap-3 px-5 py-4 rounded-xl bg-primary/5 border border-primary/10 mb-14 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           style={{ animationDelay: '0.4s' }}
         >
           <Shield className="w-5 h-5 text-primary shrink-0" />
@@ -90,95 +132,118 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
           </p>
         </div>
 
-        {/* ═══ Alles aus einer Hand — Architektur-Diagramm ═══ */}
-        <div className="mb-14">
+        {/* ═══ Das bekommst du ═══ */}
+        <div className="text-center mb-10">
           <p
-            className={`text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            className={`text-xs font-bold uppercase tracking-[0.2em] text-accent mb-2 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.45s' }}
+          >
+            Das bekommst du
+          </p>
+          <h3
+            className={`text-2xl md:text-3xl font-bold mb-3 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+            style={{ animationDelay: '0.48s' }}
+          >
+            Alles für deinen Erfolg — in einem Paket.
+          </h3>
+          <p
+            className={`text-sm text-muted-foreground fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
             style={{ animationDelay: '0.5s' }}
           >
-            Alles aus einer Hand
+            Keine versteckten Kosten. Alles inklusive ab Tag 1.
           </p>
+        </div>
 
-          {/* Desktop: Radiales Layout */}
-          <div
-            className={`hidden md:block relative fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-            style={{ animationDelay: '0.55s' }}
-          >
-            <div className="relative" style={{ height: '420px' }}>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet">
-                {[
-                  { x: 60, y: 70 }, { x: 60, y: 210 }, { x: 60, y: 350 },
-                  { x: 740, y: 70 }, { x: 740, y: 210 }, { x: 740, y: 350 },
-                ].map((pos, i) => {
-                  const cx = 400, cy = 210
-                  const cpx1 = pos.x < 400 ? pos.x + 120 : pos.x - 120
-                  const cpx2 = pos.x < 400 ? cx - 80 : cx + 80
-                  const path = `M ${pos.x} ${pos.y} C ${cpx1} ${pos.y}, ${cpx2} ${cy}, ${cx} ${cy}`
-                  return (
-                    <g key={i}>
-                      <path d={path} fill="none" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="6 4" />
-                      <circle r="4" fill="var(--primary)" opacity="0.7">
-                        <animateMotion dur={`${2.2 + i * 0.25}s`} repeatCount="indefinite" path={path} />
-                      </circle>
-                      <circle cx={pos.x} cy={pos.y} r="3" fill="var(--primary)" opacity="0.25" />
-                    </g>
-                  )
-                })}
-                <circle cx="400" cy="210" r="6" fill="var(--primary)" opacity="0.15" />
-              </svg>
+        {/* Mockup */}
+        <div
+          className={`flex justify-center mb-10 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.52s' }}
+        >
+          <div className="relative max-w-sm md:max-w-lg transition-transform duration-500 hover:scale-[1.02]">
+            <Image
+              src="/mockup-paket.avif"
+              alt="Happyfigur Paket — Ernährungsplan, Rezeptbuch, Online-Plattform"
+              width={900}
+              height={600}
+              sizes="(max-width: 768px) 85vw, 512px"
+              className="w-full h-auto drop-shadow-2xl"
+            />
+          </div>
+        </div>
 
-              {archItems.slice(0, 3).map((item, i) => (
-                <div key={`l${i}`} className="absolute left-0 w-[220px]" style={{ top: `${i * 130 + 20}px` }}>
-                  <ArchCard item={item} index={i} isOpen={openIndex === i} onToggle={() => setOpenIndex(prev => prev === i ? null : i)} />
-                </div>
-              ))}
-              {archItems.slice(3, 6).map((item, i) => (
-                <div key={`r${i}`} className="absolute right-0 w-[220px]" style={{ top: `${i * 130 + 20}px` }}>
-                  <ArchCard item={item} index={i + 3} isOpen={openIndex === i + 3} onToggle={() => setOpenIndex(prev => prev === i + 3 ? null : i + 3)} isRight />
-                </div>
-              ))}
-
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <CenterHub />
+        {/* 6 Feature-Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 mb-6">
+          {packageFeatures.map((f, i) => (
+            <div
+              key={i}
+              className={`rounded-2xl border border-border bg-card p-4 md:p-5 text-center transition-all duration-300 hover:shadow-md fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${0.55 + i * 0.06}s` }}
+            >
+              <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center mx-auto mb-3 ${
+                f.color === 'primary' ? 'bg-primary/10' : 'bg-accent/10'
+              }`}>
+                <f.icon className={`w-5 h-5 md:w-6 md:h-6 ${f.color === 'primary' ? 'text-primary' : 'text-accent'}`} />
               </div>
+              <p className="text-sm md:text-base font-bold mb-0.5">{f.title}</p>
+              <p className="text-[11px] md:text-xs text-muted-foreground">{f.sub}</p>
             </div>
+          ))}
+        </div>
+
+        {/* Converging Flow → Hub */}
+        <div
+          className={`fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.9s' }}
+        >
+          <div className="flex justify-center py-2">
+            <svg width="200" height="44" viewBox="0 0 200 44" className="overflow-visible">
+              {[
+                'M 20 0 Q 50 22, 100 40',
+                'M 60 0 Q 75 20, 100 40',
+                'M 100 0 L 100 40',
+                'M 140 0 Q 125 20, 100 40',
+                'M 180 0 Q 150 22, 100 40',
+              ].map((path, i) => (
+                <g key={i}>
+                  <path d={path} fill="none" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 3" />
+                  <circle r="2.5" fill="var(--primary)" opacity="0.6">
+                    <animateMotion dur={`${1.8 + i * 0.2}s`} repeatCount="indefinite" path={path} />
+                  </circle>
+                </g>
+              ))}
+              <circle cx="100" cy="40" r="4" fill="var(--primary)" opacity="0.2" />
+            </svg>
           </div>
 
-          {/* Mobile: 2-Spalten Grid → Hub */}
-          <div
-            className={`md:hidden fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-            style={{ animationDelay: '0.55s' }}
-          >
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              {archItems.map((item, i) => (
-                <div
-                  key={i}
-                  className={`flex flex-col items-center text-center rounded-xl border bg-card p-3.5 cursor-pointer transition-all duration-300 ${
-                    openIndex === i ? 'border-primary/30 shadow-md' : 'border-border'
-                  }`}
-                  onClick={() => setOpenIndex(prev => prev === i ? null : i)}
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-2 ${item.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'}`}>
-                    <item.icon className={`w-4 h-4 ${item.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
-                  </div>
-                  <p className="font-semibold text-sm leading-tight">{item.label}</p>
-                  <p className="text-[11px] text-muted-foreground">{item.sub}</p>
-                  {openIndex === i && (
-                    <p className="text-[11px] text-muted-foreground leading-relaxed border-t border-border pt-2 mt-2 mx-1">{item.detail}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <CenterHub />
+          <div className="flex justify-center mb-10">
+            <div className="flex flex-col items-center gap-4 px-8 md:px-12 py-6 md:py-8 rounded-2xl border-2 border-primary/20 bg-card shadow-xl shadow-primary/5">
+              <img src="/favicon.jpg" alt="FIT-INN" width={64} height={64} className="w-16 h-16 object-contain" />
+              <div className="text-center">
+                <p className="font-bold text-xl md:text-2xl uppercase tracking-wider">happyfigur</p>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">Alles aus einer Hand</p>
+              </div>
+              <div className="h-px w-full bg-border" />
+              <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-primary" /> Stoffwechsel aktivieren</span>
+                <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-primary" /> Ernährung optimieren</span>
+                <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-primary" /> Ergebnis messen</span>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Preis-Hinweis */}
+        <p
+          className={`text-center text-sm text-muted-foreground mb-10 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.95s' }}
+        >
+          Alles inklusive für <strong className="text-foreground">179€</strong>¹ — bei vielen Kassen <strong className="text-primary">0 €</strong>²³
+        </p>
+
         {/* CTA */}
         <div
-          className={`fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-          style={{ animationDelay: '0.6s' }}
+          className={`text-center fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '1s' }}
         >
           <button onClick={onStartQuiz} className="btn-cta inline-flex items-center gap-3">
             Jetzt Probetraining sichern
@@ -190,60 +255,5 @@ export function SolutionSection({ onStartQuiz }: { onStartQuiz: () => void }) {
         </div>
       </div>
     </section>
-  )
-}
-
-/* ─── Architektur Helper-Komponenten ─── */
-
-function ArchCard({ item, index, isOpen, onToggle, isRight }: {
-  item: typeof archItems[number]; index: number; isOpen: boolean; onToggle: () => void; isRight?: boolean
-}) {
-  return (
-    <div className="relative" onClick={onToggle}>
-      <div className={`rounded-xl border bg-card transition-all duration-300 cursor-pointer ${isOpen ? 'border-primary/30 shadow-md' : 'border-border hover:border-primary/20'}`}>
-        <div className="flex items-center gap-3 p-4">
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${item.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'}`}>
-            <item.icon className={`w-5 h-5 ${item.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm">{item.label}</p>
-            <p className="text-xs text-muted-foreground">{item.sub}</p>
-          </div>
-          <ChevronDown className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-        </div>
-      </div>
-      {isOpen && (
-        <div className={`absolute top-full mt-2 z-20 w-[260px] p-3.5 rounded-xl border border-primary/20 bg-card shadow-lg text-xs text-muted-foreground leading-relaxed ${isRight ? 'right-0' : 'left-0'}`}>
-          <div className={`absolute -top-1.5 ${isRight ? 'right-5' : 'left-5'} w-3 h-3 rotate-45 border-l border-t border-primary/20 bg-card`} />
-          {item.detail}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function CenterHub() {
-  return (
-    <div className="w-56 p-6 rounded-2xl border-2 border-primary/20 bg-card text-center shadow-xl shadow-primary/5 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.03] to-transparent pointer-events-none" />
-      <div className="relative">
-        <div className="w-16 h-16 mx-auto mb-3">
-          <img src="/favicon.jpg" alt="FIT-INN Trier" width={64} height={64} className="w-full h-full object-contain" />
-        </div>
-        <p className="font-bold text-base uppercase tracking-wider">happyfigur</p>
-        <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] mt-0.5 mb-4">8-Wochen-System</p>
-        <div className="h-px bg-border mb-4" />
-        <div className="space-y-2.5 text-left">
-          {['Stoffwechsel aktivieren', 'Ernährung optimieren', 'Ergebnis messen'].map((t, i) => (
-            <div key={i} className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                <Check className="w-3 h-3 text-primary" />
-              </div>
-              <span className="text-xs font-medium text-foreground/80">{t}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
   )
 }

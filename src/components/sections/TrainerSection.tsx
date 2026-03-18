@@ -62,6 +62,25 @@ export function TrainerSection() {
           Bei uns trainierst du nicht allein. Unser Team ist immer vor Ort — für Fragen, Korrekturen und Motivation.
         </p>
 
+        {/* Studio-Atmosphäre */}
+        <div
+          className={`relative rounded-2xl overflow-hidden mb-10 h-48 md:h-64 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.15s' }}
+        >
+          <Image
+            src="/studio-2.avif"
+            alt="FIT-INN Trier — dein Studio für happyfigur"
+            fill
+            sizes="(max-width: 768px) 100vw, 960px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-5 md:left-6">
+            <p className="text-white font-bold text-lg md:text-xl drop-shadow-md">FIT-INN Trier</p>
+            <p className="text-white/80 text-sm drop-shadow-md">Dein Studio für happyfigur</p>
+          </div>
+        </div>
+
         {/* Team Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
           {team.map((member, i) => (
