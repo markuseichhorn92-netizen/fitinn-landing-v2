@@ -1,11 +1,7 @@
-declare global {
-  interface Window {
-    LiveChatWidget?: { call: (method: string) => void }
-  }
-}
+const WHATSAPP_URL = 'https://wa.me/49651308524'
 
 export function openLiveChat() {
   if (typeof window !== 'undefined') {
-    window.LiveChatWidget?.call('maximize')
+    window.open(WHATSAPP_URL, '_blank', 'noopener')
   }
 }

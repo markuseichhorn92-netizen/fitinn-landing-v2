@@ -1,11 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, Mail } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
+import { ContactFormModal } from '@/components/ContactFormModal'
 import { GrainOverlay } from '@/components/GrainOverlay'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { SolutionSection } from '@/components/sections/SolutionSection'
@@ -22,6 +24,7 @@ import { DecoIcons, problemIcons, solutionIcons, processIcons, testimonialIcons,
 export default function Home() {
   const router = useRouter()
   const startQuiz = () => router.push('/quiz')
+  const [contactOpen, setContactOpen] = useState(false)
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -77,6 +80,10 @@ export default function Home() {
             >
               Kostenloses Probetraining buchen
               <ArrowRight className="w-5 h-5" />
+            </button>
+            <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              Direkt anfragen
             </button>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
@@ -198,6 +205,10 @@ export default function Home() {
               Kostenloses Probetraining buchen
               <ArrowRight className="w-5 h-5" />
             </button>
+            <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              Direkt anfragen
+            </button>
             <button type="button" onClick={() => openLiveChat()} className="btn-outline">
               <MessageCircle className="w-4 h-4" />
               Fragen? Chatte mit uns
@@ -281,6 +292,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <ContactFormModal open={contactOpen} onOpenChange={setContactOpen} />
     </main>
   )
 }

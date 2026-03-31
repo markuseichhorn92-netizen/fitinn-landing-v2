@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic'
 
-const LiveChat = dynamic(
-  () => import('@/components/LiveChat').then(m => ({ default: m.LiveChat })),
+const WhatsAppWidget = dynamic(
+  () => import('@/components/WhatsAppWidget').then(m => ({ default: m.WhatsAppWidget })),
   { ssr: false }
 )
 
 export function LazyLiveChat() {
-  return <LiveChat />
+  return <WhatsAppWidget />
 }
