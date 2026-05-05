@@ -35,7 +35,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           HERO — 2-Col: Copy + Booking Form
           ═══════════════════════════════════════ */}
-      <section id="hero" className="relative min-h-screen pt-28 md:pt-24 pb-16 px-5 flex items-center">
+      <section id="hero" className="relative min-h-screen pt-28 md:pt-24 pb-8 px-5 flex flex-col justify-center">
         {/* Hero background image */}
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -97,10 +97,8 @@ export default function Home() {
             <HeroBookingForm />
           </div>
         </div>
-      </section>
 
-      {/* KPI Dashboard direkt unter dem Hero */}
-      <section className="relative px-5 py-10 md:py-12">
+        {/* KPI Dashboard als Bottom-Anchor des Hero */}
         <KPIDashboard />
       </section>
 
@@ -123,8 +121,8 @@ export default function Home() {
               <p className="text-[10px] md:text-xs font-bold tracking-wider text-accent uppercase mt-1">Wochen Training</p>
             </div>
             <div className="rounded-2xl border border-border bg-card/40 p-4 md:p-5 text-center">
-              <p className="text-2xl md:text-4xl font-extrabold text-foreground leading-none font-[family-name:var(--font-barlow-condensed)]">2× 30</p>
-              <p className="text-[10px] md:text-xs font-medium tracking-wider text-muted-foreground uppercase mt-1">Min pro Woche</p>
+              <p className="text-2xl md:text-4xl font-extrabold text-foreground leading-none font-[family-name:var(--font-barlow-condensed)]">Coach</p>
+              <p className="text-[10px] md:text-xs font-medium tracking-wider text-muted-foreground uppercase mt-1">vor Ort dabei</p>
             </div>
             <div className="rounded-2xl border border-border bg-card/40 p-4 md:p-5 text-center">
               <p className="text-2xl md:text-4xl font-extrabold text-primary leading-none font-[family-name:var(--font-barlow-condensed)]">§ 20</p>
