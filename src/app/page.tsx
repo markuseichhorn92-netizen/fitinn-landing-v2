@@ -35,7 +35,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           HERO — 2-Col: Copy + Booking Form
           ═══════════════════════════════════════ */}
-      <section id="hero" className="relative min-h-screen pt-28 md:pt-24 pb-8 px-5 flex flex-col justify-center">
+      <section id="hero" className="relative pt-28 md:pt-24 pb-8 px-5">
         {/* Hero background image */}
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -403,7 +403,7 @@ function KPIDashboard() {
   return (
     <div
       ref={section.ref}
-      className="relative z-10 mx-auto max-w-3xl mt-16 px-5 animate-fade-up delay-400"
+      className="relative z-10 mx-auto max-w-3xl mt-10 md:mt-12 px-5 animate-fade-up delay-400"
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t border-border pt-6 md:pt-8">
         <div>
