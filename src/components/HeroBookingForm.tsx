@@ -280,11 +280,11 @@ export function HeroBookingForm() {
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
         <div>
-          <p className="text-xs font-semibold text-foreground">Probetraining buchen</p>
-          <p className="text-[11px] text-muted-foreground">Kostenlos · Unverbindlich</p>
+          <p className="text-sm font-semibold text-foreground">Probetraining buchen</p>
+          <p className="text-xs text-muted-foreground">Kostenlos · Unverbindlich</p>
         </div>
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold text-primary uppercase tracking-wider">
-          <ShieldCheck className="w-3 h-3" /> § 20 SGB V
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider">
+          <ShieldCheck className="w-3.5 h-3.5" /> § 20 SGB V
         </span>
       </header>
 
@@ -306,10 +306,10 @@ export function HeroBookingForm() {
         {step === 1 && (
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 mb-1">
-              <Target className="w-4 h-4 text-primary" />
-              <p className="text-sm font-semibold">Was möchtest du erreichen?</p>
+              <Target className="w-5 h-5 text-primary" />
+              <p className="text-base font-semibold">Was möchtest du erreichen?</p>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               {GOAL_OPTIONS.map(opt => {
                 const active = data.goal === opt.value
                 return (
@@ -318,14 +318,14 @@ export function HeroBookingForm() {
                     type="button"
                     onClick={() => selectGoal(opt.value)}
                     className={cn(
-                      'relative px-3 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-center',
+                      'relative px-3 py-3.5 rounded-xl border text-base font-medium transition-all duration-200 text-center',
                       active
                         ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/20'
                         : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
                     )}
                   >
                     {active && (
-                      <CheckCircle2 className="absolute top-1.5 right-1.5 w-3.5 h-3.5 text-primary animate-fade-up" />
+                      <CheckCircle2 className="absolute top-1.5 right-1.5 w-4 h-4 text-primary animate-fade-up" />
                     )}
                     {opt.label}
                   </button>
@@ -338,8 +338,8 @@ export function HeroBookingForm() {
         {/* Step 2: Maße */}
         {step === 2 && (
           <div className="flex flex-col gap-3">
-            <p className="text-sm font-semibold mb-1">Deine Werte</p>
-            <p className="text-xs text-muted-foreground mb-2">Damit wir dein Training individuell ausrichten.</p>
+            <p className="text-base font-semibold mb-1">Deine Werte</p>
+            <p className="text-sm text-muted-foreground mb-2">Damit wir dein Training individuell ausrichten.</p>
             <NumberField label="Größe (cm)" value={data.height} onChange={v => setData(d => ({ ...d, height: v }))} min={130} max={220} placeholder="175" />
             <NumberField label="Aktuelles Gewicht (kg)" value={data.weight} onChange={v => setData(d => ({ ...d, weight: v }))} min={40} max={250} placeholder="80" />
             <NumberField label="Wunschgewicht (kg)" value={data.targetWeight} onChange={v => setData(d => ({ ...d, targetWeight: v }))} min={40} max={250} placeholder="72" />
@@ -348,7 +348,7 @@ export function HeroBookingForm() {
             {measuresValid && projectedResult.kgLoss > 0 && (
               <div className="mt-1 p-3 rounded-lg bg-primary/10 border border-primary/30 flex items-start gap-2 animate-fade-up">
                 <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <p className="text-xs text-foreground leading-snug">
+                <p className="text-sm text-foreground leading-snug">
                   Realistisch in 8 Wochen: <span className="font-bold text-primary">-{projectedResult.kgLoss} kg</span>
                   {projectedResult.projectedWeight && projectedResult.projectedWeight > 0 && (
                     <> — du kommst auf <span className="font-semibold">{projectedResult.projectedWeight} kg</span></>
@@ -366,9 +366,9 @@ export function HeroBookingForm() {
         {/* Step 3: Probleme */}
         {step === 3 && (
           <div className="flex flex-col gap-3">
-            <p className="text-sm font-semibold mb-1">Was hat bisher nicht geklappt?</p>
-            <p className="text-xs text-muted-foreground mb-2">Mehrfachauswahl möglich.</p>
-            <div className="grid grid-cols-2 gap-2">
+            <p className="text-base font-semibold mb-1">Was hat bisher nicht geklappt?</p>
+            <p className="text-sm text-muted-foreground mb-2">Mehrfachauswahl möglich.</p>
+            <div className="grid grid-cols-2 gap-2.5">
               {PROBLEM_OPTIONS.map(opt => {
                 const explanation = PROBLEM_EXPLANATIONS[opt.value]
                 const Icon = explanation?.icon
@@ -379,7 +379,7 @@ export function HeroBookingForm() {
                     type="button"
                     onClick={() => toggleProblem(opt.value)}
                     className={cn(
-                      'flex items-center gap-2 px-3 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-left',
+                      'flex items-center gap-2 px-3 py-3.5 rounded-xl border text-sm font-medium transition-all duration-200 text-left',
                       active
                         ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/15'
                         : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
@@ -395,15 +395,15 @@ export function HeroBookingForm() {
             {/* Inline-Reinforcement: Lösungen für gewählte Probleme */}
             {data.problems.length > 0 && (
               <div className="mt-2 flex flex-col gap-2">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Darum klappt&apos;s diesmal</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Darum klappt&apos;s diesmal</p>
                 {data.problems.map(key => {
                   const item = PROBLEM_EXPLANATIONS[key]
                   if (!item) return null
                   const Icon = item.icon
                   return (
-                    <div key={key} className="p-2.5 rounded-lg border border-primary/20 bg-primary/5 flex items-start gap-2 animate-fade-up">
-                      <Icon className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-foreground leading-snug">
+                    <div key={key} className="p-3 rounded-lg border border-primary/20 bg-primary/5 flex items-start gap-2 animate-fade-up">
+                      <Icon className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground leading-snug">
                         <span className="font-semibold">{item.problem}:</span>{' '}
                         <span className="text-muted-foreground">{item.solution}</span>
                       </p>
@@ -419,10 +419,10 @@ export function HeroBookingForm() {
         {step === 4 && (
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 mb-1">
-              <Clock className="w-4 h-4 text-primary" />
-              <p className="text-sm font-semibold">Wie viel Zeit hast du?</p>
+              <Clock className="w-5 h-5 text-primary" />
+              <p className="text-base font-semibold">Wie viel Zeit hast du?</p>
             </div>
-            <p className="text-xs text-muted-foreground mb-2">Hilft uns, deinen Plan realistisch zu gestalten.</p>
+            <p className="text-sm text-muted-foreground mb-2">Hilft uns, deinen Plan realistisch zu gestalten.</p>
             <div className="flex flex-col gap-2">
               {TIME_OPTIONS.map(opt => {
                 const active = data.time === opt.value
@@ -432,14 +432,14 @@ export function HeroBookingForm() {
                     type="button"
                     onClick={() => selectTime(opt.value)}
                     className={cn(
-                      'relative px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-left',
+                      'relative px-4 py-3.5 rounded-xl border text-base font-medium transition-all duration-200 text-left',
                       active
                         ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/15'
                         : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
                     )}
                   >
                     {active && (
-                      <CheckCircle2 className="absolute top-2.5 right-3 w-3.5 h-3.5 text-primary animate-fade-up" />
+                      <CheckCircle2 className="absolute top-3 right-3 w-4 h-4 text-primary animate-fade-up" />
                     )}
                     {opt.label}
                   </button>
@@ -451,7 +451,7 @@ export function HeroBookingForm() {
             {data.time && (
               <div className="mt-1 p-3 rounded-lg bg-primary/10 border border-primary/30 flex items-start gap-2 animate-fade-up">
                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <p className="text-xs text-foreground leading-snug">
+                <p className="text-sm text-foreground leading-snug">
                   <span className="font-semibold">Reicht völlig aus.</span>{' '}
                   <span className="text-muted-foreground">2× 30 Min sind das Maximum, was du brauchst — Quality over Quantity.</span>
                 </p>
@@ -464,10 +464,10 @@ export function HeroBookingForm() {
         {step === 5 && (
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-4 h-4 text-primary text-center font-bold text-xs leading-4">€</span>
-              <p className="text-sm font-semibold">Was zahlst du wirklich?</p>
+              <span className="w-5 h-5 text-primary text-center font-bold text-sm leading-5">€</span>
+              <p className="text-base font-semibold">Was zahlst du wirklich?</p>
             </div>
-            <p className="text-xs text-muted-foreground mb-1">
+            <p className="text-sm text-muted-foreground mb-1">
               Spoiler: Für viele ist es komplett kostenlos.<sup>²³</sup>
             </p>
 
@@ -477,7 +477,7 @@ export function HeroBookingForm() {
             </div>
 
             {/* Top-5 KK-Tiles */}
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {TOP_INSURANCE.map(ins => {
                 const active = data.insurance === ins.value
                 return (
@@ -486,12 +486,12 @@ export function HeroBookingForm() {
                     type="button"
                     onClick={() => selectInsurance(ins.value)}
                     className={cn(
-                      'p-2 rounded-lg border text-left transition-all duration-200',
+                      'p-2.5 rounded-lg border text-left transition-all duration-200',
                       active ? 'border-primary bg-primary/15 shadow-md shadow-primary/15' : 'border-border bg-background/50 hover:border-primary/60',
                     )}
                   >
-                    <div className="text-[10px] font-semibold leading-tight">{ins.label}</div>
-                    <div className={cn('text-sm font-bold mt-0.5', ins.amount >= 179 ? 'text-primary' : 'text-foreground')}>
+                    <div className="text-xs font-semibold leading-tight">{ins.label}</div>
+                    <div className={cn('text-base font-bold mt-1', ins.amount >= 179 ? 'text-primary' : 'text-foreground')}>
                       {ins.amount >= 179 ? '✓ Gratis' : `${ins.amount}€`}
                     </div>
                   </button>
@@ -502,7 +502,7 @@ export function HeroBookingForm() {
             <button
               type="button"
               onClick={() => setShowAllInsurance(v => !v)}
-              className="text-[11px] text-muted-foreground hover:text-foreground underline self-center"
+              className="text-sm text-muted-foreground hover:text-foreground underline self-center"
             >
               {showAllInsurance ? 'Weniger anzeigen' : 'Andere Krankenkasse auswählen'}
             </button>
@@ -521,24 +521,28 @@ export function HeroBookingForm() {
             )}
 
             {/* Sofortige Reaktions-Karte */}
-            {data.insuranceAmount > 0 && (
+            {data.insuranceAmount > 0 ? (
               <div className="p-3 bg-background/60 border border-primary/30 rounded-lg text-center animate-fade-up">
                 {data.insuranceAmount >= 179 ? (
                   <>
                     <div className="text-xl font-bold text-primary">🎯 Komplett kostenlos<sup>²</sup></div>
-                    <p className="text-[11px] text-muted-foreground mt-1">Deine Kasse erstattet die vollen 179€.<sup>³</sup></p>
+                    <p className="text-sm text-muted-foreground mt-1">Deine Kasse erstattet die vollen 179€.<sup>³</sup></p>
                   </>
                 ) : (
                   <>
                     <div className="text-xl font-bold text-accent">
                       Nur {((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag<sup>¹³</sup>
                     </div>
-                    <p className="text-[11px] text-muted-foreground mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       Erstattung {data.insuranceAmount}€ von 179€<sup>³</sup> · weniger als ein Kaffee pro Tag
                     </p>
                   </>
                 )}
               </div>
+            ) : (
+              <p className="text-sm text-muted-foreground text-center mt-1">
+                Bitte wähle deine Krankenkasse, um fortzufahren.
+              </p>
             )}
           </div>
         )}
@@ -548,7 +552,7 @@ export function HeroBookingForm() {
           <div className="flex flex-col gap-3">
             <div className="text-center mb-1">
               <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Dein 8-Wochen-Plan</p>
-              <p className="text-base font-bold leading-tight">
+              <p className="text-lg font-bold leading-tight">
                 {data.goal === 'abnehmen' && 'Abnehmen mit System statt Diät'}
                 {data.goal === 'straffen' && 'Körper straffen & Muskeln aufbauen'}
                 {data.goal === 'energie' && 'Mehr Energie für deinen Alltag'}
@@ -558,29 +562,29 @@ export function HeroBookingForm() {
             </div>
 
             {/* 3 Säulen */}
-            <div className="grid grid-cols-3 gap-1.5">
-              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
-                <BarChart2 className="w-4 h-4 text-primary mx-auto mb-1" />
-                <p className="text-[10px] font-semibold leading-tight">Körperanalyse</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">Stoffwechsel verstehen</p>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="p-3 rounded-lg border border-border bg-background/40 text-center">
+                <BarChart2 className="w-5 h-5 text-primary mx-auto mb-1" />
+                <p className="text-xs font-semibold leading-tight">Körperanalyse</p>
+                <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Stoffwechsel verstehen</p>
               </div>
-              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
-                <Dumbbell className="w-4 h-4 text-accent mx-auto mb-1" />
-                <p className="text-[10px] font-semibold leading-tight">Training</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">2× 30 Min/Woche</p>
+              <div className="p-3 rounded-lg border border-border bg-background/40 text-center">
+                <Dumbbell className="w-5 h-5 text-accent mx-auto mb-1" />
+                <p className="text-xs font-semibold leading-tight">Training</p>
+                <p className="text-[11px] text-muted-foreground mt-1 leading-tight">2× 30 Min/Woche</p>
               </div>
-              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
-                <Utensils className="w-4 h-4 text-primary mx-auto mb-1" />
-                <p className="text-[10px] font-semibold leading-tight">Ernährung</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">Plan auf dich</p>
+              <div className="p-3 rounded-lg border border-border bg-background/40 text-center">
+                <Utensils className="w-5 h-5 text-primary mx-auto mb-1" />
+                <p className="text-xs font-semibold leading-tight">Ernährung</p>
+                <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Plan auf dich</p>
               </div>
             </div>
 
             {/* Realistisches Ergebnis */}
             {projectedResult.kgLoss > 0 && (
               <div className="p-3 rounded-lg bg-primary/10 border border-primary/30 text-center">
-                <p className="text-[10px] uppercase tracking-wider text-primary font-semibold">Realistisch in 8 Wochen<sup>⁴</sup></p>
-                <p className="text-xl font-bold text-primary mt-0.5">
+                <p className="text-xs uppercase tracking-wider text-primary font-semibold">Realistisch in 8 Wochen<sup>⁴</sup></p>
+                <p className="text-2xl font-bold text-primary mt-1">
                   {data.goal === 'straffen'
                     ? `-${projectedResult.fatLoss}% Körperfett`
                     : data.goal === 'energie'
@@ -591,22 +595,22 @@ export function HeroBookingForm() {
             )}
 
             {/* Recap-Strip */}
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 p-2.5 rounded-lg border border-border bg-background/30 text-[11px]">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 p-3 rounded-lg border border-border bg-background/30 text-sm">
               {data.goal && (
-                <span className="flex items-center gap-1 text-muted-foreground">
-                  <Target className="w-3 h-3 text-primary" />
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <Target className="w-3.5 h-3.5 text-primary" />
                   {GOAL_LABELS[data.goal]}
                 </span>
               )}
               {data.time && (
-                <span className="flex items-center gap-1 text-muted-foreground">
-                  <Clock className="w-3 h-3 text-primary" />
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <Clock className="w-3.5 h-3.5 text-primary" />
                   {TIME_LABELS[data.time]}
                 </span>
               )}
               {data.insuranceAmount > 0 && (
-                <span className="flex items-center gap-1">
-                  <span className="w-3 h-3 text-primary text-center font-bold text-[9px] leading-3">€</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3.5 h-3.5 text-primary text-center font-bold text-xs leading-[14px]">€</span>
                   {data.insuranceAmount >= 179 ? (
                     <span className="text-primary font-semibold">Kostenlos</span>
                   ) : (
@@ -616,8 +620,8 @@ export function HeroBookingForm() {
               )}
             </div>
 
-            <div className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold text-primary self-center">
-              <ShieldCheck className="w-3 h-3" /> § 20 SGB V zertifiziert
+            <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary self-center">
+              <ShieldCheck className="w-3.5 h-3.5" /> § 20 SGB V zertifiziert
             </div>
           </div>
         )}
@@ -626,25 +630,25 @@ export function HeroBookingForm() {
         {step === 7 && (
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 mb-1">
-              <CalendarIcon className="w-4 h-4 text-primary" />
-              <p className="text-sm font-semibold">Wähle deinen Termin</p>
+              <CalendarIcon className="w-5 h-5 text-primary" />
+              <p className="text-base font-semibold">Wähle deinen Termin</p>
             </div>
 
             {/* Recap-Chip-Strip */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
               {data.goal && (
-                <span className="flex items-center gap-1">
-                  <Target className="w-3 h-3 text-primary" /> {GOAL_LABELS[data.goal]}
+                <span className="flex items-center gap-1.5">
+                  <Target className="w-3.5 h-3.5 text-primary" /> {GOAL_LABELS[data.goal]}
                 </span>
               )}
               {data.time && (
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-primary" /> {TIME_LABELS[data.time]}
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-primary" /> {TIME_LABELS[data.time]}
                 </span>
               )}
               {data.insuranceAmount > 0 && (
-                <span className="flex items-center gap-1">
-                  <span className="w-3 h-3 text-primary text-center font-bold text-[9px] leading-3">€</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3.5 h-3.5 text-primary text-center font-bold text-xs leading-[14px]">€</span>
                   {data.insuranceAmount >= 179 ? (
                     <span className="text-primary font-semibold">Kostenlos</span>
                   ) : (
@@ -657,7 +661,7 @@ export function HeroBookingForm() {
             {slotsLoading && (
               <div className="flex flex-col items-center gap-3 py-10">
                 <Loader2 className="w-7 h-7 text-primary animate-spin" />
-                <p className="text-xs text-muted-foreground">Termine werden geladen…</p>
+                <p className="text-sm text-muted-foreground">Termine werden geladen…</p>
               </div>
             )}
 
@@ -665,8 +669,8 @@ export function HeroBookingForm() {
               <div className="p-3 bg-destructive/10 border border-destructive/30 rounded-xl flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-xs font-semibold text-destructive">Termine konnten nicht geladen werden</p>
-                  <button type="button" onClick={() => openLiveChat()} className="text-xs font-semibold text-accent hover:underline mt-1">Per Live-Chat buchen →</button>
+                  <p className="text-sm font-semibold text-destructive">Termine konnten nicht geladen werden</p>
+                  <button type="button" onClick={() => openLiveChat()} className="text-sm font-semibold text-accent hover:underline mt-1">Per Live-Chat buchen →</button>
                 </div>
               </div>
             )}
@@ -686,25 +690,25 @@ export function HeroBookingForm() {
                     <button
                       type="button"
                       onClick={() => setCalendarMonth(d => new Date(d.getFullYear(), d.getMonth() - 1, 1))}
-                      className="p-1.5 rounded-lg hover:bg-secondary transition-colors"
+                      className="p-2 rounded-lg hover:bg-secondary transition-colors"
                       aria-label="Vorheriger Monat"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                      <ArrowLeft className="w-4 h-4" />
                     </button>
-                    <span className="text-xs font-semibold capitalize">{monthName}</span>
+                    <span className="text-sm font-semibold capitalize">{monthName}</span>
                     <button
                       type="button"
                       onClick={() => setCalendarMonth(d => new Date(d.getFullYear(), d.getMonth() + 1, 1))}
-                      className="p-1.5 rounded-lg hover:bg-secondary transition-colors"
+                      className="p-2 rounded-lg hover:bg-secondary transition-colors"
                       aria-label="Nächster Monat"
                     >
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
 
                   <div className="grid grid-cols-7 px-2 pt-2">
                     {['Mo','Di','Mi','Do','Fr','Sa','So'].map(d => (
-                      <div key={d} className="text-center text-[10px] text-muted-foreground/60 font-medium py-1">{d}</div>
+                      <div key={d} className="text-center text-xs text-muted-foreground/60 font-medium py-1">{d}</div>
                     ))}
                   </div>
 
@@ -722,7 +726,7 @@ export function HeroBookingForm() {
                             disabled={!hasSlots || isPast}
                             onClick={() => { setSelectedDate(key); setSelectedSlot(null) }}
                             className={cn(
-                              'w-8 h-8 rounded-full text-xs font-medium transition-all flex items-center justify-center',
+                              'w-9 h-9 rounded-full text-sm font-medium transition-all flex items-center justify-center',
                               isPast || !hasSlots ? 'text-muted-foreground/25 cursor-not-allowed' : '',
                               hasSlots && !isPast && !isSelected ? 'text-foreground hover:bg-primary/15 cursor-pointer' : '',
                               isSelected ? 'bg-primary text-primary-foreground font-bold shadow-md shadow-primary/30' : '',
@@ -736,9 +740,9 @@ export function HeroBookingForm() {
                   </div>
 
                   {selectedDate && (
-                    <div className="border-t border-border p-3 max-h-[150px] overflow-y-auto">
-                      <p className="text-[11px] font-semibold mb-2">{formatDateLong(selectedDate)}</p>
-                      <div className="grid grid-cols-3 gap-1.5">
+                    <div className="border-t border-border p-3 max-h-[170px] overflow-y-auto">
+                      <p className="text-sm font-semibold mb-2">{formatDateLong(selectedDate)}</p>
+                      <div className="grid grid-cols-3 gap-2">
                         {slotsForSelected.map((slot, i) => {
                           const isActive = selectedSlot?.startDateTime === slot.startDateTime
                           return (
@@ -747,7 +751,7 @@ export function HeroBookingForm() {
                               type="button"
                               onClick={() => setSelectedSlot(slot)}
                               className={cn(
-                                'p-1.5 rounded-md border text-[11px] font-semibold transition-all',
+                                'p-2 rounded-md border text-sm font-semibold transition-all',
                                 isActive
                                   ? 'border-primary bg-primary text-primary-foreground'
                                   : 'border-border hover:border-primary text-primary bg-transparent',
@@ -765,7 +769,7 @@ export function HeroBookingForm() {
             })()}
 
             {!slotsLoading && !slotsError && slots.length === 0 && (
-              <p className="text-xs text-muted-foreground text-center py-4">Aktuell keine freien Termine.</p>
+              <p className="text-sm text-muted-foreground text-center py-4">Aktuell keine freien Termine.</p>
             )}
           </div>
         )}
@@ -773,10 +777,10 @@ export function HeroBookingForm() {
         {/* Step 8: Kontakt */}
         {step === 8 && (
           <div className="flex flex-col gap-3">
-            <p className="text-sm font-semibold mb-1">Deine Daten</p>
+            <p className="text-base font-semibold mb-1">Deine Daten</p>
             {selectedSlot && (
-              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-primary/5 border border-primary/20 text-xs mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20 text-sm mb-1">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
                 <span className="font-medium">{formatDateShort(selectedSlot.startDateTime)} · {formatTime(selectedSlot.startDateTime)} Uhr</span>
               </div>
             )}
@@ -793,7 +797,7 @@ export function HeroBookingForm() {
                   type="button"
                   onClick={() => setContact(c => ({ ...c, gender: opt.value }))}
                   className={cn(
-                    'p-2.5 rounded-lg border text-xs font-medium transition-all',
+                    'p-3 rounded-lg border text-sm font-medium transition-all',
                     contact.gender === opt.value
                       ? 'border-primary bg-primary text-primary-foreground'
                       : 'border-border bg-background hover:border-primary/50 text-muted-foreground',
@@ -805,7 +809,7 @@ export function HeroBookingForm() {
             </div>
 
             <div>
-              <p className="text-[10px] font-medium text-muted-foreground/70 mb-1.5">Geburtsdatum *</p>
+              <p className="text-xs font-medium text-muted-foreground/80 mb-1.5">Geburtsdatum *</p>
               <DateOfBirthInput value={contact.dateOfBirth} onChange={v => setContact(c => ({ ...c, dateOfBirth: v }))} />
             </div>
 
@@ -821,7 +825,7 @@ export function HeroBookingForm() {
               <div className="col-span-2"><FloatField label="Stadt *" value={contact.city} onChange={v => setContact(c => ({ ...c, city: v }))} autoComplete="address-level2" /></div>
             </div>
 
-            <label className="flex items-start gap-2 cursor-pointer select-none p-2.5 rounded-lg border border-border hover:border-primary/30 transition-colors">
+            <label className="flex items-start gap-2.5 cursor-pointer select-none p-3 rounded-lg border border-border hover:border-primary/30 transition-colors">
               <div className="relative mt-0.5 shrink-0">
                 <input
                   type="checkbox"
@@ -830,13 +834,13 @@ export function HeroBookingForm() {
                   onChange={e => setContact(c => ({ ...c, marketingConsent: e.target.checked }))}
                 />
                 <div className={cn(
-                  'w-4 h-4 rounded border-2 flex items-center justify-center transition-all',
+                  'w-5 h-5 rounded border-2 flex items-center justify-center transition-all',
                   contact.marketingConsent ? 'border-primary bg-primary' : 'border-muted-foreground/40 bg-background',
                 )}>
-                  {contact.marketingConsent && <CheckCircle2 className="w-2.5 h-2.5 text-primary-foreground" />}
+                  {contact.marketingConsent && <CheckCircle2 className="w-3 h-3 text-primary-foreground" />}
                 </div>
               </div>
-              <span className="text-[11px] text-muted-foreground leading-snug">
+              <span className="text-xs text-muted-foreground leading-snug">
                 Ich bin einverstanden, dass happyfigur mich per E-Mail und Telefon über Angebote informiert. Jederzeit widerrufbar.
               </span>
             </label>
@@ -845,9 +849,9 @@ export function HeroBookingForm() {
               <div className="p-3 bg-destructive/10 border border-destructive/30 rounded-lg flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-xs font-semibold text-destructive">{bookingError}</p>
-                  <button type="button" onClick={() => openLiveChat()} className="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-accent hover:underline">
-                    <MessageSquare className="w-3 h-3" /> Per Live-Chat buchen
+                  <p className="text-sm font-semibold text-destructive">{bookingError}</p>
+                  <button type="button" onClick={() => openLiveChat()} className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold text-accent hover:underline">
+                    <MessageSquare className="w-3.5 h-3.5" /> Per Live-Chat buchen
                   </button>
                 </div>
               </div>
@@ -862,54 +866,79 @@ export function HeroBookingForm() {
           <button
             type="button"
             onClick={back}
-            className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground px-2 py-2"
+            className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground px-2 py-2"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Zurück
+            <ArrowLeft className="w-4 h-4" /> Zurück
           </button>
         ) : <span />}
 
         {step === 2 && (
           <button type="button" onClick={next} disabled={!measuresValid}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
-            Weiter <ArrowRight className="w-3.5 h-3.5" />
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold transition-all',
+              measuresValid
+                ? 'btn-cta'
+                : 'bg-secondary text-muted-foreground/50 cursor-not-allowed border border-border',
+            )}>
+            Weiter <ArrowRight className="w-4 h-4" />
           </button>
         )}
 
         {step === 3 && (
           <button type="button" onClick={next} disabled={data.problems.length === 0}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
-            Weiter <ArrowRight className="w-3.5 h-3.5" />
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold transition-all',
+              data.problems.length > 0
+                ? 'btn-cta'
+                : 'bg-secondary text-muted-foreground/50 cursor-not-allowed border border-border',
+            )}>
+            Weiter <ArrowRight className="w-4 h-4" />
           </button>
         )}
 
         {step === 5 && (
           <button type="button" onClick={next} disabled={!data.insurance}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
-            Weiter <ArrowRight className="w-3.5 h-3.5" />
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold transition-all',
+              data.insurance
+                ? 'btn-cta'
+                : 'bg-secondary text-muted-foreground/50 cursor-not-allowed border border-border',
+            )}>
+            Weiter <ArrowRight className="w-4 h-4" />
           </button>
         )}
 
         {step === 6 && (
           <button type="button" onClick={next}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto">
-            Termin wählen <ArrowRight className="w-3.5 h-3.5" />
+            className="btn-cta inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold">
+            Termin wählen <ArrowRight className="w-4 h-4" />
           </button>
         )}
 
         {step === 7 && (
           <button type="button" onClick={next} disabled={!selectedSlot}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
-            Weiter <ArrowRight className="w-3.5 h-3.5" />
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold transition-all',
+              selectedSlot
+                ? 'btn-cta'
+                : 'bg-secondary text-muted-foreground/50 cursor-not-allowed border border-border',
+            )}>
+            Weiter <ArrowRight className="w-4 h-4" />
           </button>
         )}
 
         {step === 8 && (
           <button type="button" onClick={submitBooking} disabled={!contactValid || isBooking}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm px-5 py-3 ml-auto rounded-xl font-semibold transition-all',
+              contactValid && !isBooking
+                ? 'btn-cta'
+                : 'bg-secondary text-muted-foreground/50 cursor-not-allowed border border-border',
+            )}>
             {isBooking ? (
-              <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Buche…</>
+              <><Loader2 className="w-4 h-4 animate-spin" /> Buche…</>
             ) : (
-              <>Termin buchen <ArrowRight className="w-3.5 h-3.5" /></>
+              <>Termin buchen <ArrowRight className="w-4 h-4" /></>
             )}
           </button>
         )}
@@ -932,7 +961,7 @@ function NumberField({
 }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wider">{label}</span>
+      <span className="text-xs font-medium text-muted-foreground/80 uppercase tracking-wider">{label}</span>
       <input
         type="number"
         inputMode="numeric"
@@ -941,7 +970,7 @@ function NumberField({
         placeholder={placeholder}
         value={value || ''}
         onChange={e => onChange(parseInt(e.target.value) || 0)}
-        className="px-3 py-2.5 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-sm"
+        className="px-3 py-3 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-base"
       />
     </label>
   )
@@ -964,9 +993,9 @@ function FloatField({
         value={value}
         onChange={e => onChange(e.target.value)}
         autoComplete={autoComplete}
-        className="peer w-full px-3 pt-5 pb-2 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-sm"
+        className="peer w-full px-3 pt-5 pb-2 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-base"
       />
-      <label className="absolute left-3 top-2 text-[10px] font-medium text-muted-foreground/70 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-primary pointer-events-none">
+      <label className="absolute left-3 top-1.5 text-xs font-medium text-muted-foreground/70 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary pointer-events-none">
         {label}
       </label>
     </div>
@@ -986,7 +1015,7 @@ function DateOfBirthInput({ value, onChange }: { value: string; onChange: (v: st
     onChange(`${next[0] || '2000'}-${next[1] || '01'}-${next[2] || '01'}`)
   }
 
-  const selectClass = 'w-full px-2 py-2.5 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-sm appearance-none cursor-pointer'
+  const selectClass = 'w-full px-2 py-3 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary/30 focus:outline-none transition-all text-base appearance-none cursor-pointer'
 
   return (
     <div className="grid grid-cols-3 gap-2">
