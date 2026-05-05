@@ -3,11 +3,20 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight, ArrowLeft, Loader2, CheckCircle2, Calendar as CalendarIcon,
-  AlertCircle, ShieldCheck, Target, RefreshCw, Pizza, Clock, Frown, MessageSquare,
+  AlertCircle, ShieldCheck, Target, Clock, MessageSquare, Sparkles,
+  BarChart2, Utensils, Dumbbell,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { openLiveChat } from '@/lib/livechat'
 import { track } from '@vercel/analytics'
+import {
+  INSURANCE_VALUES, TOP_INSURANCE, ALL_INSURANCE,
+  PROBLEM_EXPLANATIONS, GOAL_LABELS, TIME_LABELS,
+} from '@/lib/insurance'
+import {
+  calcResult, getMonthGrid, toLocalDateKey, formatTime, formatDateLong,
+  formatDateShort,
+} from '@/lib/quizResult'
 
 type Goal = 'abnehmen' | 'straffen' | 'energie' | 'gesundheit'
 type TimeSel = 'wenig' | 'mittel' | 'viel'
@@ -20,6 +29,8 @@ interface QuizData {
   targetWeight: number
   problems: string[]
   time: TimeSel | ''
+  insurance: string
+  insuranceAmount: number
 }
 
 interface ContactData {
@@ -44,11 +55,11 @@ const GOAL_OPTIONS: { value: Goal; label: string }[] = [
   { value: 'gesundheit', label: 'Gesundheit' },
 ]
 
-const PROBLEM_OPTIONS: { value: string; label: string; icon: typeof RefreshCw }[] = [
-  { value: 'jojo', label: 'Jo-Jo-Effekt', icon: RefreshCw },
-  { value: 'hunger', label: 'Heißhunger', icon: Pizza },
-  { value: 'zeit', label: 'Zeitmangel', icon: Clock },
-  { value: 'motivation', label: 'Motivation', icon: Frown },
+const PROBLEM_OPTIONS: { value: string; label: string }[] = [
+  { value: 'jojo', label: 'Jo-Jo-Effekt' },
+  { value: 'hunger', label: 'Heißhunger' },
+  { value: 'zeit', label: 'Zeitmangel' },
+  { value: 'motivation', label: 'Motivation' },
 ]
 
 const TIME_OPTIONS: { value: TimeSel; label: string }[] = [
@@ -57,42 +68,13 @@ const TIME_OPTIONS: { value: TimeSel; label: string }[] = [
   { value: 'viel', label: '5+× / Woche' },
 ]
 
-const TOTAL_STEPS = 6
-
-function getMonthGrid(year: number, month: number): (Date | null)[] {
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
-  const startPad = (firstDay.getDay() + 6) % 7
-  const grid: (Date | null)[] = []
-  for (let i = 0; i < startPad; i++) grid.push(null)
-  for (let d = 1; d <= lastDay.getDate(); d++) grid.push(new Date(year, month, d))
-  while (grid.length % 7 !== 0) grid.push(null)
-  return grid
-}
-
-function toLocalDateKey(isoStr: string): string {
-  const d = new Date(isoStr)
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
-
-function formatTime(isoStr: string): string {
-  return new Date(isoStr).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
-}
-
-function formatDateLong(dateKey: string): string {
-  const d = new Date(dateKey + 'T12:00:00')
-  return d.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
-}
-
-function formatDateShort(isoStr: string): string {
-  const d = new Date(isoStr)
-  return d.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'long' })
-}
+const TOTAL_STEPS = 8
 
 export function HeroBookingForm() {
   const [step, setStep] = useState(1)
   const [data, setData] = useState<QuizData>({
-    goal: '', height: 0, weight: 0, targetWeight: 0, problems: [], time: '',
+    goal: '', height: 0, weight: 0, targetWeight: 0,
+    problems: [], time: '', insurance: '', insuranceAmount: 0,
   })
   const [contact, setContact] = useState<ContactData>({
     firstName: '', lastName: '', email: '', mobilephone: '',
@@ -100,6 +82,8 @@ export function HeroBookingForm() {
     street: '', houseNumber: '', zip: '', city: '',
     marketingConsent: false, note: '',
   })
+
+  const [showAllInsurance, setShowAllInsurance] = useState(false)
 
   const [slots, setSlots] = useState<Slot[]>([])
   const [slotsLoading, setSlotsLoading] = useState(false)
@@ -117,11 +101,14 @@ export function HeroBookingForm() {
     setStep(s => Math.min(s + 1, TOTAL_STEPS))
   }
   const back = () => setStep(s => Math.max(s - 1, 1))
-  const autoAdvance = (fn: () => void) => { fn(); setTimeout(next, 300) }
+  const autoAdvance = (delay: number, fn: () => void) => {
+    fn()
+    setTimeout(next, delay)
+  }
 
   const selectGoal = (goal: Goal) => {
     track('hero_form_goal', { goal })
-    autoAdvance(() => setData(d => ({ ...d, goal })))
+    autoAdvance(500, () => setData(d => ({ ...d, goal })))
   }
   const toggleProblem = (problem: string) => {
     setData(d => ({
@@ -133,12 +120,17 @@ export function HeroBookingForm() {
   }
   const selectTime = (time: TimeSel) => {
     track('hero_form_time', { time })
-    autoAdvance(() => setData(d => ({ ...d, time })))
+    autoAdvance(800, () => setData(d => ({ ...d, time })))
+  }
+  const selectInsurance = (insurance: string) => {
+    const amount = INSURANCE_VALUES[insurance] ?? 100
+    track('hero_form_insurance', { insurance, amount })
+    setData(d => ({ ...d, insurance, insuranceAmount: amount }))
   }
 
-  // Slots laden bei Schritt 5
+  // Slots laden bei Schritt 7 (Termin)
   useEffect(() => {
-    if (step !== 5) return
+    if (step !== 7) return
     setSlotsLoading(true)
     setSlotsError(null)
     const today = new Date()
@@ -167,6 +159,20 @@ export function HeroBookingForm() {
     }
     return map
   }, [slots])
+
+  // Realistisches Ergebnis aus den eingegebenen Maßen — gleiche Logik wie im Quiz
+  const projectedResult = useMemo(
+    () => calcResult({
+      goal: data.goal || '',
+      height: data.height,
+      weight: data.weight,
+      targetWeight: data.targetWeight,
+      problems: data.problems,
+      time: data.time || 'mittel',
+      commitment: 'bereit',
+    }),
+    [data.goal, data.height, data.weight, data.targetWeight, data.problems, data.time],
+  )
 
   const submitBooking = async () => {
     if (!selectedSlot) return
@@ -198,6 +204,8 @@ export function HeroBookingForm() {
             problems: data.problems,
             time: data.time,
             commitment: 'bereit',
+            insurance: data.insurance,
+            insuranceAmount: data.insuranceAmount,
           },
         }),
       })
@@ -210,6 +218,7 @@ export function HeroBookingForm() {
         track('hero_form_booking_success', {
           goal: data.goal,
           time: data.time,
+          insurance: data.insurance,
           problems: data.problems.join(','),
         })
         setStep(TOTAL_STEPS)
@@ -237,11 +246,6 @@ export function HeroBookingForm() {
     data.height >= 130 && data.height <= 220 &&
     data.weight >= 40 && data.weight <= 250 &&
     data.targetWeight >= 40 && data.targetWeight <= 250
-
-  const canNext =
-    (step === 2 && measuresValid) ||
-    (step === 3 && data.problems.length > 0) ||
-    (step === 5 && !!selectedSlot)
 
   // Erfolgsschritt
   if (bookingSuccess) {
@@ -297,7 +301,7 @@ export function HeroBookingForm() {
         ))}
       </div>
 
-      <div className="min-h-[280px] flex flex-col">
+      <div className="min-h-[300px] flex flex-col">
         {/* Step 1: Ziel */}
         {step === 1 && (
           <div className="flex flex-col gap-3">
@@ -306,21 +310,27 @@ export function HeroBookingForm() {
               <p className="text-sm font-semibold">Was möchtest du erreichen?</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {GOAL_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => selectGoal(opt.value)}
-                  className={cn(
-                    'px-3 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-center',
-                    data.goal === opt.value
-                      ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/15'
-                      : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
-                  )}
-                >
-                  {opt.label}
-                </button>
-              ))}
+              {GOAL_OPTIONS.map(opt => {
+                const active = data.goal === opt.value
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => selectGoal(opt.value)}
+                    className={cn(
+                      'relative px-3 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-center',
+                      active
+                        ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/20'
+                        : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
+                    )}
+                  >
+                    {active && (
+                      <CheckCircle2 className="absolute top-1.5 right-1.5 w-3.5 h-3.5 text-primary animate-fade-up" />
+                    )}
+                    {opt.label}
+                  </button>
+                )
+              })}
             </div>
           </div>
         )}
@@ -333,6 +343,23 @@ export function HeroBookingForm() {
             <NumberField label="Größe (cm)" value={data.height} onChange={v => setData(d => ({ ...d, height: v }))} min={130} max={220} placeholder="175" />
             <NumberField label="Aktuelles Gewicht (kg)" value={data.weight} onChange={v => setData(d => ({ ...d, weight: v }))} min={40} max={250} placeholder="80" />
             <NumberField label="Wunschgewicht (kg)" value={data.targetWeight} onChange={v => setData(d => ({ ...d, targetWeight: v }))} min={40} max={250} placeholder="72" />
+
+            {/* Inline-Reinforcement: realistisches Ziel */}
+            {measuresValid && projectedResult.kgLoss > 0 && (
+              <div className="mt-1 p-3 rounded-lg bg-primary/10 border border-primary/30 flex items-start gap-2 animate-fade-up">
+                <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <p className="text-xs text-foreground leading-snug">
+                  Realistisch in 8 Wochen: <span className="font-bold text-primary">-{projectedResult.kgLoss} kg</span>
+                  {projectedResult.projectedWeight && projectedResult.projectedWeight > 0 && (
+                    <> — du kommst auf <span className="font-semibold">{projectedResult.projectedWeight} kg</span></>
+                  )}
+                  {projectedResult.bmi !== null && (
+                    <> · BMI heute: <span className="font-semibold">{projectedResult.bmi}</span></>
+                  )}
+                  <sup>⁴</sup>
+                </p>
+              </div>
+            )}
           </div>
         )}
 
@@ -343,7 +370,8 @@ export function HeroBookingForm() {
             <p className="text-xs text-muted-foreground mb-2">Mehrfachauswahl möglich.</p>
             <div className="grid grid-cols-2 gap-2">
               {PROBLEM_OPTIONS.map(opt => {
-                const Icon = opt.icon
+                const explanation = PROBLEM_EXPLANATIONS[opt.value]
+                const Icon = explanation?.icon
                 const active = data.problems.includes(opt.value)
                 return (
                   <button
@@ -357,12 +385,33 @@ export function HeroBookingForm() {
                         : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
                     )}
                   >
-                    <Icon className="w-4 h-4 shrink-0" />
+                    {Icon && <Icon className="w-4 h-4 shrink-0" />}
                     <span>{opt.label}</span>
                   </button>
                 )
               })}
             </div>
+
+            {/* Inline-Reinforcement: Lösungen für gewählte Probleme */}
+            {data.problems.length > 0 && (
+              <div className="mt-2 flex flex-col gap-2">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Darum klappt&apos;s diesmal</p>
+                {data.problems.map(key => {
+                  const item = PROBLEM_EXPLANATIONS[key]
+                  if (!item) return null
+                  const Icon = item.icon
+                  return (
+                    <div key={key} className="p-2.5 rounded-lg border border-primary/20 bg-primary/5 flex items-start gap-2 animate-fade-up">
+                      <Icon className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-foreground leading-snug">
+                        <span className="font-semibold">{item.problem}:</span>{' '}
+                        <span className="text-muted-foreground">{item.solution}</span>
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         )}
 
@@ -375,31 +424,234 @@ export function HeroBookingForm() {
             </div>
             <p className="text-xs text-muted-foreground mb-2">Hilft uns, deinen Plan realistisch zu gestalten.</p>
             <div className="flex flex-col gap-2">
-              {TIME_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => selectTime(opt.value)}
-                  className={cn(
-                    'px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-left',
-                    data.time === opt.value
-                      ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/15'
-                      : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
+              {TIME_OPTIONS.map(opt => {
+                const active = data.time === opt.value
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => selectTime(opt.value)}
+                    className={cn(
+                      'relative px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 text-left',
+                      active
+                        ? 'border-primary bg-primary/15 text-primary shadow-md shadow-primary/15'
+                        : 'border-border bg-background/50 hover:border-primary/60 hover:bg-primary/5',
+                    )}
+                  >
+                    {active && (
+                      <CheckCircle2 className="absolute top-2.5 right-3 w-3.5 h-3.5 text-primary animate-fade-up" />
+                    )}
+                    {opt.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Inline-Reinforcement: Confirm-Flash */}
+            {data.time && (
+              <div className="mt-1 p-3 rounded-lg bg-primary/10 border border-primary/30 flex items-start gap-2 animate-fade-up">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <p className="text-xs text-foreground leading-snug">
+                  <span className="font-semibold">Reicht völlig aus.</span>{' '}
+                  <span className="text-muted-foreground">2× 30 Min sind das Maximum, was du brauchst — Quality over Quantity.</span>
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Step 5: Krankenkasse */}
+        {step === 5 && (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-4 h-4 text-primary text-center font-bold text-xs leading-4">€</span>
+              <p className="text-sm font-semibold">Was zahlst du wirklich?</p>
+            </div>
+            <p className="text-xs text-muted-foreground mb-1">
+              Spoiler: Für viele ist es komplett kostenlos.<sup>²³</sup>
+            </p>
+
+            {/* Preis-Reveal */}
+            <div className="text-center py-1">
+              <span className="inline-block text-2xl font-bold text-muted-foreground/40 line-through">179€<sup>¹</sup></span>
+            </div>
+
+            {/* Top-5 KK-Tiles */}
+            <div className="grid grid-cols-2 gap-1.5">
+              {TOP_INSURANCE.map(ins => {
+                const active = data.insurance === ins.value
+                return (
+                  <button
+                    key={ins.value}
+                    type="button"
+                    onClick={() => selectInsurance(ins.value)}
+                    className={cn(
+                      'p-2 rounded-lg border text-left transition-all duration-200',
+                      active ? 'border-primary bg-primary/15 shadow-md shadow-primary/15' : 'border-border bg-background/50 hover:border-primary/60',
+                    )}
+                  >
+                    <div className="text-[10px] font-semibold leading-tight">{ins.label}</div>
+                    <div className={cn('text-sm font-bold mt-0.5', ins.amount >= 179 ? 'text-primary' : 'text-foreground')}>
+                      {ins.amount >= 179 ? '✓ Gratis' : `${ins.amount}€`}
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowAllInsurance(v => !v)}
+              className="text-[11px] text-muted-foreground hover:text-foreground underline self-center"
+            >
+              {showAllInsurance ? 'Weniger anzeigen' : 'Andere Krankenkasse auswählen'}
+            </button>
+            {showAllInsurance && (
+              <select
+                value={data.insurance}
+                onChange={e => selectInsurance(e.target.value)}
+                aria-label="Krankenkasse auswählen"
+                className="w-full p-2.5 rounded-lg bg-background border border-border text-foreground cursor-pointer text-sm"
+              >
+                <option value="">— Alle Krankenkassen —</option>
+                {ALL_INSURANCE.map(ins => (
+                  <option key={ins.value} value={ins.value}>{ins.label}</option>
+                ))}
+              </select>
+            )}
+
+            {/* Sofortige Reaktions-Karte */}
+            {data.insuranceAmount > 0 && (
+              <div className="p-3 bg-background/60 border border-primary/30 rounded-lg text-center animate-fade-up">
+                {data.insuranceAmount >= 179 ? (
+                  <>
+                    <div className="text-xl font-bold text-primary">🎯 Komplett kostenlos<sup>²</sup></div>
+                    <p className="text-[11px] text-muted-foreground mt-1">Deine Kasse erstattet die vollen 179€.<sup>³</sup></p>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-xl font-bold text-accent">
+                      Nur {((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag<sup>¹³</sup>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      Erstattung {data.insuranceAmount}€ von 179€<sup>³</sup> · weniger als ein Kaffee pro Tag
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Step 6: Recap — "Dein Plan auf einen Blick" */}
+        {step === 6 && (
+          <div className="flex flex-col gap-3">
+            <div className="text-center mb-1">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Dein 8-Wochen-Plan</p>
+              <p className="text-base font-bold leading-tight">
+                {data.goal === 'abnehmen' && 'Abnehmen mit System statt Diät'}
+                {data.goal === 'straffen' && 'Körper straffen & Muskeln aufbauen'}
+                {data.goal === 'energie' && 'Mehr Energie für deinen Alltag'}
+                {data.goal === 'gesundheit' && 'Nachhaltig gesünder leben'}
+                {!data.goal && 'Dein 8-Wochen-Plan steht'}
+              </p>
+            </div>
+
+            {/* 3 Säulen */}
+            <div className="grid grid-cols-3 gap-1.5">
+              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
+                <BarChart2 className="w-4 h-4 text-primary mx-auto mb-1" />
+                <p className="text-[10px] font-semibold leading-tight">Körperanalyse</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">Stoffwechsel verstehen</p>
+              </div>
+              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
+                <Dumbbell className="w-4 h-4 text-accent mx-auto mb-1" />
+                <p className="text-[10px] font-semibold leading-tight">Training</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">2× 30 Min/Woche</p>
+              </div>
+              <div className="p-2.5 rounded-lg border border-border bg-background/40 text-center">
+                <Utensils className="w-4 h-4 text-primary mx-auto mb-1" />
+                <p className="text-[10px] font-semibold leading-tight">Ernährung</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5 leading-tight">Plan auf dich</p>
+              </div>
+            </div>
+
+            {/* Realistisches Ergebnis */}
+            {projectedResult.kgLoss > 0 && (
+              <div className="p-3 rounded-lg bg-primary/10 border border-primary/30 text-center">
+                <p className="text-[10px] uppercase tracking-wider text-primary font-semibold">Realistisch in 8 Wochen<sup>⁴</sup></p>
+                <p className="text-xl font-bold text-primary mt-0.5">
+                  {data.goal === 'straffen'
+                    ? `-${projectedResult.fatLoss}% Körperfett`
+                    : data.goal === 'energie'
+                    ? `+${projectedResult.energyPct}% Energie`
+                    : `-${projectedResult.kgLoss} kg`}
+                </p>
+              </div>
+            )}
+
+            {/* Recap-Strip */}
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 p-2.5 rounded-lg border border-border bg-background/30 text-[11px]">
+              {data.goal && (
+                <span className="flex items-center gap-1 text-muted-foreground">
+                  <Target className="w-3 h-3 text-primary" />
+                  {GOAL_LABELS[data.goal]}
+                </span>
+              )}
+              {data.time && (
+                <span className="flex items-center gap-1 text-muted-foreground">
+                  <Clock className="w-3 h-3 text-primary" />
+                  {TIME_LABELS[data.time]}
+                </span>
+              )}
+              {data.insuranceAmount > 0 && (
+                <span className="flex items-center gap-1">
+                  <span className="w-3 h-3 text-primary text-center font-bold text-[9px] leading-3">€</span>
+                  {data.insuranceAmount >= 179 ? (
+                    <span className="text-primary font-semibold">Kostenlos</span>
+                  ) : (
+                    <span className="text-foreground">{((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag</span>
                   )}
-                >
-                  {opt.label}
-                </button>
-              ))}
+                </span>
+              )}
+            </div>
+
+            <div className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold text-primary self-center">
+              <ShieldCheck className="w-3 h-3" /> § 20 SGB V zertifiziert
             </div>
           </div>
         )}
 
-        {/* Step 5: Termin */}
-        {step === 5 && (
+        {/* Step 7: Termin */}
+        {step === 7 && (
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 mb-1">
               <CalendarIcon className="w-4 h-4 text-primary" />
               <p className="text-sm font-semibold">Wähle deinen Termin</p>
+            </div>
+
+            {/* Recap-Chip-Strip */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+              {data.goal && (
+                <span className="flex items-center gap-1">
+                  <Target className="w-3 h-3 text-primary" /> {GOAL_LABELS[data.goal]}
+                </span>
+              )}
+              {data.time && (
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-primary" /> {TIME_LABELS[data.time]}
+                </span>
+              )}
+              {data.insuranceAmount > 0 && (
+                <span className="flex items-center gap-1">
+                  <span className="w-3 h-3 text-primary text-center font-bold text-[9px] leading-3">€</span>
+                  {data.insuranceAmount >= 179 ? (
+                    <span className="text-primary font-semibold">Kostenlos</span>
+                  ) : (
+                    `${((179 - data.insuranceAmount) / 56).toFixed(2)}€/Tag`
+                  )}
+                </span>
+              )}
             </div>
 
             {slotsLoading && (
@@ -430,7 +682,6 @@ export function HeroBookingForm() {
 
               return (
                 <div className="border border-border rounded-xl overflow-hidden bg-background/40">
-                  {/* Monats-Navi */}
                   <div className="flex items-center justify-between p-3 border-b border-border">
                     <button
                       type="button"
@@ -451,14 +702,12 @@ export function HeroBookingForm() {
                     </button>
                   </div>
 
-                  {/* Wochentage */}
                   <div className="grid grid-cols-7 px-2 pt-2">
                     {['Mo','Di','Mi','Do','Fr','Sa','So'].map(d => (
                       <div key={d} className="text-center text-[10px] text-muted-foreground/60 font-medium py-1">{d}</div>
                     ))}
                   </div>
 
-                  {/* Tage */}
                   <div className="grid grid-cols-7 px-2 pb-2">
                     {grid.map((date, i) => {
                       if (!date) return <div key={i} />
@@ -486,7 +735,6 @@ export function HeroBookingForm() {
                     })}
                   </div>
 
-                  {/* Slots für Tag */}
                   {selectedDate && (
                     <div className="border-t border-border p-3 max-h-[150px] overflow-y-auto">
                       <p className="text-[11px] font-semibold mb-2">{formatDateLong(selectedDate)}</p>
@@ -522,8 +770,8 @@ export function HeroBookingForm() {
           </div>
         )}
 
-        {/* Step 6: Kontakt */}
-        {step === 6 && (
+        {/* Step 8: Kontakt */}
+        {step === 8 && (
           <div className="flex flex-col gap-3">
             <p className="text-sm font-semibold mb-1">Deine Daten</p>
             {selectedSlot && (
@@ -620,35 +868,44 @@ export function HeroBookingForm() {
           </button>
         ) : <span />}
 
-        {step < 5 && step !== 1 && step !== 4 && (
-          <button
-            type="button"
-            onClick={next}
-            disabled={!canNext}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+        {step === 2 && (
+          <button type="button" onClick={next} disabled={!measuresValid}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
+            Weiter <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        )}
+
+        {step === 3 && (
+          <button type="button" onClick={next} disabled={data.problems.length === 0}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
             Weiter <ArrowRight className="w-3.5 h-3.5" />
           </button>
         )}
 
         {step === 5 && (
-          <button
-            type="button"
-            onClick={next}
-            disabled={!selectedSlot}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button type="button" onClick={next} disabled={!data.insurance}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
             Weiter <ArrowRight className="w-3.5 h-3.5" />
           </button>
         )}
 
         {step === 6 && (
-          <button
-            type="button"
-            onClick={submitBooking}
-            disabled={!contactValid || isBooking}
-            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button type="button" onClick={next}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto">
+            Termin wählen <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        )}
+
+        {step === 7 && (
+          <button type="button" onClick={next} disabled={!selectedSlot}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
+            Weiter <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        )}
+
+        {step === 8 && (
+          <button type="button" onClick={submitBooking} disabled={!contactValid || isBooking}
+            className="btn-cta inline-flex items-center gap-1.5 text-xs px-4 py-2.5 ml-auto disabled:opacity-50 disabled:cursor-not-allowed">
             {isBooking ? (
               <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Buche…</>
             ) : (

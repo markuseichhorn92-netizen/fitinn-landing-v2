@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { INSURANCE_LABEL } from '@/lib/insurance'
 
 const STUDIO_ID = '1210005460'
 const BASE_URL = 'https://fit-inn-trier.api.magicline.com/connect/v1'
@@ -53,6 +54,9 @@ export async function POST(request: NextRequest) {
       `Probleme: ${(quizData.problems as string[]).join(', ') || '–'}`,
       `Trainingszeit: ${timeLabels[quizData.time] ?? quizData.time}`,
       `Motivation: ${commitmentLabels[quizData.commitment] ?? quizData.commitment}`,
+      ...(quizData.insurance && quizData.insuranceAmount
+        ? [`Kasse: ${INSURANCE_LABEL[quizData.insurance] ?? quizData.insurance} (Erstattung ${quizData.insuranceAmount}€)`]
+        : []),
       ...(note ? [`Anmerkung: ${note}`] : []),
     ].join(' | ') : (note || '')
 
