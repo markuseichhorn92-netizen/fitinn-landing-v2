@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, Mail } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, Mail, BarChart2, Dumbbell, Utensils } from 'lucide-react'
 import { openLiveChat } from '@/lib/livechat'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
@@ -64,12 +64,56 @@ export default function Home() {
               <span className="text-primary">mit System statt Diät.</span>
             </h1>
 
-            <p className="text-base md:text-xl text-muted-foreground max-w-2xl lg:max-w-xl mb-8 animate-fade-up delay-200 mx-auto lg:mx-0">
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl lg:max-w-xl mb-6 animate-fade-up delay-200 mx-auto lg:mx-0">
               happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V.
               Deine Krankenkasse erstattet bis zu 100%.²³
             </p>
 
-            <div className="flex flex-col items-center lg:items-start gap-4 animate-fade-up delay-300">
+            {/* Inklusive-Karte: Was bekommst du + Was kostet's auf einen Blick */}
+            <div className="max-w-md mx-auto lg:mx-0 mb-7 rounded-2xl border border-border bg-card/80 backdrop-blur-md p-5 text-left shadow-lg animate-fade-up delay-200">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inklusive</p>
+                <p className="text-xs text-muted-foreground">8 Wochen · 2× 30 Min/Woche</p>
+              </div>
+              <ul className="flex flex-col gap-2 mb-4">
+                <li className="flex items-start gap-2.5">
+                  <BarChart2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground leading-tight">Körperanalyse</p>
+                    <p className="text-xs text-muted-foreground">Stoffwechsel messen statt raten</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Dumbbell className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground leading-tight">Training im Studio</p>
+                    <p className="text-xs text-muted-foreground">Individuell, im FIT-INN Trier</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Utensils className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground leading-tight">Ernährungsplan</p>
+                    <p className="text-xs text-muted-foreground">Auf dich abgestimmt</p>
+                  </div>
+                </li>
+              </ul>
+              <div className="border-t border-border pt-3 flex items-center justify-between gap-3">
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-base text-muted-foreground/60 line-through">179€<sup>¹</sup></span>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/60" />
+                    <span className="text-2xl font-extrabold text-primary">oft 0€<sup>²³</sup></span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">einmalig · Krankenkasse erstattet</p>
+                </div>
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold text-primary uppercase tracking-wider shrink-0">
+                  <Shield className="w-3 h-3" /> § 20
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center lg:items-start gap-3 animate-fade-up delay-300">
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <button
                   id="hero-cta"
@@ -84,11 +128,9 @@ export default function Home() {
                   Direkt anfragen
                 </button>
               </div>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
-                <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
-              </div>
+              <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-primary" /> Kostenlos & unverbindlich
+              </p>
             </div>
           </div>
 
