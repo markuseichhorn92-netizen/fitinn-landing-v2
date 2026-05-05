@@ -109,9 +109,22 @@ export default function Home() {
             <h2 className="text-2xl md:text-4xl font-bold">
               Was du bekommst — und <span className="text-primary">was es kostet</span>
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground mt-3">
-              8 Wochen · 2× 30 Min pro Woche · zertifiziert nach § 20 SGB V
-            </p>
+          </div>
+
+          {/* Hero-Stats: 8 Wochen prominent */}
+          <div className="grid grid-cols-3 gap-3 md:gap-5 mb-10 max-w-3xl mx-auto">
+            <div className="rounded-2xl border-2 border-accent bg-accent/5 p-4 md:p-5 text-center shadow-lg shadow-accent/10">
+              <p className="text-3xl md:text-5xl font-extrabold text-accent leading-none font-[family-name:var(--font-barlow-condensed)]">8</p>
+              <p className="text-[10px] md:text-xs font-bold tracking-wider text-accent uppercase mt-1">Wochen Training</p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card/40 p-4 md:p-5 text-center">
+              <p className="text-2xl md:text-4xl font-extrabold text-foreground leading-none font-[family-name:var(--font-barlow-condensed)]">2× 30</p>
+              <p className="text-[10px] md:text-xs font-medium tracking-wider text-muted-foreground uppercase mt-1">Min pro Woche</p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card/40 p-4 md:p-5 text-center">
+              <p className="text-2xl md:text-4xl font-extrabold text-primary leading-none font-[family-name:var(--font-barlow-condensed)]">§ 20</p>
+              <p className="text-[10px] md:text-xs font-medium tracking-wider text-muted-foreground uppercase mt-1">SGB V zertifiziert</p>
+            </div>
           </div>
 
           {/* 3 Säulen */}
@@ -143,22 +156,20 @@ export default function Home() {
           <div className="rounded-2xl border border-primary/30 bg-primary/5 p-6 md:p-7 flex flex-col md:flex-row items-center justify-between gap-5">
             <div className="text-center md:text-left">
               <p className="text-xs font-semibold tracking-wider text-primary uppercase mb-2">Deine Investition</p>
-              <div className="flex items-baseline justify-center md:justify-start gap-3 flex-wrap">
-                <span className="text-xl md:text-2xl text-muted-foreground/60 line-through">179€<sup>¹</sup></span>
-                <ArrowRight className="w-5 h-5 text-muted-foreground/50" />
-                <span className="text-3xl md:text-4xl font-extrabold text-primary">oft 0€<sup>²³</sup></span>
-              </div>
+              <p className="text-4xl md:text-5xl font-extrabold text-foreground leading-none">
+                179€<sup className="text-base font-medium text-muted-foreground/70">¹</sup>
+              </p>
               <p className="text-sm text-muted-foreground mt-2">
-                einmalig · Krankenkasse erstattet bis zu 100%
+                einmalig · keine Mitgliedschaft · Krankenkasse erstattet bis zu 100%<sup>²³</sup>
               </p>
             </div>
-            <button
-              onClick={startQuiz}
+            <a
+              href="#krankenkasse"
               className="btn-cta inline-flex items-center gap-2 text-base px-6 py-3.5 shrink-0"
             >
-              Jetzt starten
+              Was zahle ich? KK-Rechner
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </a>
           </div>
         </div>
       </section>
