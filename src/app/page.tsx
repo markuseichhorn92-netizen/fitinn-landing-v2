@@ -64,56 +64,12 @@ export default function Home() {
               <span className="text-primary">mit System statt Diät.</span>
             </h1>
 
-            <p className="text-base md:text-xl text-muted-foreground max-w-2xl lg:max-w-xl mb-6 animate-fade-up delay-200 mx-auto lg:mx-0">
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl lg:max-w-xl mb-8 animate-fade-up delay-200 mx-auto lg:mx-0">
               happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V.
               Deine Krankenkasse erstattet bis zu 100%.²³
             </p>
 
-            {/* Inklusive-Karte: Was bekommst du + Was kostet's auf einen Blick */}
-            <div className="max-w-md mx-auto lg:mx-0 mb-7 rounded-2xl border border-border bg-card/80 backdrop-blur-md p-5 text-left shadow-lg animate-fade-up delay-200">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inklusive</p>
-                <p className="text-xs text-muted-foreground">8 Wochen · 2× 30 Min/Woche</p>
-              </div>
-              <ul className="flex flex-col gap-2 mb-4">
-                <li className="flex items-start gap-2.5">
-                  <BarChart2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-foreground leading-tight">Körperanalyse</p>
-                    <p className="text-xs text-muted-foreground">Stoffwechsel messen statt raten</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Dumbbell className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-foreground leading-tight">Training im Studio</p>
-                    <p className="text-xs text-muted-foreground">Individuell, im FIT-INN Trier</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Utensils className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-foreground leading-tight">Ernährungsplan</p>
-                    <p className="text-xs text-muted-foreground">Auf dich abgestimmt</p>
-                  </div>
-                </li>
-              </ul>
-              <div className="border-t border-border pt-3 flex items-center justify-between gap-3">
-                <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-base text-muted-foreground/60 line-through">179€<sup>¹</sup></span>
-                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/60" />
-                    <span className="text-2xl font-extrabold text-primary">oft 0€<sup>²³</sup></span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-0.5">einmalig · Krankenkasse erstattet</p>
-                </div>
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold text-primary uppercase tracking-wider shrink-0">
-                  <Shield className="w-3 h-3" /> § 20
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center lg:items-start gap-3 animate-fade-up delay-300">
+            <div className="flex flex-col items-center lg:items-start gap-4 animate-fade-up delay-300">
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <button
                   id="hero-cta"
@@ -128,15 +84,81 @@ export default function Home() {
                   Direkt anfragen
                 </button>
               </div>
-              <p className="text-sm text-muted-foreground flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-primary" /> Kostenlos & unverbindlich
-              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
+              </div>
             </div>
           </div>
 
           {/* Rechte Spalte: Booking Form */}
           <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none">
             <HeroBookingForm />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          INKLUSIVE — Was bekommst du + was kostet's
+          ═══════════════════════════════════════ */}
+      <section className="relative px-5 py-12 md:py-16 border-t border-border/40">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-10">
+            <p className="text-xs font-bold tracking-[0.3em] text-accent/60 uppercase mb-2">Auf einen Blick</p>
+            <h2 className="text-2xl md:text-4xl font-bold">
+              Was du bekommst — und <span className="text-primary">was es kostet</span>
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mt-3">
+              8 Wochen · 2× 30 Min pro Woche · zertifiziert nach § 20 SGB V
+            </p>
+          </div>
+
+          {/* 3 Säulen */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <div className="rounded-2xl border border-border bg-card/60 p-6 border-l-4 border-l-primary">
+              <BarChart2 className="w-7 h-7 text-primary mb-3" />
+              <h3 className="text-base font-bold mb-1">Körperanalyse</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                3× während des Programms — Stoffwechsel messen statt raten. Du siehst schwarz auf weiß, was sich verändert.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card/60 p-6 border-l-4 border-l-accent">
+              <Dumbbell className="w-7 h-7 text-accent mb-3" />
+              <h3 className="text-base font-bold mb-1">Training im Studio</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Individuell auf dich abgestimmt im FIT-INN Trier — Trainer immer vor Ort ansprechbar.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card/60 p-6 border-l-4 border-l-primary">
+              <Utensils className="w-7 h-7 text-primary mb-3" />
+              <h3 className="text-base font-bold mb-1">Ernährungsplan</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Kein Verzicht, keine Diät — alltagstauglich, satt essen, mit Rezeptbuch und Online-Plattform.
+              </p>
+            </div>
+          </div>
+
+          {/* Preisleiste */}
+          <div className="rounded-2xl border border-primary/30 bg-primary/5 p-6 md:p-7 flex flex-col md:flex-row items-center justify-between gap-5">
+            <div className="text-center md:text-left">
+              <p className="text-xs font-semibold tracking-wider text-primary uppercase mb-2">Deine Investition</p>
+              <div className="flex items-baseline justify-center md:justify-start gap-3 flex-wrap">
+                <span className="text-xl md:text-2xl text-muted-foreground/60 line-through">179€<sup>¹</sup></span>
+                <ArrowRight className="w-5 h-5 text-muted-foreground/50" />
+                <span className="text-3xl md:text-4xl font-extrabold text-primary">oft 0€<sup>²³</sup></span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                einmalig · Krankenkasse erstattet bis zu 100%
+              </p>
+            </div>
+            <button
+              onClick={startQuiz}
+              className="btn-cta inline-flex items-center gap-2 text-base px-6 py-3.5 shrink-0"
+            >
+              Jetzt starten
+              <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
