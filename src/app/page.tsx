@@ -99,6 +99,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* KPI Dashboard direkt unter dem Hero */}
+      <section className="relative px-5 py-10 md:py-12">
+        <KPIDashboard />
+      </section>
+
       {/* ═══════════════════════════════════════
           INKLUSIVE — Was bekommst du + was kostet's
           ═══════════════════════════════════════ */}
@@ -172,11 +177,6 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
-
-      {/* KPI Dashboard als eigene Sektion */}
-      <section className="relative px-5 py-10 md:py-12">
-        <KPIDashboard />
       </section>
 
       {/* Navigation über Navbar — keine separate Journey-Nav nötig */}
