@@ -9,6 +9,7 @@ import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
 import { ContactFormModal } from '@/components/ContactFormModal'
 import { GrainOverlay } from '@/components/GrainOverlay'
+import { HeroBookingForm } from '@/components/HeroBookingForm'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { SolutionSection } from '@/components/sections/SolutionSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
@@ -32,9 +33,9 @@ export default function Home() {
       <Navbar onStartQuiz={startQuiz} />
 
       {/* ═══════════════════════════════════════
-          HERO — Clean, centered, KPI Dashboard
+          HERO — 2-Col: Copy + Booking Form
           ═══════════════════════════════════════ */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-end pt-20 pb-24 px-5">
+      <section id="hero" className="relative min-h-screen pt-28 md:pt-24 pb-16 px-5 flex items-center">
         {/* Hero background image */}
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -48,52 +49,58 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
         </div>
 
-        {/* Eyebrow — positioned higher */}
-        <div className="absolute top-28 left-0 right-0 z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 animate-fade-up">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm font-medium text-accent uppercase tracking-wider">
-              Das 8-Wochen Programm in Trier
-            </span>
-          </div>
-        </div>
+        <div className="relative z-10 mx-auto max-w-6xl w-full grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Linke Spalte: Copy + CTA */}
+          <div className="lg:col-span-7 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 animate-fade-up mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm font-medium text-accent uppercase tracking-wider">
+                Das 8-Wochen Programm in Trier
+              </span>
+            </div>
 
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          {/* Headline */}
-          <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold leading-[0.95] mb-6 animate-fade-up delay-100">
-            Abnehmen in Trier —<br />
-            <span className="text-primary">mit System statt Diät.</span>
-          </h1>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[0.95] mb-6 animate-fade-up delay-100">
+              Abnehmen in Trier —<br />
+              <span className="text-primary">mit System statt Diät.</span>
+            </h1>
 
-          {/* Subline */}
-          <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up delay-200">
-            happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V.
-            Deine Krankenkasse erstattet bis zu 100%.²³
-          </p>
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl lg:max-w-xl mb-8 animate-fade-up delay-200 mx-auto lg:mx-0">
+              happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V.
+              Deine Krankenkasse erstattet bis zu 100%.²³
+            </p>
 
-          {/* CTA */}
-          <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
-            <button
-              id="hero-cta"
-              onClick={startQuiz}
-              className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4"
-            >
-              Kostenloses Probetraining buchen
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Direkt anfragen
-            </button>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
-              <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
+            <div className="flex flex-col items-center lg:items-start gap-4 animate-fade-up delay-300">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                <button
+                  id="hero-cta"
+                  onClick={startQuiz}
+                  className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4"
+                >
+                  Quiz starten
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
+                  <Mail className="w-4 h-4" />
+                  Direkt anfragen
+                </button>
+              </div>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* KPI Dashboard Card */}
+          {/* Rechte Spalte: Booking Form */}
+          <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none">
+            <HeroBookingForm />
+          </div>
+        </div>
+      </section>
+
+      {/* KPI Dashboard als eigene Sektion */}
+      <section className="relative px-5 py-10 md:py-12">
         <KPIDashboard />
       </section>
 
