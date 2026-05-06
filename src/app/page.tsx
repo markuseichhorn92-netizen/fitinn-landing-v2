@@ -50,8 +50,8 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl w-full grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Linke Spalte: Copy + CTA */}
-          <div className="lg:col-span-7 text-center lg:text-left">
+          {/* Linke Spalte: Copy + CTA — auf Mobile NACH der Form */}
+          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 animate-fade-up mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-medium text-accent uppercase tracking-wider">
@@ -71,29 +71,31 @@ export default function Home() {
 
             <div className="flex flex-col items-center lg:items-start gap-4 animate-fade-up delay-300">
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                <a
+                  href="tel:+49651308524"
+                  className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4"
+                >
+                  <Phone className="w-5 h-5" />
+                  0651 308524
+                </a>
                 <button
                   id="hero-cta"
                   onClick={startQuiz}
-                  className="btn-cta inline-flex items-center gap-3 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4"
+                  className="btn-outline inline-flex items-center gap-2"
                 >
-                  Quiz starten
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-                <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Direkt anfragen
+                  Lieber per Quiz?
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Unverbindlich</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> 100% kostenlos</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Mo–Fr 9–20 Uhr erreichbar</span>
                 <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
               </div>
             </div>
           </div>
 
-          {/* Rechte Spalte: Booking Form */}
-          <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none">
+          {/* Rechte Spalte: Booking Form — auf Mobile VOR der Copy */}
+          <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none order-1 lg:order-2">
             <HeroBookingForm />
           </div>
         </div>

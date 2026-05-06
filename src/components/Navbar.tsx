@@ -92,10 +92,14 @@ export function Navbar({ onStartQuiz }: { onStartQuiz: () => void }) {
           ))}
           <a
             href="tel:+49651308524"
-            className="ml-2 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
+            className="ml-2 flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors px-3 py-2 rounded-lg hover:bg-accent/5 border border-accent/20"
+            aria-label="Telefon: 0651 308524"
           >
-            <Phone className="w-3.5 h-3.5" />
-            0651 308524
+            <Phone className="w-4 h-4" />
+            <span className="flex flex-col leading-tight items-start">
+              <span>0651 308524</span>
+              <span className="text-[10px] font-normal text-muted-foreground">Trier-Feyen</span>
+            </span>
           </a>
           <button
             onClick={onStartQuiz}

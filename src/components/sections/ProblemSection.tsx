@@ -2,23 +2,26 @@
 
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { SectionBadge } from '@/components/SectionBadge'
-import { TrendingDown, Clock, Ban, Scale, Frown, Repeat } from 'lucide-react'
+import { TrendingDown, Ban, Scale, Frown, Repeat } from 'lucide-react'
 
 const problems = [
   {
     icon: Scale,
     title: 'Die Waage bewegt sich nicht',
     text: 'Egal was du isst, egal wie viel du trainierst — die Zahl bleibt stehen.',
+    happyfigur: 'Wir messen Stoffwechsel, Muskel- und Fettanteil — nicht nur die Waage. So siehst du, was sich wirklich verändert.',
   },
   {
     icon: Repeat,
     title: 'Jo-Jo-Effekt nach jeder Diät',
     text: 'Zwei Wochen durchgehalten, dann kommt alles zurück — plus Extra-Kilos.',
+    happyfigur: 'Kein Hungern, kein Verzichten. Wir arbeiten mit deinem Stoffwechsel statt gegen ihn — nachhaltig statt kurzfristig.',
   },
   {
     icon: Ban,
     title: 'Kein Plan für deinen Alltag',
-    text: 'Meal-Prep, Kalorienzählen, 6x Training — klingt gut, passt aber nicht ins echte Leben.',
+    text: 'Meal-Prep, Kalorienzählen, 6× Training — klingt gut, passt aber nicht ins echte Leben.',
+    happyfigur: '2× 30 Min/Woche im Studio, ein Ernährungsplan, der zu deinem Alltag passt. Kein Kalorienzählen.',
   },
 ]
 
@@ -94,7 +97,13 @@ export function ProblemSection() {
                 <problem.icon className="w-5 h-5 text-destructive/50" />
               </div>
               <h3 className="text-base font-bold mb-1.5">{problem.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{problem.text}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{problem.text}</p>
+
+              {/* Bei happyfigur: */}
+              <div className="border-t border-primary/15 pt-3 mt-auto">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-primary mb-1">Bei happyfigur</p>
+                <p className="text-sm text-foreground/90 leading-relaxed">{problem.happyfigur}</p>
+              </div>
             </div>
           ))}
         </div>

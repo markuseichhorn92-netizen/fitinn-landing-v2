@@ -1,6 +1,6 @@
 'use client'
 
-import { Shield, CalendarX2, Award, HeartHandshake } from 'lucide-react'
+import { Shield, CalendarX2, FileCheck, HeartHandshake } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { SectionBadge } from '@/components/SectionBadge'
 
@@ -13,10 +13,16 @@ export function GuaranteeSection() {
         <SectionBadge number="07" label="Kein Risiko" />
 
         <h2
-          className={`text-2xl md:text-4xl font-bold mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
         >
           Du gehst <span className="text-primary">kein Risiko</span> ein
         </h2>
+        <p
+          className={`text-base md:text-lg text-muted-foreground mb-12 max-w-3xl fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
+          style={{ animationDelay: '0.05s' }}
+        >
+          Drei klare Zusagen, mit denen du genau weißt, worauf du dich einlässt — und worauf nicht.
+        </p>
 
         {/* 3 Guarantee Points */}
         <div
@@ -24,9 +30,21 @@ export function GuaranteeSection() {
           style={{ animationDelay: '0.1s' }}
         >
           {[
-            { icon: Shield, title: 'Probetraining kostenlos', text: 'Lerne uns kennen — kein Cent, kein Haken.' },
-            { icon: CalendarX2, title: 'Kein Abo', text: '8 Wochen, dann entscheidest du frei. Keine Verlängerung.' },
-            { icon: Award, title: '30 Jahre Erfahrung', text: 'FIT-INN seit 1996. Tausende zufriedene Teilnehmer.' },
+            {
+              icon: Shield,
+              title: 'Probetraining wirklich kostenlos',
+              text: 'Kein Cent, keine Vertragsbindung, kein verstecktes Probemonats-Abo. Du kommst, lernst uns kennen und entscheidest dann selbst.',
+            },
+            {
+              icon: FileCheck,
+              title: 'Krankenkasse vorbereitet',
+              text: 'Nach 8 erfolgreichen Kurseinheiten erhältst du automatisch deine Teilnahmebestätigung — fertig zum Einreichen bei deiner gesetzlichen Kasse.²',
+            },
+            {
+              icon: HeartHandshake,
+              title: 'Coach-Begleitung bis zum Ergebnis',
+              text: 'Wir lassen dich nicht allein. Bei Fragen, Plateaus oder Rückschlägen sind die happyfigur Coaches per Chat, Telefon und vor Ort für dich da — auch nach Kursende.',
+            },
           ].map((g, i) => (
             <div key={i} className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -40,14 +58,14 @@ export function GuaranteeSection() {
           ))}
         </div>
 
-        {/* Coach Support */}
+        {/* Kein Abo Reminder */}
         <div
           className={`flex items-start gap-3 px-5 py-4 rounded-xl bg-primary/5 border border-primary/10 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
           style={{ animationDelay: '0.2s' }}
         >
-          <HeartHandshake className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <CalendarX2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <p className="text-sm text-muted-foreground">
-            <span className="text-primary font-semibold">Wir sind für dich da</span> — Bei Problemen oder Fragen stehen dir die Coaches von happyfigur jederzeit zur Verfügung — persönlich, per Live Chat oder Telefon.
+            <span className="text-primary font-semibold">Kein Abo, keine Verlängerung.</span> 8 Wochen happyfigur sind 8 Wochen happyfigur — danach entscheidest du frei, ob du mit FIT-INN weitermachst. Keine automatische Vertragsverlängerung, kein Probemonat, der zur Falle wird.
           </p>
         </div>
       </div>
