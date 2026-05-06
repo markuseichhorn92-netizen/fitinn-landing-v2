@@ -134,17 +134,25 @@ export function InsuranceBenchmark() {
               </div>
             ))}
           </div>
-          {/* Mobile: happyfigur groß + Rest klein */}
+          {/* Mobile: 4-Spalten-Grid analog zu den Feature-Karten oben */}
           <div className="md:hidden px-4 py-4">
-            <div className="flex items-baseline gap-2 mb-3">
-              <p className="text-2xl font-bold text-primary">ab 0 €²³</p>
-              <p className="text-sm text-primary font-semibold">mit happyfigur</p>
-            </div>
-            <div className="flex gap-4">
-              {costs.slice(1).map((c, i) => (
-                <div key={i}>
-                  <p className="text-sm font-semibold text-muted-foreground">{c.cost}</p>
-                  <p className="text-[10px] text-muted-foreground/70">{c.label}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-accent mb-2.5">Kosten im Vergleich</p>
+            <div className="flex gap-2">
+              {costs.map((c, i) => (
+                <div
+                  key={i}
+                  className={`flex-1 py-2.5 px-1 rounded-lg text-center ${
+                    c.highlight
+                      ? 'bg-primary/10 border border-primary/20'
+                      : 'bg-secondary/40 border border-border'
+                  }`}
+                >
+                  <p className={`text-[11px] font-bold leading-tight ${c.highlight ? 'text-primary' : 'text-foreground'}`}>
+                    {c.cost}
+                  </p>
+                  <p className={`text-[9px] mt-1 leading-tight ${c.highlight ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
+                    {c.label}
+                  </p>
                 </div>
               ))}
             </div>
