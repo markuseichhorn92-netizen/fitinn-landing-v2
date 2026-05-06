@@ -20,8 +20,8 @@ const compareRows = [
 const costs = [
   { label: 'happyfigur', cost: 'ab 0 €²³', highlight: true },
   { label: 'Diät', cost: 'variabel', highlight: false },
-  { label: 'Fitness-App', cost: '10–30€/Mo', highlight: false },
-  { label: 'Personal Trainer', cost: '200–400€/Mo', highlight: false },
+  { label: 'App', cost: '10–30€/Mo', highlight: false },
+  { label: 'PT', cost: '200–400€/Mo', highlight: false },
 ]
 
 export function InsuranceBenchmark() {
@@ -121,18 +121,21 @@ export function InsuranceBenchmark() {
         </div>
 
         {/* Kosten-Footer */}
-        <div className="border-t border-border bg-gradient-to-r from-primary/5 to-transparent px-4 md:px-6 py-4 md:py-5">
-          {/* Desktop: 4-Spalten */}
-          <div className="hidden md:grid grid-cols-4 gap-3">
+        <div className="border-t border-border bg-gradient-to-r from-primary/5 to-transparent">
+          {/* Desktop: an Tabellen-Spalten ausgerichtet (40% Label + 4× 15% Spalten) */}
+          <div className="hidden md:grid items-center py-4 md:py-5" style={{ gridTemplateColumns: '40% 15% 15% 15% 15%' }}>
+            <div className="px-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-accent">Kosten im Vergleich</p>
+            </div>
             {costs.map((c, i) => (
-              <div key={i}>
-                <p className={`text-xl font-bold ${c.highlight ? 'text-primary' : 'text-foreground'}`}>{c.cost}</p>
-                <p className={`text-[11px] ${c.highlight ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>{c.label}</p>
+              <div key={i} className={`text-center px-2 ${c.highlight ? 'bg-primary/[0.04] py-2 rounded-lg mx-1' : ''}`}>
+                <p className={`text-lg lg:text-xl font-bold ${c.highlight ? 'text-primary' : 'text-foreground'}`}>{c.cost}</p>
+                <p className={`text-[11px] mt-0.5 ${c.highlight ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>{c.label}</p>
               </div>
             ))}
           </div>
           {/* Mobile: happyfigur groß + Rest klein */}
-          <div className="md:hidden">
+          <div className="md:hidden px-4 py-4">
             <div className="flex items-baseline gap-2 mb-3">
               <p className="text-2xl font-bold text-primary">ab 0 €²³</p>
               <p className="text-sm text-primary font-semibold">mit happyfigur</p>
