@@ -2,6 +2,7 @@
 
 import { TrendingDown, Scale, ThumbsUp, Check, X } from 'lucide-react'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
+import { cn } from '@/lib/utils'
 
 const resultStats = [
   { value: 72, suffix: ' kg', prefix: '-', label: 'Ø Gewichtsverlust⁴', color: 'primary' as const },
@@ -22,6 +23,26 @@ const costs = [
   { label: 'Diät', cost: 'variabel', highlight: false },
   { label: 'App', cost: '10–30€/Mo', highlight: false },
   { label: 'PT', cost: '200–400€/Mo', highlight: false },
+]
+
+// Mobile-Layout: eine Karte pro Alternative, sortiert nach Anzahl ✓-Features
+const mobileCards = [
+  {
+    key: 'happyfigur', label: 'happyfigur', cost: 'ab 0 €²³', highlight: true,
+    features: compareRows.map(r => ({ feature: r.feature, value: r.happyfigur })),
+  },
+  {
+    key: 'pt', label: 'Personal Trainer', cost: '200–400€/Mo', highlight: false,
+    features: compareRows.map(r => ({ feature: r.feature, value: r.pt })),
+  },
+  {
+    key: 'app', label: 'Fitness-App', cost: '10–30€/Mo', highlight: false,
+    features: compareRows.map(r => ({ feature: r.feature, value: r.app })),
+  },
+  {
+    key: 'diet', label: 'Diät', cost: 'variabel', highlight: false,
+    features: compareRows.map(r => ({ feature: r.feature, value: r.diet })),
+  },
 ]
 
 export function InsuranceBenchmark() {
@@ -83,47 +104,27 @@ export function InsuranceBenchmark() {
           </table>
         </div>
 
-        {/* ═══ MOBILE: Feature-Cards ═══ */}
-        <div className="md:hidden divide-y divide-border/30">
-          {compareRows.map((row, i) => (
-            <div key={i} className="px-4 py-4">
-              <p className="text-sm font-bold mb-3">{row.feature}</p>
-              <div className="flex gap-2">
-                {[
-                  { label: 'happyfigur', value: row.happyfigur, hl: true },
-                  { label: 'Diät', value: row.diet, hl: false },
-                  { label: 'App', value: row.app, hl: false },
-                  { label: 'PT', value: row.pt, hl: false },
-                ].map((v, j) => (
-                  <div
-                    key={j}
-                    className={`flex-1 py-2 rounded-lg text-center ${
-                      v.value
-                        ? v.hl ? 'bg-primary/10 border border-primary/20' : 'bg-secondary border border-border'
-                        : 'bg-transparent'
-                    }`}
-                  >
-                    <div className="flex justify-center mb-1">
-                      {v.value ? (
-                        <Check className={`w-4 h-4 ${v.hl ? 'text-primary' : 'text-foreground'}`} />
-                      ) : (
-                        <X className="w-4 h-4 text-muted-foreground/20" />
-                      )}
-                    </div>
-                    <p className={`text-[10px] leading-tight ${v.hl ? 'text-primary font-bold' : 'text-muted-foreground'}`}>
-                      {v.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* ═══ MOBILE: Karte pro Alternative ═══ */}
+        <div className="md:hidden">
+          {/* happyfigur — Highlight-Karte */}
+          <MobileCard card={mobileCards[0]} />
+
+          {/* Trenner */}
+          <div className="px-4 py-3 bg-secondary/20 border-y border-border/40">
+            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground text-center">
+              Andere Optionen im Vergleich
+            </p>
+          </div>
+
+          {/* Alternativen */}
+          {mobileCards.slice(1).map(card => (
+            <MobileCard key={card.key} card={card} />
           ))}
         </div>
 
-        {/* Kosten-Footer */}
-        <div className="border-t border-border bg-gradient-to-r from-primary/5 to-transparent">
-          {/* Desktop: an Tabellen-Spalten ausgerichtet (40% Label + 4× 15% Spalten) */}
-          <div className="hidden md:grid items-center py-4 md:py-5" style={{ gridTemplateColumns: '40% 15% 15% 15% 15%' }}>
+        {/* Desktop-Kosten-Footer (Mobile zeigt Preise in den Karten-Headern) */}
+        <div className="hidden md:block border-t border-border bg-gradient-to-r from-primary/5 to-transparent">
+          <div className="grid items-center py-4 md:py-5" style={{ gridTemplateColumns: '40% 15% 15% 15% 15%' }}>
             <div className="px-6">
               <p className="text-xs font-bold uppercase tracking-widest text-accent">Kosten im Vergleich</p>
             </div>
@@ -133,29 +134,6 @@ export function InsuranceBenchmark() {
                 <p className={`text-[11px] mt-0.5 ${c.highlight ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>{c.label}</p>
               </div>
             ))}
-          </div>
-          {/* Mobile: 4-Spalten-Grid analog zu den Feature-Karten oben */}
-          <div className="md:hidden px-4 py-4">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-accent mb-2.5">Kosten im Vergleich</p>
-            <div className="flex gap-2">
-              {costs.map((c, i) => (
-                <div
-                  key={i}
-                  className={`flex-1 py-2.5 px-1 rounded-lg text-center ${
-                    c.highlight
-                      ? 'bg-primary/10 border border-primary/20'
-                      : 'bg-secondary/40 border border-border'
-                  }`}
-                >
-                  <p className={`text-[11px] font-bold leading-tight ${c.highlight ? 'text-primary' : 'text-foreground'}`}>
-                    {c.cost}
-                  </p>
-                  <p className={`text-[9px] mt-1 leading-tight ${c.highlight ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
-                    {c.label}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -206,5 +184,67 @@ function CellIcon({ value, highlight }: { value: boolean; highlight?: boolean })
     <span className="inline-flex items-center justify-center w-6 h-6 rounded-full">
       <X className="w-3.5 h-3.5 text-muted-foreground/25" />
     </span>
+  )
+}
+
+function MobileCard({ card }: { card: typeof mobileCards[number] }) {
+  return (
+    <div
+      className={cn(
+        'mx-4 my-3 rounded-xl border p-4 transition-shadow',
+        card.highlight
+          ? 'bg-primary/5 border-primary/30 ring-1 ring-primary/20 shadow-md shadow-primary/10'
+          : 'bg-card border-border',
+      )}
+    >
+      {/* Header: Name + Preis */}
+      <div className="flex items-baseline justify-between gap-3 mb-2">
+        <p className={cn('text-base font-bold', card.highlight && 'text-primary')}>
+          {card.label}
+        </p>
+        <p className={cn(
+          'text-sm font-semibold whitespace-nowrap',
+          card.highlight ? 'text-primary' : 'text-muted-foreground',
+        )}>
+          {card.cost}
+        </p>
+      </div>
+
+      {/* Empfohlen-Badge */}
+      {card.highlight && (
+        <span className="inline-block px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3">
+          Empfohlen
+        </span>
+      )}
+
+      {/* Feature-Liste */}
+      <ul className="flex flex-col gap-2">
+        {card.features.map((f, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-sm">
+            {f.value ? (
+              <span className={cn(
+                'inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0',
+                card.highlight ? 'bg-primary/15' : 'bg-secondary',
+              )}>
+                <Check className={cn(
+                  'w-3 h-3',
+                  card.highlight ? 'text-primary' : 'text-foreground',
+                )} />
+              </span>
+            ) : (
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-destructive/10 shrink-0">
+                <X className="w-3 h-3 text-destructive/70" />
+              </span>
+            )}
+            <span className={cn(
+              'leading-tight',
+              f.value ? 'text-foreground' : 'text-muted-foreground line-through decoration-1 decoration-destructive/30',
+            )}>
+              {f.feature}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
