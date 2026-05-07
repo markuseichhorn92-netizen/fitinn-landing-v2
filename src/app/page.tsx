@@ -51,7 +51,7 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto max-w-6xl w-full grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Linke Spalte: Copy + CTA — auf Mobile NACH der Form */}
-          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
+          <div className="lg:col-span-7 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/15 animate-fade-up mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-medium text-accent uppercase tracking-wider">
@@ -95,7 +95,7 @@ export default function Home() {
           </div>
 
           {/* Rechte Spalte: Booking Form — auf Mobile VOR der Copy */}
-          <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none order-1 lg:order-2">
+          <div className="lg:col-span-5 animate-fade-up delay-200 max-w-md mx-auto w-full lg:max-w-none">
             <HeroBookingForm />
           </div>
         </div>
