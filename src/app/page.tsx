@@ -1,12 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, Instagram, Facebook, Mail, BarChart2, Dumbbell, Utensils } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Shield, Phone, Instagram, Facebook, BarChart2, Dumbbell, Utensils } from 'lucide-react'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
-import { ContactFormModal } from '@/components/ContactFormModal'
 import { GrainOverlay } from '@/components/GrainOverlay'
 import { HeroBookingForm } from '@/components/HeroBookingForm'
 import { ProblemSection } from '@/components/sections/ProblemSection'
@@ -24,7 +22,6 @@ import { DecoIcons, problemIcons, solutionIcons, processIcons, testimonialIcons,
 export default function Home() {
   const router = useRouter()
   const startQuiz = () => router.push('/quiz')
-  const [contactOpen, setContactOpen] = useState(false)
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -286,10 +283,6 @@ export default function Home() {
               Kostenloses Probetraining buchen
               <ArrowRight className="w-5 h-5" />
             </button>
-            <button onClick={() => setContactOpen(true)} className="btn-outline inline-flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Direkt anfragen
-            </button>
             <a href="tel:+49651308524" className="btn-outline">
               <Phone className="w-4 h-4" />
               Fragen? 0651 308524
@@ -371,7 +364,6 @@ export default function Home() {
         </div>
       </footer>
 
-      <ContactFormModal open={contactOpen} onOpenChange={setContactOpen} />
     </main>
   )
 }
