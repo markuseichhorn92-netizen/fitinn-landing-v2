@@ -87,7 +87,7 @@ export default function Home() {
                 </button>
               </div>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Mo–Fr 9–20 Uhr erreichbar</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> Kostenlos & unverbindlich</span>
                 <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-primary" /> § 20 SGB V</span>
               </div>
             </div>
