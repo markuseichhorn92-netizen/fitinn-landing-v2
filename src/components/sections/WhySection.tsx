@@ -22,7 +22,7 @@ const features = [
   { icon: Dumbbell, title: '8 Wochen Training', desc: 'Individueller Plan, unbegrenzter Zugang, keine Allgemeinroutine.' },
   { icon: Utensils, title: 'Ernährungsplan', desc: 'Passend zu deinem Alltag. Kein Hungern, keine Verbote.' },
   { icon: Users, title: 'Personal Coaching', desc: 'Persönliche Einweisung + Trainer jederzeit vor Ort ansprechbar.' },
-  { icon: Smartphone, title: '24/7 Support', desc: 'WhatsApp, E-Mail, Telefon — wir sind immer erreichbar.' },
+  { icon: Smartphone, title: 'Erreichbar wenn du uns brauchst', desc: 'Telefon und E-Mail Mo–Fr 9–20 Uhr — und unsere Coaches im Studio vor Ort.' },
   { icon: CheckCircle2, title: 'Zertifiziert § 20', desc: 'Deine Kasse erstattet 75€–179€ — bei vielen komplett kostenlos.²³' },
 ]
 
@@ -119,8 +119,8 @@ export function WhySection({ onStartQuiz }: { onStartQuiz: () => void }) {
               Jetzt Probetraining sichern
               <ArrowRight className="w-5 h-5" />
             </button>
-            <a href="https://wa.me/49651308524" target="_blank" rel="noopener noreferrer" className="btn-outline">
-              Fragen? Schreib uns auf WhatsApp
+            <a href="tel:+49651308524" className="btn-outline">
+              Fragen? 0651 308524
             </a>
           </div>
           <p className="text-muted-foreground text-sm mt-3">✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert</p>

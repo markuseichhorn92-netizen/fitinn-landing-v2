@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, Shield, Phone, MessageCircle, Instagram, Facebook, Mail, BarChart2, Dumbbell, Utensils } from 'lucide-react'
-import { openLiveChat } from '@/lib/livechat'
+import { ArrowRight, CheckCircle2, Shield, Phone, Instagram, Facebook, Mail, BarChart2, Dumbbell, Utensils } from 'lucide-react'
 import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
 import { Navbar } from '@/components/Navbar'
 import { ContactFormModal } from '@/components/ContactFormModal'
@@ -291,10 +290,10 @@ export default function Home() {
               <Mail className="w-4 h-4" />
               Direkt anfragen
             </button>
-            <button type="button" onClick={() => openLiveChat()} className="btn-outline">
-              <MessageCircle className="w-4 h-4" />
-              Fragen? Chatte mit uns
-            </button>
+            <a href="tel:+49651308524" className="btn-outline">
+              <Phone className="w-4 h-4" />
+              Fragen? 0651 308524
+            </a>
           </div>
           <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-muted-foreground">
             <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Kostenlos & unverbindlich</span>
@@ -319,9 +318,6 @@ export default function Home() {
                 <a href="tel:+49651308524" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Phone className="w-3.5 h-3.5" /> 0651 308524
                 </a>
-                <button type="button" onClick={() => openLiveChat()} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  <MessageCircle className="w-3.5 h-3.5" /> Live-Chat
-                </button>
               </div>
             </div>
 

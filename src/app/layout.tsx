@@ -5,7 +5,6 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { LazyLiveChat } from "@/components/LazyLiveChat";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -157,7 +156,6 @@ export default function RootLayout({
         <ConditionalAnalytics />
         <Analytics />
         <SpeedInsights />
-        <LazyLiveChat />
       </body>
     </html>
   );

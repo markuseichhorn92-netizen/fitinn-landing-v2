@@ -39,7 +39,7 @@ export default function AGBPage() {
         <li>3x Körperanalyse (InBody) im Studio</li>
         <li>Einweisung und Trainerbetreuung im Studio</li>
         <li>8 Wochen Studionutzung bei FIT-INN Trier</li>
-        <li>Persönlicher Support per WhatsApp</li>
+        <li>Persönlicher Support per Telefon und E-Mail</li>
       </ul>
       <p>
         Für die Richtigkeit und Vollständigkeit der Inhalte wird keine Gewähr übernommen. Die Rezepte werden individuell

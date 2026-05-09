@@ -3,11 +3,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight, ArrowLeft, Loader2, CheckCircle2, Calendar as CalendarIcon,
-  AlertCircle, ShieldCheck, Target, Clock, MessageSquare, Sparkles,
+  AlertCircle, ShieldCheck, Target, Clock, Phone, Sparkles,
   BarChart2, Utensils, Dumbbell,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { openLiveChat } from '@/lib/livechat'
 import { track } from '@vercel/analytics'
 import {
   INSURANCE_VALUES, TOP_INSURANCE, ALL_INSURANCE,
@@ -670,7 +669,7 @@ export function HeroBookingForm() {
                 <AlertCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-semibold text-destructive">Termine konnten nicht geladen werden</p>
-                  <button type="button" onClick={() => openLiveChat()} className="text-sm font-semibold text-accent hover:underline mt-1">Per Live-Chat buchen →</button>
+                  <a href="tel:+49651308524" className="text-sm font-semibold text-accent hover:underline mt-1">Telefonisch buchen → 0651 308524</a>
                 </div>
               </div>
             )}
@@ -850,9 +849,9 @@ export function HeroBookingForm() {
                 <AlertCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-destructive">{bookingError}</p>
-                  <button type="button" onClick={() => openLiveChat()} className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold text-accent hover:underline">
-                    <MessageSquare className="w-3.5 h-3.5" /> Per Live-Chat buchen
-                  </button>
+                  <a href="tel:+49651308524" className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold text-accent hover:underline">
+                    <Phone className="w-3.5 h-3.5" /> Telefonisch buchen · 0651 308524
+                  </a>
                 </div>
               </div>
             )}
