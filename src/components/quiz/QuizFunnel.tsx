@@ -4,10 +4,9 @@ import { useState, useEffect, useMemo } from 'react'
 import {
   ArrowRight, ArrowLeft, Target, RefreshCw, Pizza, Clock, Frown,
   CheckCircle2, Flame, ThumbsUp, HelpCircle, Loader2, Calendar, User, AlertCircle,
-  ShieldCheck, Utensils, BarChart2, MapPin, MessageSquare, Dumbbell
+  ShieldCheck, Utensils, BarChart2, MapPin, Phone, Dumbbell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { openLiveChat } from '@/lib/livechat'
 import { track } from '@vercel/analytics'
 import {
   INSURANCE_VALUES, TOP_INSURANCE, ALL_INSURANCE, PROBLEM_EXPLANATIONS,
@@ -895,10 +894,10 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
               <div>
                 <p className="text-sm font-semibold text-destructive">Termine konnten nicht geladen werden</p>
                 <p className="text-xs text-muted-foreground mt-1">{slotsError}</p>
-                <button type="button" onClick={() => openLiveChat()}
+                <a href="tel:+49651308524"
                   className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-accent hover:underline">
-                  Per Live-Chat buchen →
-                </button>
+                  Telefonisch buchen → 0651 308524
+                </a>
               </div>
             </div>
           )}
@@ -1268,11 +1267,11 @@ export function QuizFunnel({ onComplete }: { onComplete?: () => void }) {
                 <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
                 <p className="text-sm text-destructive font-semibold">{bookingError}</p>
               </div>
-              <button type="button" onClick={() => openLiveChat()}
+              <a href="tel:+49651308524"
                 className="btn-cta inline-flex items-center justify-center gap-2 w-full text-sm py-3">
-                <MessageSquare className="w-5 h-5" />
-                Stattdessen per Live-Chat buchen
-              </button>
+                <Phone className="w-5 h-5" />
+                Stattdessen telefonisch buchen · 0651 308524
+              </a>
             </div>
           )}
         </div>

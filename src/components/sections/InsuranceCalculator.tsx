@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Coins, CheckCircle2, ArrowRight, MessageCircle } from 'lucide-react'
-import { openLiveChat } from '@/lib/livechat'
+import { Coins, CheckCircle2, ArrowRight, Phone } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { SectionBadge } from '@/components/SectionBadge'
 
@@ -169,10 +168,10 @@ export function InsuranceCalculator({ onStartQuiz }: { onStartQuiz: () => void }
                 Jetzt Probetraining buchen
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <button type="button" onClick={() => openLiveChat()} className="btn-outline w-full justify-center">
-                <MessageCircle className="w-4 h-4" />
-                Noch Fragen?
-              </button>
+              <a href="tel:+49651308524" className="btn-outline w-full justify-center">
+                <Phone className="w-4 h-4" />
+                Noch Fragen? 0651 308524
+              </a>
             </div>
           </div>
         </div>

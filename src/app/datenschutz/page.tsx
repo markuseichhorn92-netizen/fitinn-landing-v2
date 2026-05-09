@@ -286,18 +286,11 @@ export default function DatenschutzPage() {
         an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).
       </p>
 
-      <h3>Anfrage per E-Mail, Telefon oder WhatsApp</h3>
+      <h3>Anfrage per E-Mail oder Telefon</h3>
       <p>
-        Wenn Sie uns per E-Mail, Telefon oder WhatsApp kontaktieren, wird Ihre Anfrage inklusive aller daraus
+        Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus
         hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns
         gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
-      </p>
-      <p>
-        Für die Kommunikation via WhatsApp nutzen wir den Dienst WhatsApp von der WhatsApp Ireland Limited,
-        4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland. Die Kommunikation erfolgt über eine
-        Ende-zu-Ende-Verschlüsselung. Das Unternehmen verfügt über eine „EU-US Data Privacy Framework" (DPF)
-        Zertifizierung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter
-        Kundenkommunikation).
       </p>
 
       <h3>Datenübermittlung an die Magicline API</h3>
