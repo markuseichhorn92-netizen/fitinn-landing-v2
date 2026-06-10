@@ -13,12 +13,15 @@ npm run start    # Production server
 
 No test suite is configured. Always run `npm run build` after significant changes to catch TypeScript errors.
 
+In sandboxed environments the Google-Fonts fetch during build may fail with a TLS error — prefix the build with `NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1`.
+
 ## Stack
 
 - **Next.js 16.1.6** (App Router, Turbopack), **React 19**, **TypeScript 5**
 - **Tailwind CSS 4** – no `tailwind.config.js`; config lives inside `globals.css` via `@theme` blocks
 - **shadcn/ui** (style: `base-nova`, `cssVariables: true`) – `components.json` configures aliases
 - **lucide-react** for all icons; no external image CDNs
+- Font: **Plus Jakarta Sans** via `next/font/google` (`--font-jakarta`)
 
 ## Tailwind 4 CSS Variable Bridging
 
@@ -34,78 +37,50 @@ Tailwind 4 generates utilities like `bg-card` as `background-color: var(--color-
 
 **Without this block, all `bg-*` / `text-*` / `border-*` utilities that reference shadcn tokens resolve to nothing (transparent).** When adding new shadcn CSS variables to `:root`, always add the corresponding `--color-*` mapping in `@theme inline`.
 
-## Design Tokens (Athletic Dark Fitness Theme)
+## Design Tokens (Sommer-Theme: Creme · Teal · Sonnengelb)
 
-Defined in `:root` in `globals.css`. The color system uses **Grün (Ernährung) + Gold (Training)** as the two thematic pillars:
+Defined in `:root` in `globals.css`. Light, summery look inspired by the figurscout "Bauchweg Projekt" landing page:
 
 | Token | Value | Usage |
 |---|---|---|
-| `--primary` | `#7dd87d` (vital green) | Ernährung, health, results — the "nutrition" pillar |
-| `--primary-foreground` | `#0a2e0a` (dark green) | Text on primary backgrounds |
-| `--accent` | `#f5a623` (warm gold) | Training, CTA buttons (`.btn-cta`), workout-related UI |
-| `--accent-foreground` | `#1a0f00` | Text on accent backgrounds |
-| `--destructive` | `#ef4444` (red) | **Errors only** – API failures, form validation. Never for emphasis or design elements |
-| `--card` | `#131613` (green-tinted dark) | Card/modal backgrounds — subtle green undertone |
-| `--background` | `#0a0a0a` | Page background |
+| `--background` | `hsl(38 60% 96%)` | Cream page background |
+| `--foreground` | `hsl(200 30% 14%)` | Ink text |
+| `--primary` | `hsl(180 68% 38%)` | Teal — buttons, headlines, badges |
+| `--primary-dark` | `hsl(180 72% 28%)` | Dark teal — headline accents, gradients |
+| `--secondary` | `hsl(180 45% 96%)` | Teal-tinted section backgrounds |
+| `--accent` | `hsl(45 92% 58%)` | Sun yellow — stickers, stars, highlights |
+| `--accent-deep` | `hsl(35 85% 50%)` | Orange — gradient partner for yellow |
+| `--destructive` | `#ef4444` | **Errors only** – API failures, form validation |
+| `--border` | `hsl(38 55% 90%)` / `--border-teal` `hsl(180 40% 90%)` | Cream / teal-tinted borders |
 
-**Two-pillar color system:** Ernährung content uses `--primary` (green), Training content uses `--accent` (gold). Feature cards have a `.feature-card--nutrition` variant with green left-border (primary). Where `pillar === 'training'`, use accent (gold); where `pillar === 'ernaehrung'`, use primary (green).
+**Key utilities** (`globals.css`): `.btn-pill` (teal pill CTA, `--white` variant), `.card-soft` (white rounded card with teal-tinted soft shadow + hover lift), `.badge-pill` (uppercase tracking pill), `.gradient-number` (+`--alt`, giant gradient digits), `.marquee-track` + `@keyframes marquee` (infinite banner, content rendered 3×, shifts -33.333%), `.blur-circle` (soft decorative color blobs).
 
-**Card design:** Cards use a clean left-border accent (3px) instead of glassmorphism. No corner decorators — those were removed as "too tech/SaaS."
-
-**Background patterns:** `.bg-fitness` (green dot pattern for training sections), `.bg-nutrition` (gold dot pattern for nutrition sections). Body overlay uses diagonal athletic stripes instead of grain noise.
-
-Native `<select>` and `<option>` elements require `color-scheme: dark` + explicit `background-color` / `color` overrides in `@layer base` – CSS utility classes do not apply to native browser form elements.
+Native `<select>` and `<option>` elements require `color-scheme` + explicit `background-color` / `color` overrides in `@layer base` – CSS utility classes do not apply to native browser form elements.
 
 ## Page Architecture
 
-Single-page landing (`src/app/page.tsx`) – a conversion funnel following AIDA + PAS framework:
+Single-page landing (`src/app/page.tsx`) for the **30 Tage Bauchweg Projekt** (69€¹, kostenloses Probetraining):
 
 ```
-Navbar → Hero → KK-Vertrauens-Banner → SocialProofStrip → ProblemSection → SolutionSection
-       → ProcessSection → Testimonials → InsuranceCalculator (2-col: value breakdown + KK-Rechner)
-       → GuaranteeSection → FAQSection → Final CTA → Footer (numbered disclaimer ¹²³⁴) → StickyBar
+Navbar (slim sticky header) → HeroSection → MarqueeBanner → ProblemSection (viszerales Fett)
+→ FahrplanSection (4 Wochen) → PaketSection (6 features) → KochbuchSection
+→ Testimonials → PreisSection (69€) → BookingSection (#booking) → FAQSection
+→ Footer (Disclaimer ¹²³⁴ + WhatsApp) → StickyBar
 ```
 
-**Section IDs** for nav scroll targets: `#hero`, `#programm` (SolutionSection), `#ablauf` (ProcessSection), `#erfahrungen` (Testimonials), `#krankenkasse` (InsuranceCalculator), `#faq` (FAQSection).
+State in `page.tsx`: `scrollToBooking()` smooth-scrolls to `#booking` and is passed as `onCta` prop to Navbar, HeroSection, PaketSection, KochbuchSection, PreisSection and StickyBar.
 
-State in `page.tsx`:
-- `startQuiz()` calls `router.push('/quiz')` — the quiz lives at `/quiz`, not as a modal overlay
-- `startQuiz()` is passed as `onStartQuiz` prop to every section with a CTA button
+**Every section that has a CTA button needs the `onCta: () => void` prop** – missing this prop = dead button. All CTAs scroll to the booking section; there is no separate quiz route anymore.
 
-**Every section that has a CTA button needs the `onStartQuiz: () => void` prop** – missing this prop = dead button.
+## BookingSection (`src/components/sections/BookingSection.tsx`)
 
-## Quiz Funnel (`src/components/quiz/QuizFunnel.tsx`)
+The conversion core: inline Probetraining booking with a local phase machine `'slot' | 'contact' | 'done'`.
 
-12-step quiz combining education, motivation, and data collection — ending with a confirmed Probetraining booking. Steps:
+- **Phase slot**: on mount, fetches real Magicline slots for the next 28 days via `GET /api/trialsession?startDate=…&endDate=…`; Calendly-style month calendar (days without slots disabled) + time-slot grid.
+- **Phase contact**: floating-label fields (`FloatField` peer trick), gender toggle, date of birth as three custom `<select>`s (`DateOfBirthInput`), address, marketing-consent checkbox. Submit `POST /api/trialsession` with contact data + `startDateTime` + a plain `note` (no quizData). Error path shows `tel:+49651308524` fallback.
+- **Phase done**: confirmation with date/time + Google-Calendar link (`buildCalendarLink`).
 
-1. **Ziel** – goal selection (abnehmen / straffen / energie / gesundheit) → auto-advances after 350ms
-2. **Körpermaße** – height (cm), current weight (kg), target weight (kg)
-3. **Probleme** – multi-select pain points (jojo / hunger / zeit / motivation)
-4. **Dein Programm** – explains what happyfigur is: 3 feature cards (Körperanalyse, Training, Ernährungsplan) + §20 SGB V badge. Headline personalized by goal.
-5. **So funktioniert's** – 4-step vertical timeline (Probetraining → Analyse+Plan → 8 Wochen Training → Ergebnis) + testimonial
-6. **Warum es diesmal klappt** – dynamic cards addressing user's selected problems from Step 3 with personalized solutions + social proof stats
-7. **Zeit** – available time per week (wenig / mittel / viel) → auto-advances after 350ms
-8. **Deine Investition** – price reveal (179€ strike-through) + KK-Rechner (top 5 tiles + dropdown) + Coach-Support badge. Insurance selection saved for Step 12.
-9. **Commitment** – (unsicher / bereit / entschlossen) → shows insurance cost context line → triggers 1.8s loading screen
-10. **Kalender** – Terminauswahl (lädt Slots via `/api/trialsession` GET)
-11. **Kontaktdaten** – Formular + API-Buchung → Ladescreen
-12. **Ergebnis** – personalisiertes Ergebnis + Buchungsbestätigung + vereinfachte KK-Zusammenfassung
-
-`calcResult(data: QuizData)` computes all result values:
-- `kgLoss` = `baseKg[time] × mult[commitment]`, capped by actual `weight - targetWeight`
-- Dynamic SVG bezier path generated from `kgLoss → endY` for the progress chart
-- BMI, projected weight, problem-specific insights all derived from user inputs
-
-**Insurance step** is in Step 8 (before commitment). Step 12 shows a simplified insurance summary based on the Step 8 selection.
-
-**Quiz UI** is a fullscreen page at `/quiz` (not a modal). Key patterns:
-- Page wrapper in `src/app/quiz/page.tsx`: `fixed inset-0 z-50 bg-background` with ambient glow div
-- Progress bar: `fixed top-0` thin bar (h-1), full viewport width, `quiz-progress-fill` glow class
-- Each step: `flex-1 flex flex-col items-center justify-center` with `quiz-step-enter` animation
-- Option cards: `quiz-option-card` class for hover glow, `rounded-2xl`, `hover:scale-[1.02]`
-- Calendar (Step 7): Calendly-style 2-column layout (calendar left, time slots right)
-- Contact form (Step 8): Single card with floating labels (`peer` trick), sections divided by borders
-- Date of birth: Three custom `<select>` dropdowns (Tag/Monat/Jahr), not native `<input type="date">`
+Date/calendar helpers live in `src/lib/quizResult.ts` (`getMonthGrid`, `toLocalDateKey`, `formatTime`, `formatDateLong`, `formatDateShort`, `buildCalendarLink`).
 
 ## Magicline Connect API
 
@@ -133,18 +108,21 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 - `startDateTime` muss **exakt** als UTC-String aus der Slots-API weitergegeben werden (kein Konvertieren, kein Entfernen des `.000Z`)
 - `trainerRequired: false` — mit `true` schlägt die Buchung fehl wenn kein Trainer verfügbar
 - Fehlermeldung `"There are not enough resources"` = Slot bereits voll (CONFLICT)
-- Der Proxy-Route liegt in `src/app/api/trialsession/route.ts`
+- Der Proxy-Route liegt in `src/app/api/trialsession/route.ts`; `quizData` im POST-Body ist optional (Fallback: `note`)
 
 **Feldnamen-Besonderheiten der Magicline API** (nicht ändern!):
 - Lead-Felder: `firstname`/`lastname` (lowercase), aber `dateOfBirth` (camelCase), `houseNumber` (camelCase)
 - Kein separater `POST /lead`-Schritt — alles in einem Booking-Request
 
+Note: `src/lib/insurance.ts` is still imported by `route.ts` (`INSURANCE_LABEL`) — keep it even though the KK-Rechner UI was removed.
+
 ## Key Business Elements (never remove)
 
-- **WhatsApp fallback**: `https://wa.me/4915679610457`
-- **Krankenkassen-Rechner**: `src/components/sections/InsuranceCalculator.tsx` – `INSURANCE_DATA` array with 16 insurers + reimbursement amounts (75–179€). 2-column layout: left = included features list + 179€ price box, right = dropdown calculator. Result shows 0€ prominently when KK covers 100%.
-- **StickyBar** (`src/components/StickyBar.tsx`): Fixed bottom bar, appears via IntersectionObserver when the `#hero-cta` button scrolls out of view (not the whole `#hero` section)
-- **Navbar** (`src/components/Navbar.tsx`): Fixed top bar with logo, section nav links (smooth scroll), mobile hamburger menu, glassmorphism on scroll. Needs `onStartQuiz` prop.
+- **WhatsApp fallback**: `https://wa.me/4915679610457` (footer)
+- **Telefon-Fallback**: `tel:+49651308524` (header, StickyBar, booking error states)
+- **BookingSection**: the only conversion path — all CTAs must scroll to `#booking`
+- **StickyBar** (`src/components/StickyBar.tsx`): fixed bottom bar; appears when `#hero-cta` scrolls out of view, hides while `#booking` is in view (two IntersectionObservers)
+- **Navbar** (`src/components/Navbar.tsx`): slim sticky header (logo + phone + "Platz sichern" pill). Needs `onCta` prop.
 
 ## Component Structure
 
@@ -152,27 +130,27 @@ Base URL: `https://fit-inn-trier.api.magicline.com/connect/v1` — kein Auth-Tok
 src/
   app/
     globals.css               ← All design tokens, @theme blocks, global utilities
-    layout.tsx                ← Imports ScrollProgress
-    page.tsx                  ← Single page, all section orchestration
-    quiz/
-      page.tsx                ← /quiz route — renders QuizFunnel fullscreen
+    layout.tsx                ← Plus Jakarta Sans, metadata/JSON-LD (69€ offer), ScrollProgress
+    page.tsx                  ← Single page, section orchestration + footer + disclaimers
     api/trialsession/
       route.ts                ← GET (slots proxy) + POST (booking proxy) für Magicline
   components/
-    Navbar.tsx                ← Fixed header with logo + nav + mobile menu
+    Navbar.tsx                ← Slim sticky header
     ScrollProgress.tsx        ← Fixed top scroll progress bar (rAF-based)
-    quiz/
-      QuizFunnel.tsx          ← Most complex component; self-contained quiz + booking state
-    sections/                 ← One file per page section, all receive onStartQuiz prop
-    StickyBar.tsx             ← IntersectionObserver on #hero-cta button
+    StickyBar.tsx             ← IntersectionObserver on #hero-cta / #booking
+    LegalPage.tsx             ← Shared layout for legal routes
+    sections/                 ← One file per page section
     ui/                       ← shadcn primitives (button, card, etc.)
   hooks/
-    useScrollReveal.ts        ← IntersectionObserver hook + useCountUp for counter animations
+    useScrollReveal.ts        ← IntersectionObserver hook + useCountUp
+  lib/
+    quizResult.ts             ← Calendar/date helpers (getMonthGrid, formatTime, …)
+    insurance.ts              ← INSURANCE_LABEL (imported by route.ts)
 ```
 
 ## Scroll Animation System
 
-All scroll-triggered animations live in `globals.css` and use the `useScrollReveal` hook (callback-ref based IntersectionObserver). **SSR-safe pattern:**
+Scroll-triggered animations use the `useScrollReveal` hook (callback-ref IntersectionObserver). **SSR-safe pattern:**
 
 1. Elements render visible by default (no JS = content visible)
 2. `isReady` adds `.anim-ready` class → hides elements (JS is loaded)
@@ -181,43 +159,30 @@ All scroll-triggered animations live in `globals.css` and use the `useScrollReve
 ```tsx
 const section = useScrollReveal(0.1)
 // ...
-<div className={`materialize ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
+<div ref={section.ref} className={`fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}>
 ```
 
-**Animation classes:** `materialize` (blur+scale reveal), `lift-in` (weight-lift overshoot), `number-slam` (stats impact), `float-in-left`/`float-in-right` (remapped to lift-in), `pulse-alive` (gentle breathing loop), `progress-fill` (scaleX bar fill), `strike-wipe` (line-through), `heartbeat-line` (SVG pulse), `hero-ken-burns` (hero bg zoom), `cta-pulse` (gold glow pulse on CTA buttons), `checklist-item` (slide-in-right), `price-shimmer` (gradient sweep on price text)
-
-**Removed tech animations:** `glitch-text`, `scan-reveal`, `energy-beam`, `shield-forge`, `forge-ring` — these had sci-fi/cyberpunk aesthetics incompatible with the fitness theme. Legacy CSS aliases exist so old class names still work (they map to `lift-in`).
-
-**Quiz-specific classes:** `animate-funnel-enter` (fullscreen fade-in), `quiz-step-enter` (fade + slide up), `quiz-progress-fill` (progress bar glow), `quiz-option-card` (hover/selected glow)
-
-**Floating section decorations:** Each section has themed SVG decorations (`FloatingDecor` component) that fade in/out based on scroll visibility using `useScrollFloat` hook (bidirectional IntersectionObserver). SVGs are defined in `src/components/FloatingDecor.tsx` (DumbbellSvg, AppleSvg, LeafSvg, HeartbeatSvg, StarSvg, ShieldCheckSvg, EuroSvg, MedalSvg, ScaleSvg). Opacity is capped at 7% for a subtle, non-distracting effect. Training sections get gold-colored icons, Ernährung sections get green-colored icons.
-
 **Critical rules for new animations:**
-- `.anim-ready` must set `opacity: 0` (or clip-path) — never the base class
+- `.anim-ready` must set `opacity: 0` — never the base class
 - Use `animation-fill-mode: both` (not `forwards`) when elements use `animationDelay` via inline styles
 - Every `@keyframes` must explicitly set `opacity: 1` in the 100% frame if it starts at `opacity: 0`
 
 ## Legal Disclaimer & Footnote System
 
-There are two disclaimer areas in `page.tsx`: a **short footnote block** (4 lines, ¹²³⁴) directly above the `<footer>`, and a **full legal text block** inside the footer (`pb-20` div). Both must stay in sync when copy changes. Superscript references (`<sup>¹</sup>` etc.) are placed at every pricing, reimbursement, and health claim across all components:
+The footer in `page.tsx` carries four disclaimers; superscript references are placed at every price, availability and results claim:
 
 | Ref | Topic | Where to use |
 |-----|-------|-------------|
-| ¹ | Ablauf & Zahlung (179€, Vorkasse, 3,20€/Tag) | Any price mention or payment reference |
-| ² | Erstattung (§ 20 SGB V, Kunde reicht ein) | "kostenlos", "erstattet", reimbursement claims |
-| ³ | Erstattungshöhe (75€–100%, ohne Gewähr) | Specific reimbursement amounts |
-| ⁴ | Hinweis (Prävention, kein Arzt-Ersatz) | Health/results claims |
-
-When adding new pricing or insurance claims, always include the appropriate `<sup>` references.
+| ¹ | Preis & Zahlung (69€ einmalig, keine Mitgliedschaft) | Any price mention |
+| ² | Probetraining (kostenlos & unverbindlich) | "kostenlos", trial claims |
+| ³ | Verfügbarkeit (limitierte Plätze) | Scarcity claims |
+| ⁴ | Ergebnisse & Hinweis (Erfahrungswerte, kein Arzt-Ersatz) | Weight-loss/results claims, testimonials |
 
 ## Copy & Legal Constraints
 
-- **Keine Heilversprechen** (German UWG): No guaranteed weight loss numbers, no medical condition promises. Use "können variieren", "erfahrungsgemäß", "viele Teilnehmer berichten" hedges.
-- **Stats source**: `-7,2 kg` average, `-8 cm` Bauchumfang, `127.000+` Teilnehmer, `4.9★` / 127 Rezensionen — from happyfigur24.de. Don't invent new statistics.
-- **§ 20 SGB V**: The program is certified. KK reimbursement requires no pre-approval (Vorab-Genehmigung) — customer attends, submits Teilnahmebestätigung afterward.
-- **Coach-Unterstützung**: Bei Fragen zur Erstattung oder zum Programm helfen die happyfigur Coaches jederzeit weiter. Es gibt KEINE Geld-zurück-Garantie durch FIT-INN.
-- **Trainer-Formulierung**: Ein Trainer/Coach ist immer **vor Ort ansprechbar** für Fragen und Korrekturen — aber nicht bei jedem Training persönlich dabei. Keine Formulierungen wie "Trainer an deiner Seite bei jedem Training".
+- **Keine Heilversprechen** (German UWG): No guaranteed weight loss numbers. The hero claim is hedged as "**bis zu** 5–10 kg weniger⁴"; testimonials carry "Individuelle Ergebnisse können variieren.⁴"
+- Stats: `4.9★` / 127 Google-Rezensionen. Don't invent new statistics.
 
 ## Avatars / Images
 
-No external image CDNs are used. Testimonial avatars are CSS-generated initials (colored `div` with first letter). Do not introduce dependencies on `figurscout.de` or similar third-party image hosts.
+No external image CDNs. Testimonial avatars are CSS-generated initials (colored circle with initials). Local assets in `public/`: `hero-bg.avif` (hero), `Gemini_Generated_Image_opjcz0…` (coaching, ProblemSection), `Gemini_Generated_Image_eoal4…` (Paket-Mockup), `dooken-magic-edit-…` (PreisSection), `food-*.jpg` (Kochbuch mockup). Do **not** use `78f9c0…-1920x2000 (1).avif` (likely sourced from the reference site — unclear image rights).

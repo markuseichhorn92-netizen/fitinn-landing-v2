@@ -3,42 +3,55 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, Phone } from 'lucide-react'
 
-export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
-  const [isVisible, setIsVisible] = useState(false)
+export function StickyBar({ onCta }: { onCta: () => void }) {
+  const [heroGone, setHeroGone] = useState(false)
+  const [bookingInView, setBookingInView] = useState(false)
 
   useEffect(() => {
-    const hero = document.getElementById('hero-cta')
-    if (!hero) return
+    const heroCta = document.getElementById('hero-cta')
+    const booking = document.getElementById('booking')
+    const observers: IntersectionObserver[] = []
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(!entry.isIntersecting),
-      { threshold: 0 }
-    )
-    observer.observe(hero)
-    return () => observer.disconnect()
+    if (heroCta) {
+      const io = new IntersectionObserver(
+        ([entry]) => setHeroGone(!entry.isIntersecting),
+        { threshold: 0 }
+      )
+      io.observe(heroCta)
+      observers.push(io)
+    }
+    if (booking) {
+      const io = new IntersectionObserver(
+        ([entry]) => setBookingInView(entry.isIntersecting),
+        { threshold: 0.15 }
+      )
+      io.observe(booking)
+      observers.push(io)
+    }
+    return () => observers.forEach(io => io.disconnect())
   }, [])
+
+  const isVisible = heroGone && !bookingInView
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 bg-background transition-all duration-300 ease-out ${
+      className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
       {/* Mobile */}
-      <div className="sm:hidden bg-background backdrop-blur-xl border-t border-border/60 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] sticky-accent-border">
-        <div className="px-4 pt-3 pb-4">
-          {/* Primary CTA */}
+      <div className="sm:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 shadow-[0_-4px_20px_rgba(15,80,80,0.15)]">
+        <div className="px-4 pt-3 pb-4 pb-safe-4">
           <button
-            onClick={onStartQuiz}
-            className="btn-cta w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-3.5 rounded-xl"
+            onClick={onCta}
+            className="btn-pill w-full text-[15px] py-3.5"
           >
-            PROBETRAINING SICHERN
+            Platz sichern
             <ArrowRight className="w-4 h-4" />
           </button>
-          {/* Secondary contact: Anrufen */}
           <a
             href="tel:+49651308524"
-            className="mt-2 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 border border-border/40 text-xs text-muted-foreground active:scale-95 transition-all"
+            className="mt-2 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-secondary border border-border-teal text-xs text-muted-foreground active:scale-95 transition-all"
           >
             <Phone className="w-3.5 h-3.5" />
             Anrufen · 0651 308524
@@ -47,21 +60,21 @@ export function StickyBar({ onStartQuiz }: { onStartQuiz: () => void }) {
       </div>
 
       {/* Desktop */}
-      <div className="hidden sm:block bg-background/95 backdrop-blur-xl border-t border-border/50 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe sticky-accent-border">
+      <div className="hidden sm:block bg-white/95 backdrop-blur-xl border-t border-black/5 shadow-[0_-4px_20px_rgba(15,80,80,0.12)] pb-safe">
         <div className="mx-auto max-w-7xl px-6 py-3">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2.5">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
               <span className="text-sm text-muted-foreground">
-                <span className="text-foreground font-semibold">§ 20 SGB V</span>
-                {' · '}Bis zu 100% von der Krankenkasse erstattet<sup>²³</sup>
+                <span className="text-foreground font-semibold">30 Tage Bauchweg Projekt</span>
+                {' · '}Probetraining kostenlos &amp; unverbindlich²
               </span>
             </div>
             <button
-              onClick={onStartQuiz}
-              className="btn-cta inline-flex items-center gap-2 text-sm py-2.5 px-5 shrink-0"
+              onClick={onCta}
+              className="btn-pill text-sm py-2.5 px-5 shrink-0"
             >
-              Probetraining sichern
+              Platz sichern
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

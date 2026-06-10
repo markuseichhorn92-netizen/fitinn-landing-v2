@@ -1,111 +1,94 @@
 'use client'
 
-import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
-import { SectionBadge } from '@/components/SectionBadge'
-import { TrendingDown, Ban, Scale, Frown, Repeat } from 'lucide-react'
+import Image from 'next/image'
+import { Check } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
-const problems = [
-  {
-    icon: Scale,
-    title: 'Die Waage bewegt sich nicht',
-    text: 'Egal was du isst, egal wie viel du trainierst — die Zahl bleibt stehen.',
-    happyfigur: 'Wir messen Stoffwechsel, Muskel- und Fettanteil — nicht nur die Waage. So siehst du, was sich wirklich verändert.',
-  },
-  {
-    icon: Repeat,
-    title: 'Jo-Jo-Effekt nach jeder Diät',
-    text: 'Zwei Wochen durchgehalten, dann kommt alles zurück — plus Extra-Kilos.',
-    happyfigur: 'Kein Hungern, kein Verzichten. Wir arbeiten mit deinem Stoffwechsel statt gegen ihn — nachhaltig statt kurzfristig.',
-  },
-  {
-    icon: Ban,
-    title: 'Kein Plan für deinen Alltag',
-    text: 'Meal-Prep, Kalorienzählen, 6× Training — klingt gut, passt aber nicht ins echte Leben.',
-    happyfigur: '2× 30 Min/Woche im Studio, ein Ernährungsplan, der zu deinem Alltag passt. Kein Kalorienzählen.',
-  },
+const SIGNS = [
+  'Hartnäckiger Bauchumfang trotz Training',
+  'Wenig Energie & Motivationstiefs',
+  'Heißhunger – besonders abends',
+  'Frust vor jeder Bikini-Saison',
 ]
 
 export function ProblemSection() {
-  const section = useScrollReveal(0.1)
-  const counter1 = useCountUp(73, 1200, section.isVisible)
-  const counter2 = useCountUp(9, 1000, section.isVisible)
+  const left = useScrollReveal(0.1)
+  const right = useScrollReveal(0.1)
 
   return (
-    <section id="problem" ref={section.ref} className="py-14 md:py-28 px-5">
-      <div className="mx-auto max-w-5xl">
-        <SectionBadge number="01" label="Das Problem" />
-
-        <h2
-          className={`text-3xl md:text-5xl font-bold mb-4 leading-tight fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-        >
-          Alles versucht.<br />
-          <span className="text-muted-foreground/60">Nichts hat funktioniert.</span>
-        </h2>
-
-        <p
-          className={`text-muted-foreground text-base md:text-lg max-w-2xl mb-12 md:mb-16 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-          style={{ animationDelay: '0.1s' }}
-        >
-          Du hast Diäten, Apps und Trainingspläne ausprobiert — aber nichts hat langfristig funktioniert. Das Problem ist nicht dein Wille. <strong className="text-foreground">Es ist der Ansatz.</strong>
-        </p>
-
-        {/* Stat Cards */}
-        <div className="grid grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-16">
+    <section className="py-20 lg:py-28 bg-secondary">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div
-            className={`rounded-2xl border border-border bg-card p-5 md:p-8 relative overflow-hidden fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-            style={{ animationDelay: '0.15s' }}
+            ref={left.ref}
+            className={`fade-up ${left.isReady ? 'anim-ready' : ''} ${left.isVisible ? 'animate' : ''}`}
           >
-            <div className="absolute top-3 right-3 md:top-4 md:right-4 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-destructive/5 flex items-center justify-center">
-              <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-destructive/40" />
-            </div>
-            <span className="text-4xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
-              {counter1}%
-            </span>
-            <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-[200px]">
-              aller Diäten enden im Jo-Jo-Effekt⁴
+            <p className="text-xs uppercase tracking-[0.22em] font-bold text-primary">
+              Der unsichtbare Gegner
             </p>
+            <h2 className="mt-5 text-3xl sm:text-4xl lg:text-[2.6rem] font-normal leading-[1.1] tracking-tight">
+              Viszerales Fett –
+              <span className="block font-extrabold mt-2 text-primary-dark">
+                was deinen Sommerbody blockiert.
+              </span>
+            </h2>
+
+            <div className="mt-6 space-y-4 text-base leading-relaxed">
+              <p>
+                Trotz Training, Diäten und Disziplin verändert sich der Bauch oft kaum.
+                Der Grund liegt häufig tiefer:{' '}
+                <strong className="text-primary-dark">viszerales Fett</strong> rund um die
+                inneren Organe.
+              </p>
+              <p>
+                Dieses unsichtbare Bauchfett steht in Verbindung mit Müdigkeit, Heißhunger,
+                Stoffwechselproblemen und einem wachsenden Bauchumfang – und ist exakt das,
+                was zwischen dir und deinem Sommer-Wohlfühlgefühl steht.
+              </p>
+            </div>
+
+            <div className="mt-6 p-5 rounded-xl border-l-4 border-accent bg-white shadow-sm">
+              <p className="text-sm leading-relaxed">
+                <strong className="text-primary-dark">Die gute Nachricht:</strong>{' '}
+                Genau dieses Fett reagiert besonders gut auf die richtige Kombination aus
+                Ernährung, Stoffwechsel-Training und persönlicher Begleitung – wie im
+                30 Tage Bauchweg Projekt.⁴
+              </p>
+            </div>
+
+            <div className="mt-8">
+              <p className="text-xs uppercase tracking-[0.22em] font-bold mb-4 text-primary-dark">
+                Typische Anzeichen
+              </p>
+              <ul className="space-y-3">
+                {SIGNS.map(sign => (
+                  <li key={sign} className="flex items-start gap-3">
+                    <Check className="w-4 h-4 mt-1 shrink-0 text-primary" />
+                    <span className="text-sm font-medium">{sign}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div
-            className={`rounded-2xl border border-border bg-card p-5 md:p-8 relative overflow-hidden fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-            style={{ animationDelay: '0.25s' }}
+            ref={right.ref}
+            className={`fade-up delay-200 ${right.isReady ? 'anim-ready' : ''} ${right.isVisible ? 'animate' : ''}`}
           >
-            <div className="absolute top-3 right-3 md:top-4 md:right-4 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-destructive/5 flex items-center justify-center">
-              <Frown className="w-5 h-5 md:w-6 md:h-6 text-destructive/40" />
+            <div className="rounded-3xl overflow-hidden shadow-xl bg-white">
+              <Image
+                src="/Gemini_Generated_Image_opjcz0opjcz0opjc.png"
+                alt="Persönliche Betreuung im FIT-INN Trier – Coach erklärt die Körperanalyse"
+                width={1408}
+                height={768}
+                className="w-full h-auto block"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
-            <span className="text-4xl md:text-7xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)] tracking-tight">
-              {counter2}
-            </span>
-            <span className="text-lg md:text-3xl font-bold text-muted-foreground/50 font-[family-name:var(--font-barlow-condensed)] ml-1">
-              von 10
-            </span>
-            <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-[240px]">
-              geben nach 6 Wochen auf — weil der Plan nicht passt
+            <p className="mt-6 text-xs text-center font-medium text-muted-foreground">
+              Persönliche Betreuung & Körperanalyse im FIT-INN Trier.
             </p>
           </div>
-        </div>
-
-        {/* Problem Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {problems.map((problem, i) => (
-            <div
-              key={i}
-              className={`group rounded-2xl border border-border bg-card p-5 md:p-6 transition-all duration-300 hover:border-destructive/20 hover:shadow-md fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.3 + i * 0.08}s` }}
-            >
-              <div className="w-10 h-10 rounded-xl bg-destructive/5 flex items-center justify-center mb-4 group-hover:bg-destructive/10 transition-colors">
-                <problem.icon className="w-5 h-5 text-destructive/50" />
-              </div>
-              <h3 className="text-base font-bold mb-1.5">{problem.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{problem.text}</p>
-
-              {/* Bei happyfigur: */}
-              <div className="border-t border-primary/15 pt-3 mt-auto">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-primary mb-1">Bei happyfigur</p>
-                <p className="text-sm text-foreground/90 leading-relaxed">{problem.happyfigur}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

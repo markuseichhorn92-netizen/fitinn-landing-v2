@@ -1,141 +1,71 @@
 'use client'
 
 import { Star } from 'lucide-react'
-import { useScrollReveal, useCountUp } from '@/hooks/useScrollReveal'
-import { SectionBadge } from '@/components/SectionBadge'
-import { LiveFeedTable } from '@/components/LiveFeed'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
-const testimonials = [
+const TESTIMONIALS = [
   {
-    text: "Nach Jahren des Scheiterns hat mir die Körperanalyse endlich gezeigt, woran es lag. Jetzt esse ich mehr als vorher — und nehme trotzdem ab!",
-    name: "Sandra K.",
-    age: 42,
-    result: "-8 kg",
-    initials: "SK",
-    color: "#7dd87d"
+    name: 'Lisa M., 34',
+    initials: 'LM',
+    color: 'bg-primary',
+    text: '4 cm weniger Bauchumfang in 4 Wochen – pünktlich vor unserem Urlaub. Endlich wieder Bikini.',
   },
   {
-    text: "Ich war skeptisch, aber die Zahlen lügen nicht. Bei der Zwischen-Analyse hatte ich schon 4 kg weniger — das hat mich so motiviert!",
-    name: "Thomas M.",
-    age: 48,
-    result: "-11 kg",
-    initials: "TM",
-    color: "#e8a948"
+    name: 'Sandra K., 41',
+    initials: 'SK',
+    color: 'bg-accent-deep',
+    text: 'Ich habe alles probiert. Mit dem Bauchweg Projekt hat es endlich Klick gemacht – ohne Hungern.',
   },
   {
-    text: "Endlich ein Konzept, das zu meinem Alltag passt. 2× 30 Minuten pro Woche — mehr brauche ich nicht. Und die Ergebnisse sprechen für sich.",
-    name: "Marion H.",
-    age: 55,
-    result: "-6 kg",
-    initials: "MH",
-    color: "#7dd87d"
-  }
+    name: 'Nadine R., 38',
+    initials: 'NR',
+    color: 'bg-primary-dark',
+    text: 'Klare Struktur, ehrliches Coaching, sichtbare Ergebnisse. Hätte ich viel früher machen sollen.',
+  },
 ]
 
 export function Testimonials() {
-  const section = useScrollReveal(0.1)
-  const kgLoss = useCountUp(72, 1200, section.isVisible)
-  const cmLoss = useCountUp(8, 1000, section.isVisible)
+  const header = useScrollReveal(0.1)
+  const cards = useScrollReveal(0.1)
 
   return (
-    <section id="erfahrungen" ref={section.ref} className="py-12 md:py-24 px-5">
-      <div className="mx-auto max-w-5xl">
-        <SectionBadge number="04" label="Ergebnisse" />
-
-        <h2
-          className={`text-2xl md:text-4xl font-bold mb-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-        >
-          Was Teilnehmer aus <span className="text-primary">Trier</span> sagen
-        </h2>
-
+    <section className="py-20 bg-white">
+      <div className="mx-auto max-w-5xl px-5">
         <div
-          className={`flex items-center gap-1 mb-12 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-          style={{ animationDelay: '0.1s' }}
+          ref={header.ref}
+          className={`text-center mb-12 fade-up ${header.isReady ? 'anim-ready' : ''} ${header.isVisible ? 'animate' : ''}`}
         >
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-          ))}
-          <span className="ml-2 text-sm text-muted-foreground">4.9 auf Google · 127 Bewertungen</span>
+          <p className="text-xs uppercase tracking-[0.22em] font-bold mb-4 text-primary">
+            Echte Stimmen
+          </p>
+          <h2 className="text-3xl sm:text-4xl">Das sagen unsere Teilnehmer</h2>
         </div>
 
-        {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
-          {testimonials.map((t, i) => (
+        <div ref={cards.ref} className="grid md:grid-cols-3 gap-5">
+          {TESTIMONIALS.map((t, i) => (
             <div
-              key={i}
-              className={`border-t border-border pt-6 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-              style={{ animationDelay: `${0.15 + i * 0.08}s` }}
+              key={t.name}
+              className={`p-6 rounded-2xl h-full shadow-sm bg-background border border-border fade-up ${cards.isReady ? 'anim-ready' : ''} ${cards.isVisible ? 'animate' : ''}`}
+              style={{ animationDelay: `${i * 0.08}s` }}
             >
-              {/* Stars */}
-              <div className="flex items-center gap-0.5 mb-4">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-3.5 h-3.5 fill-accent text-accent" />
+              <div className="flex gap-0.5 mb-3">
+                {Array.from({ length: 5 }).map((_, j) => (
+                  <Star key={j} className="w-4 h-4 fill-accent text-accent" />
                 ))}
               </div>
-
-              {/* Quote */}
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                &ldquo;{t.text}&rdquo;
-              </p>
-
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-black"
-                  style={{ backgroundColor: t.color }}
-                >
+              <p className="leading-relaxed mb-4">„{t.text}“</p>
+              <div className="flex items-center gap-2.5">
+                <span className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold ${t.color}`}>
                   {t.initials}
-                </div>
-                <div>
-                  <span className="text-sm font-semibold">{t.name}, {t.age}</span>
-                  <span className="ml-2 text-xs text-primary font-bold">{t.result}</span>
-                </div>
+                </span>
+                <p className="text-sm font-bold text-primary-dark">{t.name}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Stats Row */}
-        <div
-          className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t border-border pt-8 mb-8 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-          style={{ animationDelay: '0.4s' }}
-        >
-          <div>
-            <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
-              -{(kgLoss / 10).toFixed(1).replace('.', ',')} kg
-            </span>
-            <p className="text-xs text-muted-foreground mt-1">Ø Gewichtsverlust¹</p>
-          </div>
-          <div>
-            <span className="text-2xl md:text-3xl font-bold text-primary font-[family-name:var(--font-barlow-condensed)]">
-              -{cmLoss} cm
-            </span>
-            <p className="text-xs text-muted-foreground mt-1">Ø Bauchumfang¹</p>
-          </div>
-          <div>
-            <span className="text-2xl md:text-3xl font-bold text-foreground font-[family-name:var(--font-barlow-condensed)]">
-              8 Wochen
-            </span>
-            <p className="text-xs text-muted-foreground mt-1">Programmdauer</p>
-          </div>
-          <div>
-            <span className="text-2xl md:text-3xl font-bold text-accent font-[family-name:var(--font-barlow-condensed)]">
-              4.9★
-            </span>
-            <p className="text-xs text-muted-foreground mt-1">127 Bewertungen</p>
-          </div>
-        </div>
-
-        {/* Live Activity Feed (athleo-style) */}
-        <div
-          className={`mt-4 fade-up ${section.isReady ? 'anim-ready' : ''} ${section.isVisible ? 'animate' : ''}`}
-          style={{ animationDelay: '0.5s' }}
-        >
-          <LiveFeedTable />
-        </div>
-
-        <p className="text-center text-xs text-muted-foreground mt-6">
-          Individuelle Ergebnisse können variieren. Erfahrungsberichte verifizierter Kursteilnehmer.
+        <p className="text-center text-xs text-muted-foreground mt-8">
+          Individuelle Ergebnisse können variieren.⁴
         </p>
       </div>
     </section>
