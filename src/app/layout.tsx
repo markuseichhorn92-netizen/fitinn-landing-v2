@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieBanner, ConditionalAnalytics } from "@/components/CookieBanner";
@@ -147,6 +148,12 @@ export default function RootLayout({
         <ConditionalAnalytics />
         <Analytics />
         <SpeedInsights />
+        <Script
+          src="https://cdn.jexitychat.de/widget/latest/widget.js"
+          data-org-slug="fit-inn-trier"
+          data-proj-slug="fit-inn-trier-web"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
