@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>happyfigur Trier | Abnehmen mit System – § 20 SGB V | FIT-INN Trier</title>
+<meta name="description" content="happyfigur – das 8-Wochen-Abnehmprogramm im FIT-INN Trier. Training, Ernährung & Coaching, zertifiziert nach § 20 SGB V. Deine Krankenkasse erstattet bis zu 100%. Kostenloses Probetraining sichern.">
+<meta property="og:title" content="happyfigur Trier – Abnehmen mit System statt Diät">
+<meta property="og:description" content="8 Wochen Training, Ernährung & Coaching im FIT-INN Trier. § 20 SGB V zertifiziert – Krankenkasse erstattet bis zu 100%.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/studio-1.avif">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafafa;--fg:#0a0a0f;--card:#fff;--primary:#2d8a2d;--primary-fg:#fff;
+  --accent:#c48a1a;--accent-fg:#fff;--muted:#52525b;--border:#e4e4e7;--secondary:#f4f4f5;
+  --destructive:#ef4444;--radius:0.75rem;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.05}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.icon{width:24px;height:24px;flex-shrink:0;display:inline-block;vertical-align:middle}
+.muted{color:var(--muted)}
+.tc{color:var(--primary)}.ta{color:var(--accent)}
+sup{font-size:.6em;font-weight:500;color:var(--muted)}
+section{scroll-margin-top:84px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.05em;transition:all .3s cubic-bezier(.16,1,.3,1)}
+.btn-cta{background:var(--accent);color:var(--accent-fg);padding:1rem 2rem;border-radius:var(--radius);font-size:1.1rem}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,138,26,.25)}
+.btn-outline{background:transparent;color:var(--muted);border:1px solid var(--border);padding:.85rem 1.6rem;border-radius:var(--radius);font-size:1rem}
+.btn-outline:hover{color:var(--fg);border-color:var(--fg);background:var(--secondary)}
+.btn-sm{padding:.65rem 1.25rem;font-size:.95rem}
+.btn-block{width:100%}
+
+/* Badges */
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:.18em;font-weight:600;text-transform:uppercase;color:var(--accent)}
+.sec-badge{display:inline-flex;align-items:center;gap:.55rem;margin-bottom:1.1rem}
+.sec-badge .num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--accent);background:rgba(196,138,26,.1);border:1px solid rgba(196,138,26,.2);border-radius:999px;padding:.15rem .7rem}
+.sec-badge .lbl{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;font-weight:600;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .85rem;border-radius:999px;font-size:.8rem;font-weight:600}
+.pill-primary{background:rgba(45,138,45,.1);border:1px solid rgba(45,138,45,.2);color:var(--primary)}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(250,250,250,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo img{height:30px;width:auto}
+.nav-links{display:flex;align-items:center;gap:.25rem}
+.nav-links a.lnk{padding:.5rem .75rem;font-size:.95rem;color:var(--muted);border-radius:8px;transition:all .2s}
+.nav-links a.lnk:hover{color:var(--fg);background:rgba(0,0,0,.04)}
+.nav-phone{display:inline-flex;align-items:center;gap:.5rem;color:var(--accent);font-weight:600;font-size:.9rem;padding:.4rem .75rem;border:1px solid rgba(196,138,26,.25);border-radius:8px;margin-left:.5rem}
+.nav-phone .sub{font-size:.65rem;font-weight:400;color:var(--muted);display:block;line-height:1}
+.nav-burger{display:none;width:42px;height:42px;border-radius:10px;background:rgba(0,0,0,.05);border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer}
+.mobile-menu{display:none;border-top:1px solid var(--border);background:var(--bg)}
+.mobile-menu.open{display:block}
+.mobile-menu .mm-inner{padding:.75rem 20px 1.25rem;display:flex;flex-direction:column;gap:.25rem}
+.mobile-menu a.lnk{padding:.85rem 1rem;border-radius:10px;color:var(--muted);font-weight:500}
+.mobile-menu a.lnk:hover{background:rgba(0,0,0,.04);color:var(--fg)}
+
+/* Hero */
+.hero{position:relative;padding:7rem 20px 3rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:right top;opacity:.32}
+.hero-bg .ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,250,250,.5),rgba(250,250,250,.72),var(--bg))}
+.hero-grid{position:relative;z-index:1;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6vw,4rem);margin:1rem 0}
+.hero-sub{font-size:clamp(1.05rem,2.2vw,1.35rem);color:var(--muted);max-width:34rem;margin-bottom:1.75rem;text-transform:none;font-family:'Barlow',sans-serif;font-weight:400;line-height:1.5}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.hero-trust{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.25rem;font-size:.9rem;color:var(--muted)}
+.hero-trust span{display:inline-flex;align-items:center;gap:.4rem}
+.hero-trust .icon{width:17px;height:17px;color:var(--primary)}
+
+/* KPI */
+.kpi{position:relative;z-index:1;max-width:760px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;border-top:1px solid var(--border);padding-top:1.75rem}
+.kpi .v{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1}
+.kpi .l{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+
+/* Form card */
+.form-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.5rem;box-shadow:0 20px 50px -20px rgba(0,0,0,.18)}
+.form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.form-head .t{font-weight:600;font-size:1rem}
+.form-head .s{font-size:.8rem;color:var(--muted)}
+.field{margin-bottom:.85rem}
+.field label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:.3rem}
+.field input,.field select,.field textarea{width:100%;background:var(--secondary);border:1px solid var(--border);border-radius:10px;padding:.7rem .8rem;font-size:16px;font-family:inherit;color:var(--fg);transition:all .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(45,138,45,.12)}
+.field textarea{resize:vertical;min-height:70px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.form-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.form-success{display:none;text-align:center;padding:1.5rem 0}
+.form-success.show{display:block}
+.form-success .ico{width:60px;height:60px;border-radius:50%;background:rgba(45,138,45,.12);border:1px solid rgba(45,138,45,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.form-success .ico .icon{width:32px;height:32px;color:var(--primary)}
+
+/* Generic section */
+.sec{padding:4.5rem 20px}
+.sec-tight{padding:3.5rem 20px}
+.h2{font-size:clamp(1.9rem,4.5vw,3rem);margin-bottom:1rem}
+.lead{font-size:1.1rem;color:var(--muted);max-width:42rem;font-family:'Barlow',sans-serif;font-weight:400;text-transform:none;line-height:1.6}
+.bg-soft{background:var(--secondary)}
+.bg-green{background:#f0f7f0}
+.bg-gold{background:#faf6ee}
+.bg-warm{background:#f5f3f0}
+
+/* Cards / grids */
+.grid{display:grid;gap:1.25rem}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+.card-l-primary{border-left:4px solid var(--primary)}
+.card-l-accent{border-left:4px solid var(--accent)}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;transition:all .3s}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--primary);opacity:.4;transition:opacity .3s}
+.feature-card--training::before{background:var(--accent)}
+.feature-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.feature-card:hover::before{opacity:1}
+.ico-box{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.ico-box .icon{width:22px;height:22px}
+.bg-pri{background:rgba(45,138,45,.1)}.bg-acc{background:rgba(196,138,26,.1)}
+.bg-pri .icon{color:var(--primary)}.bg-acc .icon{color:var(--accent)}
+.card h3{font-size:1.15rem;margin-bottom:.4rem}
+.card p{font-size:.92rem;color:var(--muted);text-transform:none;font-family:'Barlow',sans-serif}
+
+/* Hero stat tiles */
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:48rem;margin:0 auto 2.5rem}
+.stat-tile{border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.6);padding:1.1rem;text-align:center}
+.stat-tile.hl{border:2px solid var(--accent);background:rgba(196,138,26,.06);box-shadow:0 8px 24px -12px rgba(196,138,26,.4)}
+.stat-tile .v{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.8rem,5vw,3rem);line-height:1}
+.stat-tile .l{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--muted);margin-top:.35rem}
+
+/* price bar */
+.pricebar{border:1px solid rgba(45,138,45,.3);background:rgba(45,138,45,.05);border-radius:16px;padding:1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem}
+.pricebar .big{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(2.2rem,6vw,3rem);line-height:1}
+
+/* problem stat */
+.pstat{position:relative;overflow:hidden}
+.pstat .corner{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,.06);display:flex;align-items:center;justify-content:center}
+.pstat .corner .icon{color:rgba(239,68,68,.4);width:22px;height:22px}
+.pstat .v{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(2.6rem,8vw,4.5rem);line-height:.95}
+.hf-note{border-top:1px solid rgba(45,138,45,.18);padding-top:.75rem;margin-top:1rem}
+.hf-note .k{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);margin-bottom:.25rem}
+
+/* food gallery */
+.foodgal{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;border-radius:16px;overflow:hidden}
+.foodgal div{position:relative;height:150px}
+.foodgal img{width:100%;height:100%;object-fit:cover}
+
+/* info strip */
+.strip{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.25rem;border-radius:12px;background:rgba(45,138,45,.05);border:1px solid rgba(45,138,45,.12)}
+.strip .icon{color:var(--primary);flex-shrink:0;width:20px;height:20px;margin-top:2px}
+.strip p{font-size:.92rem;text-transform:none;font-family:'Barlow',sans-serif}
+
+/* pillar image */
+.pillar-img{height:180px;width:100%;object-fit:cover}
+
+/* mockup / hub */
+.hub{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1.75rem 2.5rem;border:2px solid rgba(45,138,45,.2);border-radius:16px;background:#fff;box-shadow:0 18px 40px -20px rgba(45,138,45,.25);max-width:24rem;margin:0 auto}
+.hub img{width:60px;height:60px;object-fit:contain;border-radius:12px}
+.hub .nm{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;text-transform:uppercase;letter-spacing:.08em}
+.hub .row{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;font-size:.8rem;color:var(--muted)}
+.hub .row span{display:inline-flex;align-items:center;gap:.3rem}
+.hub .row .icon{width:15px;height:15px;color:var(--primary)}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;position:relative}
+.tstep{text-align:center;position:relative}
+.tstep .dot{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;border:2px solid;margin:0 auto 1rem}
+.tstep .dot .icon{width:26px;height:26px}
+.dot-acc{border-color:rgba(196,138,26,.3);background:rgba(196,138,26,.1)}.dot-acc .icon{color:var(--accent)}
+.dot-pri{border-color:rgba(45,138,45,.3);background:rgba(45,138,45,.1)}.dot-pri .icon{color:var(--primary)}
+.tstep .when{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:.15rem .65rem;border-radius:999px;margin-bottom:.6rem}
+.when-acc{background:rgba(196,138,26,.1);color:var(--accent)}.when-pri{background:rgba(45,138,45,.1);color:var(--primary)}
+.tstep h3{font-size:1.05rem;margin-bottom:.35rem}
+.tstep p{font-size:.85rem;color:var(--muted);text-transform:none;font-family:'Barlow',sans-serif;max-width:200px;margin:0 auto}
+
+/* testimonials */
+.tst{border-top:1px solid var(--border);padding-top:1.5rem}
+.stars{display:flex;gap:2px;margin-bottom:1rem}
+.stars .icon{width:16px;height:16px;color:var(--accent)}
+.tst p{font-size:.95rem;color:var(--muted);text-transform:none;font-family:'Barlow',sans-serif;margin-bottom:1.25rem}
+.tst-who{display:flex;align-items:center;gap:.65rem}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.8rem}
+
+/* team */
+.studio-banner{position:relative;border-radius:16px;overflow:hidden;height:260px;margin-bottom:2.5rem}
+.studio-banner img{width:100%;height:100%;object-fit:cover}
+.studio-banner .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,.1),transparent)}
+.studio-banner .cap{position:absolute;bottom:1.25rem;left:1.5rem;color:#fff}
+.studio-banner .cap b{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;text-transform:uppercase}
+.team-card{display:flex;flex-direction:column}
+.team-head{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.team-av{width:54px;height:54px;border-radius:12px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.team-av img{width:100%;height:100%;object-fit:cover;object-position:top}
+.tag{font-size:.68rem;padding:.2rem .6rem;border-radius:999px;border:1px solid;font-weight:600;display:inline-block;margin:.2rem .2rem 0 0}
+.tag-acc{background:rgba(196,138,26,.05);border-color:rgba(196,138,26,.15);color:var(--accent)}
+.tag-pri{background:rgba(45,138,45,.05);border-color:rgba(45,138,45,.15);color:var(--primary)}
+
+/* insurance */
+.kk-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.incl-row{display:flex;align-items:center;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--border)}
+.incl-row:last-child{border-bottom:none}
+.incl-row .icon{width:18px;height:18px;flex-shrink:0}
+.kk-calc{border:1px solid var(--border);border-radius:16px;background:#fff;padding:1.75rem;position:relative;overflow:hidden}
+.kk-calc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--primary);opacity:.5}
+.kk-result{margin-top:1.25rem}
+.kk-free{padding:1.5rem;background:rgba(45,138,45,.1);border:1px solid rgba(45,138,45,.2);border-radius:12px;text-align:center}
+.kk-free .z{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:700;color:var(--primary);line-height:1}
+.kk-part{padding:1.25rem;border:1px solid var(--border);border-radius:12px}
+.kk-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.95rem}
+.kk-line.total{border-top:1px solid var(--border);padding-top:.75rem;margin-top:.75rem;margin-bottom:0}
+.kk-line.total b{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;color:var(--accent)}
+
+/* compare */
+.compare{border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
+.compare .ch{padding:1.1rem 1.5rem;background:linear-gradient(to right,rgba(45,138,45,.05),rgba(196,138,26,.05));border-bottom:1px solid var(--border)}
+.compare table{width:100%;border-collapse:collapse}
+.compare th,.compare td{padding:.85rem .6rem;text-align:center;font-size:.85rem;border-bottom:1px solid rgba(228,228,231,.6)}
+.compare th:first-child,.compare td:first-child{text-align:left;padding-left:1.5rem;font-weight:500}
+.compare thead th{background:var(--secondary);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.compare .yes{display:inline-flex;width:24px;height:24px;border-radius:50%;background:rgba(45,138,45,.1);align-items:center;justify-content:center}
+.compare .yes .icon{width:14px;height:14px;color:var(--primary)}
+.compare .no .icon{width:14px;height:14px;color:rgba(0,0,0,.18)}
+.compare .cost td{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;border-bottom:none}
+.compare .cost td.hl{color:var(--primary)}
+.compare-scroll{overflow-x:auto}
+
+/* guarantee */
+.g-item{display:flex;gap:1rem;align-items:flex-start}
+.g-item .ico-box{margin-bottom:0;flex-shrink:0}
+.g-item h3{font-size:1.05rem;margin-bottom:.3rem}
+.g-item p{font-size:.9rem;color:var(--muted);text-transform:none;font-family:'Barlow',sans-serif}
+
+/* faq */
+.faq-item{border-top:1px solid var(--border)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.35rem 0;cursor:pointer;background:none;border:none;text-align:left;font-family:'Barlow',sans-serif;font-weight:600;font-size:1.02rem;color:var(--fg)}
+.faq-q .pm{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .3s}
+.faq-q .pm .icon{width:16px;height:16px}
+.faq-item.open .faq-q .pm{background:var(--primary);border-color:var(--primary);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,opacity .3s;opacity:0}
+.faq-item.open .faq-a{max-height:400px;opacity:1}
+.faq-a p{padding-bottom:1.35rem;font-size:.93rem;color:var(--muted);line-height:1.6}
+.faq-q .ico-minus{display:none}
+.faq-item.open .faq-q .ico-plus{display:none}
+.faq-item.open .faq-q .ico-minus{display:inline-block}
+
+/* final cta */
+.final{text-align:center;padding:5rem 20px}
+.final .h2{margin-bottom:1rem}
+.final p{font-size:1.15rem;color:var(--muted);max-width:34rem;margin:0 auto 2rem;text-transform:none;font-family:'Barlow',sans-serif}
+.final-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-top:1.75rem;font-size:.9rem;color:var(--muted)}
+.final-trust span{display:inline-flex;align-items:center;gap:.4rem}
+.final-trust .icon{width:17px;height:17px;color:var(--primary)}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:3rem 20px 2rem;background:#fff}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+.foot-grid h4{font-size:.95rem;margin-bottom:.85rem}
+.foot-grid a,.foot-grid p{display:block;font-size:.88rem;color:var(--muted);margin-bottom:.5rem;text-transform:none;font-family:'Barlow',sans-serif}
+.foot-grid a:hover{color:var(--fg)}
+.foot-bottom{border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;font-size:.8rem;color:var(--muted)}
+.legal{max-width:48rem;margin:1.5rem auto 0;font-size:.7rem;color:var(--muted);line-height:1.5}
+.legal p{margin-bottom:.5rem;text-transform:none;font-family:'Barlow',sans-serif}
+
+/* sticky bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:.7rem 20px;transform:translateY(120%);transition:transform .35s cubic-bezier(.16,1,.3,1);box-shadow:0 -8px 30px -12px rgba(0,0,0,.15)}
+.sticky.show{transform:translateY(0)}
+.sticky-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.sticky .txt b{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:1.05rem}
+.sticky .txt span{display:block;font-size:.78rem;color:var(--muted)}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .hero-grid{grid-template-columns:1fr;gap:2rem}
+  .hero-order-form{order:-1}
+  .kk-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .timeline{grid-template-columns:1fr;gap:1.5rem;max-width:24rem;margin:0 auto}
+  .tstep p{max-width:none}
+}
+@media(max-width:680px){
+  .g2,.g3{grid-template-columns:1fr}
+  .statrow{grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .kpi{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .frow{grid-template-columns:1fr}
+  .foodgal div{height:110px}
+  .sticky .txt{flex:1}
+  .hero{padding-top:6rem}
+}
+.hide-mobile{}
+@media(max-width:680px){.hide-mobile{display:none}}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-dumbbell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></symbol>
+<symbol id="i-utensils" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+<symbol id="i-apple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+<symbol id="i-trending-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol>
+<symbol id="i-frown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></symbol>
+<symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+<symbol id="i-file-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></symbol>
+<symbol id="i-calendar-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m14 14-4 4"/><path d="m10 14 4 4"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+<symbol id="i-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
+<symbol id="i-salad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7"/><path d="m13 12 4-4"/><path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+<symbol id="i-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></symbol>
+</svg>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#hero" class="nav-logo"><img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/logo.png" alt="FIT-INN Trier"></a>
+    <div class="nav-links">
+      <a class="lnk" href="#programm">Programm</a>
+      <a class="lnk" href="#ablauf">Ablauf</a>
+      <a class="lnk" href="#erfahrungen">Erfahrungen</a>
+      <a class="lnk" href="#krankenkasse">Krankenkasse</a>
+      <a class="lnk" href="#faq">FAQ</a>
+      <a class="nav-phone" href="tel:+49651308524"><svg class="icon" style="width:16px;height:16px"><use href="#i-phone"/></svg><span>0651 308524<span class="sub">Trier-Feyen</span></span></a>
+      <a class="btn btn-cta btn-sm" href="#termin" style="margin-left:.5rem">Probetraining <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menü öffnen"><svg class="icon"><use href="#i-menu"/></svg></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mm-inner">
+      <a class="lnk" href="#programm">Programm</a>
+      <a class="lnk" href="#ablauf">Ablauf</a>
+      <a class="lnk" href="#erfahrungen">Erfahrungen</a>
+      <a class="lnk" href="#krankenkasse">Krankenkasse</a>
+      <a class="lnk" href="#faq">FAQ</a>
+      <a class="btn btn-cta btn-block" href="#termin" style="margin-top:.5rem">Kostenloses Probetraining</a>
+      <a class="btn btn-outline btn-block" href="tel:+49651308524" style="margin-top:.5rem"><svg class="icon" style="width:16px;height:16px"><use href="#i-phone"/></svg> 0651 308524</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/hero-bg.avif" alt="">
+    <div class="ov"></div>
+  </div>
+  <div class="hero-grid">
+    <div>
+      <span class="pill pill-primary">Das 8-Wochen Programm in Trier</span>
+      <h1><span>Abnehmen in Trier —</span><br><span class="tc">mit System statt Diät.</span></h1>
+      <p class="hero-sub">happyfigur kombiniert Training, Ernährung und Coaching — zertifiziert nach § 20 SGB V. Deine Krankenkasse erstattet bis zu 100%.<sup>²³</sup></p>
+      <div class="hero-cta-row">
+        <a class="btn btn-cta" href="tel:+49651308524"><svg class="icon" style="width:20px;height:20px"><use href="#i-phone"/></svg> 0651 308524</a>
+        <a class="btn btn-outline" href="#termin">Probetraining sichern <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-trust">
+        <span><svg class="icon"><use href="#i-check-circle"/></svg> Kostenlos &amp; unverbindlich</span>
+        <span><svg class="icon"><use href="#i-shield"/></svg> § 20 SGB V</span>
+      </div>
+    </div>
+
+    <!-- Lead form -->
+    <div class="hero-order-form" id="termin">
+      <div class="form-card">
+        <div class="form-head">
+          <div>
+            <div class="t">Probetraining buchen</div>
+            <div class="s">Kostenlos · Unverbindlich</div>
+          </div>
+          <span class="pill pill-primary"><svg class="icon" style="width:14px;height:14px"><use href="#i-shield-check"/></svg> § 20 SGB V</span>
+        </div>
+        <form id="leadForm" name="Probetraining" novalidate>
+          <div class="frow">
+            <div class="field"><label>Vorname *</label><input type="text" name="vorname" placeholder="Anna" required></div>
+            <div class="field"><label>Nachname *</label><input type="text" name="nachname" placeholder="Müller" required></div>
+          </div>
+          <div class="field"><label>E-Mail *</label><input type="email" name="email" placeholder="anna@email.de" required></div>
+          <div class="field"><label>Telefon *</label><input type="tel" name="telefon" placeholder="0171 2345678" required></div>
+          <div class="field">
+            <label>Dein Ziel</label>
+            <select name="ziel">
+              <option>Abnehmen</option>
+              <option>Körper straffen</option>
+              <option>Mehr Energie</option>
+              <option>Gesundheit &amp; Wohlbefinden</option>
+            </select>
+          </div>
+          <div class="field"><label>Nachricht (optional)</label><textarea name="nachricht" placeholder="Wunschtermin oder Fragen…"></textarea></div>
+          <button type="submit" class="btn btn-cta btn-block">Probetraining anfragen <svg class="icon" style="width:18px;height:18px"><use href="#i-arrow"/></svg></button>
+          <p class="form-note">Antwort innerhalb von 24 Stunden · Deine Daten werden vertraulich behandelt.</p>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="ico"><svg class="icon"><use href="#i-check-circle"/></svg></div>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;text-transform:uppercase;font-weight:700">Anfrage gesendet!</p>
+          <p class="muted" style="font-size:.9rem;margin-top:.35rem">Wir melden uns innerhalb von 24 Stunden bei dir. Du kannst uns auch direkt anrufen: <a href="tel:+49651308524" class="tc" style="font-weight:600">0651 308524</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi">
+    <div><div class="v">127.000+</div><div class="l">Teilnehmer</div></div>
+    <div><div class="v ta">4.9★</div><div class="l">Google Bewertung</div></div>
+    <div><div class="v tc">-7,2 kg</div><div class="l">Ø Ergebnis<sup>⁴</sup></div></div>
+    <div><div class="v tc">0 €</div><div class="l">bei vielen Kassen<sup>²³</sup></div></div>
+  </div>
+</section>
+
+<!-- ═══ INKLUSIVE ═══ -->
+<section class="sec bg-soft">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <span class="eyebrow">Auf einen Blick</span>
+      <h2 class="h2" style="margin-top:.5rem"><span>Was du bekommst — und </span><span class="tc">was es kostet</span></h2>
+    </div>
+    <div class="statrow">
+      <div class="stat-tile hl"><div class="v ta">8</div><div class="l ta">Wochen Training</div></div>
+      <div class="stat-tile"><div class="v">Coach</div><div class="l">vor Ort dabei</div></div>
+      <div class="stat-tile"><div class="v tc">§ 20</div><div class="l">SGB V zertifiziert</div></div>
+    </div>
+    <div class="grid g3" style="margin-bottom:1.75rem">
+      <div class="card card-l-primary"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-chart"/></svg></div><h3>Körperanalyse</h3><p>3× während des Programms — Stoffwechsel messen statt raten. Du siehst schwarz auf weiß, was sich verändert.</p></div>
+      <div class="card card-l-accent"><div class="ico-box bg-acc"><svg class="icon"><use href="#i-dumbbell"/></svg></div><h3>Training im Studio</h3><p>Individuell auf dich abgestimmt im FIT-INN Trier — Trainer immer vor Ort ansprechbar.</p></div>
+      <div class="card card-l-primary"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-utensils"/></svg></div><h3>Ernährungsplan</h3><p>Kein Verzicht, keine Diät — alltagstauglich, satt essen, mit Rezeptbuch und Online-Plattform.</p></div>
+    </div>
+    <div class="pricebar">
+      <div>
+        <span class="eyebrow tc">Deine Investition</span>
+        <div class="big">179€<sup>¹</sup></div>
+        <p class="muted" style="font-size:.9rem">einmalig · keine Mitgliedschaft · Krankenkasse erstattet bis zu 100%<sup>²³</sup></p>
+      </div>
+      <a class="btn btn-cta" href="#krankenkasse">Was zahle ich? KK-Rechner <svg class="icon" style="width:20px;height:20px"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 PROBLEM ═══ -->
+<section class="sec" id="problem">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">01</span><span class="lbl">Das Problem</span></div>
+    <h2 class="h2"><span>Alles versucht.</span><br><span class="muted">Nichts hat funktioniert.</span></h2>
+    <p class="lead" style="margin-bottom:2.5rem">Du hast Diäten, Apps und Trainingspläne ausprobiert — aber nichts hat langfristig funktioniert. Das Problem ist nicht dein Wille. <strong style="color:var(--fg)">Es ist der Ansatz.</strong></p>
+    <div class="grid g2" style="margin-bottom:2.5rem">
+      <div class="card pstat"><div class="corner"><svg class="icon"><use href="#i-trending-down"/></svg></div><div class="v">73%</div><p class="muted" style="max-width:220px;margin-top:.5rem">aller Diäten enden im Jo-Jo-Effekt<sup>⁴</sup></p></div>
+      <div class="card pstat"><div class="corner"><svg class="icon"><use href="#i-frown"/></svg></div><div class="v">9 <span style="font-size:.45em;color:var(--muted)">von 10</span></div><p class="muted" style="max-width:240px;margin-top:.5rem">geben nach 6 Wochen auf — weil der Plan nicht passt</p></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="ico-box" style="background:rgba(239,68,68,.06)"><svg class="icon" style="color:rgba(239,68,68,.5)"><use href="#i-scale"/></svg></div><h3>Die Waage bewegt sich nicht</h3><p>Egal was du isst, egal wie viel du trainierst — die Zahl bleibt stehen.</p><div class="hf-note"><div class="k">Bei happyfigur</div><p style="color:var(--fg);opacity:.9">Wir messen Stoffwechsel, Muskel- und Fettanteil — nicht nur die Waage. So siehst du, was sich wirklich verändert.</p></div></div>
+      <div class="card"><div class="ico-box" style="background:rgba(239,68,68,.06)"><svg class="icon" style="color:rgba(239,68,68,.5)"><use href="#i-repeat"/></svg></div><h3>Jo-Jo-Effekt nach jeder Diät</h3><p>Zwei Wochen durchgehalten, dann kommt alles zurück — plus Extra-Kilos.</p><div class="hf-note"><div class="k">Bei happyfigur</div><p style="color:var(--fg);opacity:.9">Kein Hungern, kein Verzichten. Wir arbeiten mit deinem Stoffwechsel statt gegen ihn — nachhaltig statt kurzfristig.</p></div></div>
+      <div class="card"><div class="ico-box" style="background:rgba(239,68,68,.06)"><svg class="icon" style="color:rgba(239,68,68,.5)"><use href="#i-ban"/></svg></div><h3>Kein Plan für deinen Alltag</h3><p>Meal-Prep, Kalorienzählen, 6× Training — klingt gut, passt aber nicht ins echte Leben.</p><div class="hf-note"><div class="k">Bei happyfigur</div><p style="color:var(--fg);opacity:.9">2× 30 Min/Woche im Studio, ein Ernährungsplan, der zu deinem Alltag passt. Kein Kalorienzählen.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 LÖSUNG ═══ -->
+<section class="sec bg-green" id="programm">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">02</span><span class="lbl">Die Lösung</span></div>
+    <h2 class="h2"><span>Kein Diät-Plan.</span><br><span class="tc">Happyfigur Stoffwechsel-System</span><br><span class="muted" style="font-size:.6em">powered by FIT-INN Trier</span></h2>
+    <p class="lead" style="margin-bottom:3rem">happyfigur kombiniert Training, Ernährung und Coaching zu einem 8-Wochen-Programm, das deinen Stoffwechsel neu aktiviert — nicht Kalorien zählt.</p>
+
+    <div class="grid g3" style="margin-bottom:2.5rem">
+      <div class="feature-card"><img class="pillar-img" src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/pillar-ernaehrung.jpg" alt="Gesunde Ernährung ohne Verbote"><div style="padding:1.5rem"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-apple"/></svg></div><h3>Ernährung ohne Verbote</h3><p>Kein Kalorienzählen, keine Diät. Ein alltagstauglicher Ernährungsplan, den du auch in zwei Jahren noch lebst.</p></div></div>
+      <div class="feature-card feature-card--training"><img class="pillar-img" src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/studio-1.avif" alt="FIT-INN Trier – modernes Fitnessstudio"><div style="padding:1.5rem"><div class="ico-box bg-acc"><svg class="icon"><use href="#i-dumbbell"/></svg></div><h3>Gezieltes Training</h3><p>2–3× pro Woche, je 30 Min. Individuell auf deinen Körper und Stoffwechsel abgestimmt — im FIT-INN Trier.</p></div></div>
+      <div class="feature-card"><img class="pillar-img" src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/pillar-betreuung.jpg" alt="Persönliche Betreuung im Studio"><div style="padding:1.5rem"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-users"/></svg></div><h3>Persönliche Betreuung</h3><p>Trainer immer vor Ort ansprechbar. Dazu Support per Live-Chat, E-Mail und Telefon.</p></div></div>
+    </div>
+
+    <div style="margin-bottom:2.5rem">
+      <div class="foodgal">
+        <div><img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/food-smoothie.jpg" alt="Smoothie-Bowl"></div>
+        <div><img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/food-lentils.jpg" alt="Linsen-Salat"></div>
+        <div><img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/food-mango.jpg" alt="Mango-Bowl"></div>
+      </div>
+      <p class="muted" style="text-align:center;font-size:.82rem;margin-top:.6rem">Leckere Rezepte — keine Verbote</p>
+    </div>
+
+    <div class="strip" style="margin-bottom:3rem">
+      <svg class="icon"><use href="#i-shield"/></svg>
+      <p><strong class="tc">§ 20 SGB V zertifiziert</strong> <span class="muted">— Deine Krankenkasse erstattet bis zu 100% der Kosten.<sup>²³</sup></span></p>
+    </div>
+
+    <div style="text-align:center;margin-bottom:2rem">
+      <span class="eyebrow">Das bekommst du</span>
+      <h3 style="font-size:clamp(1.5rem,4vw,2rem);margin:.5rem 0">Alles für deinen Erfolg — in einem Paket.</h3>
+      <p class="muted" style="font-size:.95rem">Keine versteckten Kosten. Alles inklusive ab Tag 1.</p>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-bottom:2.5rem">
+      <img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/mockup-paket.avif" alt="Happyfigur Paket – Ernährungsplan, Rezeptbuch, Online-Plattform" style="max-width:420px;width:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.15))">
+    </div>
+
+    <div class="grid g3" style="margin-bottom:2.5rem">
+      <div class="card" style="text-align:center"><div class="ico-box bg-acc" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-dumbbell"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">8 Wochen Training</p><p class="muted" style="font-size:.8rem">2–3× pro Woche im FIT-INN</p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-pri" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-apple"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">Ernährungsplan</p><p class="muted" style="font-size:.8rem">Individuell auf dein Ziel</p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-pri" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-book"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">Rezeptbuch</p><p class="muted" style="font-size:.8rem">Gedruckt + digital</p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-acc" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-users"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">Persönliche Betreuung</p><p class="muted" style="font-size:.8rem">Trainer + Coaches per Chat</p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-pri" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-monitor"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">Online-Plattform</p><p class="muted" style="font-size:.8rem">Kursvideos + Wissensquiz</p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-acc" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-chart"/></svg></div><p style="font-weight:700;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase">3× Körperanalyse</p><p class="muted" style="font-size:.8rem">Vorher · Zwischen · Nachher</p></div>
+    </div>
+
+    <div class="hub" style="margin-bottom:2rem">
+      <img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/favicon.jpg" alt="FIT-INN">
+      <div style="text-align:center"><div class="nm">happyfigur</div><p class="muted" style="font-size:.85rem">Alles aus einer Hand</p></div>
+      <div style="height:1px;width:100%;background:var(--border)"></div>
+      <div class="row"><span><svg class="icon"><use href="#i-check"/></svg> Stoffwechsel aktivieren</span><span><svg class="icon"><use href="#i-check"/></svg> Ernährung optimieren</span><span><svg class="icon"><use href="#i-check"/></svg> Ergebnis messen</span></div>
+    </div>
+
+    <p class="muted" style="text-align:center;margin-bottom:1.5rem">Alles inklusive für <strong style="color:var(--fg)">179€</strong><sup>¹</sup> — bei vielen Kassen <strong class="tc">0 €</strong><sup>²³</sup></p>
+    <div style="text-align:center">
+      <a class="btn btn-cta" href="#termin">Jetzt Probetraining sichern <svg class="icon" style="width:20px;height:20px"><use href="#i-arrow"/></svg></a>
+      <p class="muted" style="font-size:.85rem;margin-top:.75rem">✓ Unverbindlich · ✓ Kostenlos · ✓ § 20 SGB V zertifiziert</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 ABLAUF ═══ -->
+<section class="sec" id="ablauf">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">03</span><span class="lbl">Dein Weg</span></div>
+    <h2 class="h2"><span>4 Schritte zum </span><span class="tc">Ergebnis</span></h2>
+    <p class="lead" style="margin-bottom:3rem">Von der ersten Beratung bis zum messbaren Ergebnis — wir begleiten dich die gesamte Zeit.</p>
+    <div class="timeline">
+      <div class="tstep"><div class="dot dot-acc"><svg class="icon"><use href="#i-message"/></svg></div><span class="when when-acc">Heute</span><h3>Probetraining buchen</h3><p>Lerne das Studio kennen und besprich deine Ziele — kostenlos und unverbindlich.</p></div>
+      <div class="tstep"><div class="dot dot-pri"><svg class="icon"><use href="#i-chart"/></svg></div><span class="when when-pri">Woche 1</span><h3>Analyse + Plan</h3><p>InBody-Körperanalyse, individueller Trainings- und Ernährungsplan.</p></div>
+      <div class="tstep"><div class="dot dot-acc"><svg class="icon"><use href="#i-dumbbell"/></svg></div><span class="when when-acc">Woche 1–8</span><h3>8 Wochen Training</h3><p>2–3× pro Woche im FIT-INN. Trainer immer vor Ort ansprechbar.</p></div>
+      <div class="tstep"><div class="dot dot-pri"><svg class="icon"><use href="#i-target"/></svg></div><span class="when when-pri">Woche 8</span><h3>Ergebnis sehen</h3><p>Abschluss-Analyse — du siehst schwarz auf weiß, was sich verändert hat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 ERFAHRUNGEN ═══ -->
+<section class="sec bg-gold" id="erfahrungen">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">04</span><span class="lbl">Ergebnisse</span></div>
+    <h2 class="h2"><span>Was Teilnehmer aus </span><span class="tc">Trier</span><span> sagen</span></h2>
+    <div style="display:flex;align-items:center;gap:.5rem;margin:1rem 0 2.5rem">
+      <div class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
+      <span class="muted" style="font-size:.9rem">4.9 auf Google · 127 Bewertungen</span>
+    </div>
+    <div class="grid g3" style="margin-bottom:2.5rem">
+      <div class="tst"><div class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div><p>„Nach Jahren des Scheiterns hat mir die Körperanalyse endlich gezeigt, woran es lag. Jetzt esse ich mehr als vorher — und nehme trotzdem ab!"</p><div class="tst-who"><div class="avatar" style="background:#7dd87d">SK</div><div><span style="font-weight:600;font-size:.9rem">Sandra K., 42</span> <span class="tc" style="font-weight:700;font-size:.8rem">-8 kg</span></div></div></div>
+      <div class="tst"><div class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div><p>„Ich war skeptisch, aber die Zahlen lügen nicht. Bei der Zwischen-Analyse hatte ich schon 4 kg weniger — das hat mich so motiviert!"</p><div class="tst-who"><div class="avatar" style="background:#e8a948">TM</div><div><span style="font-weight:600;font-size:.9rem">Thomas M., 48</span> <span class="tc" style="font-weight:700;font-size:.8rem">-11 kg</span></div></div></div>
+      <div class="tst"><div class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div><p>„Endlich ein Konzept, das zu meinem Alltag passt. 2× 30 Minuten pro Woche — mehr brauche ich nicht. Und die Ergebnisse sprechen für sich."</p><div class="tst-who"><div class="avatar" style="background:#7dd87d">MH</div><div><span style="font-weight:600;font-size:.9rem">Marion H., 55</span> <span class="tc" style="font-weight:700;font-size:.8rem">-6 kg</span></div></div></div>
+    </div>
+    <div class="grid g4" style="border-top:1px solid var(--border);padding-top:2rem">
+      <div><div class="kpi-v" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.8rem;color:var(--primary)">-7,2 kg</div><p class="muted" style="font-size:.78rem">Ø Gewichtsverlust<sup>¹</sup></p></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.8rem;color:var(--primary)">-8 cm</div><p class="muted" style="font-size:.78rem">Ø Bauchumfang<sup>¹</sup></p></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.8rem">8 Wochen</div><p class="muted" style="font-size:.78rem">Programmdauer</p></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.8rem;color:var(--accent)">4.9★</div><p class="muted" style="font-size:.78rem">127 Bewertungen</p></div>
+    </div>
+    <p class="muted" style="text-align:center;font-size:.78rem;margin-top:1.5rem">Individuelle Ergebnisse können variieren. Erfahrungsberichte verifizierter Kursteilnehmer.</p>
+  </div>
+</section>
+
+<!-- ═══ 05 TEAM ═══ -->
+<section class="sec" id="team">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">05</span><span class="lbl">Dein Team</span></div>
+    <h2 class="h2"><span>Persönliche Betreuung —</span><br><span class="tc">kein App-Training.</span></h2>
+    <p class="lead" style="margin-bottom:2.5rem">Bei uns trainierst du nicht allein. Unser Team ist immer vor Ort — für Fragen, Korrekturen und Motivation.</p>
+    <div class="studio-banner">
+      <img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/studio-2.avif" alt="FIT-INN Trier – dein Studio für happyfigur">
+      <div class="ov"></div>
+      <div class="cap"><b>FIT-INN Trier</b><div style="font-size:.9rem;opacity:.9">Dein Studio für happyfigur</div></div>
+    </div>
+    <div class="grid g3" style="margin-bottom:2rem">
+      <div class="card team-card"><div class="team-head"><div class="team-av"><img src="https://cdn.jsdelivr.net/gh/markuseichhorn92-netizen/fitinn-landing-v2@01c9aad3c87d277bff2c35be740ef236aea5abeb/public/trainer-markus.avif" alt="Markus – FIT-INN Trier"></div><div><h3 style="font-size:1.05rem">Markus</h3><p class="ta" style="font-size:.78rem;font-weight:600;font-family:'Barlow',sans-serif;text-transform:none">Head Coach · Personal Trainer</p></div></div><p class="muted" style="font-style:italic;font-size:.9rem;margin-bottom:1rem">„Jeder Teilnehmer startet anders — aber keiner trainiert bei uns allein."</p><div><span class="tag tag-acc">Personal Trainer</span><span class="tag tag-acc">Head Coach</span><span class="tag tag-acc">Seit 2009</span></div></div>
+      <div class="card team-card"><div class="team-head"><div class="team-av bg-acc">💪</div><div><h3 style="font-size:1.05rem">Unsere Trainer</h3><p class="ta" style="font-size:.78rem;font-weight:600;font-family:'Barlow',sans-serif;text-transform:none">Qualifiziertes Trainer-Team</p></div></div><p class="muted" style="font-style:italic;font-size:.9rem;margin-bottom:1rem">„Immer ansprechbar — für Fragen, Korrekturen und den extra Push."</p><div><span class="tag tag-acc">Betreuung vor Ort</span><span class="tag tag-acc">Technik &amp; Korrekturen</span><span class="tag tag-acc">Motivation</span></div></div>
+      <div class="card team-card"><div class="team-head"><div class="team-av bg-pri">🥗</div><div><h3 style="font-size:1.05rem">Ernährungsexperten</h3><p class="tc" style="font-size:.78rem;font-weight:600;font-family:'Barlow',sans-serif;text-transform:none">Zertifizierte Ernährungsberatung</p></div></div><p class="muted" style="font-style:italic;font-size:.9rem;margin-bottom:1rem">„Kein Hungern, keine Verbote — ein Plan, der zu deinem Alltag passt."</p><div><span class="tag tag-pri">Ernährungspläne</span><span class="tag tag-pri">§ 20 zertifiziert</span><span class="tag tag-pri">Individuelle Beratung</span></div></div>
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:12px;background:#fff;border:1px solid var(--border)">
+      <div class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
+      <span style="font-weight:600">4.9</span><span class="muted" style="font-size:.9rem">· FIT-INN Trier · 127 Bewertungen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 KRANKENKASSE ═══ -->
+<section class="sec bg-green" id="krankenkasse">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">06</span><span class="lbl">Investition</span></div>
+    <h2 class="h2"><span>179 € — bei vielen Kassen</span><br><span class="tc">komplett erstattet</span></h2>
+    <p class="lead" style="margin-bottom:3rem">Kein Abo. Du zahlst einmal — und kannst das Geld vollständig von deiner Krankenkasse zurückbekommen.<sup>²³</sup></p>
+    <div class="kk-grid">
+      <div>
+        <h3 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1.25rem">Im Programm enthalten</h3>
+        <div class="incl-row"><svg class="icon ta"><use href="#i-check-circle"/></svg><span>3× Körperanalyse (InBody)</span></div>
+        <div class="incl-row"><svg class="icon ta"><use href="#i-check-circle"/></svg><span>8 Wochen Studionutzung</span></div>
+        <div class="incl-row"><svg class="icon ta"><use href="#i-check-circle"/></svg><span>Einweisung + Coach vor Ort</span></div>
+        <div class="incl-row"><svg class="icon tc"><use href="#i-check-circle"/></svg><span>Individueller Ernährungsplan</span></div>
+        <div class="incl-row"><svg class="icon tc"><use href="#i-check-circle"/></svg><span>Online-Lernplattform happyfigur</span></div>
+        <div class="incl-row"><svg class="icon tc"><use href="#i-check-circle"/></svg><span>Persönlicher Support per Chat</span></div>
+        <div style="border-top:1px solid var(--border);margin-top:1.5rem;padding-top:1.25rem">
+          <p class="muted" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em">Einmaliger Programmpreis</p>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:3rem;color:var(--primary);line-height:1">179€<sup style="font-size:1.2rem">¹</sup></div>
+          <p class="muted" style="font-size:.9rem">Einmalig · 8 Wochen · Kein Abo — nur <strong style="color:var(--fg)">3,20€/Tag</strong><sup>¹</sup></p>
+        </div>
+      </div>
+      <div class="kk-calc">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem"><svg class="icon tc" style="width:20px;height:20px"><use href="#i-coins"/></svg><h3 style="font-size:1.15rem">Wie viel erstattet deine Kasse?</h3></div>
+        <p class="muted" style="font-size:.9rem;margin-bottom:1.1rem">§ 20 SGB V zertifiziert — bis zu 100% erstattet.<sup>²³</sup></p>
+        <div class="field"><select id="kkSelect" aria-label="Krankenkasse auswählen"><option value="">— Wähle deine Krankenkasse —</option></select></div>
+        <div class="kk-result" id="kkResult"></div>
+        <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem">
+          <a class="btn btn-cta btn-block" href="#termin">Jetzt Probetraining buchen <svg class="icon" style="width:18px;height:18px"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-outline btn-block" href="tel:+49651308524"><svg class="icon" style="width:16px;height:16px"><use href="#i-phone"/></svg> Noch Fragen? 0651 308524</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vergleich -->
+    <div class="grid g3" style="margin-top:2.5rem">
+      <div class="card" style="text-align:center"><div class="ico-box bg-pri" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-trending-down"/></svg></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:2rem;color:var(--primary)">-7,2 kg</div><p class="muted" style="font-size:.78rem">Ø Gewichtsverlust<sup>⁴</sup></p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-pri" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-scale"/></svg></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:2rem;color:var(--primary)">-8 cm</div><p class="muted" style="font-size:.78rem">Ø Bauchumfang<sup>⁴</sup></p></div>
+      <div class="card" style="text-align:center"><div class="ico-box bg-acc" style="margin:0 auto 1rem"><svg class="icon"><use href="#i-thumbs-up"/></svg></div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:2rem;color:var(--accent)">94%</div><p class="muted" style="font-size:.78rem">empfehlen weiter</p></div>
+    </div>
+
+    <div class="compare">
+      <div class="ch"><span class="eyebrow">Vergleich</span><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;text-transform:uppercase">Warum happyfigur?</div></div>
+      <div class="compare-scroll">
+      <table>
+        <thead><tr><th></th><th class="tc">happyfigur</th><th>Diät</th><th>App</th><th>PT</th></tr></thead>
+        <tbody>
+          <tr><td>Persönliche Betreuung</td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td></tr>
+          <tr><td>Ernährungsplan</td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td></tr>
+          <tr><td>KK-Erstattung</td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td></tr>
+          <tr><td>Kein Abo</td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td></tr>
+          <tr><td>Messbare Ergebnisse</td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td class="no"><svg class="icon"><use href="#i-x"/></svg></td><td><span class="yes"><svg class="icon"><use href="#i-check"/></svg></span></td></tr>
+          <tr class="cost"><td style="color:var(--accent);font-size:.8rem;letter-spacing:.05em">Kosten im Vergleich</td><td class="hl">ab 0 €<sup>²³</sup></td><td>variabel</td><td>10–30€/Mo</td><td>200–400€/Mo</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 GARANTIE ═══ -->
+<section class="sec" id="garantie">
+  <div class="wrap">
+    <div class="sec-badge"><span class="num">07</span><span class="lbl">Kein Risiko</span></div>
+    <h2 class="h2"><span>Du gehst </span><span class="tc">kein Risiko</span><span> ein</span></h2>
+    <p class="lead" style="margin-bottom:2.5rem">Drei klare Zusagen, mit denen du genau weißt, worauf du dich einlässt — und worauf nicht.</p>
+    <div class="grid g3" style="margin-bottom:2rem">
+      <div class="g-item"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-shield"/></svg></div><div><h3>Probetraining wirklich kostenlos</h3><p>Kein Cent, keine Vertragsbindung, kein verstecktes Probemonats-Abo. Du kommst, lernst uns kennen und entscheidest dann selbst.</p></div></div>
+      <div class="g-item"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-file-check"/></svg></div><div><h3>Krankenkasse vorbereitet</h3><p>Nach 8 erfolgreichen Kurseinheiten erhältst du automatisch deine Teilnahmebestätigung — fertig zum Einreichen bei deiner gesetzlichen Kasse.<sup>²</sup></p></div></div>
+      <div class="g-item"><div class="ico-box bg-pri"><svg class="icon"><use href="#i-heart"/></svg></div><div><h3>Coach-Begleitung bis zum Ergebnis</h3><p>Wir lassen dich nicht allein. Bei Fragen, Plateaus oder Rückschlägen sind die happyfigur Coaches per Chat, Telefon und vor Ort für dich da — auch nach Kursende.</p></div></div>
+    </div>
+    <div class="strip"><svg class="icon"><use href="#i-calendar-x"/></svg><p><strong class="tc">Kein Abo, keine Verlängerung.</strong> <span class="muted">8 Wochen happyfigur sind 8 Wochen happyfigur — danach entscheidest du frei, ob du mit FIT-INN weitermachst. Keine automatische Vertragsverlängerung, kein Probemonat, der zur Falle wird.</span></p></div>
+  </div>
+</section>
+
+<!-- ═══ 08 FAQ ═══ -->
+<section class="sec bg-warm" id="faq">
+  <div class="wrap" style="max-width:760px">
+    <div class="sec-badge"><span class="num">08</span><span class="lbl">Fragen</span></div>
+    <h2 class="h2" style="margin-bottom:2rem"><span>Häufige Fragen —</span><br><span class="tc">ehrliche Antworten</span></h2>
+    <div id="faqList">
+      <div class="faq-item"><button class="faq-q">Was genau ist HappyFigur?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>HappyFigur ist ein 8-Wochen-Abnehmprogramm von FIT-INN Trier, zertifiziert nach § 20 SGB V. Du bekommst Körperanalyse, individuellen Trainings- und Ernährungsplan — und persönliche Betreuung vor Ort.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Ich hab schon alles probiert — warum soll das klappen?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Weil wir nicht mit Diätplänen arbeiten, sondern deinen Stoffwechsel analysieren. Das Programm wird individuell auf dich zugeschnitten — nicht auf den Durchschnitt. Viele Teilnehmer berichten, dass sie satt essen und trotzdem Fortschritte sehen.<sup>⁴</sup></p></div></div>
+      <div class="faq-item"><button class="faq-q">Wie schnell sehe ich erste Ergebnisse?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Erfahrungsgemäß spüren Teilnehmer ab Woche 2 mehr Energie und besseren Schlaf. Sichtbare Veränderungen an Gewicht und Bauchumfang berichten viele ab Woche 3–4. Die größten Sprünge zeigt die Körperanalyse meist nach Woche 6.<sup>⁴</sup></p></div></div>
+      <div class="faq-item"><button class="faq-q">Was passiert, wenn ich krank werde oder Urlaub habe?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Kein Stress. Die 8 Kurseinheiten verteilen sich flexibel über 8–12 Wochen. Wenn du eine Einheit verpasst, holst du sie einfach in der nächsten Woche nach. Sprich uns an — wir finden eine Lösung.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Muss ich ins Studio kommen?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Ja, das Training findet im FIT-INN Trier (Auf Hirtenberg 8, 54296 Trier-Feyen) statt. 2–3 Einheiten à 30 Minuten pro Woche reichen — auch mit Job und Familie gut machbar.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Kann ich nach den 8 Wochen weiter trainieren?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Wenn du willst, ja — aber du musst nicht. Nach den 8 Wochen endet happyfigur automatisch. Wer weitermachen möchte, kann freiwillig eine FIT-INN-Mitgliedschaft anschließen — kein Auto-Renew, keine Verlängerungs-Falle.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Was kostet das Programm?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>179€ einmalig — kein Abo, keine Mitgliedschaft. Bei vielen Krankenkassen werden 75–179€ erstattet, oft sogar 100%. Im kostenlosen Probetraining rechnen wir gemeinsam aus, was deine Kasse genau erstattet.<sup>¹²³</sup></p></div></div>
+      <div class="faq-item"><button class="faq-q">Für wen ist happyfigur nicht geeignet?<span class="pm"><svg class="icon ico-plus"><use href="#i-plus"/></svg><svg class="icon ico-minus"><use href="#i-x"/></svg></span></button><div class="faq-a"><p>Das Programm ist eine Präventionsmaßnahme nach § 20 SGB V — kein Ersatz für ärztliche Behandlung. Nicht geeignet für Minderjährige, Schwangere, Stillende oder Menschen mit Essstörungen oder akuten Erkrankungen, die ärztliche Betreuung erfordern. Im Zweifel sprich vorher mit deinem Arzt.<sup>⁴</sup></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final">
+  <div class="wrap" style="max-width:760px">
+    <h2 class="h2"><span>Dein erster Schritt</span><br><span class="tc">kostet nichts.</span></h2>
+    <p>Starte mit einem kostenlosen Probetraining im FIT-INN Trier. Kein Risiko, keine Verpflichtung.</p>
+    <a class="btn btn-cta" href="#termin">Kostenloses Probetraining buchen <svg class="icon" style="width:20px;height:20px"><use href="#i-arrow"/></svg></a>
+    <div style="margin-top:1rem"><a class="btn btn-outline" href="tel:+49651308524"><svg class="icon" style="width:16px;height:16px"><use href="#i-phone"/></svg> Fragen? 0651 308524</a></div>
+    <div class="final-trust">
+      <span><svg class="icon"><use href="#i-check-circle"/></svg> Kostenlos &amp; unverbindlich</span>
+      <span><svg class="icon"><use href="#i-shield"/></svg> § 20 SGB V zertifiziert</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>FIT-INN Trier</h4>
+        <p>Auf Hirtenberg 8<br>54296 Trier-Feyen</p>
+        <a href="tel:+49651308524"><svg class="icon" style="width:14px;height:14px;color:var(--accent)"><use href="#i-phone"/></svg> 0651 308524</a>
+      </div>
+      <div>
+        <h4>Programm</h4>
+        <a href="#programm">Was ist happyfigur?</a>
+        <a href="#ablauf">So läuft es ab</a>
+        <a href="#krankenkasse">Kosten &amp; Kasse</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h4>Social Media</h4>
+        <a href="https://www.instagram.com/fit_inn_trier/" target="_blank" rel="noopener"><svg class="icon" style="width:14px;height:14px"><use href="#i-instagram"/></svg> Instagram</a>
+        <a href="https://www.facebook.com/FitInnFeyen" target="_blank" rel="noopener"><svg class="icon" style="width:14px;height:14px"><use href="#i-facebook"/></svg> Facebook</a>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <a href="https://fit-inn-trier.de/impressum-fit-inn-trier" target="_blank" rel="noopener">Impressum</a>
+        <a href="https://fit-inn-trier.de/datenschutz-fit-inn-trier" target="_blank" rel="noopener">Datenschutz</a>
+        <a href="https://public.magicline.com/#/contractWithdrawal?tenant=fit-inn-trier" target="_blank" rel="noopener">Widerruf</a>
+      </div>
+    </div>
+    <div class="legal">
+      <p><strong style="color:var(--muted)">¹ Ablauf &amp; Zahlung:</strong> Der Kurspreis von 179€ (inkl. MwSt.) ist bei Trainingsstart in Vorkasse an FIT-INN Trier zu entrichten. Erst nach Zahlungseingang beginnt das Programm. Das Programm umfasst 8 Kurseinheiten innerhalb von 8–12 Wochen.</p>
+      <p><strong style="color:var(--muted)">² Erstattung durch die Krankenkasse:</strong> Der Kurs „happyfigur – genussvoll abnehmen" ist nach § 20 SGB V zertifiziert. Voraussetzung für die Erstattung ist die vollständige, erfolgreiche Teilnahme an allen 8 Kurseinheiten inkl. Wissensüberprüfung. Nach Abschluss erhältst du eine Teilnahmebestätigung, die du eigenständig bei deiner gesetzlichen Krankenkasse einreichst. Die Erstattung erfolgt direkt von deiner Krankenkasse an dich — nicht an FIT-INN. FIT-INN hat keinen Einfluss auf den Erstattungsprozess. Eine Barauszahlung des Erstattungsbetrags durch FIT-INN ist ausgeschlossen.</p>
+      <p><strong style="color:var(--muted)">³ Erstattungshöhe:</strong> Die Höhe der Erstattung variiert je nach Krankenkasse und liegt erfahrungsgemäß zwischen 75€ und 100% der Kursgebühr. Alle Angaben zu Erstattungsbeträgen auf dieser Seite sind ohne Gewähr — maßgeblich ist die jeweils gültige Satzung deiner Krankenkasse.</p>
+      <p><strong style="color:var(--muted)">⁴ Hinweis:</strong> Das Programm ist eine Präventionsmaßnahme und ersetzt keinen ärztlichen Rat. Eine Erfolgsgarantie wird nicht übernommen. Bei gesundheitlichen Einschränkungen empfehlen wir, vor Teilnahme einen Arzt zu konsultieren. Das Programm ist nicht geeignet für Minderjährige, Schwangere, Stillende oder Personen mit Essstörungen.</p>
+    </div>
+    <div class="foot-bottom">© 2026 FIT-INN Trier. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
+
+<!-- ═══ STICKY BAR ═══ -->
+<div class="sticky" id="sticky">
+  <div class="sticky-inner">
+    <div class="txt"><b>Kostenloses Probetraining</b><span>Unverbindlich · § 20 SGB V · bei vielen Kassen 0 €</span></div>
+    <a class="btn btn-cta btn-sm" href="#termin">Jetzt sichern <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Nav scroll state
+  var nav=document.getElementById('nav');
+  var sticky=document.getElementById('sticky');
+  function onScroll(){
+    var y=window.scrollY||window.pageYOffset;
+    nav.classList.toggle('scrolled',y>40);
+    sticky.classList.toggle('show',y>720);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Mobile menu
+  var burger=document.getElementById('burger');
+  var menu=document.getElementById('mobileMenu');
+  burger.addEventListener('click',function(){menu.classList.toggle('open');});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');});});
+
+  // FAQ accordion
+  document.querySelectorAll('#faqList .faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click',function(){
+      var open=item.classList.contains('open');
+      document.querySelectorAll('#faqList .faq-item').forEach(function(i){i.classList.remove('open');});
+      if(!open)item.classList.add('open');
+    });
+  });
+
+  // KK calculator
+  var DATA=[
+    {v:'aok-rlp',l:'AOK Rheinland-Pfalz',a:179},
+    {v:'viactiv',l:'VIACTIV',a:179},
+    {v:'mobil',l:'Mobil Krankenkasse',a:179},
+    {v:'bkk-vbu',l:'BKK VBU',a:179},
+    {v:'salus',l:'Salus BKK',a:179},
+    {v:'aok-hessen',l:'AOK Hessen / Bayern / Nordost',a:150},
+    {v:'ikk-sw',l:'IKK Südwest',a:150},
+    {v:'vivida',l:'Vivida BKK / KKH / HEK',a:150},
+    {v:'tk',l:'Techniker (TK)',a:143.20},
+    {v:'big',l:'BIG direkt',a:120},
+    {v:'barmer',l:'BARMER',a:100},
+    {v:'sbk',l:'SBK',a:100},
+    {v:'ikk-classic',l:'IKK classic',a:90},
+    {v:'aok-bw',l:'AOK Baden-Württemberg / Niedersachsen',a:80},
+    {v:'dak',l:'DAK',a:75},
+    {v:'andere',l:'Andere Krankenkasse',a:100}
+  ];
+  var PRICE=179;
+  var sel=document.getElementById('kkSelect');
+  var res=document.getElementById('kkResult');
+  DATA.forEach(function(d){var o=document.createElement('option');o.value=d.v;o.textContent=d.l;sel.appendChild(o);});
+  sel.addEventListener('change',function(){
+    var d=DATA.filter(function(x){return x.v===sel.value;})[0];
+    if(!d){res.innerHTML='';return;}
+    var eigen=Math.max(0,PRICE-d.a);
+    if(eigen===0){
+      res.innerHTML='<div class="kk-free"><p class="muted" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem">Dein Eigenanteil</p><div class="z">0€</div><div style="display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:.5rem"><svg class="icon tc" style="width:18px;height:18px"><use href="#i-check-circle"/></svg><span class="tc" style="font-weight:600;font-size:.9rem">Deine Kasse zahlt alles<sup>²³</sup></span></div><p class="muted" style="font-size:.78rem;margin-top:.6rem">'+d.a+'€ Erstattung · Du zahlst 179€ vor, bekommst '+d.a+'€ zurück</p></div>';
+    }else{
+      res.innerHTML='<div class="kk-part"><div class="kk-line"><span class="muted">Programmpreis</span><span style="font-weight:600">'+PRICE+'€<sup>¹</sup></span></div><div class="kk-line tc"><span>Erstattung</span><span style="font-weight:600">−'+d.a+'€<sup>³</sup></span></div><div class="kk-line total"><span style="font-weight:600">Eigenanteil</span><b>'+eigen.toFixed(2)+'€</b></div></div>';
+    }
+  });
+
+  // Lead form (client-side confirmation; VibeBridge form pipeline captures the submission)
+  var form=document.getElementById('leadForm');
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    form.style.display='none';
+    document.getElementById('formSuccess').classList.add('show');
+  });}
+})();
+</script>
+
+</body>
+</html>
